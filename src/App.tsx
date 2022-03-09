@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider } from '@chakra-ui/react'; 
+import React from 'react';  
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';   
+import Dashboard from './Screen/Dashboard';
+import LoginScreen from './Screen/LoginScreen';
+import NewPassword from './Screen/NewPassword';
+import ResetPassword from './Screen/ResetPassword'; 
+import Doctor from './tabScreens/Doctor';
+import PatientProfile from './tabScreens/PatientProfile'; 
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return ( 
+    <ChakraProvider>
+      <Router>  
+        <Routes>    
+          <Route path='/' element={<LoginScreen />}/> 
+          <Route path='/resetpassword' element={<ResetPassword />}/> 
+          <Route path='/newpassword' element={<NewPassword />}/> 
+          <Route path='/dashboard' element={<Dashboard />}>
+            <Route path='/dashboard' element={<Doctor />} />
+            <Route path='/dashboard/patientprofile' element={<PatientProfile />} />
+          </Route>
+        </Routes>
+      </Router>
+    </ChakraProvider>
   );
 }
 
