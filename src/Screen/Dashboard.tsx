@@ -6,7 +6,7 @@ import SideBar from '../components/SideBar'
 
 export default function Dashboard() {
 
-    const [tab, setTab] = React.useState('Doctor')
+    // const [tab, setTab] = React.useState('Doctor')
 
     return (
         <div className='w-full h-screen overflow-hidden' >
@@ -14,7 +14,7 @@ export default function Dashboard() {
                 <Navbar />
             </div>
             <div style={{backgroundColor: '#FAF6FF'}} className='w-full h-full flex' >
-                <SideBar tab={setTab} />
+                <SideBar />
                 <div className='w-full overflow-y-auto h-auto' >
                     <Outlet /> 
                 </div>

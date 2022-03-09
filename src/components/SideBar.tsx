@@ -1,13 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import Icons from './Icons'
 
 export default function SideBar(props: any) {
 
     const MenuArray = ['Doctor', 'Matron', 'Reception', 'Pharmacy', 'Others']
     const [active, setActive] = React.useState('Doctor')
+    const navigate = useNavigate();
 
     React.useEffect(() => { 
-        props.tab(active)
+        if(active === 'Doctor'){
+            navigate('/dashboard')
+        }
     }, [active])
 
     return (
