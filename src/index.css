@@ -19,10 +19,12 @@
 
 .e-schedule .e-appointment-details{
     padding: 0 !important; 
+    background: transparent;
+    height: auto;
 }
 
 .template-wrap{ 
-    background-color: #F8F3FF;
-    border-radius: 4px; 
-    padding: 15px;
+    background:white; 
+    height: 2000px; 
+    width: 100%;  
 }
