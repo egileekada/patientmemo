@@ -38,9 +38,8 @@
 //     )
 // } 
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, Inject, ViewDirective, ViewsDirective } from '@syncfusion/ej2-react-schedule';
+import * as React from 'react'; 
+import { ScheduleComponent, Day, Week, WorkWeek, Month, Inject, ViewDirective, ViewsDirective } from '@syncfusion/ej2-react-schedule';
 export default class App extends React.Component<{}, {}> {
     private data = [{
         Id: 2,
@@ -83,8 +82,4 @@ export default class App extends React.Component<{}, {}> {
                     <Inject services={[Day, Week, WorkWeek, Month]}/>
                 </ScheduleComponent>;
     }
-}
-
-const ClickHandler =()=> {
-
-}
+} 

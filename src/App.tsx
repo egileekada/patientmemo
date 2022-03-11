@@ -7,6 +7,7 @@ import NewPassword from './Screen/NewPassword';
 import ResetPassword from './Screen/ResetPassword'; 
 import Doctor from './tabScreens/Doctor';
 import PatientProfile from './tabScreens/PatientProfile'; 
+import Pharmacy from './tabScreens/Pharmacy';
 
 function App() {
   return ( 
@@ -19,7 +20,9 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />}>
             <Route path='/dashboard' element={<Doctor />} />
             <Route path='/dashboard/patientprofile' element={<PatientProfile />} />
+            {/* <Route path='/pharmacy' element={<Pharmacy />} /> */}
           </Route>
+            <Route path='/pharmacy' element={<Pharmacy />} />
         </Routes>
       </Router>
     </ChakraProvider>

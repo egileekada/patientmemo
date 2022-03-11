@@ -12,7 +12,7 @@ export default function SideBar(props: any) {
         if(active === 'Doctor'){
             navigate('/dashboard')
         }
-    }, [active])
+    }, [navigate, active])
 
     return (
         <div className='bg-white w-56 pt-20 h-full' >
