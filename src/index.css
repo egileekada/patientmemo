@@ -17,14 +17,68 @@
     src: url("./assets/fonts/Ubuntu-Regular.ttf")
 }
 
-.e-schedule .e-appointment-details{
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment{
     padding: 0 !important; 
-    background: transparent;
-    height: auto;
+    background: #F8F3FF !important; 
+    /* height: 10px;  */
+    padding-top: 8px;
+    border-radius: 8px;
+}
+ 
+/* .e-schedule .e-vertical-view .e-work-cells */
+
+/* .template-wrap{ 
+    background:#F8F3FF;  
+    padding: 4px;
+    width: 100%;
+    height: 10vh;
+    display: relative; 
+} */
+ 
+
+.e-schedule .e-vertical-view .e-content-wrap .e-appointment .e-appointment-details {
+    padding: 0;
+    height: 100%;
 }
 
-.template-wrap{ 
-    background:white; 
-    height: 2000px; 
-    width: 100%;  
+.e-schedule .template-wrap {
+    height: 100%;
+    white-space: normal;  
+} 
+
+/* .e-schedule .template-wrap .time {
+    height: 50px;
+    font-size: 12px;
+    padding: 4px 6px 4px;
+    overflow: hidden;
+} */
+.e-past-app {
+    background-color: chocolate !important;
+}
+/* .custom-class.e-schedule .e-vertical-view .e-appointment {
+    background: green;
+} */
+
+/* csslint ignore:start */
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-date-header-wrap table col,
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-content-wrap table col {
+    width: 200px;
+}
+
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td,
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-work-cells {
+    height: 100px;
+}
+
+.schedule-cell-dimension.e-schedule .e-month-view .e-work-cells,
+.schedule-cell-dimension.e-schedule .e-month-view .e-date-header-wrap table col {
+    width: 300px;
+}
+
+.schedule-cell-dimension.e-schedule .e-month-view .e-work-cells {
+    height: 100px;
+}
+
+.schedule-cell-template.e-schedule .e-month-view .e-work-cells {
+  position: relative;
 }

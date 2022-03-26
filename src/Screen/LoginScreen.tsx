@@ -40,7 +40,7 @@ export default function LoginScreen() {
                             </InputGroup>
                         </div>   
                             <p onClick={()=> navigate('/resetpassword')} className='text-base cursor-pointer my-2 text-right font-Ubuntu-Regular '>Forgot Password?</p> 
-                        <button onClick={()=> navigate('/dashboard')} style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-10 text-white  rounded  py-3 font-Ubuntu-Bold'>Log In</button>
+                        <button onClick={()=> navigate('/doctor')} style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-10 text-white  rounded  py-3 font-Ubuntu-Bold'>Log In</button>
                     </div>
                 </div>
             </div>
