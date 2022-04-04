@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Navbar from '../components/Navbar'
+import Navbar from '../../../components/Navbar' 
 
-export default function ReceptionistScreen() {
+export default function Pharmacy() {
     return (
         <div className='w-full h-screen overflow-hidden' >
             <div className='w-full' >
@@ -16,4 +16,4 @@ export default function ReceptionistScreen() {
             </div>
         </div>
     )
-} 
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../assets/images/modalogo.png'
+import logo from '../../assets/images/modalogo.png'
 import ReceptionistSearchBar from './component/ReceptionistSearchBar'
 
 export default function ReceptionistModal(props: any) {
@@ -9,7 +9,7 @@ export default function ReceptionistModal(props: any) {
     const [search, setSeacrh] = React.useState('0')
 
     return (
-        <div style={{width: '900px', height: '580px' }} className='rounded-2xl flex bg-white items-start' >
+        <div style={{width: '900px' }} className='rounded-2xl flex bg-white items-start' >
             <div style={{width: '200px', height: '480px' }} className=' relative bg-gradient-to-b from-[#7123E2] to-[#BB5778] rounded-tl-2xl flex flex-col items-center' >
                 <div className=' mt-12 flex flex-col items-center' >
                     <div className='w-20 h-20 rounded-full bg-blue-400' >
@@ -22,11 +22,11 @@ export default function ReceptionistModal(props: any) {
             </div>
             <div className='p-14 flex flex-col flex-1' >
                 <div className='flex items-center' >
-                    <div className='w-10 h-10 rounded-full bg-[#E8EFFF] flex items-center font-Ubuntu-Medium text-sm justify-center' >
+                    <div className={info ? 'w-10 h-10 rounded-full bg-[#7123E2] flex items-center text-white font-Ubuntu-Medium text-sm justify-center': 'w-10 h-10 rounded-full bg-[#E8EFFF] flex items-center font-Ubuntu-Medium text-sm justify-center'} >
                         1
                     </div>
                     <div className='w-36 h-1 bg-[#E8EFFF]' />
-                    <div className='w-10 h-10 rounded-full bg-[#E8EFFF] flex items-center font-Ubuntu-Medium text-sm justify-center' >
+                    <div className={patientInfo ? 'w-10 h-10 rounded-full bg-[#7123E2] flex items-center text-white font-Ubuntu-Medium text-sm justify-center': 'w-10 h-10 rounded-full bg-[#E8EFFF] flex items-center font-Ubuntu-Medium text-sm justify-center'} >
                         2
                     </div>
                     <div className='w-36 h-1 bg-[#E8EFFF]' />
@@ -57,24 +57,31 @@ export default function ReceptionistModal(props: any) {
                         :null}
                     </div>
                     <p className='font-Ubuntu-Medium text-sm mb-2 mt-4 text-[#333333]' >Add Patient Next</p>
-                    <div className={search === '2' ? 'border border-[#FF8811] relative rounded-lg h-20 px-6 flex justify-center items-center w-full':'border border-[#F0F5FF] relative rounded-lg h-20 px-6 flex justify-center items-center w-full' } >
+                    <div className={search === '2' ? 'border border-[#FF8811] relative rounded-lg h-auto px-6 flex justify-center items-center w-full':'border border-[#F0F5FF] relative rounded-lg h-auto px-6 flex justify-center items-center w-full' } >
                         {!patientInfo ?
-                                <>
-                                <div onClick={()=> setSeacrh('2')} className='w-8 h-8 rounded-full cursor-pointer bg-[#E8EFFF] text-[#A5B0C1] flex items-center font-Ubuntu-Medium text-base justify-center' >
-                                    +
+                                <div className='h-20 w-full flex justify-center items-center ' >
+                                    <div onClick={()=> setSeacrh('2')} className='w-8 h-8 rounded-full cursor-pointer bg-[#E8EFFF] text-[#A5B0C1] flex items-center font-Ubuntu-Medium text-base justify-center' >
+                                        +
+                                    </div>
+                                    <p className='font-Ubuntu-Medium text-xs text-[#A5B0C1] ml-2' >Select Patient</p>
                                 </div>
-                                <p className='font-Ubuntu-Medium text-xs text-[#A5B0C1] ml-2' >Select Patient</p>
-                                </>
                             :
-                                <>
-                                    <div className=' mr-auto' > 
-                                        <p className='font-Ubuntu-Medium text-sm text-[#5F6777]' >Consultancy</p>
-                                        <p className='font-Ubuntu-Medium text-xs mt-1 text-[#A5B0C1]' >Meet with Doctor</p>
+                                <div className='py-5 w-full flex justify-center items-center ' >
+                                    <div className=' flex mr-auto' > 
+                                        <div className='w-12 h-12 rounded-full bg-yellow-300' >
+
+                                        </div>
+                                        <div className=' ml-2' >
+                                            <p className='font-Ubuntu-Medium text-sm text-[#5F6777]' >Nifemi Damola</p>
+                                            <p className='font-Ubuntu-Regular text-xs mt-3 text-[#5F6777]' >Email: <span className='ml-2 text-[#A5B0C1]' >nifemidamola@hotail.com</span></p>
+                                            <p className='font-Ubuntu-Regular text-xs mt-1 text-[#5F6777]' >Phone: <span className='ml-2 text-[#A5B0C1]' >090 09 098 8111</span></p>
+                                        </div>
                                     </div>
                                     <button onClick={()=> setSeacrh('2')} className='font-Ubuntu-Medium text-xs rounded-md text-[#7123E2] bg-[#7123E214] px-12 py-2'>Edit</button>
-                            </>}
+                                </div>
+                            }
                         {search === '2' ?
-                            <ReceptionistSearchBar type='patient' close={setSeacrh} show={setInfo} />
+                            <ReceptionistSearchBar type='patient' close={setSeacrh} show={setPatientInfo} />
                         :null}
                     </div>
                     <p className='font-Ubuntu-Medium text-sm mb-2 mt-4 text-[#333333]' >Time & Date</p>

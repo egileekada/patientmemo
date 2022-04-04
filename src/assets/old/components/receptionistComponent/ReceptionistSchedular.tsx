@@ -9,7 +9,7 @@ export default function ReceptionistSchedular() {
     return (
         <div className='p-8 w-full  overflow-hidden' >
             <div className='w-full flex items-center' >
-                <div onClick={()=> navigate('/receptionist')} style={{backgroundColor: 'rgba(113, 35, 226, 0.08)'}} className='w-10 h-10 cursor-pointer rounded-full flex justify-center items-center' >
+                <div onClick={()=> navigate('/dashboard')} style={{backgroundColor: 'rgba(113, 35, 226, 0.08)'}} className='w-10 h-10 cursor-pointer rounded-full flex justify-center items-center' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

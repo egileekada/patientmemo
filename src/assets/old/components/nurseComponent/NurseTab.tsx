@@ -1,22 +1,20 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import PharmacyModal from '../modal/PharmacyModal'
-import ReceptionistModal from '../modal/ReceptionistModal'
+import { useNavigate } from 'react-router-dom'
 
-export default function Pharmacy() {
-    const [showModal, setShowModal] = React.useState(true)
+export default function NurseTab() {
+    const [showModal, setShowModal] = React.useState(false)
+    const navigate = useNavigate()
     return (
         <div className=' w-full h-screen' style={{backgroundColor: 'rgba(113, 35, 226, 0.08)'}} >
-            <div className='w-full bg-white' >
+            {/* <div className='w-full bg-white' >
                 <Navbar />
-            </div>
+            </div> */}
             <div className='w-full p-8 px-40 flex flex-col' > 
-                <p className='font-Ubuntu-Medium ml-3' >Pharmacy</p> 
-                <div className='w-full bg-white mt-8 rounded-lg py-6 px-12' >
-                    <div className='w-full flex' >
-                        <button style={{border: '1px solid #7123E2', borderRadius: '10px'}} className='ml-auto py-2 w-32 text-sm' >Patients</button> 
+            <p className='font-Ubuntu-Bold ml-3 text-xl' >Nurses</p>  
+                <div className='w-full bg-white mt-8 rounded-lg py-6 ' >
+                    <div className='w-full flex border-b h-12 border-[#A5B0C133] px-12 pb-6' > 
                     </div>
-                    <div className='my-6 w-full h-full grid gap-6 grid-cols-3' >
+                    <div className='my-6 mt-10 w-full h-full grid gap-6 grid-cols-3 px-12' >
                         <div onClick={()=> setShowModal(true)} className='w-full h-full cursor-pointer p-2 px-4 rounded-md' style={{border: '1px solid #F0F5FF'}} >
                             <div className='flex items-center' >
                                 <div className='w-12 h-12 bg-yellow-200 rounded-full' >
@@ -81,7 +79,7 @@ export default function Pharmacy() {
                 </div>
             </div> 
 
-            {showModal ? 
+            {/* {showModal ? 
                 (
                     <>
                         <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed pb-4 px-4 inset-0 z-50 outline-none focus:outline-none"> 
@@ -89,7 +87,7 @@ export default function Pharmacy() {
                         </div> 
                         <div className="opacity-50 fixed flex flex-1 inset-0 z-40 bg-black"/>
                     </>
-                ) : null} 
+                ) : null}  */}
         </div>
     )
-}
+} 

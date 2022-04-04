@@ -82,3 +82,8 @@
 .schedule-cell-template.e-schedule .e-month-view .e-work-cells {
   position: relative;
 }
+
+.loader { 
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}

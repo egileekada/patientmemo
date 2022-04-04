@@ -24,7 +24,7 @@ export default function ReceptionistTab() {
                         </div> 
                         <p className='font-Ubuntu-Bold text-xl mt-6  ' >Register Users</p> 
                         <p className='font-Ubuntu-Regular text-base mt-2 text-[#727272]' >Register new users and help them create a profile on the system</p> 
-                        <button className='bg-[#7123E2] py-3 w-full  text-white text-base rounded-full my-6' >Register Patients</button> 
+                        <button onClick={()=> navigate('/dashboard/registration')} className='bg-[#7123E2] py-3 w-full  text-white text-base rounded-full my-6' >Register Patients</button> 
                     </div>
                     <div style={{width: '450px'}} className='ml-auto bg-white py-6 px-8 rounded-xl' >
                         <div className='w-28 h-28 rounded-full flex justify-center items-center bg-[#F4EDFD]' >
@@ -34,7 +34,7 @@ export default function ReceptionistTab() {
                         </div>
                         <p className='font-Ubuntu-Bold text-xl mt-6  ' >Schedule with Doctor</p> 
                         <p className='font-Ubuntu-Regular text-base mt-2 text-[#727272]' >Find a doctot for a patient, check if the doctor is on seat and available for an apointment</p> 
-                        <button onClick={()=> navigate('/receptionist/schedular')} className='bg-[#7123E2] py-3 w-full  text-white text-base rounded-full my-6' >Arrange Schedule</button> 
+                        <button onClick={()=> navigate('/dashboard/schedular')} className='bg-[#7123E2] py-3 w-full  text-white text-base rounded-full my-6' >Arrange Schedule</button> 
                     </div>
                 </div>
                 <p className='font-Ubuntu-Bold text-xl mt-6  ' >Available Doctors/Nurses</p> 
