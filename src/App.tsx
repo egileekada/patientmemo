@@ -25,6 +25,7 @@ import PatientFile from './components/dashboardComponent/PatientFile';
 // import NursePatientProfile from './old/components/nurseComponent/PatientProfile'; 
 // import PharmacyScreen from './old/Screen/PharmacyScreen';
 // import Pharmacy from './old/components/pharmacyComponent/Pharmacy';
+import Donu from './components/Donu';
 
 function App() {
   return ( 
@@ -47,6 +48,7 @@ function App() {
             <Route path='/dashboard/managepatient' element={<ManagePatient />} />
             <Route path='/dashboard/patientfile' element={<PatientFile />} />
           </Route> 
+          <Route path='/donu' element={ <Donu /> } />
         </Routes>
       </Router>
     </ChakraProvider>
