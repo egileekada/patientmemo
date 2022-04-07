@@ -28,15 +28,8 @@ export default function LoginScreen() {
             initialValues: {email: '', password: ''},
             validationSchema: loginSchema,
             onSubmit: () => {},
-        });   
-    
-        // React.useEffect(() => { 
-        //     const token = localStorage.getItem('token')
-        //     if(token ){
-        //         navigate('/dashboard')
-        //     }
-        // }); 
-    
+        });    
+
         const submit = async () => {
     
             if (!formik.dirty) {
@@ -63,9 +56,9 @@ export default function LoginScreen() {
                     localStorage.setItem('token', json.token);         
                     const t1 = setTimeout(() => { 
                         if(json.user.role === 'nurse'){
-                            navigate('/nurse'); 
+                            navigate('/dashboard'); 
                         } else {
-                            navigate('/doctor'); 
+                            navigate('/dashboard'); 
                         }
                         clearTimeout(t1);
                         setLoading(false);

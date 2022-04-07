@@ -19,37 +19,49 @@ import ManageScan from './components/dashboardComponent/ManageScan';
 import ManageAppointment from './components/dashboardComponent/ManageAppointment';
 import ManageBloodBank from './components/dashboardComponent/ManageBloodBank';
 import ManagePatient from './components/dashboardComponent/ManagePatient';
-import PatientFile from './components/dashboardComponent/PatientFile';
+import PatientFile from './components/dashboardComponent/PatientFile'; 
+import {
+    useQuery,
+    useMutation,
+    useQueryClient,
+    QueryClient,
+    QueryClientProvider,
+  } from 'react-query'
 // import Doctor from './old/tabScreens/Doctor';
 // import PatientProfile from './old/tabScreens/PatientProfile'; 
 // import NursePatientProfile from './old/components/nurseComponent/PatientProfile'; 
 // import PharmacyScreen from './old/Screen/PharmacyScreen';
 // import Pharmacy from './old/components/pharmacyComponent/Pharmacy';
 
+
+const queryClient = new QueryClient()
+
 function App() {
   return ( 
-    <ChakraProvider>
-      <Router>  
-        <Routes>    
-          <Route path='/' element={<LoginScreen />}/> 
-          <Route path='/resetpassword' element={<ResetPassword />}/> 
-          <Route path='/newpassword' element={<NewPassword />}/> 
-          {/* <Route path='/doctor' element={<DoctorScreen />}>
-            <Route path='/doctor' element={<Doctor />} />
-            <Route path='/doctor/patientprofile' element={<PatientProfile />} /> 
-          </Route> */}
-          <Route path='/dashboard' element={<DashboardScreen />}> 
-            <Route path='/dashboard' element={<DashboardTab />} />
-            <Route path='/dashboard/registerpatient' element={<RegisterPatient />} />
-            <Route path='/dashboard/managescan' element={<ManageScan />} />
-            <Route path='/dashboard/manageappointment' element={<ManageAppointment />} />
-            <Route path='/dashboard/managebloodbank' element={<ManageBloodBank />} />
-            <Route path='/dashboard/managepatient' element={<ManagePatient />} />
-            <Route path='/dashboard/patientfile' element={<PatientFile />} />
-          </Route> 
-        </Routes>
-      </Router>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider>
+        <Router>  
+          <Routes>    
+            <Route path='/' element={<LoginScreen />}/> 
+            <Route path='/resetpassword' element={<ResetPassword />}/> 
+            <Route path='/newpassword' element={<NewPassword />}/> 
+            {/* <Route path='/doctor' element={<DoctorScreen />}>
+              <Route path='/doctor' element={<Doctor />} />
+              <Route path='/doctor/patientprofile' element={<PatientProfile />} /> 
+            </Route> */}
+            <Route path='/dashboard' element={<DashboardScreen />}> 
+              <Route path='/dashboard' element={<DashboardTab />} />
+              <Route path='/dashboard/registerpatient' element={<RegisterPatient />} />
+              <Route path='/dashboard/managescan' element={<ManageScan />} />
+              <Route path='/dashboard/manageappointment' element={<ManageAppointment />} />
+              <Route path='/dashboard/managebloodbank' element={<ManageBloodBank />} />
+              <Route path='/dashboard/managepatient' element={<ManagePatient />} />
+              <Route path='/dashboard/patientfile' element={<PatientFile />} />
+            </Route>  
+          </Routes>
+        </Router>
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 }
 

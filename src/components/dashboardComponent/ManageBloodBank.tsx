@@ -1,6 +1,13 @@
 import { InputGroup, InputRightElement, Input, Select } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import * as yup from 'yup'
+import { useFormik } from 'formik'; 
+import LoaderIcon from '../LoaderIcon'
+import { useQuery } from 'react-query'
+import ListOfDonors from './otherComponent/ListOfDonor'
+import ListOfDonorHistory from './otherComponent/ListOfDonorHistory'
 
 export default function ManageBloodBank() {
     
@@ -8,6 +15,72 @@ export default function ManageBloodBank() {
     const [tab, setTab] = React.useState(0)
     const [showModal, setShowModal] = React.useState(false)
     const [showDetail, setShowDetail] = React.useState(false)
+    const [loading, setLoading] = React.useState(false);
+
+    const loginSchema = yup.object({ 
+        firstName: yup.string().required('Required'),
+        patientId: yup.string().required('Required'),
+        lastName: yup.string().required('Required'),
+        relationship: yup.string().required('Required'),
+        bloodGroup: yup.string().required('Required'),
+        homeAddress: yup.string().required('Required'),
+        healthChallenge: yup.string().required('Required'),  
+    })    
+ 
+    // formik
+    const formik = useFormik({
+        initialValues: {firstName: '', patientId: '',lastName: '', bloodGroup: '', relationship: '',homeAddress: '', healthChallenge: ''},
+        validationSchema: loginSchema,
+        onSubmit: () => {},
+    });    
+
+    const submit = async () => {  
+
+        if (!formik.dirty) {
+            alert('You have to fill in th form to continue');
+            return;
+        }else if (!formik.isValid) {
+            alert('You have to fill in the form correctly to continue');
+            return;
+        }else {
+            setLoading(true);
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/blood-donors`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(formik.values),
+            });
+
+            const data = await request.json();
+
+            console.log('patient '+request.status)
+            console.log('patient '+data)
+            if (request.status === 200) {            
+                const t1 = setTimeout(() => {  
+                    setShowModal(false)
+                    clearTimeout(t1);
+                }, 3000); 
+            }else {
+                alert(data.message);
+                console.log(data) 
+            } 
+        }
+    }  
+
+    const { isLoading, data } = useQuery('', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+    console.log(formik.values.patientId)
 
     return (
         <div className='w-full h-auto' >
@@ -30,39 +103,10 @@ export default function ManageBloodBank() {
             </div>
             <div className='w-full h-auto relative' >
                 {tab === 0 ?  
-                    <div className='w-full h-full grid grid-cols-4 gap-6 py-12 px-8' > 
-                        <div className=' px-4 py-6 flex flex-col' > 
-                            <div className='flex' >
-                                <div className='w-8 h-8 rounded-full flex bg-[#7123E214] justify-center items-center' >
-                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 11.2494C1.93225 11.2494 0.25 9.56713 0.25 7.49938C0.25 5.56663 3.34675 1.3715 3.69963 0.900125C3.84138 0.710375 4.15863 0.710375 4.30037 0.900125C4.65325 1.3715 7.75 5.56663 7.75 7.49938C7.75 9.56713 6.06775 11.2494 4 11.2494ZM6.54325 8.06413C6.62012 7.87175 6.52638 7.6535 6.334 7.57662C6.1405 7.49938 5.92337 7.59388 5.84687 7.78588C5.54312 8.54563 4.81825 9.03688 4 9.03688C3.793 9.03688 3.625 9.2045 3.625 9.41188C3.625 9.61888 3.793 9.78688 4 9.78688C5.12725 9.78688 6.1255 9.11038 6.54325 8.06413Z" fill="#F44336"/>
-                                    </svg>
-                                </div>
-                                <div className='ml-3' > 
-                                    <p className='font-Ubuntu-Medium text-sm' >Abayomi Josephine</p>
-                                    <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >Blood group: <span className=' font-Ubuntu-Bold text-[#7123E2]' >+O</span></p>
-                                </div>
-                            </div>
-                            <p className='font-Ubuntu-Medium text-[#7123E2] ml-auto text-xs mt-2'>Husband to a patient</p>
-                        </div>
-                    </div>
+                    <ListOfDonors />
                 : 
-                    <div className='w-full grid grid-cols-4 gap-6 py-12 relative px-8' > 
-                        <div onClick={()=> setShowDetail(true)} className={showDetail ? ' px-4 rounded flex cursor-pointer flex-col py-6 bg-[#7123E2] text-white' : ' px-4 rounded flex cursor-pointer flex-col py-6 bg-[#7123E214]'} > 
-                            <div className='flex' >
-                                <div className={showDetail ? 'w-8 h-8 rounded-full flex bg-[#FFF] justify-center items-center':'w-8 h-8 rounded-full flex bg-[#7123E214] justify-center items-center'} >
-                                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 11.2494C1.93225 11.2494 0.25 9.56713 0.25 7.49938C0.25 5.56663 3.34675 1.3715 3.69963 0.900125C3.84138 0.710375 4.15863 0.710375 4.30037 0.900125C4.65325 1.3715 7.75 5.56663 7.75 7.49938C7.75 9.56713 6.06775 11.2494 4 11.2494ZM6.54325 8.06413C6.62012 7.87175 6.52638 7.6535 6.334 7.57662C6.1405 7.49938 5.92337 7.59388 5.84687 7.78588C5.54312 8.54563 4.81825 9.03688 4 9.03688C3.793 9.03688 3.625 9.2045 3.625 9.41188C3.625 9.61888 3.793 9.78688 4 9.78688C5.12725 9.78688 6.1255 9.11038 6.54325 8.06413Z" fill="#F44336"/>
-                                    </svg>
-                                </div>
-                                <div className='ml-3' > 
-                                    <p className='font-Ubuntu-Medium text-sm' >Abayomi Josephine</p>
-                                    <p className={showDetail ? 'font-Ubuntu-Regular mt-1 text-xs': 'font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs'} >Blood group: <span className={showDetail ? ' font-Ubuntu-Bold':' font-Ubuntu-Bold text-[#7123E2]'} >+O</span></p>
-                                </div>
-                            </div>
-                            <p className='font-Ubuntu-Medium text-[#7123E2] ml-auto text-xs mt-2'>Husband to a patient</p> 
-                        </div>
-                    </div>}
+                    <ListOfDonorHistory />
+                }
                 {showModal ? 
                     <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C'}} className='  font-Ubuntu-Regular absolute w-auto h-auto px-8 rounded-lg py-8 top-4 border border-[#E0E0E0] z-50 bg-white right-4  ' > 
                         <div className='flex items-center' >
@@ -80,83 +124,177 @@ export default function ManageBloodBank() {
                         <div className='w-full flex mt-8' >
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >First Name</p>
-                                <Input fontSize='sm' placeholder='Enter First Name' />
+                                <Input 
+                                    name="firstName"
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("firstName", true, true)
+                                    }  
+                                    fontSize='sm' placeholder='Enter First Name' />
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.firstName && formik.errors.firstName && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.firstName}
+                                        </motion.p>
+                                    )}
+                                </div> 
                             </div>
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Last Name/Surname</p>
-                                <Input fontSize='sm' placeholder='Enter Last Name' />
+                                <Input  
+                                    name="lastName"
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("lastName", true, true)
+                                    }  
+                                    fontSize='sm' placeholder='Enter Last Name' />
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.lastName && formik.errors.lastName && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.lastName}
+                                        </motion.p>
+                                    )}
+                                </div> 
                             </div> 
                         </div>
                         <div className='w-full flex mt-4' >
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Patient <span className='text-[#5F6777] font-Ubuntu-Regular' >(If non enter NIL)</span></p>
-                                <Input fontSize='sm' placeholder='Enter First Name' />
+                                <Select  
+                                    name="patientId"
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("patientId", true, true)
+                                    }  
+                                    fontSize='sm' placeholder='Select Patient Name' >
+                                        {data.map((item: any)=> {
+                                            return(
+                                                <option value={item._id} >{item.firstName+' '+item.lastName}</option>
+                                            )
+                                        })}
+                                </Select>
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.patientId && formik.errors.patientId && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.patientId}
+                                        </motion.p>
+                                    )}
+                                </div> 
                             </div>
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Relationship <span className='text-[#5F6777] font-Ubuntu-Regular' >(If non enter NIL)</span></p>
-                                <Input fontSize='sm' placeholder='Enter Last Name' />
+                                <Input  
+                                    name="relationship"
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("relationship", true, true)
+                                    }  
+                                    fontSize='sm' placeholder='Enter Relationship' />
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.relationship && formik.errors.relationship && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.relationship}
+                                        </motion.p>
+                                    )}
+                                </div> 
                             </div> 
                         </div>
                         <div className=' w-full mr-2 mt-4' >
                             <p className='text-xs mb-2 font-Ubuntu-Medium' >Blood Group <span className='text-[#5F6777] font-Ubuntu-Regular' >(Please carefully confirm)</span></p>
-                            <Select fontSize='sm' placeholder='Select Blood Group' />
+                            <Select  
+                                name="bloodGroup"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("bloodGroup", true, true)
+                                }  
+                                fontSize='sm' placeholder='Select Blood Group' >
+                                    <option>o+</option>
+                                </Select>
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.bloodGroup && formik.errors.bloodGroup && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.bloodGroup}
+                                    </motion.p>
+                                )}
+                            </div> 
                         </div>
                         <div className=' w-full mr-2 mt-4' >
                             <p className='text-xs mb-2 font-Ubuntu-Medium' >Home Address <span className='text-[#5F6777] font-Ubuntu-Regular' >(Optional)</span></p>
-                            <Input fontSize='sm' placeholder='Home Address' />
+                            <Input  
+                                name="homeAddress"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("homeAddress", true, true)
+                                }  
+                                fontSize='sm' placeholder='Home Address' />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.homeAddress && formik.errors.homeAddress && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.homeAddress}
+                                    </motion.p>
+                                )}
+                            </div> 
                         </div>
                         <div className=' w-full mr-2 mt-4' >
                             <p className='text-xs mb-2 font-Ubuntu-Medium' >Health Challenges</p>
-                            <Input fontSize='sm' placeholder='Note  if any' />
+                            <Input  
+                                name="healthChallenge"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("healthChallenge", true, true)
+                                }  
+                                fontSize='sm' placeholder='Note  if any' />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.healthChallenge && formik.errors.healthChallenge && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.healthChallenge}
+                                    </motion.p>
+                                )}
+                            </div> 
                         </div>
-                        <button onClick={()=> setShowModal(false)} className='text-xs py-3 rounded bg-[#7123E2] mt-8 w-full text-white font-Ubuntu-Medium' >I have carefully noted the details of the blood donated & the donor</button>
+                        {loading ?  
+                            <button className='bg-[#7123E2] h-12 flex justify-center items-center w-full  text-white text-sm mt-6 rounded' >
+                                <div className='flex items-center animate-pulse ' >
+                                    <LoaderIcon size='w-10 h-10 mr-1 animate-pulse ' /> 
+                                    Loading
+                                </div> 
+                            </button>
+                            :
+                            <button onClick={()=> submit()} className='text-xs h-12 items-center rounded bg-[#7123E2] mt-8 w-full flex justify-center text-white font-Ubuntu-Medium' >I have carefully noted the details of the blood donated & the donor</button>
+                        }
+                        {/* <button onClick={()=> setShowModal(false)} className='text-xs py-3 rounded bg-[#7123E2] mt-8 w-full text-white font-Ubuntu-Medium' >I have carefully noted the details of the blood donated & the donor</button> */}
                     </div>
                 :null}
             </div>
 
-            {showDetail ? 
-                (
-                    <>
-                        <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none">  
-                            <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C', width: '512px'}} className='  font-Ubuntu-Regular h-auto px-8 rounded-lg py-8 border border-[#E0E0E0] z-50 bg-white ' >
-                                <div className='flex items-center' >
-                                    <p className='font-Ubuntu-Medium text-base ' >Abayomi josephine Donation Details</p>
-                                    <svg onClick={()=> setShowDetail(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                                        <g id="Iconly_Light_Close_Square" data-name="Iconly/Light/Close Square" transform="translate(0.75 0.75)">
-                                            <g id="Close_Square" data-name="Close Square">
-                                            <path id="Stroke_1" data-name="Stroke 1" d="M4.792,0,0,4.792" transform="translate(6.853 6.845)" fill="none" stroke="#7123E2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-                                            <path id="Stroke_2" data-name="Stroke 2" d="M4.8,4.8,0,0" transform="translate(6.85 6.843)" fill="none" stroke="#7123E2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-                                            <path id="Stroke_3" data-name="Stroke 3" d="M13.584,0H4.915C1.894,0,0,2.139,0,5.166v8.168C0,16.361,1.885,18.5,4.915,18.5h8.668c3.031,0,4.917-2.139,4.917-5.166V5.166C18.5,2.139,16.614,0,13.584,0Z" fill="none" stroke="#7123E2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                </div>
-                                <div className='flex items-center mt-7' >
-                                    <p className='font-Ubuntu-Medium text-sm' >Patient Name</p>
-                                    <p className='font-Ubuntu-Medium text-sm ml-auto' >Abayomi Anita</p>
-                                </div>
-                                <div className='flex items-center mt-4' >
-                                    <p className='font-Ubuntu-Medium text-sm' >Relationship with patient</p>
-                                    <p className='font-Ubuntu-Medium text-sm ml-auto' >Sister</p>
-                                </div>
-                                <div className='flex items-center mt-4' >
-                                    <p className='font-Ubuntu-Medium text-sm' >Blood Group</p>
-                                    <p className='font-Ubuntu-Medium text-sm ml-auto text-[#7123E2]' >+O</p>
-                                </div>
-                                <div className='flex items-center mt-4' >
-                                    <p className='font-Ubuntu-Medium text-sm' >Home Address</p>
-                                    <p className='font-Ubuntu-Medium text-sm ml-auto' >13, Ana street, choba, Port Harcourt</p>
-                                </div>
-                                <div className='flex items-center mt-4' >
-                                    <p className='font-Ubuntu-Medium text-sm' >Health Challenge</p>
-                                    <p className='font-Ubuntu-Medium text-sm ml-auto' >None</p>
-                                </div>
-                                <button onClick={()=> setShowDetail(false)} className='font-Ubuntu-Medium text-white text-xs py-3 w-full mt-7 bg-[#7123E2] rounded' >Ok</button>
-                            </div>
-                        </div> 
-                        {/* <div className="opacity-25 absolute flex flex-1 inset-0 z-20 bg-black"/> */}
-                    </>
-                ) : null} 
         </div>
     )
 } 
