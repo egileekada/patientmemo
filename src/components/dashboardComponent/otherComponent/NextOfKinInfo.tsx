@@ -29,9 +29,7 @@ export default function NextOfKinInfo(props: any) {
         initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', relationship: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
-    });     
-
-
+    });      
 
     const submit = async () => {  
 

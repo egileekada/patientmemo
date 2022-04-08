@@ -1,17 +1,37 @@
 import { Input, Select } from '@chakra-ui/react'
 import React from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import EditNextOfKin from './managePatientComponent/EditNextOfKin'
+import EditPatientInfo from './managePatientComponent/EditPatientInfo'
 
 export default function PatientFile() {
     
     const navigate = useNavigate()
-    const [access, setAccess] = React.useState(false)
-    const [tab, setTab] = React.useState(0)
-    
+    const [tab, setTab] = React.useState(0) 
+    const [infoTab, setInfoTab] = React.useState(0) 
+
+    const { isLoading, data } = useQuery('repoData', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem('patientId')}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
+    const ClickHandler =()=> {
+        navigate('/dashboard/managepatient')
+        navigate(0)
+    }
+
     return (
         <div className='w-full' >
             <div className='w-full flex px-12 py-3 items-center ' >
-                <div onClick={()=> navigate('/dashboard')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                <div onClick={()=> ClickHandler()} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -50,68 +70,15 @@ export default function PatientFile() {
                 </div>
             </div>
             <div className='w-full flex justify-center items-center' >
-                <div style={{width:'700px'}} className='w-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
-                    <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
-                    <div className='w-full flex mt-8' >
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >First Name</p>
-                            <Input fontSize='sm' placeholder='Enter First Name' />
-                        </div>
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Last Name/Surname</p>
-                            <Input fontSize='sm' placeholder='Enter Last Name' />
-                        </div>
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Other Names</p>
-                            <Input fontSize='sm' placeholder='Enter other Names' />
-                        </div>
-                    </div>
-                    <div className='w-full flex mt-5' >
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Phone Number</p>
-                            <Input fontSize='sm' placeholder='080 ...' />
-                        </div>
-                        <div className='mr-2 w-full' >
-                            <p className='text-xs mb-2' >Address</p>
-                            <Input fontSize='sm' placeholder='Home Address' />
-                        </div> 
-                    </div>
-                    <div className='w-full flex mt-5' >
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Age</p>
-                            <Input fontSize='sm' placeholder='Enter Age' />
-                        </div>
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Sex/Gender</p>
-                            <Select fontSize='sm'  placeholder='Select'>
-                                <option>Male</option>
-                                <option>Female</option>
-                            </Select>
-                        </div>
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >State of Origin</p>
-                            <Input fontSize='sm' placeholder='Enter Your State' />
-                        </div>
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Local Governmet Area</p>
-                            <Input fontSize='sm' placeholder='Enter LGA' />
-                        </div>
-                    </div>
-                    <div className='w-full flex mt-5' >
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Occupation</p>
-                            <Input fontSize='sm' placeholder='What do you do?' />
-                        </div> 
-                        <div className='mr-2' >
-                            <p className='text-xs mb-2' >Religion</p>
-                            <Input fontSize='sm' placeholder='Select your religion' />
-                        </div>
-                    </div> 
-                    <div className='w-full flex mt-4' >
-                        <button onClick={()=> navigate('/dashboard')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button>
-                        <button className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full' >Next</button>
-                    </div>
-                </div>
+                {tab === 0 ?
+                    <>
+                        {infoTab === 0 ?  
+                            <EditPatientInfo data={data} next={setInfoTab} /> 
+                                :infoTab === 1 ?  
+                                    <EditNextOfKin data={data} /> 
+                        :null}
+                    </>
+                :null} 
             </div>
         </div>
     )
