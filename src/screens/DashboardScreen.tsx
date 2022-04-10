@@ -1,10 +1,34 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
 export default function Dashboard() {
 
     const [tab, setTab] = React.useState(0)
+
+    const navigate = useNavigate()
+
+
+    const ClickHandler =(item: any)=> {
+        setTab(item)
+        if(item === 0){
+            navigate('/dashboard')
+        } else if(item === 1){
+            navigate('/dashboard/doctor')
+        } else if(item === 2){
+            navigate('/dashboard/pharmacy') 
+        } else if(item === 3){
+            navigate('/dashboard/pharmacy')
+        } else if(item === 4){
+            navigate('/dashboard/pharmacy')
+        } else if(item === 5){
+            
+        }
+    }
+
+    React.useEffect(() => {
+        navigate('/dashboard')
+    }, [])
      
     return (
         <div className='w-full h-full flex flex-1 flex-col' >
@@ -12,13 +36,13 @@ export default function Dashboard() {
                 <Navbar />
             </div>
             <div className=' w-full flex items-center justify-center border-t border-b border-[#D7D0DF]' >
-                <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
+                <div onClick={()=> ClickHandler(0)} className={tab === 0 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.43457 0.43457V9.13022H5.65196V10.8694H2.86935V11.565H9.13022V10.8694H6.34761V9.13022H9.82587C10.2871 9.13022 10.7295 8.94699 11.0556 8.62084C11.3818 8.29469 11.565 7.85234 11.565 7.39109V0.43457H0.43457ZM10.8694 7.39109C10.8694 7.66784 10.7594 7.93325 10.5637 8.12894C10.368 8.32463 10.1026 8.43457 9.82587 8.43457H1.13022V1.13022H10.8694V7.39109Z" fill={tab === 0 ?  "#7123E2" : "#817D83"}/>
                     </svg>
                     <p className={tab === 0 ? 'font-Ubuntu-Regular ml-4 text-sm text-[#7123E2]': 'font-Ubuntu-Regular ml-4 text-sm text-[#817D83]'} >Admin</p>
                 </div>
-                <div onClick={()=> setTab(1)} className={tab === 1 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
+                <div onClick={()=> ClickHandler(1)} className={tab === 1 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.5 14.7498C13.5 14.8161 13.4737 14.8797 13.4268 14.9266C13.3799 14.9735 13.3163 14.9998 13.25 14.9998H2.75C2.6837 14.9998 2.62011 14.9735 2.57322 14.9266C2.52634 14.8797 2.5 14.8161 2.5 14.7498C2.5 11.1398 3.1175 9.14984 4.5625 8.09484C5.08259 7.72591 5.70012 7.5189 6.3375 7.49984C5.85473 7.21244 5.45472 6.8048 5.17649 6.31669C4.89826 5.82858 4.75131 5.27668 4.75 4.71484V4.21484C4.75 3.35289 5.09241 2.52624 5.7019 1.91675C6.3114 1.30725 7.13805 0.964844 8 0.964844C8.86195 0.964844 9.6886 1.30725 10.2981 1.91675C10.9076 2.52624 11.25 3.35289 11.25 4.21484V4.71484C11.2487 5.27668 11.1017 5.82858 10.8235 6.31669C10.5453 6.8048 10.1453 7.21244 9.6625 7.49984C10.2992 7.51832 10.9164 7.72348 11.4375 8.08984C12.8825 9.14984 13.5 11.1398 13.5 14.7498Z" fill="white"/>
                         <mask id="path-2-inside-1_371_385" fill="white">
@@ -29,25 +53,25 @@ export default function Dashboard() {
                     </svg>
                     <p className={tab === 1 ? 'font-Ubuntu-Regular ml-4 text-sm text-[#7123E2]': 'font-Ubuntu-Regular ml-4 text-sm text-[#817D83]'} >Doctor</p>
                 </div> 
-                <div onClick={()=> setTab(2)} className={tab === 2 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
+                <div onClick={()=> ClickHandler(2)} className={tab === 2 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
                     <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.99977 1.8675V2.9375M5.46477 2.4025H6.53477M7.79477 3.5C8.26493 3.79887 8.65287 4.21061 8.92325 4.69771C9.19363 5.18482 9.33788 5.73182 9.34285 6.28892C9.34782 6.84601 9.21335 7.3955 8.9517 7.88735C8.69005 8.3792 8.30952 8.79779 7.84477 9.105C9.49977 9.57 10.6773 10.66 10.6773 11.925C10.6773 13.6225 8.58227 15 5.99977 15C3.41727 15 1.32227 13.6225 1.32227 11.925C1.32227 10.66 2.48977 9.57 4.15477 9.1C3.7463 8.83006 3.40218 8.47363 3.14677 8.05593C2.89135 7.63823 2.73089 7.16949 2.67675 6.68289C2.6226 6.1963 2.6761 5.70375 2.83344 5.24012C2.99079 4.77649 3.24814 4.35313 3.58727 4L7.79477 3.5ZM7.55727 3.655L8.39977 1.2975C8.4118 1.26388 8.41557 1.22785 8.41075 1.19246C8.40593 1.15707 8.39266 1.12337 8.37206 1.09419C8.35147 1.06501 8.32415 1.04122 8.29242 1.02483C8.26069 1.00843 8.22548 0.999917 8.18976 1H3.80977C3.77405 0.999917 3.73884 1.00843 3.70711 1.02483C3.67538 1.04122 3.64806 1.06501 3.62747 1.09419C3.60687 1.12337 3.5936 1.15707 3.58878 1.19246C3.58396 1.22785 3.58773 1.26388 3.59977 1.2975L4.44227 3.6575C4.45811 3.70123 4.48697 3.73905 4.52496 3.76587C4.56296 3.79269 4.60826 3.80722 4.65477 3.8075H7.34477C7.39127 3.80722 7.43657 3.79269 7.47457 3.76587C7.51256 3.73905 7.54142 3.70123 7.55727 3.6575V3.655Z" stroke={tab === 2 ?  "#7123E2" : "#817D83"} stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <p className={tab === 2 ? 'font-Ubuntu-Regular ml-4 text-sm text-[#7123E2]': 'font-Ubuntu-Regular ml-4 text-sm text-[#817D83]'} >Nurses</p>
                 </div>
-                <div onClick={()=> setTab(3)} className={tab === 3 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
+                <div onClick={()=> ClickHandler(3)} className={tab === 3 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.1577 4.29725C12.0874 1.83875 9.81118 0.25 7.35893 0.25C6.61243 0.25 5.88943 0.401 5.20968 0.699C5.20968 0.699 3.62967 1.3815 3.61343 1.38875C2.17592 2.019 1.09767 3.23475 0.577675 4.81125C0.0616745 6.376 0.157674 8.1105 0.847425 9.696C1.94267 12.2122 4.29168 13.75 6.65918 13.75C7.26768 13.75 7.87593 13.6415 8.46568 13.4292C8.48018 13.425 8.62618 13.3687 8.62618 13.3687C8.68368 13.3457 8.74243 13.3285 8.79968 13.3027C8.81543 13.2968 10.3882 12.5962 10.3882 12.5962C13.3429 11.3002 14.5854 7.57775 13.1577 4.29725ZM12.4224 4.2645L2.91867 8.43225C1.83417 5.55975 2.93292 2.40875 5.46992 1.29625C6.06693 1.0345 6.70268 0.90225 7.35918 0.90225C9.45393 0.902 11.4084 2.21275 12.4224 4.2645ZM1.44292 9.435C0.817175 7.997 0.728925 6.428 1.19442 5.0165C1.54492 3.9535 2.17992 3.078 3.01992 2.47425C1.74892 4.219 1.44617 6.71475 2.43992 8.9975C3.41467 11.237 5.39043 12.7502 7.58793 13.0035C5.18618 13.4862 2.57717 12.041 1.44292 9.435ZM10.1279 11.9987C9.53068 12.2607 8.89518 12.393 8.23868 12.393C6.14368 12.393 4.18942 11.0823 3.17542 9.03075L12.6792 4.863C13.7634 7.7355 12.6649 10.8862 10.1279 11.9987Z" fill={tab === 3 ?  "#7123E2" : "#817D83"}/>
                     </svg>
                     <p className={tab === 3 ? 'font-Ubuntu-Regular ml-4 text-sm text-[#7123E2]': 'font-Ubuntu-Regular ml-4 text-sm text-[#817D83]'} >Pharmacy</p>
                 </div>
-                <div onClick={()=> setTab(4)} className={tab === 4 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
+                <div onClick={()=> ClickHandler(4)} className={tab === 4 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.43457 0.43457V9.13022H5.65196V10.8694H2.86935V11.565H9.13022V10.8694H6.34761V9.13022H9.82587C10.2871 9.13022 10.7295 8.94699 11.0556 8.62084C11.3818 8.29469 11.565 7.85234 11.565 7.39109V0.43457H0.43457ZM10.8694 7.39109C10.8694 7.66784 10.7594 7.93325 10.5637 8.12894C10.368 8.32463 10.1026 8.43457 9.82587 8.43457H1.13022V1.13022H10.8694V7.39109Z" fill="#7123E2"/>
                     </svg>
                     <p className={tab === 4 ? 'font-Ubuntu-Regular ml-4 text-sm text-[#7123E2]': 'font-Ubuntu-Regular ml-4 text-sm text-[#817D83]'} >Laboratory</p>
                 </div>
-                <div onClick={()=> setTab(5)} className={tab === 5 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
+                <div onClick={()=> ClickHandler(5)} className={tab === 5 ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0.43457 0.43457V9.13022H5.65196V10.8694H2.86935V11.565H9.13022V10.8694H6.34761V9.13022H9.82587C10.2871 9.13022 10.7295 8.94699 11.0556 8.62084C11.3818 8.29469 11.565 7.85234 11.565 7.39109V0.43457H0.43457ZM10.8694 7.39109C10.8694 7.66784 10.7594 7.93325 10.5637 8.12894C10.368 8.32463 10.1026 8.43457 9.82587 8.43457H1.13022V1.13022H10.8694V7.39109Z" fill="#7123E2"/>
                     </svg>

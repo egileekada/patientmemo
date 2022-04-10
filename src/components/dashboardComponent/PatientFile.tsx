@@ -2,8 +2,15 @@ import { Input, Select } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import AnteNatalNotes from './managePatientComponent/AnteNatalNotes'
+import ContinutionSheet from './managePatientComponent/ContinutionSheet'
+import DeliveryRecord from './managePatientComponent/DeliveryRecord'
 import EditNextOfKin from './managePatientComponent/EditNextOfKin'
 import EditPatientInfo from './managePatientComponent/EditPatientInfo'
+import HositalHistory from './managePatientComponent/HositalHistory'
+import InputAndOutputChart from './managePatientComponent/InputAndOutputChart'
+import MedicalReport from './managePatientComponent/MedicalReport'
+import Request from './managePatientComponent/Request'
 
 export default function PatientFile() {
     
@@ -44,7 +51,10 @@ export default function PatientFile() {
                         <p className={tab === 0 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Bio</p>
                     </div> 
                     <div onClick={()=> setTab(1)} className={tab === 1 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
-                        <p className={tab === 1 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Delivery Record</p>
+                        <p className={tab === 1 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Hospital History</p>
+                    </div> 
+                    <div onClick={()=> setTab(5)} className={tab === 5 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                        <p className={tab === 5 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Continuation sheet</p>
                     </div> 
                     <div onClick={()=> setTab(2)} className={tab === 2 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 2 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Medication Sheet</p>
@@ -55,17 +65,14 @@ export default function PatientFile() {
                     <div onClick={()=> setTab(4)} className={tab === 4 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 4 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Input/Output chart</p>
                     </div> 
-                    <div onClick={()=> setTab(5)} className={tab === 5 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
-                        <p className={tab === 5 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Continuation sheet</p>
-                    </div> 
+                    <div onClick={()=> setTab(9)} className={tab === 9 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                        <p className={tab === 9 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Delivery Record</p>
+                    </div>  
                     <div onClick={()=> setTab(6)} className={tab === 6 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
-                        <p className={tab === 6 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Scan Result</p>
-                    </div> 
+                        <p className={tab === 6 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Ante-natal notes</p>
+                    </div>  
                     <div onClick={()=> setTab(7)} className={tab === 7 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
-                        <p className={tab === 7 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Scan Result</p>
-                    </div> 
-                    <div onClick={()=> setTab(8)} className={tab === 8 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
-                        <p className={tab === 8 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Request</p>
+                        <p className={tab === 7 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Request</p>
                     </div> 
                 </div>
             </div>
@@ -78,6 +85,20 @@ export default function PatientFile() {
                                     <EditNextOfKin data={data} /> 
                         :null}
                     </>
+                        :tab === 1 ?
+                            <HositalHistory /> 
+                                :tab === 5 ?
+                                    <ContinutionSheet /> 
+                                    :tab === 2 ?
+                                        <MedicalReport /> 
+                                        :tab === 4 ?
+                                            <InputAndOutputChart /> 
+                                                :tab === 9 ?
+                                                    <DeliveryRecord />
+                                                        :tab === 6 ?
+                                                            <AnteNatalNotes />
+                                                                :tab === 7 ?
+                                                                    <Request />
                 :null} 
             </div>
         </div>

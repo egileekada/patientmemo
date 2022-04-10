@@ -16,17 +16,21 @@ import DashboardTab from './Tabs/DashboardTab';
 // import DashboardHome from './components/dashboardComponent/DashboardHome';
 import RegisterPatient from './components/dashboardComponent/RegisterPatient';
 import ManageScan from './components/dashboardComponent/ManageScan';
-import ManageAppointment from './components/dashboardComponent/ManageAppointment';
-import ManageBloodBank from './components/dashboardComponent/ManageBloodBank';
+import AddNewUser from './components/dashboardComponent/AddNewUser';
+import ManageBloodBank from './components/dashboardComponent/ManageBlood';
 import ManagePatient from './components/dashboardComponent/ManagePatient';
 import PatientFile from './components/dashboardComponent/PatientFile'; 
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
+import { 
     QueryClient,
     QueryClientProvider,
-  } from 'react-query'
+  } from 'react-query' 
+  import PharmacyTab from './Tabs/PharmacyTab';
+import DoctorScreen from './screens/DoctorScreen';
+import DoctorTab from './Tabs/DoctorTab';
+import ContinuationSheet from './components/doctorComponent/ContinuationSheet';
+import MakingRequest from './components/doctorComponent/MakingRequest';
+import ManageContinuationSheet from './components/doctorComponent/ManageContinuationSheet';
+// import Pharmacy from './Tabs/Pharmacy'; 
 // import Doctor from './old/tabScreens/Doctor';
 // import PatientProfile from './old/tabScreens/PatientProfile'; 
 // import NursePatientProfile from './old/components/nurseComponent/PatientProfile'; 
@@ -53,10 +57,17 @@ function App() {
               <Route path='/dashboard' element={<DashboardTab />} />
               <Route path='/dashboard/registerpatient' element={<RegisterPatient />} />
               <Route path='/dashboard/managescan' element={<ManageScan />} />
-              <Route path='/dashboard/manageappointment' element={<ManageAppointment />} />
+              <Route path='/dashboard/manageuser' element={<AddNewUser />} />
               <Route path='/dashboard/managebloodbank' element={<ManageBloodBank />} />
               <Route path='/dashboard/managepatient' element={<ManagePatient />} />
               <Route path='/dashboard/patientfile' element={<PatientFile />} />
+              <Route path='/dashboard/pharmacy' element={<PharmacyTab />} />
+              <Route path='/dashboard/doctor' element={<DoctorScreen />}>
+                <Route path='/dashboard/doctor' element={<DoctorTab />} />
+                <Route path='/dashboard/doctor/continuationsheet' element={<ContinuationSheet />} />
+                <Route path='/dashboard/doctor/managecontinuationsheet' element={<ManageContinuationSheet />} />
+                <Route path='/dashboard/doctor/makingrequest' element={<MakingRequest />} />
+              </Route>
             </Route>  
           </Routes>
         </Router>

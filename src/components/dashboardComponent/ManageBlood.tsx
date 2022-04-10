@@ -79,8 +79,7 @@ export default function ManageBloodBank() {
         }).then(res =>
             res.json()
         )
-    )  
-    console.log(formik.values.patientId)
+    )   
 
     return (
         <div className='w-full h-auto' >
