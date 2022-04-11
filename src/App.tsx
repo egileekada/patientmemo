@@ -16,8 +16,9 @@ import DashboardTab from "./Tabs/DashboardTab";
 // import DashboardHome from './components/dashboardComponent/DashboardHome';
 import RegisterPatient from "./components/dashboardComponent/RegisterPatient";
 import ManageScan from "./components/dashboardComponent/ManageScan";
-import ManageAppointment from "./components/dashboardComponent/ManageAppointment";
-import ManageBloodBank from "./components/dashboardComponent/ManageBloodBank";
+// TODO: address this issue
+// import ManageAppointment from "./components/dashboardComponent/ManageAppointment";
+// import ManageBloodBank from "./components/dashboardComponent/ManageBloodBank";
 import ManagePatient from "./components/dashboardComponent/ManagePatient";
 import PatientFile from "./components/dashboardComponent/PatientFile";
 import {
@@ -58,14 +59,14 @@ function App() {
                 element={<RegisterPatient />}
               />
               <Route path="/dashboard/managescan" element={<ManageScan />} />
-              <Route
+              {/* <Route
                 path="/dashboard/manageappointment"
                 element={<ManageAppointment />}
               />
               <Route
                 path="/dashboard/managebloodbank"
                 element={<ManageBloodBank />}
-              />
+              /> */}
               <Route
                 path="/dashboard/managepatient"
                 element={<ManagePatient />}
