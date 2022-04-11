@@ -30,6 +30,7 @@ import DoctorTab from './Tabs/DoctorTab';
 import ContinuationSheet from './components/doctorComponent/ContinuationSheet';
 import MakingRequest from './components/doctorComponent/MakingRequest';
 import ManageContinuationSheet from './components/doctorComponent/ManageContinuationSheet';
+import LaboratoryTab from './Tabs/LaboratoryTab';
 // import Pharmacy from './Tabs/Pharmacy'; 
 // import Doctor from './old/tabScreens/Doctor';
 // import PatientProfile from './old/tabScreens/PatientProfile'; 
@@ -62,6 +63,7 @@ function App() {
               <Route path='/dashboard/managepatient' element={<ManagePatient />} />
               <Route path='/dashboard/patientfile' element={<PatientFile />} />
               <Route path='/dashboard/pharmacy' element={<PharmacyTab />} />
+              <Route path='/dashboard/laboratory' element={<LaboratoryTab />} />
               <Route path='/dashboard/doctor' element={<DoctorScreen />}>
                 <Route path='/dashboard/doctor' element={<DoctorTab />} />
                 <Route path='/dashboard/doctor/continuationsheet' element={<ContinuationSheet />} />

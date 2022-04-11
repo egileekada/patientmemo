@@ -14,9 +14,7 @@ export default function GetPatientInfo(props: any) {
         }).then(res =>
             res.json()
         )
-    )  
-
-    console.log(data)
+    )   
 
     return (
         <>

@@ -6,8 +6,7 @@ export default function Dashboard() {
 
     const [tab, setTab] = React.useState(0)
 
-    const navigate = useNavigate()
-
+    const navigate = useNavigate() 
 
     const ClickHandler =(item: any)=> {
         setTab(item)
@@ -16,13 +15,13 @@ export default function Dashboard() {
         } else if(item === 1){
             navigate('/dashboard/doctor')
         } else if(item === 2){
-            navigate('/dashboard/pharmacy') 
+            navigate('/dashboard/nurse') 
         } else if(item === 3){
             navigate('/dashboard/pharmacy')
         } else if(item === 4){
-            navigate('/dashboard/pharmacy')
+            navigate('/dashboard/laboratory')
         } else if(item === 5){
-            
+            navigate('/dashboard/profile')
         }
     }
 
