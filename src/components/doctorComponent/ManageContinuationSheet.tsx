@@ -1,8 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Editor from './continuationSheetComponent/DoctorEditor'
-import ContiunuationSheetList from './continuationSheetComponent/ContiunuationSheetList'
+import Editor from './continuationSheetComponent/DoctorEditor' 
 import PatientContinuationSheet from './continuationSheetComponent/PatientContinuationSheet'
+import ContiunuationSheetList from './manageContinuationSheet/ContiunuationSheetList'
 
 export default function ManageContinuationSheet() {
     

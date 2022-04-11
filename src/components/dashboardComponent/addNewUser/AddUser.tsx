@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import { motion } from 'framer-motion'
 import * as axios from 'axios'   
 import LoaderIcon from '../../LoaderIcon';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddUser() { 
 
@@ -12,6 +13,7 @@ export default function AddUser() {
 
     const [image, SetImage] = React.useState('');   
     const [role, setRole] = React.useState('');   
+    const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false);
 
     const handleImageChange = (e: any ) => {
@@ -68,7 +70,9 @@ export default function AddUser() {
                 await axios.default.post(`https://hospital-memo-api.herokuapp.com/auth/add-an-admin`, formData, {
                     headers: { 'content-type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
-                }})       
+                }})      
+                
+                navigate('/dashboard')
                 
             } catch (error) { 
                 return error
@@ -96,13 +100,13 @@ export default function AddUser() {
                     <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Users</p> 
                 </div> 
                 {loading ? 
-                    <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg py-3 px-6 ml-auto ' >
+                    <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >
                         <div className='flex items-center animate-pulse ' >
-                            <LoaderIcon size='w-10 h-10 mr-1 animate-pulse ' /> 
+                            <LoaderIcon size='w-6 h-6 mr-1 animate-pulse ' /> 
                             Loading
                         </div> 
                     </button>:
-                    <button onClick={()=> sumbit(image)} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg py-3 px-6 ml-auto ' >Add New User</button>
+                    <button onClick={()=> sumbit(image)} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Add New User</button>
                 }
             </div>
             <div className='w-full px-20 mt-8' >

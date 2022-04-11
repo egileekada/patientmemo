@@ -6,13 +6,12 @@ import GetUserInfo from '../../GetUserInfo'
 import LoaderIcon from '../../LoaderIcon'
 import Continuation from '../../../assets/images/continuation.png'
 
-export default function ContiunuationSheetList(props: any) {
-    // http://localhost:5001/
+export default function ContiunuationSheetList(props: any) { 
     const navigate = useNavigate() 
 
 
     const { isLoading, data } = useQuery('continuation', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/reports?patient=${props.value._id}`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/reports`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -22,22 +21,13 @@ export default function ContiunuationSheetList(props: any) {
             res.json()
         )
     )   
-    // const { isLoading, data } = useQuery('getpatient', () =>
-    //     fetch(`https://hospital-memo-api.herokuapp.com/requests/${props.value._id}`, {
-    //         method: 'GET', // or 'PUT'
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             Authorization : `Bearer ${localStorage.getItem('token')}`
-    //         }
-    //     }).then(res =>
-    //         res.json()
-    //     )
-    // )   
     
     const ClickHandler =(item: any)=> {  
         props.patientinfo(item)
         props.next(2)
     }
+
+    console.log(data)
 
     return (
         <div className='w-full h-full px-16  ' >
@@ -48,8 +38,8 @@ export default function ContiunuationSheetList(props: any) {
                     </svg>
                 </div> */}
                 <div className='ml-0' > 
-                    <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for {props.value.firstName+' '+props.value.lastName}</p>
-                    <p className='font-Ubuntu-Regular text-sm' >{DateFormat(props.value.updatedAt)}</p>
+                    <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for All Patient</p>
+                    {/* <p className='font-Ubuntu-Regular text-sm' >{DateFormat(props.value.updatedAt)}</p> */}
                 </div>
                 <button onClick={()=> props.next(1)} className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button>
             </div>
