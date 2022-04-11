@@ -1,10 +1,5 @@
-import { Input } from '@chakra-ui/input'
-import { Select } from '@chakra-ui/select'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import * as yup from 'yup'
-import { useFormik } from 'formik'; 
+import { useNavigate } from 'react-router-dom' 
 import PatientInfo from './otherComponent/PatientInfo'
 import NextOfKinInfo from './otherComponent/NextOfKinInfo'
 

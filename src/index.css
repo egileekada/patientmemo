@@ -87,3 +87,13 @@
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
+
+
+li {
+    list-style-type: circle;
+}
+
+html, body {
+    height: 100%;
+    scroll-behavior: smooth;
+}
