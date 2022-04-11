@@ -34,6 +34,7 @@ import {
 // import Pharmacy from './old/components/pharmacyComponent/Pharmacy';
 
 import Nurses from "./screens/Nurses";
+import MedicationSheet from "./screens/MedicationSheet";
 
 const queryClient = new QueryClient();
 
@@ -71,6 +72,10 @@ function App() {
               />
               <Route path="/dashboard/patientfile" element={<PatientFile />} />
               <Route path="/dashboard/nurses" element={<Nurses />} />
+              <Route
+                path="/dashboard/nurses/medication-sheet"
+                element={<MedicationSheet />}
+              />
             </Route>
           </Routes>
         </Router>
