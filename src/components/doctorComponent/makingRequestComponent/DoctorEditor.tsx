@@ -41,14 +41,15 @@ export default function DoctorEditor(props: any) {
           return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/reports/create-report`, {
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/requests`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({
-                    note: formik.values.note,
+                    description: formik.values.note, 
+                    kind : props.kind,
                     patient: props.value._id
                 }),
             });
@@ -57,7 +58,7 @@ export default function DoctorEditor(props: any) {
 
             console.log(request.status)
             console.log(json)
-            if (request.status === 201) {   
+            if (request.status === 200) {   
                 // localStorage.setItem('token', json.token);         
                 // const t1 = setTimeout(() => { 
                 //     if(json.user.role === 'nurse'){
@@ -68,7 +69,7 @@ export default function DoctorEditor(props: any) {
                 //     clearTimeout(t1);
                 //     setLoading(false);
                 // }, 3000); 
-                props.next(3)
+                props.next(1)
             }else {
                 alert(json.message);
                 console.log(json)
@@ -79,9 +80,18 @@ export default function DoctorEditor(props: any) {
 
 
     return (
-        <div className='p-12 w-full' >
-            <p className='font-Ubuntu-Bold text-lg ' >Continuation Sheet for <span className=' text-[#7123E2]' >{props.value.firstName+' '+ props.value.lastName}</span></p>
-            <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' >{DateFormat(props.value.updatedAt)}</p>
+        <div className='p-12 w-full' >  
+            <p className='font-Ubuntu-Bold text-lg ' >
+                {props.kind === 'pharmacy'  ?
+                    'Pharmacy Prescription for ' 
+                        :props.kind === 'lab'  ?
+                            'Lab Request for ' 
+                                :props.kind === 'scan'  ?
+                                    'Scan Request for ' 
+                :null}
+                Continuation Sheet for <span className=' text-[#7123E2]' >{props.value.firstName}</span>
+            </p>
+            <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' ></p>
             {/* <FilesEditor /> */}
             <Textarea 
                 height='500px'

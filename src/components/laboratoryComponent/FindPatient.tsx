@@ -1,7 +1,7 @@
 import { Input } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'; 
-import LoaderIcon from '../../LoaderIcon';
+import LoaderIcon from '../LoaderIcon';
 
 export default function FindPatient(props: any) { 
 
@@ -61,8 +61,8 @@ export default function FindPatient(props: any) {
     return (
         <div className='w-96 py-20 my-auto' > 
             <div className='w-full border-b pb-10 flex flex-col justify-center items-center border-[#DFE4EB]' > 
-                <p className='text-lg font-Ubuntu-Bold' >Enter Patient Name</p>
-                <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To create a continuation sheet, you wil have to verity patient<br/>before you has a file in the hospital.</p>
+                <p className='text-lg font-Ubuntu-Bold' >Upload Lab Result</p>
+                <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To upload a patient lab record, you wil have to verify if patient has a file in the hospital.</p>
                 <div className='mt-8 w-full ' > 
                     <Input onChange={(e)=> setName(e.target.value)} borderRadius='6px' fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' />
                 </div>

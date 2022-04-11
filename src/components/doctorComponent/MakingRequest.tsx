@@ -1,17 +1,29 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import FindPatient from './continuationSheetComponent/FindPatient'
+import DoctorEditor from './makingRequestComponent/DoctorEditor'
 import DoctorRequest from './makingRequestComponent/DoctorRequest'
+import RequestTab from './makingRequestComponent/RequestTab'
 
 export default function MakingRequest() {
     
     const navigate = useNavigate() 
-    const [tab, setTab] = React.useState(1)
+    const [tab, setTab] = React.useState(0)
+    const [kind, setKind] = React.useState('')
     const [showModal, setShowModal] = React.useState(false)
+    const [data, setData] = React.useState({} as any)
+    const [info, setInfo] = React.useState({} as any)
+
+    const ClickHandler =(item:any)=> {
+        setKind(item)
+        setTab(2)
+        setShowModal(false)
+    }
 
     return (
         <div className='w-full h-full ' >
             <div className='w-full px-16 py-5 border-b border-[#D7D0DF]  flex items-center' > 
-                <div onClick={()=> navigate('/dashboard')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                <div onClick={()=> navigate('/dashboard/doctor')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -19,20 +31,20 @@ export default function MakingRequest() {
                 <div > 
                     <p className='font-Ubuntu-Medium text-lg ml-3' >Register New Patients</p>
                     {/* <p className='font-Ubuntu-Regular text-sm' >12:00PM, 24, Jun 2021 - 12:00PM, 24, Jun 2022</p> */}
-                </div>  
-                {/* <div className='mx-auto flex' >
-                    <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-centercursor-pointer mx-3 border-b-2 border-[#7123E2]  ': 'flex items-center pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
-                        <p className={tab === 0 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Sheets</p>
-                    </div>
-                    <div onClick={()=> setTab(1)} className={tab === 1 ? 'flex items-center pb-7 pt-8  ml-4 cursor-pointer mx-3 border-b-2 border-[#7123E2] ': 'flex items-center ml-4 pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
-                        <p className={tab === 1 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Requests</p>
-                    </div>
-                </div> */}
+                </div>   
                 <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Make Request</button> 
             </div> 
             <div className='w-full px-16 relative' >
-                {tab === 1 ?
-                    <DoctorRequest />
+                {tab === 0 ? 
+                    <div className='w-full flex justify-center items-center' > 
+                        <FindPatient next={setTab} value={setData} />
+                    </div>
+                        :tab === 1 ?
+                            <DoctorRequest value={data} next={setTab} info={setInfo} />
+                                :tab === 2 ?
+                                    <DoctorEditor kind={kind} next={setTab} value={data} />
+                                        :tab === 3 ? 
+                                            <RequestTab info={info} next={setTab} value={data} /> 
                 :null}
 
                 {showModal ? 
@@ -40,23 +52,23 @@ export default function MakingRequest() {
                         
                         <p onClick={()=> setShowModal(false)} className='text-sm font-Ubuntu-Medium text-[#7123E2] mb-6 ml-auto cursor-pointer mr-6 ' >close</p>
                         <div className=' grid grid-cols-3 font-Ubuntu-Medium' >
-                            <div className='w-48 mx-4 rounded-md' >
+                            <div onClick={()=> ClickHandler('lab')} className='w-48 mx-4 cursor-pointer rounded-md' >
                                 <div className='w-full rounded-md h-64 bg-yellow-300' >
 
                                 </div>
                                 <p className='text-sm text-[#363E4B] mt-2 ' >Labouratory Request</p>
                             </div>
-                            <div className='w-48 mx-4 rounded-md' >
+                            <div onClick={()=> ClickHandler('pharmacy')} className='w-48 mx-4 rounded-md' >
                                 <div className='w-full rounded-md h-64 bg-yellow-300' >
 
                                 </div>
-                                <p className='text-sm text-[#363E4B] mt-2 ' >Labouratory Request</p>
+                                <p className='text-sm text-[#363E4B] mt-2 ' >Pharmacy Request</p>
                             </div>
-                            <div className='w-48 mx-4 rounded-md' >
+                            <div onClick={()=> ClickHandler('scan')} className='w-48 mx-4 rounded-md' >
                                 <div className='w-full rounded-md h-64 bg-yellow-300' >
 
                                 </div>
-                                <p className='text-sm text-[#363E4B] mt-2 ' >Labouratory Request</p>
+                                <p className='text-sm text-[#363E4B] mt-2 ' >Scan Request</p>
                             </div>
                         </div>
                     </div>

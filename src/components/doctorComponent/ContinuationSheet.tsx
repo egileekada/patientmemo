@@ -1,5 +1,6 @@
 import { Input } from '@chakra-ui/input'
 import React from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import ContiunuationSheetList from './continuationSheetComponent/ContiunuationSheetList'
 import Editor from './continuationSheetComponent/DoctorEditor'
@@ -10,7 +11,10 @@ export default function ContinuationSheet() {
     
     const navigate = useNavigate()
     const [next, setNext] = React.useState(0)
-    const [tab, setTab] = React.useState(0)
+    const [datainfo, setData] = React.useState({} as any)
+    const [patientInfo, setPatientInfo] = React.useState({} as any)  
+
+    console.log(datainfo)
 
     return (
         <div className='w-full h-full ' >
@@ -40,8 +44,9 @@ export default function ContinuationSheet() {
                     <div className=' ' >
                         
                     </div>} */}
-
-                {/* <button className='font-Ubuntu-Medium ml-auto text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ' >See Other Sheets</button> */}
+                {next !== 0 ?  
+                    <button onClick={()=> setNext(3)} className='font-Ubuntu-Medium ml-auto text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ' >See Other Sheets</button>
+                :null}
             </div>
             <div className='w-full h-full px-6 flex ' >
                 <div className=' h-auto border-r border-[#D7D0DF] px-4 pr-10 ' >
@@ -63,13 +68,13 @@ export default function ContinuationSheet() {
                 </div>
                 <div className='w-4/6 h-auto flex-1 flex flex-col justify-center items-center ' >
                     {next === 0 ? 
-                        <FindPatient next={setNext} />
+                        <FindPatient next={setNext} value={setData} />
                             :next === 1 ? 
-                                <Editor />
+                                <Editor value={datainfo} next={setNext} />
                                     :next === 2 ? 
-                                        <PatientContinuationSheet next={setNext} />
+                                        <PatientContinuationSheet data={patientInfo} value={datainfo} next={setNext} />
                                             :next === 3 ? 
-                                                <ContiunuationSheetList next={setNext} />
+                                                <ContiunuationSheetList patientinfo={setPatientInfo} value={datainfo} next={setNext} />
                     :null}
                 </div>
             </div> 

@@ -1,24 +1,19 @@
 import { Textarea } from '@chakra-ui/textarea';
 import React from 'react' 
-import FilesEditor from '../../FilesEditor';
-import { useNavigate } from 'react-router-dom';
-import SideImage from '../assets/images/SideImage.png'
-import Logo from '../assets/images/patientMemologo.png'
+// import FilesEditor from '../../FilesEditor';
+// import { useNavigate } from 'react-router-dom';
+// import SideImage from '../assets/images/SideImage.png'
+// import Logo from '../assets/images/patientMemologo.png'
 import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik'; 
-import LoaderIcon from '../../LoaderIcon';
-import DateFormat from '../../DateFormat';
+import LoaderIcon from '../LoaderIcon';
+import DateFormat from '../DateFormat';
 
 export default function DoctorEditor(props: any) {
 
 
-    const [loading, setLoading] = React.useState(false);
-    const [showpassword, setShowpass] = React.useState(false);
-
-    const handleShowpassword = () => {
-        setShowpass(prev => !prev);
-    } 
+    const [loading, setLoading] = React.useState(false); 
 
     const loginSchema = yup.object({ 
         note: yup.string().required('Required'), 
@@ -41,14 +36,14 @@ export default function DoctorEditor(props: any) {
           return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/reports/create-report`, {
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/lab-results`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({
-                    note: formik.values.note,
+                    description: formik.values.note,
                     patient: props.value._id
                 }),
             });
@@ -57,7 +52,7 @@ export default function DoctorEditor(props: any) {
 
             console.log(request.status)
             console.log(json)
-            if (request.status === 201) {   
+            if (request.status === 200) {   
                 // localStorage.setItem('token', json.token);         
                 // const t1 = setTimeout(() => { 
                 //     if(json.user.role === 'nurse'){
@@ -68,7 +63,7 @@ export default function DoctorEditor(props: any) {
                 //     clearTimeout(t1);
                 //     setLoading(false);
                 // }, 3000); 
-                props.next(3)
+                props.next(0)
             }else {
                 alert(json.message);
                 console.log(json)
@@ -80,7 +75,7 @@ export default function DoctorEditor(props: any) {
 
     return (
         <div className='p-12 w-full' >
-            <p className='font-Ubuntu-Bold text-lg ' >Continuation Sheet for <span className=' text-[#7123E2]' >{props.value.firstName+' '+ props.value.lastName}</span></p>
+            <p className='font-Ubuntu-Bold text-lg ' >Lab Result for <span className=' text-[#7123E2]' >{props.value.firstName+' '+ props.value.lastName}</span></p>
             <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' >{DateFormat(props.value.updatedAt)}</p>
             {/* <FilesEditor /> */}
             <Textarea 
