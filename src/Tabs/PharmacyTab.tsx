@@ -69,6 +69,12 @@ export default function Pharmacy(props: any) {
                     headers: { 'content-type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 }})       
+
+                setShowModal(false)
+                setTab(0)
+                SetImage('')
+                setSelectedFiles({}as any)
+                setLoading(false)
                 
             } catch (error) { 
                 return error

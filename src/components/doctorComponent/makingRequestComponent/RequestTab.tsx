@@ -43,19 +43,19 @@ export default function RequestTab(props: any) {
 
     console.log(props.info)
 
-    const { isLoading, data } = useQuery('requests', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/requests/623fdff35a87520b1cf6403e?kind=pharmacy`, {
-            method: 'GET', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json', 
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            }
-        }).then(res =>
-            res.json()
-        )
-    )  
+    // const { isLoading, data } = useQuery('requests', () =>
+    //     fetch(`https://hospital-memo-api.herokuapp.com/requests/623fdff35a87520b1cf6403e?kind=pharmacy`, {
+    //         method: 'GET', // or 'PUT'
+    //         headers: {
+    //             'Content-Type': 'application/json', 
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     }).then(res =>
+    //         res.json()
+    //     )
+    // )  
 
-    console.log(props.value)
+    // console.log(props.value)
 
     return ( 
         <div className='w-full px-16 py-12' > 
