@@ -1,5 +1,5 @@
 import { Input } from '@chakra-ui/input'
-import { Select } from '@chakra-ui/react'
+import { AlertDialog, Select } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -27,24 +27,34 @@ export default function EditPatientInfo(props: any) {
         LGA: yup.string().required('Required'),
         occupation: yup.string().required('Required'),
         religion: yup.string().required('Required'),
+        accessKey: yup.string().required('Required'),
     }) 
 
     React.useEffect(() => {
-        formik.setValues(props.data)
+        formik.setValues({
+            firstName : props.data.firstName,
+            otherNames : props.data.otherNames,
+            lastName : props.data.lastName,
+            gender : props.data.gender,
+            address : props.data.address,
+            age : props.data.age,
+            phone : props.data.phone,
+            stateOfOrigin : props.data.stateOfOrigin,
+            LGA : props.data.LGA,
+            occupation : props.data.occupation,
+            religion : props.data.religion,
+            accessKey : '',
+        })
     }, [props.data])
 
     // formik
     const formik = useFormik({
-        initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', stateOfOrigin: '',LGA: '', occupation: '', religion: ''},
+        initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', stateOfOrigin: '',LGA: '', occupation: '', religion: '', accessKey: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });     
 
-    const ClickHandler =()=> {
-        setAccess(true)
-        setRequestCode(false)
-    }
-
+    console.log(props.data)
     const submit = async () => {  
 
         if (!formik.dirty) {
@@ -68,37 +78,38 @@ export default function EditPatientInfo(props: any) {
 
             console.log('patient '+request.status)
             console.log('patient '+data)
-            if (request.status === 201) {  
-                console.log('patient success ')
-                // const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/next-of-kin/${data._id}`, {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         Authorization : `Bearer ${localStorage.getItem('token')}`
-                //     },
-                //     body: JSON.stringify(formik.values),
-                // });
-        
-                // const json = await request.json();
-
-                // console.log('next of kin '+request.status)
-                // console.log('next of kin '+json)
-                // if (request.status === 201) {            
-                //     const t1 = setTimeout(() => {  
-                //             navigate('/dashboard')
-                //             clearTimeout(t1);
-                //     }, 3000); 
-                // }else {
-                //     alert(json.message);
-                //     console.log(json) 
-                // }
+            if (request.status === 201) {   
+                navigate('/dashboard/managepatient')
+                navigate(0)
             }else {
-                alert(data.message);
+                alert(data.error.message);
                 console.log(data) 
             } 
         }
         setLoading(false);
     }    
+
+    const GetAccessCode = async()=> {
+        setLoading(true)
+        const request = await fetch(`https://hospital-memo-api.herokuapp.com/auth/request-access-key`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                patientId: props.data._id
+            }),
+        });
+
+        const data = await request.json();
+
+        console.log('Request code '+request.status)
+        alert('Access Key for this Patient '+data.accessKey)
+        setAccess(true)
+        setRequestCode(false)
+        setLoading(false)
+    }
 
     return (
         <div style={{width:'700px'}} className='w-auto h-full flex justify-center px-12 py-10 font-Ubuntu-Regular' > 
@@ -346,6 +357,27 @@ export default function EditPatientInfo(props: any) {
                                 )}
                             </div> 
                         </div>
+                        <div className='mr-2' >
+                            <p className='text-xs mb-2' >accessKey</p>
+                            <Input fontSize='sm' disabled={!access ? true : false} 
+                                name="accessKey"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("accessKey", true, true)
+                                } 
+                                placeholder='accessKey' />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.accessKey && formik.errors.accessKey && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.accessKey}
+                                    </motion.p>
+                                )}
+                            </div> 
+                        </div>
                     </div> 
                     <div className='w-full flex mt-4' >
                         <button onClick={()=> props.next(1)}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Next Of Kin</button>
@@ -354,7 +386,7 @@ export default function EditPatientInfo(props: any) {
                                 {loading ?  
                                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
                                         <div className='flex items-center animate-pulse ' >
-                                            <LoaderIcon size='w-9 h-9 mr-1 animate-pulse ' /> 
+                                            <LoaderIcon size='w-7 h-7 mr-1 animate-pulse ' /> 
                                             Loading
                                         </div> 
                                     </button>
@@ -368,9 +400,19 @@ export default function EditPatientInfo(props: any) {
             :
                 <div style={{width: '480px'}} className='h-full flex flex-col justify-center font-Ubuntu-Regular items-center' >
                     <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
-                    <p className='w-96 text-[#5F6777] mt-2 mb-12 font-Ubuntu-Regular text-center text-sm' >This key is owned by the MD, meaning there need to be an approval from the MD to Access</p>
-                    <Input fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' />
-                    <button onClick={()=> ClickHandler()} className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-12 rounded-full' >Request Edit Access</button>
+                    <p className='w-96 text-[#5F6777] mt-2 font-Ubuntu-Regular text-center text-sm' >This key is owned by the MD, meaning there need to be an approval from the MD to Access</p>
+                    {/* <Input fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' /> */}
+
+                    {loading ?  
+                        <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-12 rounded-full' >
+                            <div className='flex items-center animate-pulse ' >
+                                <LoaderIcon size='w-7 h-7 mr-1 animate-pulse ' /> 
+                                Loading
+                            </div> 
+                        </button>
+                        :
+                        <button onClick={()=> GetAccessCode()} className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-12 rounded-full' >Request Edit Access</button>
+                    }
                 </div>
             }
         </div> 

@@ -2,6 +2,7 @@ import { Input, Select } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import LoaderIcon from '../LoaderIcon'
 import AnteNatalNotes from './managePatientComponent/AnteNatalNotes'
 import ContinutionSheet from './managePatientComponent/ContinutionSheet'
 import DeliveryRecord from './managePatientComponent/DeliveryRecord'
@@ -32,7 +33,7 @@ export default function PatientFile() {
 
     const ClickHandler =()=> {
         navigate('/dashboard/managepatient')
-        navigate(0)
+        // navigate(0)
     }
 
     return (
@@ -77,29 +78,37 @@ export default function PatientFile() {
                 </div>
             </div>
             <div className='w-full flex justify-center items-center' >
-                {tab === 0 ?
+                {isLoading ?
+                    <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
+                        <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
+                    </div>
+                :
                     <>
-                        {infoTab === 0 ?  
-                            <EditPatientInfo data={data} next={setInfoTab} /> 
-                                :infoTab === 1 ?  
-                                    <EditNextOfKin data={data} /> 
-                        :null}
+                        {tab === 0 ?
+                            <>
+                                {infoTab === 0 ?  
+                                    <EditPatientInfo data={data} next={setInfoTab} /> 
+                                        :infoTab === 1 ?  
+                                            <EditNextOfKin data={data} /> 
+                                :null}
+                            </>
+                                :tab === 1 ?
+                                    <HositalHistory /> 
+                                        :tab === 5 ?
+                                            <ContinutionSheet /> 
+                                            :tab === 2 ?
+                                                <MedicalReport /> 
+                                                :tab === 4 ?
+                                                    <InputAndOutputChart /> 
+                                                        :tab === 9 ?
+                                                            <DeliveryRecord />
+                                                                :tab === 6 ?
+                                                                    <AnteNatalNotes />
+                                                                        :tab === 7 ?
+                                                                            <Request />
+                        :null} 
                     </>
-                        :tab === 1 ?
-                            <HositalHistory /> 
-                                :tab === 5 ?
-                                    <ContinutionSheet /> 
-                                    :tab === 2 ?
-                                        <MedicalReport /> 
-                                        :tab === 4 ?
-                                            <InputAndOutputChart /> 
-                                                :tab === 9 ?
-                                                    <DeliveryRecord />
-                                                        :tab === 6 ?
-                                                            <AnteNatalNotes />
-                                                                :tab === 7 ?
-                                                                    <Request />
-                :null} 
+                }
             </div>
         </div>
     )

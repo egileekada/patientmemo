@@ -4,7 +4,7 @@ import LoaderIcon from '../../LoaderIcon'
 
 export default function ListOfDonors() {
 
-    const { isLoading, data } = useQuery('donorList', () =>
+    const { isLoading, data } = useQuery('donor', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/blood-donors`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -14,9 +14,7 @@ export default function ListOfDonors() {
         }).then(res =>
             res.json()
         )
-    ) 
-
-    console.log(data)
+    )  
 
     return (
         <div className='w-full h-full ' > 
@@ -25,7 +23,7 @@ export default function ListOfDonors() {
                     <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
                 </div>
             :
-            <div className='w-full h-full grid grid-cols-4 gap-6 py-12 px-8' > 
+                <div className='w-full h-full grid grid-cols-4 gap-6 py-12 px-8' > 
                     {data.map((item: any)=> {
                         return( 
                             <div className=' px-4 py-6 flex flex-col h-full' > 

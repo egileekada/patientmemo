@@ -15,12 +15,10 @@ export default function DrugsTab() {
         }).then(res =>
             res.json()
         )
-    )   
-
-    console.log(data)
+    )    
 
     return ( 
-        <div className='w-full' >
+        <div className='w-full ' >
             {!isLoading ?
                 <div className='w-full grid grid-cols-5 gap-4 px-16 py-12' >
                     {data.map((item:any) => {
