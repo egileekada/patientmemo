@@ -14,7 +14,7 @@ export default function ManageUser() {
         }).then(res =>
             res.json()
         )
-    )   
+    )    
 
     return (
         <div className='w-full px-24 pt-10' > 

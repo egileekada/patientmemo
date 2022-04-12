@@ -1,10 +1,99 @@
 import { InputGroup, InputRightElement, Input } from '@chakra-ui/input'
 import React from 'react'
+import * as yup from 'yup'
+import { useFormik } from 'formik';  
+import { motion } from 'framer-motion'
+import * as axios from 'axios'   
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query';
 
 export default function ManageScan() {
     
     const navigate = useNavigate()
+    const [ selectedFiles, setSelectedFiles ] = React.useState({}as any);  
+
+    const [image, SetImage] = React.useState('');   
+    const [role, setRole] = React.useState(''); 
+    const [loading, setLoading] = React.useState(false);
+
+    const handleImageChange = (e: any ) => {
+
+        const selected = e.target.files[0]; 
+        const TYPES = ["image/png", "image/jpg", "image/jpeg", "image/svg" ];        
+        if (selected && TYPES.includes(selected.type)) {
+            SetImage(selected)
+            const reader: any = new FileReader();
+            reader.onloadend= () => {  
+                setSelectedFiles(reader.result)
+            }
+            reader.readAsDataURL(selected)
+        } else {
+            alert('File Type .svg Cannot be added')
+        }   
+    } 
+     
+    const loginSchema = yup.object({ 
+        fullName: yup.string().required('Required'),
+        title: yup.string().required('Required'),
+        email: yup.string().email('Enter Your Email').required('Required')
+    })    
+ 
+    // formik
+    const formik = useFormik({
+        initialValues: {fullName: '', title: '',email: ''},
+        validationSchema: loginSchema,
+        onSubmit: () => {},
+    });    
+
+    const sumbit =async(item: any)=> {
+        setLoading(true)
+        if (!formik.dirty) {
+            alert('You have to fill in th form to continue');
+            return;
+        }else if (!formik.isValid) {
+            alert('You have to fill in the form correctly to continue');
+            return;
+        }else if (!role) {
+            alert('Please Enter Role');
+            return;
+        }else {
+            try {
+            
+                let formData = new FormData()  
+
+                formData.append('fullName', formik.values.fullName)
+                formData.append('title', formik.values.title) 
+                formData.append('email', formik.values.email)  
+                formData.append('role', role)   
+                formData.append('image', item)    
+        
+                await axios.default.post(`https://hospital-memo-api.herokuapp.com/auth/add-an-admin`, formData, {
+                    headers: { 'content-type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}`
+                }})      
+                
+                navigate('/dashboard')
+                
+            } catch (error) { 
+                return error
+            }
+          }
+    } 
+
+
+
+    const { isLoading, data } = useQuery('scanlist', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/scans`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
 
     return (
         <div className='w-full h-full ' >

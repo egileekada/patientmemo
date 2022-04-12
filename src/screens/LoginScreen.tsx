@@ -50,13 +50,21 @@ export default function LoginScreen() {
         
                 const json = await request.json();
     
-                console.log(request.status)
-                console.log(json)
+                // console.log(request.status)
+                // console.log(json)
                 if (request.status === 200) {   
-                    localStorage.setItem('token', json.token);         
+                    sessionStorage.setItem('token', json.token);    
+                    localStorage.setItem('userData', JSON. stringify(json.user));        
                     const t1 = setTimeout(() => { 
-                        if(json.user.role === 'nurse'){
-                            navigate('/dashboard'); 
+                        if(json.user.role === 'doctor'){
+                            localStorage.setItem('tab', '1')
+                            navigate('/dashboard/doctor'); 
+                        } else if(json.user.role === 'lab'){
+                            localStorage.setItem('tab', '4')
+                            navigate('/dashboard/pharmacy'); 
+                        } else if(json.user.role === 'pharmacy'){
+                            localStorage.setItem('tab', '3')
+                            navigate('/dashboard/pharmacy'); 
                         } else {
                             navigate('/dashboard'); 
                         }
@@ -64,8 +72,8 @@ export default function LoginScreen() {
                         setLoading(false);
                     }, 3000); 
                 }else {
-                    alert(json.message);
-                    console.log(json)
+                    alert('Incorrect Email Or Password');
+                    // console.log(json)
                     setLoading(false);
                 }
             }

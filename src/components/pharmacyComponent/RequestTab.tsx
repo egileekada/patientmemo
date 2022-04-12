@@ -7,41 +7,16 @@ import LoaderIcon from '../LoaderIcon'
 import Lab from '../../assets/images/lab.png'
 import Scan from '../../assets/images/scan.png'
 import Pharmacy from '../../assets/images/pharmacy.png'
-import GetPatientInfo from '../../GetPatientInfo'
+import GetPatientInfo from '../GetPatientInfo'
 import GetUserInfo from '../GetUserInfo'
+import MedicalList from '../nurseComponent/MedicationSheetComponent/MedicalList'
 
 export default function RequestTab() {
 
     const [show, setShow] = React.useState(false)
     const [info, setInfo] = React.useState({} as any)
     const [showModal, setShowModal] = React.useState(false)
-    const navigate = useNavigate()
-    const Information = [
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-    ]
+    const navigate = useNavigate() 
  
     const { isLoading, data } = useQuery('requests', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/requests`, {
@@ -150,45 +125,8 @@ export default function RequestTab() {
                         </ol>  */}
                     </div>
                     <div className=' ml-12 px-10 my-10'>
-                        <p className='font-Ubuntu-Bold text-lg ' >Medication Sheet</p>
-                        <div className='bg-white w-full py-6' > 
-                            <Table variant='unstyled' >
-                                {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-                                <Thead>
-                                    <Tr className='font-Graphik-Medium text-sm' >
-                                        <Th>Doctor</Th>  
-                                        <Th>Drug/prescription</Th>  
-                                        <Th>Date/Time</Th> 
-                                        <Th>Sign</Th>  
-                                    </Tr>
-                                </Thead>
-                                <Tbody>
-                                    {Information.map((item, index)=> {
-                                        return(
-                                            <Tr className={index === 1 ? 'font-Ubuntu-Medium text-sm rounded-lg text-white bg-[#7123E2]' : 'font-Ubuntu-Medium text-black text-sm'} key={index} >
-                                                <Td>
-                                                    <div className='flex items-center' >
-                                                        <div className='w-12 h-12 bg-red-400 rounded-full mr-3' />
-                                                        <div>
-                                                            <p className='font-Ubuntu-Medium text-sm' >{item.doctor}</p>
-                                                            <p className='font-Ubuntu-Regular text-xs mt-1' >12;00am, 12, Jun 2021</p>
-                                                        </div>
-                                                    </div>
-                                                </Td> 
-                                                <Td> 
-                                                    <div>
-                                                        <p className='font-Ubuntu-Medium text-sm' >{item.drugs}</p>
-                                                        <p className='font-Ubuntu-Regular text-xs mt-1' >001</p>
-                                                    </div>
-                                                </Td> 
-                                                <Td>{item.date}</Td> 
-                                                <Td>{item.sign}</Td>  
-                                            </Tr> 
-                                        )
-                                    })}
-                                </Tbody> 
-                            </Table>
-                        </div>
+                        <p className='font-Ubuntu-Bold text-lg ' >Medication Sheet</p> 
+                        <MedicalList />
                     </div>
                 </div>
             }

@@ -4,9 +4,18 @@ import { useNavigate } from 'react-router-dom'
 export default function DoctorTab() {
 
     const navigate = useNavigate()
+    const userData: any = JSON.parse(localStorage.getItem('userData')+'')
 
     return (
-        <div className='w-full h-full px-32 py-12' >
+        <div style={{height:'100%', flexGrow: '1'}} className=' px-32 py-12 relative' >
+            {userData.role !== 'doctor' && ( 
+                <>
+                    <div className="absolute flex flex-1 justify-center items-center inset-0 z-50 "> 
+                        <p className='font-Ubuntu-Bold text-5xl text-white relative z-50' >You Are Not Assigned To This Role</p>
+                    </div>
+                    <div className=" opacity-50  absolute flex flex-1 inset-0 z-40 bg-[#7123E2]"/>
+                </>
+            )}
             <div className='grid grid-cols-3 w-full gap-6' >
                 <div onClick={()=> navigate('/dashboard/doctor/continuationsheet')} className='bg-[#7123E2] w-full rounded-md px-6 py-8 relative cursor-pointer' >
                     <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#5815BA]' >
@@ -16,7 +25,7 @@ export default function DoctorTab() {
                             <path d="M23.3799 16.2949H20.5449C20.346 16.2949 20.1552 16.2159 20.0146 16.0753C19.8739 15.9346 19.7949 15.7438 19.7949 15.5449C19.7949 15.346 19.8739 15.1552 20.0146 15.0146C20.1552 14.8739 20.346 14.7949 20.5449 14.7949H23.3799C23.5788 14.7949 23.7696 14.8739 23.9103 15.0146C24.0509 15.1552 24.1299 15.346 24.1299 15.5449C24.1299 15.7438 24.0509 15.9346 23.9103 16.0753C23.7696 16.2159 23.5788 16.2949 23.3799 16.2949ZM26.2149 16.2949H25.3399C25.141 16.2949 24.9502 16.2159 24.8096 16.0753C24.6689 15.9346 24.5899 15.7438 24.5899 15.5449C24.5899 15.346 24.6689 15.1552 24.8096 15.0146C24.9502 14.8739 25.141 14.7949 25.3399 14.7949H26.2149C26.4138 14.7949 26.6046 14.8739 26.7453 15.0146C26.8859 15.1552 26.9649 15.346 26.9649 15.5449C26.9649 15.7438 26.8859 15.9346 26.7453 16.0753C26.6046 16.2159 26.4138 16.2949 26.2149 16.2949Z" fill="white"/>
                         </svg>
                     </div>
-                    <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-50' >Create New <br/>Continuation Sheet</p>
+                    <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Create New <br/>Continuation Sheet</p>
                     <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#5815BA]' />
                 </div>
                 {/* <div onClick={()=> navigate('/dashboard/doctor/managecontinuationsheet')} className='bg-[#F28211] w-full rounded-md px-6 py-8 relative cursor-pointer' >
@@ -34,7 +43,7 @@ export default function DoctorTab() {
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7935 1C16.2075 1 16.5435 1.336 16.5435 1.75L16.544 2.59781C18.0041 2.69792 19.2167 3.19805 20.075 4.0581C21.012 4.9991 21.505 6.3521 21.5 7.9751V17.0981C21.5 20.4301 19.384 22.5001 15.979 22.5001H7.521C4.116 22.5001 2 20.4011 2 17.0221V7.9731C2 4.83029 3.88706 2.81294 6.96469 2.59815L6.9653 1.75C6.9653 1.336 7.3013 1 7.7153 1C8.1293 1 8.4653 1.336 8.4653 1.75L8.465 2.579H15.043L15.0435 1.75C15.0435 1.336 15.3795 1 15.7935 1ZM20 9.904H3.5V17.0221C3.5 19.5881 4.928 21.0001 7.521 21.0001H15.979C18.572 21.0001 20 19.6141 20 17.0981L20 9.904ZM16.2012 16.1963C16.6152 16.1963 16.9512 16.5323 16.9512 16.9463C16.9512 17.3603 16.6152 17.6963 16.2012 17.6963C15.7872 17.6963 15.4472 17.3603 15.4472 16.9463C15.4472 16.5323 15.7782 16.1963 16.1922 16.1963H16.2012ZM11.7637 16.1963C12.1777 16.1963 12.5137 16.5323 12.5137 16.9463C12.5137 17.3603 12.1777 17.6963 11.7637 17.6963C11.3497 17.6963 11.0097 17.3603 11.0097 16.9463C11.0097 16.5323 11.3407 16.1963 11.7547 16.1963H11.7637ZM7.3169 16.1963C7.7309 16.1963 8.0669 16.5323 8.0669 16.9463C8.0669 17.3603 7.7309 17.6963 7.3169 17.6963C6.9029 17.6963 6.5619 17.3603 6.5619 16.9463C6.5619 16.5323 6.8939 16.1963 7.3079 16.1963H7.3169ZM16.2012 12.3096C16.6152 12.3096 16.9512 12.6456 16.9512 13.0596C16.9512 13.4736 16.6152 13.8096 16.2012 13.8096C15.7872 13.8096 15.4472 13.4736 15.4472 13.0596C15.4472 12.6456 15.7782 12.3096 16.1922 12.3096H16.2012ZM11.7637 12.3096C12.1777 12.3096 12.5137 12.6456 12.5137 13.0596C12.5137 13.4736 12.1777 13.8096 11.7637 13.8096C11.3497 13.8096 11.0097 13.4736 11.0097 13.0596C11.0097 12.6456 11.3407 12.3096 11.7547 12.3096H11.7637ZM7.3169 12.3096C7.7309 12.3096 8.0669 12.6456 8.0669 13.0596C8.0669 13.4736 7.7309 13.8096 7.3169 13.8096C6.9029 13.8096 6.5619 13.4736 6.5619 13.0596C6.5619 12.6456 6.8939 12.3096 7.3079 12.3096H7.3169ZM15.043 4.079H8.465L8.4653 5.041C8.4653 5.455 8.1293 5.791 7.7153 5.791C7.3013 5.791 6.9653 5.455 6.9653 5.041L6.96477 4.1017C4.72454 4.28989 3.5 5.64786 3.5 7.9731V8.404H20L20 7.9731C20.004 6.7381 19.672 5.7781 19.013 5.1181C18.4345 4.53791 17.5889 4.1914 16.5444 4.10218L16.5435 5.041C16.5435 5.455 16.2075 5.791 15.7935 5.791C15.3795 5.791 15.0435 5.455 15.0435 5.041L15.043 4.079Z" fill="white"/>
                         </svg>
                     </div>
-                    <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-50' >Make <br/>Request</p>
+                    <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Make <br/>Request</p>
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#109205]' />
                 </div> 
                 {/* <div onClick={()=> navigate('/dashboard/managepatient')} className='bg-[#176AE7] w-full rounded-md px-6 py-8 relative cursor-pointer' >

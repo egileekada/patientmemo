@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import DateFormat from './components/DateFormat'
+import DateFormat from './DateFormat'
 
 export default function GetPatientInfo(props: any) {
  

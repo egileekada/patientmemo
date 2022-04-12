@@ -71,22 +71,15 @@ export default function AddUser() {
                     headers: { 'content-type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 }})      
-                
+                alert('New User Added')
                 navigate('/dashboard')
                 
             } catch (error) { 
                 return error
             }
           }
-    }
-
-//     curl --location --request POST 'http://localhost:5001/auth/add-an-admin' \
-// --form 'fullName="George Boma Smith "' \
-// --form 'email="bomageorg@gmail.com"' \
-// --form 'role="nurse"' \
-// --form 'image=@"/Users/georgeb.smith/Downloads/dogs-vs-cats/train/cat.8.jpg"' \
-// --form 'title="Mr"'
-
+    } 
+    
     return (
         <div className='w-full h-full px-24 pt-10' > 
             <div className='w-full px-12 py-4 flex items-center ' > 
@@ -212,7 +205,7 @@ export default function AddUser() {
                 </div>
                 <div className='w-full my-14 font-Ubuntu-Regular text-sm' >
                     <RadioGroup onChange={(e: any)=> setRole(e)} >
-                        <Stack spacing={5} direction='row'>
+                        <Stack spacing={8} direction='row'>
                             <Radio colorScheme='green' value='doctor'>
                             Doctor
                             </Radio>
@@ -225,9 +218,9 @@ export default function AddUser() {
                             <Radio colorScheme='green' value='lab'>
                             Lab
                             </Radio>
-                            <Radio colorScheme='green' value='admin'>
+                            {/* <Radio colorScheme='green' value='admin'>
                             Admin
-                            </Radio>
+                            </Radio> */}
                         </Stack>
                     </RadioGroup>
                 </div>
