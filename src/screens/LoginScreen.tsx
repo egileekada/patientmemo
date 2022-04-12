@@ -53,7 +53,8 @@ export default function LoginScreen() {
                 // console.log(request.status)
                 // console.log(json)
                 if (request.status === 200) {   
-                    sessionStorage.setItem('token', json.token);    
+                    sessionStorage.setItem('token', json.token);   
+                    localStorage.setItem('token', json.token);    
                     localStorage.setItem('userData', JSON. stringify(json.user));        
                     const t1 = setTimeout(() => { 
                         if(json.user.role === 'doctor'){
