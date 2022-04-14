@@ -97,9 +97,7 @@ export default function ViewUserInfo() {
                 return error
             }
           }
-    } 
-
-    console.log(userData.role)
+    }  
 
     return (
         <div className='w-full h-full px-24 pt-10' > 
@@ -223,7 +221,7 @@ export default function ViewUserInfo() {
                         </div> 
                     </div> 
                 </div>
-                <div className='w-full my-14 font-Ubuntu-Regular text-sm' >
+                {/* <div className='w-full my-14 font-Ubuntu-Regular text-sm' >
                     <RadioGroup defaultValue={userData.role} isDisabled onChange={(e: any)=> setRole(e)} >
                         <Stack spacing={8} direction='row'>
                             <Radio colorScheme='green' value='doctor'>
@@ -240,7 +238,7 @@ export default function ViewUserInfo() {
                             </Radio> 
                         </Stack>
                     </RadioGroup>
-                </div>
+                </div> */}
             </div>
         </div>
     )
