@@ -6,34 +6,6 @@ import GetUserInfo from '../../GetUserInfo'
 import LoaderIcon from '../../LoaderIcon'
 
 export default function MedicalList(props: any) {
-
-    const Information = [
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-        { 
-            doctor: 'Dr. Emmanuel Joseph', 
-            drugs: 'Paracetamol', 
-            date: '12:00am, 31st, Jul 2021', 
-            sign: 'Nurse Jecinta'
-        }, 
-    ]
-
     
     const { isLoading, data } = useQuery('MedicalSheet', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/medical-sheets`, {
@@ -101,8 +73,8 @@ export default function MedicalList(props: any) {
                                                     <p className='font-Ubuntu-Regular text-xs mt-1' >001</p>
                                                 </div>
                                             </Td> 
-                                            <Td>{item.date}</Td> 
-                                            <Td>{item.sign}</Td>  
+                                            <Td>{DateFormat(item.createdAt)}</Td> 
+                                            <Td><GetUserInfo data={item.nurse._id} /></Td>  
                                         </Tr> 
                                     )
                                 })}

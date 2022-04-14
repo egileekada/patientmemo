@@ -5,11 +5,10 @@ import DateFormat from '../../DateFormat'
 import GetUserInfo from '../../GetUserInfo'
 import LoaderIcon from '../../LoaderIcon'
 
-export default function OberservationChartList() {
-
-
-    const { isLoading, data } = useQuery('OberservationChartListData', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/observation-charts`, {
+export default function OIChartList() {
+ 
+    const { isLoading, data } = useQuery('OIChartListData', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/input-outputs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -18,7 +17,7 @@ export default function OberservationChartList() {
         }).then(res =>
             res.json()
         )
-    )   
+    )     
 
     return (
         <div className='w-full flex flex-col justify-center items-center  px-16 py-6' >
@@ -44,7 +43,7 @@ export default function OberservationChartList() {
                         return( 
                             <> 
                                 {index === 1 && ( 
-                                    <div className='w-full' >
+                                    <div key={index} className='w-full' >
                                         <div className=' w-full bg-[#7123E2] rounded-md text-white py-12 px-2' >
                                             <div className='w-full flex pl-2 ' > 
                                                 <div className='w-8 h-8 rounded-full flex bg-[#FFFFFF4F] justify-center items-center' >
@@ -58,48 +57,36 @@ export default function OberservationChartList() {
                                                 </div>
                                             </div>
                                             <div className='w-full mt-6' >
-                                                <div className='w-full flex items-center py-2 bg-[#F4F4F43D] px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >Temp:</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.temperature} degree celcious</p>
+                                                <div className='w-full flex items-center py-2 bg-[#FFFFFF4F] px-3' >
+                                                    <p className='text-sm font-Ubuntu-Regular ' >Nature of fluid:</p>
+                                                    <p className='text-sm font-Ubuntu-Medium ml-auto  ' >{item.natureOfFluid}</p>
                                                 </div>
                                                 <div className='w-full flex items-center py-2 px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >Pulse:</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.pulse}</p>
+                                                    <p className='text-sm font-Ubuntu-Regular ' >Amount:</p>
+                                                    <p className='text-sm font-Ubuntu-Medium ml-auto  ' >{item.amount}mls</p>
                                                 </div>
-                                                <div className='w-full flex items-center py-2 bg-[#F4F4F43D] px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >R.....: </p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.R}</p>
-                                                </div>
-                                                <div className='w-full flex items-center py-2 px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >B/P:</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.BP}</p>
-                                                </div>
-                                                <div className='w-full flex items-center py-2 bg-[#F4F4F43D] px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >FHR:</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.FHR}</p>
+                                                <div className='w-full flex items-center py-2 bg-[#FFFFFF4F] px-3' >
+                                                    <p className='text-sm font-Ubuntu-Regular ' >Urine:</p>
+                                                    <p className='text-sm font-Ubuntu-Medium ml-auto  ' >{item.urine}m/s</p>
                                                 </div>
                                                 <div className='w-full flex items-center py-2 px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >Uterine contraction:</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.uterineContraction}</p>
+                                                    <p className='text-sm font-Ubuntu-Regular ' >Emesis:</p>
+                                                    <p className='text-sm font-Ubuntu-Medium ml-auto  ' >{item.emesis}</p>
                                                 </div>
-                                                <div className='w-full flex items-center py-2 bg-[#F4F4F43D] px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >Nurse</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' ><GetUserInfo data={item.nurse._id} /></p>
-                                                </div>
+                                                <div className='w-full flex items-center py-2 bg-[#FFFFFF4F] px-3' >
+                                                    <p className='text-sm font-Ubuntu-Regular ' >BO:</p>
+                                                    <p className='text-sm font-Ubuntu-Medium ml-auto  ' >{item.BO}</p>
+                                                </div> 
                                                 <div className='w-full flex items-center py-2 px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >CX OS</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.CXOS}</p>
-                                                </div>
-                                                <div className='w-full flex items-center py-2 bg-[#F4F4F43D] px-3' >
-                                                    <p className=' text-sm font-Ubuntu-Regular ' >Remark</p>
-                                                    <p className='text-sm font-Ubuntu-Medium ml-auto   ' >{item.remark}</p>
-                                                </div>
-                                            </div>
+                                                    <p className='text-sm font-Ubuntu-Regular ' >Nurse</p>
+                                                    <p className='text-sm font-Ubuntu-Medium ml-auto  ' ><GetUserInfo data={item.nurse._id} /></p>
+                                                </div> 
+                                            </div>  
                                         </div> 
                                     </div>
                                 )}
 
-                            {index !== 1 && ( 
+                            {index !== 1 && (  
                                 <div key={index} className=' w-full py-12' >
                                     <div className='w-full flex' > 
                                         <div className='w-8 h-8 rounded-full flex bg-[#7123E214] justify-center items-center' >
@@ -114,43 +101,31 @@ export default function OberservationChartList() {
                                     </div>
                                     <div className='w-full mt-6' >
                                         <div className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Temp:</p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.temperature} degree celcious</p>
+                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nature of fluid:</p>
+                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.natureOfFluid}</p>
                                         </div>
                                         <div className='w-full flex items-center py-2 px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Pulse:</p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.pulse}</p>
+                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Amount:</p>
+                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.urine}mls</p>
                                         </div>
                                         <div className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >R.....: </p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.R}</p>
+                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Urine:</p>
+                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.urine}m/s</p>
                                         </div>
                                         <div className='w-full flex items-center py-2 px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >B/P:</p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.BP}</p>
+                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Emesis:</p>
+                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.emesis}</p>
                                         </div>
                                         <div className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >FHR:</p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.FHR}</p>
-                                        </div>
+                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >BO:</p>
+                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.BO}</p>
+                                        </div> 
                                         <div className='w-full flex items-center py-2 px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Uterine contraction:</p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.uterineContraction}</p>
-                                        </div>
-                                        <div className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
                                             <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nurse</p>
                                             <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' ><GetUserInfo data={item.nurse._id} /></p>
-                                        </div>
-                                        <div className='w-full flex items-center py-2 px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >CX OS</p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.CXOS}</p>
-                                        </div>
-                                        <div className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
-                                            <p className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Remark</p>
-                                            <p className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{item.remark}</p>
-                                        </div>
+                                        </div> 
                                     </div> 
-                                </div>  
+                                </div> 
                             )}
                         </>
                         )

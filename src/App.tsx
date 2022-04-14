@@ -28,8 +28,8 @@ import NurseScreen from './screens/NurseScreen';
 import MedicationSheet from './components/nurseComponent/MedicationSheet';
 import ProfileTab from './Tabs/ProfileTab';
 import ObservationChart from './components/nurseComponent/ObservationChart';
-
-
+import OIChart from './components/nurseComponent/OIChart';
+ 
 const queryClient = new QueryClient()
 
 function App() {
@@ -56,6 +56,7 @@ function App() {
                 <Route path='/dashboard/nurse' element={<NurseTab />} />
                 <Route path='/dashboard/nurse/medicationsheet' element={<MedicationSheet />} />
                 <Route path='/dashboard/nurse/observationchart' element={<ObservationChart />} />
+                <Route path='/dashboard/nurse/oichart' element={<OIChart />} />
               </Route>
               <Route path='/dashboard/doctor' element={<DoctorScreen />}>
                 <Route path='/dashboard/doctor' element={<DoctorTab />} />

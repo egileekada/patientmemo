@@ -20,6 +20,8 @@ export default function MedicationSheet() {
         setNext(0)
     } 
 
+    console.log(info)
+
     return (
         <div className='w-full h-full ' >
             <div className='w-full px-12 border-b py-5 flex items-center border-[#D7D0DF]' > 

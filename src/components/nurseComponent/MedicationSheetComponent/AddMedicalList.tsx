@@ -27,10 +27,10 @@ export default function AddMedicalList(props: any) {
             res.json()
         )
     )   
-    
+ 
     React.useEffect(() => {
         formik.setFieldValue('patient', props.data.patient)
-        formik.setFieldValue('requestId', props.data.doctor)
+        formik.setFieldValue('requestId', props.data._id)
     }, []) 
  
     console.log(props.data)
@@ -40,14 +40,7 @@ export default function AddMedicalList(props: any) {
         initialValues: {prescription: '', patient: '',  requestId: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
-    });     
-
-    // {
-    //     "prescription":"This is the description",
-    //     "patient":"624c67420892c90016448c29",
-    //     "dateAndTime":"12pm-2pm",
-    //     "requestId":"62544b63d241e00016c7ecd2"
-    // }
+    });      
 
     const submit=async()=> {
 
@@ -68,10 +61,8 @@ export default function AddMedicalList(props: any) {
                     body: JSON.stringify(formik.values),
                 });
         
-                const json = await request.json();
+                const json = await request.json(); 
 
-                console.log('next of kin '+request.status)
-                console.log('next of kin '+json)
                 if (request.status === 201) {            
                     const t1 = setTimeout(() => {  
                         // navigate('/dashboard/m')
@@ -108,29 +99,7 @@ export default function AddMedicalList(props: any) {
                         disabled
                         _placeholder={{color: 'black'}} 
                         fontSize='sm' placeholder={userData.fullName ? userData.fullName : (userData.firstName+' '+userData.lastName) } />
-                </div>
-                {/* <div className='mr-2' >
-                    <p className='text-xs mb-2' >Date/Time</p>
-                    <Input 
-                        name="dateAndTime"
-                        onChange={formik.handleChange}
-                        type='datetime-local'
-                        onFocus={() =>
-                            formik.setFieldTouched("dateAndTime", true, true)
-                        }  
-                        fontSize='sm' placeholder='Enter Date And Time' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.dateAndTime && formik.errors.dateAndTime && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.dateAndTime}
-                            </motion.p>
-                        )}
-                    </div>  */}
-                {/* </div>  */}
+                </div> 
             </div>
             <div className='w-full flex mt-3' >
                 <div className=' w-full mr-2' >

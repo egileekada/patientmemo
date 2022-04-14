@@ -1,10 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
-import AddObservationchart from './MedicationSheetComponent/AddObservationchart'
-import OberservationChartList from './MedicationSheetComponent/OberservationChartList'
+import AddIOChart from './MedicationSheetComponent/AddIOChart'
+import OIChartList from './MedicationSheetComponent/OIChartList'
 
-export default function ObservationChart() {
+export default function OIChart() {
     
     const navigate = useNavigate()
     const [tab, setTab] = React.useState(false)
@@ -21,12 +21,12 @@ export default function ObservationChart() {
                 </div>
                 <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Observation chart</p>  
                 {!tab && (
-                    <button onClick={()=> setTab(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Add New Patient</button>
+                    <button onClick={()=> setTab(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >New Chart</button>
                 )}
             </div> 
             <div className='w-full' >
                 {!tab && (
-                    <OberservationChartList />
+                    <OIChartList />
                 )}
                 {tab && (
                     <div className=' flex flex-1 justify-center items-center' > 
@@ -34,7 +34,7 @@ export default function ObservationChart() {
                             <FindPatient next={setNext} value={setData} />
                         )}
                         {next === 1 && (
-                            <AddObservationchart data={data} />
+                            <AddIOChart data={data} />
                         )}
                     </div>
                 )}

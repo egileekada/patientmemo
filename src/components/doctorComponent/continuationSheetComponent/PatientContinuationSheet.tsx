@@ -5,7 +5,7 @@ import GetUserInfo from '../../GetUserInfo'
 
 export default function PatientContinuationSheet(props: any) { 
 
-    const { data } = useQuery('PatientDataInfo', () =>
+    const { isLoading, data } = useQuery('PatientDataInfo', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/patients/${props.data.patient}`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -28,8 +28,8 @@ export default function PatientContinuationSheet(props: any) {
                     </div>
                 )}
                 <div className='ml-3' > 
-                    <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for {data.firstName+' '+data.lastName}</p>
-                    <p className='font-Ubuntu-Regular mt-2 text-sm' >{DateFormat(data.updatedAt)}</p>
+                    <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for {!isLoading && (data.firstName+' '+data.lastName)}</p>
+                    <p className='font-Ubuntu-Regular mt-2 text-sm' >{!isLoading && (DateFormat(data.updatedAt))}</p>
                 </div>
                 {/* <button className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button> */}
             </div> 
