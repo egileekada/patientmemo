@@ -55,7 +55,8 @@ export default function LoginScreen() {
                 if (request.status === 200) {   
                     sessionStorage.setItem('token', json.token);   
                     localStorage.setItem('token', json.token);    
-                    localStorage.setItem('userData', JSON. stringify(json.user));        
+                    localStorage.setItem('userData', JSON. stringify(json.user));   
+                    console.log(json.user.role)     
                     const t1 = setTimeout(() => { 
                         if(json.user.role === 'doctor'){
                             localStorage.setItem('tab', '1')
@@ -67,8 +68,8 @@ export default function LoginScreen() {
                             localStorage.setItem('tab', '3')
                             navigate('/dashboard/pharmacy'); 
                         } else {
-                            navigate('/dashboard'); 
                             localStorage.setItem('tab', '0')
+                            navigate('/dashboard'); 
                         }
                         clearTimeout(t1);
                         setLoading(false);

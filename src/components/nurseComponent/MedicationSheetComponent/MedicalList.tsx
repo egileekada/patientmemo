@@ -60,10 +60,12 @@ export default function MedicalList(props: any) {
                                         <Tr className={index === 1 ? 'font-Ubuntu-Medium text-sm rounded-lg text-white bg-[#7123E2]' : 'font-Ubuntu-Medium text-black text-sm'} key={index} >
                                             <Td>
                                                 <div className='flex items-center' >
-                                                    <div className='w-12 h-12 bg-red-400 rounded-full mr-3' />
+                                                    <div className='w-12 h-12 bg-red-400 rounded-full mr-3' >
+                                                        <GetUserInfo image={true} data={item.request.madeBy._id} />
+                                                    </div>
                                                     <div>
-                                                        <p className='font-Ubuntu-Medium text-sm' ></p>
-                                                        <p className='font-Ubuntu-Regular text-xs mt-1' >{DateFormat(item.updatedAt)}</p>
+                                                        <p className='font-Ubuntu-Medium text-sm' ><GetUserInfo data={item.request.madeBy._id} /></p>
+                                                        <p className='font-Ubuntu-Regular text-xs mt-1 ml-1' >{DateFormat(item.updatedAt)}</p>
                                                     </div>
                                                 </div>
                                             </Td> 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import user from '../assets/images/user.png'
 
 export default function GetUserInfo(props: any) { 
 
@@ -22,9 +23,24 @@ export default function GetUserInfo(props: any) {
                 null:
                 <>
                     {data.map((item: any)=> {
-                        if(item._id === props.data){
+                        if(item._id === props.data){ 
                             return( 
-                                <p className='font-Ubuntu-Medium text-sm ml-1' >{item.title ? item.title+' ': ''}{item.fullName ? item.fullName : (item.firstName+' '+item.lastName)}</p>
+                                <>
+                                    {props.image && (
+                                        <> 
+                                            {item.avatar && ( 
+                                                <img src={item.avatar} alt='avater' className='w-full h-full rounded-full object-cover' />
+                                            )}
+                                            {!item.avatar && ( 
+                                                <img src={user} alt='avater' className='w-full h-full rounded-full object-cover' />
+                                            )}
+                                        </>
+                                    )}
+
+                                    {!props.image && (
+                                        <p className='font-Ubuntu-Medium text-sm ml-1' >{item.title ? item.title+' ': ''}{item.fullName ? item.fullName : (item.firstName+' '+item.lastName)}</p>
+                                    )}
+                                </>
                             )
                         }
                     })}

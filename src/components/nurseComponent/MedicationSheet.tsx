@@ -2,11 +2,15 @@ import { Input, InputGroup, InputLeftElement, Table, Tbody, Td, Th, Thead, Tr } 
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom' 
+import Request from '../dashboardComponent/managePatientComponent/Request'
 import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
 import PatientContinuationSheet from '../doctorComponent/continuationSheetComponent/PatientContinuationSheet'
+import RequestTab from '../doctorComponent/makingRequestComponent/RequestTab'
 import ContiunuationSheetList from '../doctorComponent/manageContinuationSheet/ContiunuationSheetList'
 import AddMedicalList from './MedicationSheetComponent/AddMedicalList'
+import GetAllRequest from './MedicationSheetComponent/GetAllRequest'
 import MedicalList from './MedicationSheetComponent/MedicalList'
+import ShowPrescription from './MedicationSheetComponent/ShowPrescription'
 
 export default function MedicationSheet() {
     
@@ -40,10 +44,11 @@ export default function MedicationSheet() {
                 {tab && ( 
                     <div className=' flex flex-1 justify-center items-center' > 
                         {next === 0 && (
-                            <ContiunuationSheetList next={setNext} patientinfo={setInfo} />
+                            // <Request />
+                            <GetAllRequest next={setNext} info={setInfo} />
                         )}
                         {next === 2 && (
-                            <PatientContinuationSheet doctor={true} data={info}  next={setNext} />
+                            <ShowPrescription data={info}  next={setNext} />
                         )}
                         {next === 1 && (
                             <AddMedicalList data={info} />

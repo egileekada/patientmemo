@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 export default function NurseTab() {
 
     const navigate = useNavigate()
-    const userData: any = JSON.parse(localStorage.getItem('userData')+'')
+    const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
 
     return (
         <div className='w-full h-full px-32 py-12 relative' >

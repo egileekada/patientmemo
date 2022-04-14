@@ -9,6 +9,7 @@ export default function Dashboard() {
     const navigate = useNavigate() 
 
     const ClickHandler =(item: any)=> {
+        localStorage.setItem('tab', item)
         setTab(item)
         if(item === '0'){
             navigate('/dashboard')
@@ -23,9 +24,7 @@ export default function Dashboard() {
         } else if(item === '5'){
             navigate('/dashboard/profile')
         }
-    }  
-
-    console.log(tab)
+    }   
 
     React.useEffect(() => {
         if(!sessionStorage.getItem('token')){

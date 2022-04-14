@@ -30,9 +30,9 @@ export default function DoctorRequest(props: any) {
             <div className='w-full py-8 flex items-center' >  
                 <div className='ml-0' > 
                     <p className='font-Ubuntu-Medium text-lg' >Requests by Doctors</p>
-                    <p className='font-Ubuntu-Regular text-sm' >12:00PM, 24, Jun 2021 - 12:00PM, 24, Jun 2022</p>
+                    {/* <p className='font-Ubuntu-Regular text-sm' >12:00PM, 24, Jun 2021 - 12:00PM, 24, Jun 2022</p> */}
                 </div>
-                <button className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button>
+                {/* <button className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button> */}
             </div>
             {isLoading ?
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 

@@ -1,8 +1,8 @@
 import { InputGroup, InputRightElement, Input } from '@chakra-ui/input'
 import React from 'react'
-import * as yup from 'yup'
-import { useFormik } from 'formik';  
-import { motion } from 'framer-motion'
+// import * as yup from 'yup'
+// import { useFormik } from 'formik';  
+// import { motion } from 'framer-motion'
 import * as axios from 'axios'   
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query';
@@ -46,7 +46,9 @@ export default function ManageScan() {
                 let formData = new FormData()  
 
                 // formData.append('requestId', requestInfo.madeBy._id) 
-                formData.append('images', item)    
+                item.map((items: any)=> {
+                    formData.append('images', items) 
+                })   
         
                 await axios.default.put(`https://hospital-memo-api.herokuapp.com/requests/scan/${requestInfo._id}`, formData, {
                     headers: { 'content-type': 'application/json',
@@ -74,7 +76,7 @@ export default function ManageScan() {
         )
     )      
 
-    console.log(data)
+    // console.log(data)
 
     const ClickHandler =(item: any)=> {
         setShow(true)

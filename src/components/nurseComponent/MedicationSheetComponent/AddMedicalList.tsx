@@ -16,20 +16,20 @@ export default function AddMedicalList(props: any) {
     }) 
     const navigate = useNavigate()
 
-    const { data } = useQuery('PatientDataInfo', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/patients/${props.data.patient}`, {
-            method: 'GET', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json', 
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            }
-        }).then(res =>
-            res.json()
-        )
-    )   
+    // const { data } = useQuery('PatientDataInfo', () =>
+    //     fetch(`https://hospital-memo-api.herokuapp.com/patients/${props.data.patient}`, {
+    //         method: 'GET', // or 'PUT'
+    //         headers: {
+    //             'Content-Type': 'application/json', 
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //     }).then(res =>
+    //         res.json()
+    //     )
+    // )   
  
     React.useEffect(() => {
-        formik.setFieldValue('patient', props.data.patient)
+        formik.setFieldValue('patient', props.data.patient._id)
         formik.setFieldValue('requestId', props.data._id)
     }, []) 
  
@@ -89,7 +89,8 @@ export default function AddMedicalList(props: any) {
                     <Input
                         disabled
                         _placeholder={{color: 'black'}} 
-                        fontSize='sm' placeholder={data.firstName+' '+data.lastName}  /> 
+                        fontSize='sm' placeholder={props.data.patient.firstName+' '+props.data.patient.lastName}  
+                        /> 
                 </div>  
             </div>
             <div className='w-full flex mt-3' >
@@ -124,10 +125,10 @@ export default function AddMedicalList(props: any) {
                     </div> 
                 </div> 
             </div> 
-            <div className='w-full flex mt-4' >
+            <div className='w-full flex justify-end mt-4' >
                 {/* <button onClick={()=> navigate('/dashboard')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button> */}
                 {loading ?  
-                    <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
+                    <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6  ml-auto rounded-full' >
                         <div className='flex items-center animate-pulse ' >
                             <LoaderIcon size='w-10 h-10 mr-1 animate-pulse ' /> 
                             Loading

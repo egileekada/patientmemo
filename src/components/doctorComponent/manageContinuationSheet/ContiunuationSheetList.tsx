@@ -27,16 +27,11 @@ export default function ContiunuationSheetList(props: any) {
         props.next(2)
     }
 
-    // console.log(data)
+    console.log(data)
 
     return (
         <div className='w-full h-full px-16  ' >
-            <div className='w-full py-8 flex items-center' > 
-                {/* <div onClick={()=> navigate('/dashboard')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
-                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div> */}
+            <div className='w-full py-8 flex items-center' >  
                 <div className='ml-0' > 
                     <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for All Patient</p>
                     {/* <p className='font-Ubuntu-Regular text-sm' >{DateFormat(props.value.updatedAt)}</p> */}
