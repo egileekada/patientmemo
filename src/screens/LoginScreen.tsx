@@ -62,7 +62,7 @@ export default function LoginScreen() {
                             navigate('/dashboard/doctor'); 
                         } else if(json.user.role === 'lab'){
                             localStorage.setItem('tab', '4')
-                            navigate('/dashboard/pharmacy'); 
+                            navigate('/dashboard/laboratory'); 
                         } else if(json.user.role === 'pharmacy'){
                             localStorage.setItem('tab', '3')
                             navigate('/dashboard/pharmacy'); 
