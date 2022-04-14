@@ -12,14 +12,14 @@ export default function LaboratoryTab() {
 
     return (
         <div className='w-full h-full relative' >
-            {userData.role !== 'lab' && ( 
+            {/* {userData.role !== 'lab' && ( 
                 <>
                     <div className="absolute flex flex-1 justify-center items-center inset-0 z-50 "> 
                         <p className='font-Ubuntu-Bold text-5xl text-white relative z-50' >You Are Not Assigned To This Role</p>
                     </div>
                     <div className=" opacity-50  absolute flex flex-1 inset-0 z-40 bg-[#7123E2]"/>
                 </>
-            )}
+            )} */}
             <div className='w-full px-12 border-b flex items-center border-[#D7D0DF]' >  
                 <p className='font-Ubuntu-Medium text-lg mr-20' >Manage the Labs</p> 
                 <div className='mx-auto flex' >
