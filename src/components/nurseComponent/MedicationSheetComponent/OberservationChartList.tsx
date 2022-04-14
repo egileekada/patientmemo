@@ -20,6 +20,8 @@ export default function OberservationChartList() {
         )
     )   
 
+    console.log(data)
+
     return (
         <div className='w-full flex flex-col justify-center items-center  px-16 py-6' >
             <div className='w-96' >

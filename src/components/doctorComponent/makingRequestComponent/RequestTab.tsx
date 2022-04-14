@@ -31,6 +31,8 @@ export default function RequestTab(props: any) {
 
     // console.log(props.value)
 
+    console.log(props.info)
+
     return ( 
         <div className='w-full px-16 py-12' > 
             {!show ?
@@ -89,11 +91,24 @@ export default function RequestTab(props: any) {
                             <img src={Lab} className='w-full h-44 rounded-md object-cover'  />
                             : props.info.kind === 'pharmacy' ? 
                                 <img src={Pharmacy} className='w-full h-44 rounded-md object-cover' /> :
-                                    <img src={Lab} className='w-full h-44 rounded-md object-cover'  />}
+                                    null}
                         {/* <div className='w-full bg-yellow-300 h-44 rounded-md' >
 
                         </div> */}
-                        <p className='mt-4 text-[#5F6777] text-base ml-4' >{props.info.description}</p>
+                    {props.info.kind !== 'scan' && (
+                        <>
+                            <p className='mt-4 text-[#5F6777] text-base ml-4' >{props.info.description}</p>
+                        </>
+                    )}
+                    {props.info.kind === 'scan' && (
+                        <>
+                            {props.info.scanImageURLs.map((item: any)=> {
+                                return(
+                                    <img src={item} alt='scan' />
+                                )
+                            })}
+                        </>
+                    )}
                         {/* <ol className='mt-4 text-[#5F6777] text-sm ml-4' type = "1" >
                             <li className='my-1'>Magna egestas. Porttitor ullamcorper</li>
                             <li className='my-1' >Tempor dictumst vel nunc. </li>

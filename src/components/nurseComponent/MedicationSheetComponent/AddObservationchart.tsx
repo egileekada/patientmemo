@@ -15,8 +15,7 @@ export default function AddObservationchart(props: any) {
 
     
     const loginSchema = yup.object({ 
-        patient: yup.string().required('Required'),
-        dateAndTime: yup.string().required('Required'), 
+        patient: yup.string().required('Required'), 
         pulse: yup.string().required('Required'), 
         BP: yup.string().required('Required'), 
         FHR: yup.string().required('Required'), 
@@ -29,7 +28,7 @@ export default function AddObservationchart(props: any) {
   
     // formik
     const formik = useFormik({
-        initialValues: {patient: '', dateAndTime: '',pulse: '', BP: '', FHR: '', uterineContraction: '', CXOS: '', remark: '', temperature: '', R: ''},
+        initialValues: {patient: '', pulse: '', BP: '', FHR: '', uterineContraction: '', CXOS: '', remark: '', temperature: '', R: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });      
@@ -105,14 +104,14 @@ export default function AddObservationchart(props: any) {
                 </div>  
             </div>
             <div className='w-full flex mt-3' >
-                <div className='mr-2' >
+                <div className=' w-full mr-2' >
                     <p className='text-xs mb-2' >Nurse</p>
                     <Input 
                         disabled
                         _placeholder={{color: 'black'}} 
                         fontSize='sm' placeholder={userData.fullName ? userData.fullName : (userData.firstName+' '+userData.lastName) } /> 
                 </div>
-                <div className='mr-2' >
+                {/* <div className='mr-2' >
                     <p className='text-xs mb-2' >Date/Time</p>
                     <Input 
                         name="dateAndTime"
@@ -133,7 +132,7 @@ export default function AddObservationchart(props: any) {
                             </motion.p>
                         )}
                     </div> 
-                </div> 
+                </div>  */}
             </div>
             <div className='w-full flex mt-3' >
                 <div className='mr-2' >
@@ -227,6 +226,7 @@ export default function AddObservationchart(props: any) {
                     <Input
                         name="temperature"
                         onChange={formik.handleChange}
+                        type='number'
                         onFocus={() =>
                             formik.setFieldTouched("temperature", true, true)
                         }  
@@ -288,14 +288,14 @@ export default function AddObservationchart(props: any) {
             </div>
             <div className='w-full flex mt-3' >
                 <div className=' w-full mr-2' >
-                    <p className='text-xs mb-2' >Prescription</p>
+                    <p className='text-xs mb-2' >Remark</p>
                     <Input
                         name="remark"
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("remark", true, true)
                         }  
-                        fontSize='sm' placeholder='Enter Prescription' />
+                        fontSize='sm' placeholder='Enter Remark' />
                     <div className="w-full h-auto pt-2">
                         {formik.touched.remark && formik.errors.remark && (
                             <motion.p
