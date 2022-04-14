@@ -38,7 +38,7 @@ export default function ManagePatient() {
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Visitations/Appointment</p>  
+                <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Patient</p>  
                 <div className='mx-auto w-96' >
                     <InputGroup >
                         <InputLeftElement 
@@ -51,7 +51,7 @@ export default function ManagePatient() {
                         <Input fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
                     </InputGroup> 
                 </div>
-                <button className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Add New Patient</button>
+                {/* <button className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Add New Patient</button> */}
             </div>
                 {isLoading ?
                     <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 

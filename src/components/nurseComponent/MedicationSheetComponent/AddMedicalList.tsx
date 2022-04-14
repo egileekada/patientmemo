@@ -4,25 +4,52 @@ import * as yup from 'yup'
 import { motion } from 'framer-motion';
 import React from 'react'
 import LoaderIcon from '../../LoaderIcon';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
-export default function AddMedicalList() {
+export default function AddMedicalList(props: any) {
     const [loading, setLoading] = React.useState(false);
     
     const loginSchema = yup.object({ 
-        firstName: yup.string().required('Required'),
-        otherNames: yup.string().required('Required'),
-        lastName: yup.string().required('Required'),
-        gender: yup.string().required('Required'), 
+        prescription: yup.string().required('Required'),
+        // dateAndTime: yup.string().required('Required'), 
     }) 
+    const navigate = useNavigate()
+
+    const { data } = useQuery('PatientDataInfo', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients/${props.data.patient}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )   
+    
+    React.useEffect(() => {
+        formik.setFieldValue('patient', props.data.patient)
+        formik.setFieldValue('requestId', props.data.doctor)
+    }, []) 
+ 
+    console.log(props.data)
 
     // formik
     const formik = useFormik({
-        initialValues: {firstName: '', otherNames: '',lastName: '', gender: ''},
+        initialValues: {prescription: '', patient: '',  requestId: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });     
 
-    const submit=()=> {
+    // {
+    //     "prescription":"This is the description",
+    //     "patient":"624c67420892c90016448c29",
+    //     "dateAndTime":"12pm-2pm",
+    //     "requestId":"62544b63d241e00016c7ecd2"
+    // }
+
+    const submit=async()=> {
 
         if (!formik.dirty) {
             alert('You have to fill in th form to continue');
@@ -31,11 +58,36 @@ export default function AddMedicalList() {
             alert('You have to fill in the form correctly to continue');
             return;
           }else {
-            // props.next(true)
-            // props.value(formik.values)
-            console.log(formik.values)
+            setLoading(true)
+                const request = await fetch(`https://hospital-memo-api.herokuapp.com/medical-sheets`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization : `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(formik.values),
+                });
+        
+                const json = await request.json();
+
+                console.log('next of kin '+request.status)
+                console.log('next of kin '+json)
+                if (request.status === 201) {            
+                    const t1 = setTimeout(() => {  
+                        // navigate('/dashboard/m')
+                        // props.tab(false)
+                        alert('Record Enter Successfull')
+                        navigate('/dashboard/nurse')
+                        clearTimeout(t1);
+                    }, 3000); 
+                }else {
+                    alert(json.error.message);
+                    console.log(json) 
+                } 
           }
     }
+
+    const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
 
     return (
         <div style={{width: '540px'}} className=' mx-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
@@ -44,226 +96,65 @@ export default function AddMedicalList() {
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Full Name</p>
                     <Input
-                        name="firstName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("firstName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Enter First Name' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.firstName && formik.errors.firstName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.firstName}
-                            </motion.p>
-                        )}
-                    </div> 
+                        disabled
+                        _placeholder={{color: 'black'}} 
+                        fontSize='sm' placeholder={data.firstName+' '+data.lastName}  /> 
                 </div>  
             </div>
             <div className='w-full flex mt-3' >
-                <div className='mr-2' >
+                <div className='w-full mr-2' >
                     <p className='text-xs mb-2' >Nurse</p>
-                    <Input
-                        name="firstName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("firstName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Enter First Name' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.firstName && formik.errors.firstName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.firstName}
-                            </motion.p>
-                        )}
-                    </div> 
+                    <Input 
+                        disabled
+                        _placeholder={{color: 'black'}} 
+                        fontSize='sm' placeholder={userData.fullName ? userData.fullName : (userData.firstName+' '+userData.lastName) } />
                 </div>
-                <div className='mr-2' >
+                {/* <div className='mr-2' >
                     <p className='text-xs mb-2' >Date/Time</p>
                     <Input 
-                        name="lastName"
+                        name="dateAndTime"
                         onChange={formik.handleChange}
-                        type='date'
+                        type='datetime-local'
                         onFocus={() =>
-                            formik.setFieldTouched("lastName", true, true)
+                            formik.setFieldTouched("dateAndTime", true, true)
                         }  
-                        fontSize='sm' placeholder='Enter Last Name' />
+                        fontSize='sm' placeholder='Enter Date And Time' />
                     <div className="w-full h-auto pt-2">
-                        {formik.touched.lastName && formik.errors.lastName && (
+                        {formik.touched.dateAndTime && formik.errors.dateAndTime && (
                             <motion.p
                                 initial={{ y: -100, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                             >
-                                {formik.errors.lastName}
+                                {formik.errors.dateAndTime}
                             </motion.p>
                         )}
-                    </div> 
-                </div> 
+                    </div>  */}
+                {/* </div>  */}
             </div>
             <div className='w-full flex mt-3' >
                 <div className=' w-full mr-2' >
                     <p className='text-xs mb-2' >Prescription</p>
                     <Input
-                        name="firstName"
+                        name="prescription"
                         onChange={formik.handleChange}
                         onFocus={() =>
-                            formik.setFieldTouched("firstName", true, true)
+                            formik.setFieldTouched("prescription", true, true)
                         }  
-                        fontSize='sm' placeholder='Enter First Name' />
+                        fontSize='sm' placeholder='Enter Prescription' />
                     <div className="w-full h-auto pt-2">
-                        {formik.touched.firstName && formik.errors.firstName && (
+                        {formik.touched.prescription && formik.errors.prescription && (
                             <motion.p
                                 initial={{ y: -100, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                             >
-                                {formik.errors.firstName}
+                                {formik.errors.prescription}
                             </motion.p>
                         )}
                     </div> 
                 </div> 
-            </div>
-            {/* <div className='w-full flex mt-5' >
-                <div className='mr-2' >
-                    <p className='text-xs mb-2' >Phone Number</p>
-                    <Input 
-                        name="phone"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("phone", true, true)
-                        }  
-                        fontSize='sm' placeholder='080 ...' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.phone && formik.errors.phone && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.phone}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div>
-                <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Address</p>
-                    <Input 
-                        name="address"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("address", true, true)
-                        }  
-                        fontSize='sm' placeholder='Home Address' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.address && formik.errors.address && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.address}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div> 
-            </div> */}
-            {/* <div className='w-full flex mt-5' >
-                <div className='mr-2' >
-                    <p className='text-xs mb-2' >Age</p>
-                    <Input 
-                        name="age"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("age", true, true)
-                        }  
-                        fontSize='sm' placeholder='Enter Age' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.age && formik.errors.age && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.age}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div>
-                <div className='mr-2' >
-                    <p className='text-xs mb-2' >Sex/Gender</p>
-                    <Select 
-                        name="gender"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("gender", true, true)
-                        }  
-                        fontSize='sm'  placeholder='Select'>
-                        <option>male</option>
-                        <option>female</option>
-                    </Select>
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.gender && formik.errors.gender && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.gender}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div>
-                <div className='mr-2' >
-                    <p className='text-xs mb-2' >State of Origin</p>
-                    <Input 
-                        name="stateOfOrigin"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("stateOfOrigin", true, true)
-                        }  
-                        fontSize='sm' placeholder='Enter Your State' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.stateOfOrigin && formik.errors.stateOfOrigin && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.stateOfOrigin}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div>
-                <div className='mr-2' >
-                    <p className='text-xs mb-2' >Local Governmet Area</p>
-                    <Input 
-                        name="LGA"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("LGA", true, true)
-                        }  
-                        fontSize='sm' placeholder='Enter LGA' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.LGA && formik.errors.LGA && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.LGA}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div>
-            </div>  */}
+            </div> 
             <div className='w-full flex mt-4' >
                 {/* <button onClick={()=> navigate('/dashboard')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button> */}
                 {loading ?  
@@ -274,7 +165,7 @@ export default function AddMedicalList() {
                         </div> 
                     </button>
                     :
-                    <button onClick={()=> submit() } className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full' >Next</button>
+                    <button onClick={()=> submit() } className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full ml-auto' >Submit</button>
                 }
             </div>
         </div>

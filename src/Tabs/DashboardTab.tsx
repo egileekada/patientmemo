@@ -3,11 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 export default function DashboardTab() {
 
-    const navigate = useNavigate()
-
-    const userData: any = JSON.parse(localStorage.getItem('userData')+'')
-
-    console.log(userData.role)
+    const navigate = useNavigate() 
+    const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
 
     return (
         <div className='w-full h-full relative px-32 py-12' > 

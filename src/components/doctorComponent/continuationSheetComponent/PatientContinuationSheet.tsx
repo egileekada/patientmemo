@@ -1,25 +1,37 @@
 import React from 'react'
+import { useQuery } from 'react-query'
 import DateFormat from '../../DateFormat'
 import GetUserInfo from '../../GetUserInfo'
 
-export default function PatientContinuationSheet(props: any) {
+export default function PatientContinuationSheet(props: any) { 
 
-    console.log(props.data)
-    console.log(props.value)
+    const { data } = useQuery('PatientDataInfo', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients/${props.data.patient}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )   
 
     return (
         <div className='w-full h-full px-16  ' >
             <div className='w-full pt-8 flex items-center' > 
-                <div onClick={()=> props.next(3)} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
-                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
+                {!props.doctor && (
+                    <div onClick={()=> props.next(3)} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                )}
                 <div className='ml-3' > 
-                    <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for {props.value.firstName+' '+props.value.lastName}</p>
-                    <p className='font-Ubuntu-Regular mt-2 text-sm' >{DateFormat(props.value.updatedAt)}</p>
+                    <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for {data.firstName+' '+data.lastName}</p>
+                    <p className='font-Ubuntu-Regular mt-2 text-sm' >{DateFormat(data.updatedAt)}</p>
                 </div>
-                <button className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button>
+                {/* <button className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button> */}
             </div> 
             <div className='mt-3 px-3 ml-10 flex items-center' > 
                 <div className='w-6 h-6 rounded-full flex bg-[#7123E214] justify-center items-center' >
@@ -41,6 +53,11 @@ export default function PatientContinuationSheet(props: any) {
             <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>Turpis ut in consequat id blandit arcu, porta vel est. Lacinia amet adipiscing volutpat condimentum nulla amet suspendisse massa etiam. Lobortis aliquam id mauris tempor nisi quis justo. In elementum diam venenatis aliquam vehicula. Morbi sed turpis ornare mauris at. Dictum viverra tempus aenean nullam. Mollis tellus in sed urna ultricies blandit semper diam habitasse. Pretium urna donec urna, cursus a rhoncus. Ornare posuere vivamus cursus dictumst. Aliquam ornare dolor ultricies mauris consequat, at. Tortor purus tristique ut euismod purus turpis eu. Tempus imperdiet leo sed eu. Sed sit consectetur ultrices id mauris mi.</p>
             <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>Aliquet nisi tempus eget pharetra dui purus penatibus sollicitudin. Pretium vulputate egestas fringilla lacinia tortor, nec volutpat, id. Nunc blandit maecenas tempus mauris posuere diam neque, diam accumsan. Tellus, vitae faucibus id tincidunt morbi. Sit libero platea ornare quam viverra senectus at eget. Ultricies ut nisl imperdiet fermentum aenean semper nibh. Morbi id purus commodo gravida habitasse sit. Adipiscing ac morbi morbi diam faucibus id condimentum. Diam at sed lobortis in </p>
             <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>nulla. Fringilla magna dictum neque, amet, quam risus ac ultricies. Tempus lacus massa in eu, sit consequat nascetur. A, id pulvinar feugiat eget eu tortor, ullamcorper morbi. Ac magna ultricies egestas in massa tincidunt nisl amet diam. Tempor ultrices quis rutrum porttitor ullamcorper. Erat tortor, facilisis aliquam cras aliquam etiam mauris.</p> */}
+            {props.doctor && (
+                <div className='w-full flex mt-10' >
+                    <button onClick={()=> props.next(1)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Add Prescription</button>
+                </div>
+            )}
         </div>
     )
 } 

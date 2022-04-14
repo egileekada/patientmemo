@@ -1,4 +1,3 @@
-import { Table, Thead, Tr, Th, Tbody, Td } from '@chakra-ui/table'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
@@ -50,10 +49,10 @@ export default function RequestTab() {
                                         <div className='w-full h-52' > 
                                             <div onClick={()=> OnClickHandler(item)} className=' cursor-pointer w-full h-40 ' >
                                                 {item.kind === 'lab' ? 
-                                                    <img src={Lab} className='w-full h-40 object-cover'  />
+                                                    <img src={Lab} alt='lab' className='w-full h-40 object-cover'  />
                                                     : item.kind === 'pharmacy' ? 
-                                                        <img src={Pharmacy} className='w-full h-40 object-cover' /> :
-                                                            <img src={Scan} className='w-full h-40 object-cover'  />}
+                                                        <img src={Pharmacy} alt='pharmacy' className='w-full h-40 object-cover' /> :
+                                                            <img src={Scan} alt='scan' className='w-full h-40 object-cover'  />}
                                             </div>
                                             {/* <div className='w-full h-40 bg-yellow-300' >
 

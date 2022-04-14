@@ -68,6 +68,7 @@ export default function LoginScreen() {
                             navigate('/dashboard/pharmacy'); 
                         } else {
                             navigate('/dashboard'); 
+                            localStorage.setItem('tab', '0')
                         }
                         clearTimeout(t1);
                         setLoading(false);

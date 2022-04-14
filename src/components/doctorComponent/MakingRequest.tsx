@@ -32,7 +32,9 @@ export default function MakingRequest() {
                     <p className='font-Ubuntu-Medium text-lg ml-3' >Register New Patients</p>
                     {/* <p className='font-Ubuntu-Regular text-sm' >12:00PM, 24, Jun 2021 - 12:00PM, 24, Jun 2022</p> */}
                 </div>   
-                <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Make Request</button> 
+                {tab !== 0 && ( 
+                    <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Make Request</button> 
+                )}
             </div> 
             <div className='w-full px-16 relative' >
                 {tab === 0 ? 

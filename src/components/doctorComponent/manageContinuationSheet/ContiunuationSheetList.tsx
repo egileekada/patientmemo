@@ -27,7 +27,7 @@ export default function ContiunuationSheetList(props: any) {
         props.next(2)
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <div className='w-full h-full px-16  ' >

@@ -24,7 +24,7 @@ export default function GetUserInfo(props: any) {
                     {data.map((item: any)=> {
                         if(item._id === props.data){
                             return( 
-                                <p className='font-Ubuntu-Medium text-sm ml-2' >{item.title+' '+item.fullName}</p>
+                                <p className='font-Ubuntu-Medium text-sm ml-1' >{item.title ? item.title+' ': ''}{item.fullName ? item.fullName : (item.firstName+' '+item.lastName)}</p>
                             )
                         }
                     })}
