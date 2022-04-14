@@ -83,15 +83,15 @@ export default function LoginScreen() {
         }  
     
     return (
-        <div className='w-full flex bg-white flex-row lg:py-20 pt-10 lg:h-full h-screen'>  
+        <div className='w-full flex bg-white flex-row lg:py-20 pt-10 h-screen'>  
             <div className='w-full h-full relative px-20 hidden lg:flex flex-col' >
                 <img src={SideImage} style={{borderRadius: '30px'}} alt='SideImage' />
             </div>
-            <div className='w-full h-full lg:h-screen justify-center relative items-center flex flex-col'>
+            <div className='w-full h-full justify-center relative items-center flex flex-col'>
                 
                 <div  className=' lg:w-500px w-full px-6 lg:pt-0  lg:px-0'>
 
-                    <img style={{width: '150px'}} className='lg:mt-0 lg:absolute lg:top-4 -mt-12' alt='logo' src={Logo} />
+                    <img style={{width: '200px'}} className='lg:mt-0 lg:absolute lg:top-24 -mt-12' alt='logo' src={Logo} />
 
                     <div className='  w-full lg:pt-0 pt-12  lg:px-0' >
                         <p className='text-2xl font-Ubuntu-Bold'>Sign in</p>
