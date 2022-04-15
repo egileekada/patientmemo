@@ -18,7 +18,7 @@ export default function RequestTab() {
     const navigate = useNavigate() 
  
     const { isLoading, data } = useQuery('lab-request', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/lab-results`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/requests`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -33,6 +33,8 @@ export default function RequestTab() {
         setShow(true)
     } 
 
+    console.log(data)
+
     return ( 
         <div className='w-full px-16 py-12' > 
             {!show ?
@@ -44,7 +46,7 @@ export default function RequestTab() {
                     :
                         <div className='w-full h-full grid grid-cols-4 gap-6 py-12 px-8' > 
                             {data.map((item: any)=> {
-                                // if(item.kind === 'pharmacy'){
+                                if(item.kind === 'lab'){
                                     return(  
                                         <div className='w-full h-52' > 
                                             <div onClick={()=> OnClickHandler(item)} className=' cursor-pointer w-full h-40 ' > 
@@ -70,6 +72,7 @@ export default function RequestTab() {
                                             </div>
                                         </div>  
                                     ) 
+                                }
                             })}
                         </div>
                     }
@@ -83,7 +86,7 @@ export default function RequestTab() {
                             </svg>
                         </div>
                         <div className='ml-3' > 
-                            <p className='font-Ubuntu-Medium text-lg flex' >Pharmacy Request for <GetPatientInfo title='name' data={info.patient._id} />
+                            <p className='font-Ubuntu-Medium text-lg flex' >Laboratory Request for <GetPatientInfo title='name' data={info.patient._id} />
                             </p>
                             <p className='font-Ubuntu-Regular text-[#5F6777] mt-2 text-xs' > <GetPatientInfo title='' data={info.patient._id} /></p>
                         </div>  
@@ -95,7 +98,7 @@ export default function RequestTab() {
                                 <path d="M6.99967 8.85179C9.53054 8.85179 11.6663 9.26304 11.6663 10.8497C11.6663 12.437 9.51653 12.8337 6.99967 12.8337C4.46939 12.8337 2.33301 12.4224 2.33301 10.8357C2.33301 9.24846 4.48281 8.85179 6.99967 8.85179ZM6.99967 1.16699C8.71415 1.16699 10.0878 2.54017 10.0878 4.25344C10.0878 5.96671 8.71415 7.34047 6.99967 7.34047C5.28578 7.34047 3.91152 5.96671 3.91152 4.25344C3.91152 2.54017 5.28578 1.16699 6.99967 1.16699Z" fill="#7123E2"/>
                             </svg>
                         </div>
-                        <GetUserInfo data={info.addedBy} />
+                        <GetUserInfo data={info.madeBy._id} />
                         {/* <p className='font-Ubuntu-Medium text-sm ml-2' >Dr. Emmanuel Joesph</p> */}
                     </div>   
                     <div className=' ml-12 px-20 my-10' >
@@ -108,7 +111,7 @@ export default function RequestTab() {
                         {/* <div className='w-full bg-yellow-300 h-44 rounded-md' >
 
                         </div> */}
-                        <p className='mt-4 text-[#5F6777] text-base ml-4' >{info.description}</p>
+                        <p className='mt-4 text-[#5F6777] text-base ml-4' >{info.description.replace('<p>', '').replace('</p>', '')}</p>
                         {/* <ol className='mt-4 text-[#5F6777] text-sm ml-4' type = "1" >
                             <li className='my-1'>Magna egestas. Porttitor ullamcorper</li>
                             <li className='my-1' >Tempor dictumst vel nunc. </li>

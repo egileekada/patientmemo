@@ -88,8 +88,8 @@ export default function AddUser() {
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div> */}
-                <div className='ml-0'> 
-                    <p className='font-Ubuntu-Medium text-lg' >Add New User</p> 
+                <div className='ml-0 '> 
+                    <p className='font-Ubuntu-Medium text-lg' >Add New Staff</p> 
                     <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Users</p> 
                 </div> 
                 {loading ? 
@@ -102,7 +102,7 @@ export default function AddUser() {
                     <button onClick={()=> sumbit(image)} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Add New User</button>
                 }
             </div>
-            <div className='w-full px-20 mt-8' >
+            <div className='w-96 mx-auto mt-8' >
                 <div className='flex items-center' >
 
                     {!image && (
@@ -123,7 +123,7 @@ export default function AddUser() {
                         <p className='font-Ubuntu-Medium text-sm text-[#28A745] ' >Update image</p>
                     </label>
                 </div>
-                <div className='w-full grid grid-cols-3 gap-4 mt-14 pb-14 border-b border-[#EEEEEE]' >
+                <div className='w-full grid grid-cols-1 gap-4 mt-14 pb-14 border-b border-[#EEEEEE]' >
                     <div className='w-full' > 
                         <Input 
                             name="email"

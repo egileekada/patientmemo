@@ -19,7 +19,7 @@ export default function OIChart() {
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Observation chart</p>  
+                <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Input/Output chart</p>  
                 {!tab && (
                     <button onClick={()=> setTab(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >New Chart</button>
                 )}

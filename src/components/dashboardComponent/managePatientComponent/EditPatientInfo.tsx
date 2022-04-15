@@ -112,13 +112,13 @@ export default function EditPatientInfo(props: any) {
     }
 
     return (
-        <div style={{width:'700px'}} className='w-auto h-full flex justify-center px-12 py-10 font-Ubuntu-Regular' > 
+        <div style={{width:'700px'}} className='w-auto h-full flex justify-center px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
             {!requestCode ? 
                 <div className='w-full' > 
                     <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
                     <div className='w-full flex mt-8' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >First Name</p>
+                            <p className='text-sm mb-2' >First Name</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.firstName}
                                 name="firstName"
@@ -139,7 +139,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Last Name/Surname</p>
+                            <p className='text-sm mb-2' >Last Name/Surname</p>
                             <Input fontSize='sm' disabled={!access ? true : false}  
                                 name="lastName"
                                 onChange={formik.handleChange}
@@ -160,7 +160,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Other Names</p>
+                            <p className='text-sm mb-2' >Other Names</p>
                             <Input fontSize='sm' disabled={!access ? true : false}  
                                 name="otherNames"
                                 onChange={formik.handleChange}
@@ -183,7 +183,7 @@ export default function EditPatientInfo(props: any) {
                     </div>
                     <div className='w-full flex mt-5' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Phone Number</p>
+                            <p className='text-sm mb-2' >Phone Number</p>
                             <Input fontSize='sm' disabled={!access ? true : false}  
                                 name="phone"
                                 onChange={formik.handleChange}
@@ -204,7 +204,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div>
                         <div className='mr-2 w-full' >
-                            <p className='text-xs mb-2' >Address</p>
+                            <p className='text-sm mb-2' >Address</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 name="address"
                                 onChange={formik.handleChange}
@@ -227,7 +227,7 @@ export default function EditPatientInfo(props: any) {
                     </div>
                     <div className='w-full flex mt-5' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Age</p>
+                            <p className='text-sm mb-2' >Age</p>
                             <Input fontSize='sm' disabled={!access ? true : false}  
                                 name="age"
                                 onChange={formik.handleChange}
@@ -248,7 +248,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Sex/Gender</p>
+                            <p className='text-sm mb-2' >Sex/Gender</p>
                             <Select fontSize='sm'  disabled={!access ? true : false} 
                                 name="gender"
                                 onChange={formik.handleChange}
@@ -272,7 +272,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >State of Origin</p>
+                            <p className='text-sm mb-2' >State of Origin</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 name="stateOfOrigin"
                                 onChange={formik.handleChange}
@@ -293,7 +293,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Local Governmet Area</p>
+                            <p className='text-sm mb-2' >Local Governmet Area</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 name="LGA"
                                 onChange={formik.handleChange}
@@ -316,7 +316,7 @@ export default function EditPatientInfo(props: any) {
                     </div>
                     <div className='w-full flex mt-5' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Occupation</p>
+                            <p className='text-sm mb-2' >Occupation</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 name="occupation"
                                 onChange={formik.handleChange}
@@ -337,7 +337,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div> 
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Religion</p>
+                            <p className='text-sm mb-2' >Religion</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 name="religion"
                                 onChange={formik.handleChange}
@@ -358,7 +358,7 @@ export default function EditPatientInfo(props: any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >accessKey</p>
+                            <p className='text-sm mb-2' >accessKey</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 name="accessKey"
                                 onChange={formik.handleChange}

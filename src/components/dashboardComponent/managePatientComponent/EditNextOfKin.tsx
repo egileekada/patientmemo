@@ -105,13 +105,13 @@ export default function EditNextOfKin(props : any) {
     // }
 
     return (
-        <div style={{width:'700px'}} className='w-auto h-full flex justify-center px-12 py-10 font-Ubuntu-Regular' > 
+        <div style={{width:'700px'}} className='w-auto h-full flex justify-center px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
             {!requestCode ? 
                 <div>
                     <p className='text-lg font-Ubuntu-Bold' >Next of Kin’s Information</p>
                     <div className='w-full flex mt-8' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >First Name</p>
+                            <p className='text-sm mb-2' >First Name</p>
                             <Input 
                                 name="firstName"
                                 onChange={formik.handleChange}
@@ -133,7 +133,7 @@ export default function EditNextOfKin(props : any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Last Name/Surname</p>
+                            <p className='text-sm mb-2' >Last Name/Surname</p>
                             <Input 
                                 name="lastName"
                                 onChange={formik.handleChange}
@@ -155,7 +155,7 @@ export default function EditNextOfKin(props : any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Other Names</p>
+                            <p className='text-sm mb-2' >Other Names</p>
                             <Input 
                                 name="otherNames"
                                 onChange={formik.handleChange}
@@ -179,7 +179,7 @@ export default function EditNextOfKin(props : any) {
                     </div>
                     <div className='w-full flex mt-5' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Relationship</p>
+                            <p className='text-sm mb-2' >Relationship</p>
                             <Input 
                                 name="relationship"
                                 onChange={formik.handleChange}
@@ -201,7 +201,7 @@ export default function EditNextOfKin(props : any) {
                             </div> 
                         </div> 
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Phone Number</p>
+                            <p className='text-sm mb-2' >Phone Number</p>
                             <Input 
                                 name="phone"
                                 onChange={formik.handleChange}
@@ -226,7 +226,7 @@ export default function EditNextOfKin(props : any) {
                     
                     <div className='w-full flex mt-5' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Age</p>
+                            <p className='text-sm mb-2' >Age</p>
                             <Input 
                                 name="age"
                                 type='number'
@@ -249,7 +249,7 @@ export default function EditNextOfKin(props : any) {
                             </div> 
                         </div>
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Sex/Gender</p>
+                            <p className='text-sm mb-2' >Sex/Gender</p>
                             <Select 
                                 name="gender"
                                 onChange={formik.handleChange}
@@ -274,7 +274,7 @@ export default function EditNextOfKin(props : any) {
                             </div> 
                         </div>  
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >Address</p>
+                            <p className='text-sm mb-2' >Address</p>
                             <Input 
                                 name="address"
                                 onChange={formik.handleChange}
@@ -298,7 +298,7 @@ export default function EditNextOfKin(props : any) {
                     </div>
                     <div className='w-full flex mt-5' >
                         <div className='mr-2' >
-                            <p className='text-xs mb-2' >accessKey</p>
+                            <p className='text-sm mb-2' >accessKey</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 name="accessKey"
                                 onChange={formik.handleChange}

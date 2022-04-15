@@ -36,7 +36,9 @@ export default function ContiunuationSheetList(props: any) {
                     <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for All Patient</p>
                     {/* <p className='font-Ubuntu-Regular text-sm' >{DateFormat(props.value.updatedAt)}</p> */}
                 </div>
-                <button onClick={()=> props.next(1)} className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button>
+                {!props.nurse && ( 
+                    <button onClick={()=> props.next(1)} className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button>
+                )}
             </div>
             {isLoading ?
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 

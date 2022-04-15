@@ -49,11 +49,11 @@ export default function PatientInfo(props: any) {
     }
 
     return (
-        <div className='w-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
+        <div className='w-auto h-full px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
             <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
             <div className='w-full flex mt-8' >
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >First Name</p>
+                    <p className='text-sm mb-2' >First Name</p>
                     <Input
                         name="firstName"
                         onChange={formik.handleChange}
@@ -74,7 +74,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Last Name/Surname</p>
+                    <p className='text-sm mb-2' >Last Name/Surname</p>
                     <Input 
                         name="lastName"
                         onChange={formik.handleChange}
@@ -95,7 +95,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Other Names</p>
+                    <p className='text-sm mb-2' >Other Names</p>
                     <Input 
                         name="otherNames"
                         onChange={formik.handleChange}
@@ -118,7 +118,7 @@ export default function PatientInfo(props: any) {
             </div>
             <div className='w-full flex mt-5' >
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Phone Number</p>
+                    <p className='text-sm mb-2' >Phone Number</p>
                     <Input 
                         name="phone"
                         onChange={formik.handleChange}
@@ -139,7 +139,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Address</p>
+                    <p className='text-sm mb-2' >Address</p>
                     <Input 
                         name="address"
                         onChange={formik.handleChange}
@@ -162,7 +162,7 @@ export default function PatientInfo(props: any) {
             </div>
             <div className='w-full flex mt-5' >
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Age</p>
+                    <p className='text-sm mb-2' >Age</p>
                     <Input 
                         name="age"
                         onChange={formik.handleChange}
@@ -183,7 +183,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Sex/Gender</p>
+                    <p className='text-sm mb-2' >Sex/Gender</p>
                     <Select 
                         name="gender"
                         onChange={formik.handleChange}
@@ -207,7 +207,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >State of Origin</p>
+                    <p className='text-sm mb-2' >State of Origin</p>
                     <Input 
                         name="stateOfOrigin"
                         onChange={formik.handleChange}
@@ -228,7 +228,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Local Governmet Area</p>
+                    <p className='text-sm mb-2' >Local Governmet Area</p>
                     <Input 
                         name="LGA"
                         onChange={formik.handleChange}
@@ -251,7 +251,7 @@ export default function PatientInfo(props: any) {
             </div>
             <div className='w-full flex mt-5' >
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Occupation</p>
+                    <p className='text-sm mb-2' >Occupation</p>
                     <Input 
                         name="occupation"
                         onChange={formik.handleChange}
@@ -272,7 +272,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div> 
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Religion</p>
+                    <p className='text-sm mb-2' >Religion</p>
                     <Input 
                         name="religion"
                         onChange={formik.handleChange}

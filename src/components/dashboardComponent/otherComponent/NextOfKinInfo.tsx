@@ -85,11 +85,11 @@ export default function NextOfKinInfo(props: any) {
     }   
 
     return (
-        <div className='w-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
+        <div className='w-auto h-full px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
             <p className='text-lg font-Ubuntu-Bold' >Next of Kin’s Information</p>
             <div className='w-full flex mt-8' >
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >First Name</p>
+                    <p className='text-sm mb-2' >First Name</p>
                     <Input 
                         name="firstName"
                         onChange={formik.handleChange}
@@ -110,7 +110,7 @@ export default function NextOfKinInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Last Name/Surname</p>
+                    <p className='text-sm mb-2' >Last Name/Surname</p>
                     <Input 
                         name="lastName"
                         onChange={formik.handleChange}
@@ -131,7 +131,7 @@ export default function NextOfKinInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Other Names</p>
+                    <p className='text-sm mb-2' >Other Names</p>
                     <Input 
                         name="otherNames"
                         onChange={formik.handleChange}
@@ -154,7 +154,7 @@ export default function NextOfKinInfo(props: any) {
             </div>
             <div className='w-full flex mt-5' >
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Relationship</p>
+                    <p className='text-sm mb-2' >Relationship</p>
                     <Input 
                         name="relationship"
                         onChange={formik.handleChange}
@@ -175,7 +175,7 @@ export default function NextOfKinInfo(props: any) {
                     </div> 
                 </div> 
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Phone Number</p>
+                    <p className='text-sm mb-2' >Phone Number</p>
                     <Input 
                         name="phone"
                         onChange={formik.handleChange}
@@ -199,7 +199,7 @@ export default function NextOfKinInfo(props: any) {
              
             <div className='w-full flex mt-5' >
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Age</p>
+                    <p className='text-sm mb-2' >Age</p>
                     <Input 
                         name="age"
                         type='number'
@@ -221,7 +221,7 @@ export default function NextOfKinInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Sex/Gender</p>
+                    <p className='text-sm mb-2' >Sex/Gender</p>
                     <Select 
                         name="gender"
                         onChange={formik.handleChange}
@@ -245,7 +245,7 @@ export default function NextOfKinInfo(props: any) {
                     </div> 
                 </div>  
                 <div className='mr-2' >
-                    <p className='text-xs mb-2' >Address</p>
+                    <p className='text-sm mb-2' >Address</p>
                     <Input 
                         name="address"
                         onChange={formik.handleChange}
@@ -267,7 +267,7 @@ export default function NextOfKinInfo(props: any) {
                 </div> 
             </div>
             <div className='w-full flex mt-4' >
-                <button onClick={()=> props.next(false) } className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button>
+                <button onClick={()=> navigate('/dashboard')} className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button>
                 {/* <button onClick={()=> submit() } className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full' >Create Profile</button> */}
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >

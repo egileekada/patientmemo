@@ -41,7 +41,7 @@ export default function OberservationChartList() {
                     <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
                 </div>
             :
-                <div className='w-full grid grid-cols-3 gap-7 mt-6' >
+                <div className='w-full grid grid-cols-3 gap-7 mt-12' >
                     {data.map((item: any, index: any)=> {
                         return( 
                             <> 

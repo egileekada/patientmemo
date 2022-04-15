@@ -110,18 +110,10 @@ export default function ViewUserInfo() {
                 <div className='ml-0'> 
                     <p className='font-Ubuntu-Medium text-lg' >Update Your Profile</p> 
                     <p className='font-Ubuntu-Regular text-sm mt-1' >Manage Users</p> 
-                </div> 
-                {loading ? 
-                    <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >
-                        <div className='flex items-center animate-pulse ' >
-                            <LoaderIcon size='w-6 h-6 mr-1 animate-pulse ' /> 
-                            Loading
-                        </div> 
-                    </button>:
-                    <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Update Profile</button>
-                }
+                </div>  
+                <button onClick={()=> navigate('/')} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Log Out</button> 
             </div>
-            <div className='w-full px-20 mt-8' >
+            <div className='w-96 mx-auto mt-8' >
                 <div className='flex items-center' >
 
                     {!image && (
@@ -153,7 +145,7 @@ export default function ViewUserInfo() {
                         <p className='font-Ubuntu-Medium text-sm text-[#28A745] ' >Update image</p>
                     </label>
                 </div>
-                <div className='w-full grid grid-cols-3 gap-4 mt-14 pb-14 border-b border-[#EEEEEE]' >
+                <div className='w-full grid grid-cols-1 gap-4 mt-14 pb-14 border-b border-[#EEEEEE]' >
                     <div className='w-full' > 
                         <Input 
                             name="email"
@@ -162,7 +154,7 @@ export default function ViewUserInfo() {
                             onFocus={() =>
                                 formik.setFieldTouched("email", true, true)
                             }  
-                            border='1px solid #EEEEEE' fontSize='sm' placeholder={userData.email} backgroundColor='#F9F9F9'  />
+                            border='1px solid #7123E2' fontSize='sm' placeholder={userData.email} backgroundColor='#F9F9F9'  />
                     
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.email && formik.errors.email && (
@@ -184,7 +176,7 @@ export default function ViewUserInfo() {
                             onFocus={() =>
                                 formik.setFieldTouched("fullName", true, true)
                             }  
-                            border='1px solid #EEEEEE' fontSize='sm' placeholder={userData.fullName} backgroundColor='#F9F9F9'  />
+                            border='1px solid #7123E2' fontSize='sm' placeholder={userData.fullName} backgroundColor='#F9F9F9'  />
                     
                         <div className="w-full h-auto pt-2">
                             {formik.touched.fullName && formik.errors.fullName && (
@@ -206,7 +198,7 @@ export default function ViewUserInfo() {
                             onFocus={() =>
                                 formik.setFieldTouched("title", true, true)
                             }  
-                            border='1px solid #EEEEEE' fontSize='sm' placeholder={userData.title} backgroundColor='#F9F9F9'  />
+                            border='1px solid #7123E2' fontSize='sm' placeholder={userData.title} backgroundColor='#F9F9F9'  />
 
                         <div className="w-full h-auto pt-2">
                             {formik.touched.title && formik.errors.title && (
@@ -220,6 +212,17 @@ export default function ViewUserInfo() {
                             )}
                         </div> 
                     </div> 
+                </div> 
+                <div className='w-full flex justify-end mt-10' > 
+                    {loading ? 
+                        <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >
+                            <div className='flex items-center animate-pulse ' >
+                                <LoaderIcon size='w-6 h-6 mr-1 animate-pulse ' /> 
+                                Loading
+                            </div> 
+                        </button>:
+                        <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Update Profile</button>
+                    }
                 </div>
                 {/* <div className='w-full my-14 font-Ubuntu-Regular text-sm' >
                     <RadioGroup defaultValue={userData.role} isDisabled onChange={(e: any)=> setRole(e)} >

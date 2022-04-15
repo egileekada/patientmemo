@@ -85,26 +85,26 @@ export default function LoginScreen() {
     return (
         <div className='w-full flex bg-white flex-row lg:py-20 pt-10 h-screen'>  
             <div className='w-full h-full relative px-20 hidden lg:flex flex-col' >
-                <img src={SideImage} style={{borderRadius: '30px'}} alt='SideImage' />
+                <img src={SideImage} style={{ height:'80vh', borderRadius: '30px'}} alt='SideImage' />
             </div>
-            <div className='w-full h-full justify-center relative items-center flex flex-col'>
+            <div className='w-full h-full items-center justify-center flex flex-col'>
                 
                 <div  className=' lg:w-500px w-full px-6 lg:pt-0  lg:px-0'>
 
-                    <img style={{width: '200px'}} className='lg:mt-0 lg:absolute lg:top-24 -mt-12' alt='logo' src={Logo} />
+                    <img style={{width: '200px'}} className=' lg:mt-0  -mt-12' alt='logo' src={Logo} />
 
-                    <div className='  w-full lg:pt-0 pt-12  lg:px-0' >
+                    <div className='  w-full lg:pt-0 pt-12 mt-10 lg:px-0' >
                         <p className='text-2xl font-Ubuntu-Bold'>Sign in</p>
                         {/* <p className='text-base font-Graphik-Regular mt-4 mb-6'>Manage 9Jawarehouse SEAMLESSLY</p>  */}
                         <div className='my-4 pt-4 w-full' >
                             <p className='text-sm mb-1 font-Ubuntu-Medium '>Email Address</p> 
                             <Input 
-                            name="email"
-                            onChange={formik.handleChange}
-                            onFocus={() =>
-                                formik.setFieldTouched("email", true, true)
-                            }  
-                            size='lg' fontSize='sm' placeholder="Email" />
+                                name="email"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("email", true, true)
+                                }  
+                                size='lg' fontSize='sm' placeholder="Email" />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.email && formik.errors.email && (
                                     <motion.p

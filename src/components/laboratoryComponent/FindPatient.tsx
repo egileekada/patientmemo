@@ -1,6 +1,7 @@
 import { Input } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'; 
+import SearchBar from '../doctorComponent/continuationSheetComponent/SearchBar';
 import LoaderIcon from '../LoaderIcon';
 
 export default function FindPatient(props: any) { 
@@ -10,48 +11,48 @@ export default function FindPatient(props: any) {
     const [data, setData] = React.useState([] as any);  
     const [name, setName] = React.useState('');  
 
-    const submit = async () => { 
+    // const submit = async () => { 
 
-        setLoading(true);
-        const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/search-patients
-        `, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({
-                keyword: name
-            }),
-        });
+    //     setLoading(true);
+    //     const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/search-patients
+    //     `, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         },
+    //         body: JSON.stringify({
+    //             keyword: name
+    //         }),
+    //     });
 
-        const json = await request.json();
+    //     const json = await request.json();
 
-        console.log(request.status)
-        console.log(json)
-        if (request.status === 201) {   
-            setData(json)
-            // localStorage.setItem('token', json.token);         
-            // const t1 = setTimeout(() => { 
-            //     if(json.user.role === 'nurse'){
-            //         navigate('/dashboard'); 
-            //     } else {
-            //         navigate('/dashboard'); 
-            //     }
-            //     clearTimeout(t1);
-            //     setLoading(false);
-            // }, 3000); 
-        }else {
-            alert(json.message);
-            console.log(json)
-            setLoading(false);
-        } 
+    //     console.log(request.status)
+    //     console.log(json)
+    //     if (request.status === 201) {   
+    //         setData(json)
+    //         // localStorage.setItem('token', json.token);         
+    //         // const t1 = setTimeout(() => { 
+    //         //     if(json.user.role === 'nurse'){
+    //         //         navigate('/dashboard'); 
+    //         //     } else {
+    //         //         navigate('/dashboard'); 
+    //         //     }
+    //         //     clearTimeout(t1);
+    //         //     setLoading(false);
+    //         // }, 3000); 
+    //     }else {
+    //         alert(json.message);
+    //         console.log(json)
+    //         setLoading(false);
+    //     } 
 
-        if(json.length === 0){
-            alert('No Patient Found');
-        }
-        setLoading(false)
-    }   
+    //     if(json.length === 0){
+    //         alert('No Patient Found');
+    //     }
+    //     setLoading(false)
+    // }   
 
     const ClickHandler =(item: any)=> {
         props.value(item)
@@ -61,12 +62,17 @@ export default function FindPatient(props: any) {
     return (
         <div className='w-96 py-20 my-auto' > 
             <div className='w-full border-b pb-10 flex flex-col justify-center items-center border-[#DFE4EB]' > 
-                <p className='text-lg font-Ubuntu-Bold' >Upload Lab Result</p>
-                <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To upload a patient lab record, you wil have to verify if patient has a file in the hospital.</p>
-                <div className='mt-8 w-full ' > 
-                    <Input onChange={(e)=> setName(e.target.value)} borderRadius='6px' fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' />
+                <p className='text-lg font-Ubuntu-Bold' >Enter Patient Name</p>
+                <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To create a continuation sheet, you wil have to verity patient<br/>before you has a file in the hospital.</p>
+                <div className='mt-8 w-full relative ' > 
+                    <Input onChange={(e)=> setName(e.target.value)} size='lg' borderRadius='6px' fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' />
+                    {name && (
+                        <div style={{boxShadow: '0px 16px 24px 0px #60617029'}} className='absolute top-12 w-full h-32 overflow-y-auto' >
+                            <SearchBar open={ClickHandler} name={name} />
+                        </div>
+                    )}
                 </div>
-                {loading ?
+                {/* {loading ?
                     <button onClick={()=> submit()} className='w-44 flex justify-center items-center rounded-full h-10 mt-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >
                         <div className='flex mx-auto items-center animate-pulse ' >
                             <LoaderIcon size='w-8 h-8 mr-1 animate-pulse ' /> 
@@ -74,10 +80,10 @@ export default function FindPatient(props: any) {
                         </div> 
                     </button>:
                     <button onClick={()=> submit()} className='w-44 rounded-full h-10 mt-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >Find Patient</button>
-                }
+                } */}
                 
             </div> 
-            {data.length !== 0 ? 
+            {/* {data.length !== 0 ? 
                 <>
                     {data.map((item: any)=> {
                         return(
@@ -96,7 +102,7 @@ export default function FindPatient(props: any) {
                         )
                     })}
                 </>
-            :null}
+            :null} */}
         </div>
     )
 } 

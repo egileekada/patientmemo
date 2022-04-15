@@ -18,6 +18,8 @@ export default function MedicationSheet() {
     const [tab, setTab] = React.useState(false)
     const [next, setNext] = React.useState(0) 
     const [info, setInfo] = React.useState({} as any)   
+    const [datainfo, setData] = React.useState({} as any)
+    const [patientInfo, setPatientInfo] = React.useState({} as any)  
 
     const CLickHandler =()=>{
         setTab(true)
@@ -39,22 +41,34 @@ export default function MedicationSheet() {
             </div> 
             <div className='w-full' >
                 {!tab && (
-                    <MedicalList input={true} />
+                    // <MedicalList input={true} />
+                    <div className=' flex flex-1 justify-center items-center' >
+                        {next === 0 ?
+                        <FindPatient next={setNext} value={setData} />
+                            :next === 1 ? 
+                            <ContiunuationSheetList nurse={true} patientinfo={setPatientInfo} value={datainfo} next={setNext} />
+                                :next === 2 ?  
+                            <PatientContinuationSheet data={patientInfo} value={datainfo} next={setNext} />
+                            :next === 3 ? 
+                                <ContiunuationSheetList nurse={true} patientinfo={setPatientInfo} value={datainfo} next={setNext} />
+                        :null}
+                        </div>
                 )}
-                {tab && ( 
+                {/* {tab && ( 
                     <div className=' flex flex-1 justify-center items-center' > 
                         {next === 0 && (
                             // <Request />
                             <GetAllRequest next={setNext} info={setInfo} />
                         )}
                         {next === 2 && (
-                            <ShowPrescription data={info}  next={setNext} />
+                            <ContiunuationSheetList />
+                            // <ShowPrescription data={info}  next={setNext} />
                         )}
                         {next === 1 && (
                             <AddMedicalList data={info} />
                         )}
                     </div> 
-                )}
+                )} */}
             </div>
         </div>
     )

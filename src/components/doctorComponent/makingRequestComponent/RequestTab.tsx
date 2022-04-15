@@ -84,7 +84,7 @@ export default function RequestTab(props: any) {
                             </svg>
                         </div>
                         {/* <p className='font-Ubuntu-Medium text-sm ml-2' >Dr. Emmanuel Joesph</p> */}
-                        <GetUserInfo data={props.info.madeBy} />
+                        <GetUserInfo data={props.info.madeBy._id} />
                     </div>   
                     <div className=' ml-12 px-20 my-10' >
                         {props.info.kind === 'lab' ? 
@@ -97,7 +97,7 @@ export default function RequestTab(props: any) {
                         </div> */}
                     {props.info.kind !== 'scan' && (
                         <>
-                            <p className='mt-4 text-[#5F6777] text-base ml-4' >{props.info.description}</p>
+                            <p className='mt-4 text-[#5F6777] text-base ml-4' >{props.info.description.replace('<p>', '').replace('</p>', '')}</p>
                         </>
                     )}
                     {props.info.kind === 'scan' && (
@@ -118,12 +118,12 @@ export default function RequestTab(props: any) {
                             <li className='my-1'>Tortor, sceler</li>
                         </ol>  */}
                     </div>
-                    {props.info.kind === 'pharmacy' ?  
+                    {/* {props.info.kind === 'pharmacy' ?  
                         <div className=' ml-12 px-10 my-10'>
                             <p className='font-Ubuntu-Bold text-lg ' >Medication Sheet</p>
                             <MedicalList />
                         </div>
-                    :null}
+                    :null} */}
                 </div>
             }
         </div>
