@@ -65,7 +65,7 @@ export default function SearchBar(props: any) {
                                 </div>
                                 <div className='ml-3' > 
                                     <p className='font-Ubuntu-Medium text-sm' >{item.firstName+' '+item.lastName}</p>
-                                    <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{item.phone}</p>
+                                    <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{item._id}</p>
                                 </div>
                                 <button onClick={()=> props.open(item)} className='w-20 rounded-md py-2 text-xs bg-[#7123E2] ml-auto text-white font-Ubuntu-Medium' >Open</button>
                             </div>

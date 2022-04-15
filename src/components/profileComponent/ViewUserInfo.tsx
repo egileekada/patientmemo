@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import React from 'react'
 import { useNavigate } from 'react-router';
+import Avater from '../../assets/images/user.png'
 import LoaderIcon from '../LoaderIcon';
 import * as yup from 'yup' 
 import * as axios from 'axios'   
@@ -51,16 +52,16 @@ export default function ViewUserInfo() {
         }   
     } 
      
-    const loginSchema = yup.object({ 
-        fullName: yup.string().required('Required'),
-        title: yup.string().required('Required'),
-        email: yup.string().email('Enter Your Email').required('Required')
-    })    
+    // const loginSchema = yup.object({ 
+    //     fullName: yup.string().required('Required'),
+    //     title: yup.string().required('Required'),
+    //     email: yup.string().email('Enter Your Email').required('Required')
+    // })    
  
     // formik
     const formik = useFormik({
         initialValues: {fullName: '', title: '',email: ''},
-        validationSchema: loginSchema,
+        // validationSchema: loginSchema,
         onSubmit: () => {},
     });    
 
@@ -113,48 +114,50 @@ export default function ViewUserInfo() {
                 </div>  
                 <button onClick={()=> navigate('/')} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Log Out</button> 
             </div>
-            <div className='w-96 mx-auto mt-8' >
+            <div className='w-96 border border-[#333] rounded-xl p-6 mx-auto mt-8' >
                 <div className='flex items-center' >
 
                     {!image && (
-                        <div className='w-20 h-20 flex justify-center items-center rounded-full border-dashed  border border-[#7123E2] ' >
+                        <div className='w-20 h-20 flex justify-center items-center rounded-full  ' >
 
                             {!userData.avatar && (
-                                <svg width="25" height="25" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2266 12.1287C13.2266 14.3261 10.2132 14.5801 7.94723 14.5801L7.78507 14.5799C6.34137 14.5764 2.66656 14.4853 2.66656 12.1154C2.66656 9.96291 5.5588 9.67524 7.80755 9.66439L8.10938 9.6642C9.553 9.66771 13.2266 9.75886 13.2266 12.1287ZM7.94723 10.6641C5.10657 10.6641 3.66657 11.1521 3.66657 12.1154C3.66657 13.0874 5.10657 13.5801 7.94723 13.5801C10.7872 13.5801 12.2266 13.0921 12.2266 12.1287C12.2266 11.1567 10.7872 10.6641 7.94723 10.6641ZM7.94723 1.33313C9.89923 1.33313 11.4866 2.92113 11.4866 4.87313C11.4866 6.82513 9.89923 8.41246 7.94723 8.41246H7.9259C5.9779 8.40646 4.3999 6.8178 4.40654 4.87113C4.40654 2.92113 5.99457 1.33313 7.94723 1.33313ZM7.94723 2.28513C6.5199 2.28513 5.35855 3.4458 5.35855 4.87313C5.3539 6.2958 6.50657 7.4558 7.9279 7.46113L7.94723 7.93713V7.46113C9.3739 7.46113 10.5346 6.2998 10.5346 4.87313C10.5346 3.4458 9.3739 2.28513 7.94723 2.28513Z" fill="#7123E2" fill-opacity="0.7"/>
-                                </svg>
+
+                                <img className='w-20 h-20 rounded-full object-cover' src={Avater} alt=""/> 
+                                // <svg width="25" height="25" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                //     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2266 12.1287C13.2266 14.3261 10.2132 14.5801 7.94723 14.5801L7.78507 14.5799C6.34137 14.5764 2.66656 14.4853 2.66656 12.1154C2.66656 9.96291 5.5588 9.67524 7.80755 9.66439L8.10938 9.6642C9.553 9.66771 13.2266 9.75886 13.2266 12.1287ZM7.94723 10.6641C5.10657 10.6641 3.66657 11.1521 3.66657 12.1154C3.66657 13.0874 5.10657 13.5801 7.94723 13.5801C10.7872 13.5801 12.2266 13.0921 12.2266 12.1287C12.2266 11.1567 10.7872 10.6641 7.94723 10.6641ZM7.94723 1.33313C9.89923 1.33313 11.4866 2.92113 11.4866 4.87313C11.4866 6.82513 9.89923 8.41246 7.94723 8.41246H7.9259C5.9779 8.40646 4.3999 6.8178 4.40654 4.87113C4.40654 2.92113 5.99457 1.33313 7.94723 1.33313ZM7.94723 2.28513C6.5199 2.28513 5.35855 3.4458 5.35855 4.87313C5.3539 6.2958 6.50657 7.4558 7.9279 7.46113L7.94723 7.93713V7.46113C9.3739 7.46113 10.5346 6.2998 10.5346 4.87313C10.5346 3.4458 9.3739 2.28513 7.94723 2.28513Z" fill="#7123E2" fill-opacity="0.7"/>
+                                // </svg>
                             )}
 
                             {userData.avatar && (
-                                <label className='w-20 cursor-pointer rounded-full h-20 flex flex-col justify-center items-center ' > 
-                                    <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
+                                // <label className='w-20 cursor-pointer rounded-full h-20 flex flex-col justify-center items-center ' > 
+                                //     <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
                                     <img className='w-20 h-20 rounded-full object-cover' src={userData.avatar} alt=""/> 
-                                </label>
+                                // </label>
                             )}
                         </div>
                     )} 
 
                     {image && (
-                        <label className='w-20 cursor-pointer rounded-full h-20 flex flex-col justify-center items-center ' > 
-                            <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
+                        // <label className='w-20 cursor-pointer rounded-full h-20 flex flex-col justify-center items-center ' > 
+                        //     <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
                             <img className='w-20 h-20 rounded-full object-cover' src={selectedFiles} alt=""/> 
-                        </label>
+                        // </label>
                     )}
-                    <label className='cursor-pointer ml-4'>
+                    {/* <label className='cursor-pointer ml-4'>
                         <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
                         <p className='font-Ubuntu-Medium text-sm text-[#28A745] ' >Update image</p>
-                    </label>
+                    </label> */}
                 </div>
-                <div className='w-full grid grid-cols-1 gap-4 mt-14 pb-14 border-b border-[#EEEEEE]' >
+                <div className='w-full grid grid-cols-1 gap-4 font-Ubuntu-Medium mt-14 pb-14 border-b border-[#EEEEEE]' >
                     <div className='w-full' > 
                         <Input 
                             name="email"
                             onChange={formik.handleChange}
-                            disabled
+                            // disabled
                             onFocus={() =>
                                 formik.setFieldTouched("email", true, true)
                             }  
-                            border='1px solid #7123E2' fontSize='sm' placeholder={userData.email} backgroundColor='#F9F9F9'  />
+                            border='1px solid #000' fontSize='sm' value={userData.email} backgroundColor='#F9f9f9' size='lg'  />
                     
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.email && formik.errors.email && (
@@ -172,11 +175,11 @@ export default function ViewUserInfo() {
                         <Input 
                             name="fullName"
                             onChange={formik.handleChange}
-                            disabled
+                            // disabled
                             onFocus={() =>
                                 formik.setFieldTouched("fullName", true, true)
                             }  
-                            border='1px solid #7123E2' fontSize='sm' placeholder={userData.fullName} backgroundColor='#F9F9F9'  />
+                            border='1px solid #7123E2' fontSize='sm' value={userData.fullName} backgroundColor='#F9f9f9' size='lg'  />
                     
                         <div className="w-full h-auto pt-2">
                             {formik.touched.fullName && formik.errors.fullName && (
@@ -194,11 +197,11 @@ export default function ViewUserInfo() {
                         <Input 
                             name="title"
                             onChange={formik.handleChange}
-                            disabled
+                            // disabled
                             onFocus={() =>
                                 formik.setFieldTouched("title", true, true)
                             }  
-                            border='1px solid #7123E2' fontSize='sm' placeholder={userData.title} backgroundColor='#F9F9F9'  />
+                            border='1px solid #7123E2' fontSize='sm' value={userData.title} backgroundColor='#F9f9f9' size='lg'  />
 
                         <div className="w-full h-auto pt-2">
                             {formik.touched.title && formik.errors.title && (
@@ -213,7 +216,7 @@ export default function ViewUserInfo() {
                         </div> 
                     </div> 
                 </div> 
-                <div className='w-full flex justify-end mt-10' > 
+                {/* <div className='w-full flex justify-end mt-10' > 
                     {loading ? 
                         <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >
                             <div className='flex items-center' >
@@ -223,7 +226,7 @@ export default function ViewUserInfo() {
                         </button>:
                         <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Update Profile</button>
                     }
-                </div>
+                </div> */}
                 {/* <div className='w-full my-14 font-Ubuntu-Regular text-sm' >
                     <RadioGroup defaultValue={userData.role} isDisabled onChange={(e: any)=> setRole(e)} >
                         <Stack spacing={8} direction='row'>

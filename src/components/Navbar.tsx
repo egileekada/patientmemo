@@ -36,7 +36,10 @@ export default function Navbar() {
                         <img className='w-12 h-12 rounded-full object-cover' src={user} alt='avatar'  />
                     )}
                 </div>
-                <p className='font-Ubuntu-Medium ml-3' >{userData.fullName ? userData.fullName:(userData.firstName+' '+userData.lastName)}</p>
+                <div className='ml-3' >
+                    <p className='font-Ubuntu-Medium' >{userData.fullName ? userData.fullName:(userData.firstName+' '+userData.lastName)}</p>
+                    <p className='font-Ubuntu-Medium text-sm mt-1 ' >{'ID - '+userData._id}</p>
+                </div>
             </div>
         </div>
     )

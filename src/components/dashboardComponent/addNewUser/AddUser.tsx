@@ -171,7 +171,7 @@ export default function AddUser() {
                         <p className='font-Ubuntu-Medium text-sm text-[#28A745] ' >Upload image</p>
                     </label>
                 </div>
-                <div className='w-full grid grid-cols-1 gap-4 mt-14 pb-14 border-b border-[#EEEEEE]' >
+                <div className='w-full grid grid-cols-1 gap-4 font-Ubuntu-Medium mt-14 pb-14 border-b border-[#EEEEEE]' >
                     <div className='w-full' > 
                         <Input 
                             name="email"
@@ -179,7 +179,7 @@ export default function AddUser() {
                             onFocus={() =>
                                 formik.setFieldTouched("email", true, true)
                             }  
-                            border='1px solid #EEEEEE' fontSize='sm' placeholder='Enter email address' backgroundColor='#F9F9F9'  />
+                            border='1px solid #EEEEEE' fontSize='sm' placeholder='Enter email address' backgroundColor='#e3e3e3' size='lg' />
                     
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.email && formik.errors.email && (
@@ -200,7 +200,7 @@ export default function AddUser() {
                             onFocus={() =>
                                 formik.setFieldTouched("fullName", true, true)
                             }  
-                            border='1px solid #EEEEEE' fontSize='sm' placeholder='Name' backgroundColor='#F9F9F9'  />
+                            border='1px solid #EEEEEE' fontSize='sm' placeholder='Name' backgroundColor='#e3e3e3' size='lg'  />
                     
                         <div className="w-full h-auto pt-2">
                             {formik.touched.fullName && formik.errors.fullName && (
@@ -221,7 +221,7 @@ export default function AddUser() {
                             onFocus={() =>
                                 formik.setFieldTouched("title", true, true)
                             }  
-                            border='1px solid #EEEEEE' fontSize='sm' placeholder='Title' backgroundColor='#F9F9F9'  />
+                            border='1px solid #EEEEEE' fontSize='sm' placeholder='Title' backgroundColor='#e3e3e3' size='lg' />
 
                         <div className="w-full h-auto pt-2">
                             {formik.touched.title && formik.errors.title && (

@@ -72,19 +72,10 @@ export default function ChangePassword(props: any) {
                     <p className='font-Ubuntu-Medium text-lg' >Update Your Profile</p> 
                     <p className='font-Ubuntu-Regular text-sm mt-1' >Manage Users</p> 
                 </div> 
-                {loading ? 
-                    <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >
-                        <div className='flex items-center' >
-                            <LoaderIcon size='w-6 h-6 mr-1' /> 
-                            Loading
-                        </div> 
-                    </button>:
-                    <button onClick={()=> submit()} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Update Password</button>
-                }
             </div>
 
-            <div className='w-full flex items-center justify-center mt-10' > 
-                <div className='my-4 pt-2 w-80 mr-2' >
+            <div className='w-96 flex-col mx-auto flex font-Ubuntu-Medium items-center justify-center mt-10' > 
+                <div className='my-4 pt-2 w-full' >
                     {/* <p className='text-sm mb-1 font-Ubuntu-Medium '>Password</p>   */} 
                     <Input 
                         name="password"
@@ -92,7 +83,7 @@ export default function ChangePassword(props: any) {
                         onFocus={() =>
                             formik.setFieldTouched("password", true, true)
                         } 
-                        type="password" size='lg' fontSize='sm' placeholder="Old Password" />  
+                        type="password" size='lg' fontSize='sm' bg='#e3e3e3' placeholder="Old Password" />  
                     <div className="w-full h-auto pt-2">
                         {formik.touched.password && formik.errors.password && (
                             <motion.p
@@ -105,7 +96,7 @@ export default function ChangePassword(props: any) {
                         )}
                     </div> 
                 </div> 
-                <div className='my-4 pt-2 w-80 mr-2' >
+                <div className='my-4 pt-2 w-full' >
                     {/* <p className='text-sm mb-1 font-Ubuntu-Medium '>Password</p>   */}
                     <InputGroup >
                         <InputRightElement 
@@ -121,7 +112,7 @@ export default function ChangePassword(props: any) {
                             onFocus={() =>
                                 formik.setFieldTouched("confirmPassword", true, true)
                             } 
-                            type={showpassword ? "text" : "confirmPassword"} size='lg' fontSize='sm' placeholder="New Password" /> 
+                            type={showpassword ? "text" : "confirmPassword"} size='lg' bg='#e3e3e3' fontSize='sm' placeholder="New Password" /> 
                     </InputGroup> 
                     <div className="w-full h-auto pt-2">
                         {formik.touched.confirmPassword && formik.errors.confirmPassword && (
@@ -135,6 +126,18 @@ export default function ChangePassword(props: any) {
                         )}
                     </div> 
                 </div> 
+                <div className='mt-12 w-full flex justify-end' > 
+                    {loading ? 
+                        <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >
+                            <div className='flex items-center' >
+                                <LoaderIcon size='w-6 h-6 mr-1' /> 
+                                Loading
+                            </div> 
+                        </button>:
+                        <button onClick={()=> submit()} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Update Password</button>
+                    }
+                </div>
+
             </div>
         </div>
     )
