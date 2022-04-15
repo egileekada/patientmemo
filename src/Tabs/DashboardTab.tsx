@@ -8,7 +8,7 @@ export default function DashboardTab() {
 
     return (
         <div className='w-full h-full relative px-32 py-12' > 
-            {userData.role !== 'nurse' && ( 
+            {userData.role !== 'admin' && ( 
                 <>
                     <div className="absolute flex flex-1 justify-center items-center inset-0 z-50 "> 
                         <p className='font-Ubuntu-Bold text-5xl text-white relative z-50' >You Are Not Assigned To This Role</p>

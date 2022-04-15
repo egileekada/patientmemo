@@ -112,7 +112,7 @@ export default function AddUser() {
                 }, 2000);  
                 
             } catch (error) { 
-                setMessage('Error Occurred')
+                setMessage('Email Already Used')
                 setModal(2)           
                 const t1 = setTimeout(() => {  
                     setModal(0)       
@@ -265,6 +265,9 @@ export default function AddUser() {
                             </Radio>
                             <Radio colorScheme='green' value='lab'>
                             Lab
+                            </Radio>
+                            <Radio colorScheme='green' value='admin'>
+                            Admin
                             </Radio>
                             {/* <Radio colorScheme='green' value='admin'>
                             Admin

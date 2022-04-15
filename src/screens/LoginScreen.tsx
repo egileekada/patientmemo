@@ -83,6 +83,9 @@ export default function LoginScreen() {
                         } else if(json.user.role === 'pharmacy'){
                             localStorage.setItem('tab', '3')
                             navigate('/dashboard/pharmacy'); 
+                        } else if(json.user.role === 'nurse'){
+                            localStorage.setItem('tab', '2')
+                            navigate('/dashboard/nurse'); 
                         } else {
                             localStorage.setItem('tab', '0')
                             navigate('/dashboard'); 

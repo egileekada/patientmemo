@@ -42,7 +42,7 @@ export default function Dashboard() {
 
             <div className=' w-full flex items-center justify-center border-t border-b border-[#D7D0DF]' >
 
-                {userData.role === 'nurse' && (  
+                {userData.role === 'admin' && (  
                     <div onClick={()=> ClickHandler('0')} className={tab === '0' ? 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-[#7123E2] px-3': 'flex items-center pb-4 pt-5 cursor-pointer mx-3 border-b-2 border-transparent px-3'} >
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.43457 0.43457V9.13022H5.65196V10.8694H2.86935V11.565H9.13022V10.8694H6.34761V9.13022H9.82587C10.2871 9.13022 10.7295 8.94699 11.0556 8.62084C11.3818 8.29469 11.565 7.85234 11.565 7.39109V0.43457H0.43457ZM10.8694 7.39109C10.8694 7.66784 10.7594 7.93325 10.5637 8.12894C10.368 8.32463 10.1026 8.43457 9.82587 8.43457H1.13022V1.13022H10.8694V7.39109Z" fill={tab === '0' ?  "#7123E2" : "#817D83"}/>
