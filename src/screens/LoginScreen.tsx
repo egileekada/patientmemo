@@ -108,7 +108,7 @@ export default function LoginScreen() {
         <div className='w-full flex bg-white flex-row lg:py-20 pt-10 h-screen'>  
             <Modal message={message} modal={modal} />
             <div className='w-full h-full relative px-20 hidden lg:flex flex-col' >
-                <img src={SideImage} style={{ height:'80vh', borderRadius: '30px'}} alt='SideImage' />
+                <img src={SideImage} className='object-cover' style={{ height:'100%', borderRadius: '30px'}} alt='SideImage' />
             </div>
             <div className='w-full h-full items-center justify-center flex flex-col'>
                 

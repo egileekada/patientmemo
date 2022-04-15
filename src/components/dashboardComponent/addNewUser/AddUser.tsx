@@ -151,11 +151,14 @@ export default function AddUser() {
                 <div className='flex items-center' >
 
                     {!image && (
-                        <div className='w-20 h-20 flex justify-center items-center rounded-full border-dashed  border border-[#7123E2] ' >
-                            <svg width="25" height="25" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2266 12.1287C13.2266 14.3261 10.2132 14.5801 7.94723 14.5801L7.78507 14.5799C6.34137 14.5764 2.66656 14.4853 2.66656 12.1154C2.66656 9.96291 5.5588 9.67524 7.80755 9.66439L8.10938 9.6642C9.553 9.66771 13.2266 9.75886 13.2266 12.1287ZM7.94723 10.6641C5.10657 10.6641 3.66657 11.1521 3.66657 12.1154C3.66657 13.0874 5.10657 13.5801 7.94723 13.5801C10.7872 13.5801 12.2266 13.0921 12.2266 12.1287C12.2266 11.1567 10.7872 10.6641 7.94723 10.6641ZM7.94723 1.33313C9.89923 1.33313 11.4866 2.92113 11.4866 4.87313C11.4866 6.82513 9.89923 8.41246 7.94723 8.41246H7.9259C5.9779 8.40646 4.3999 6.8178 4.40654 4.87113C4.40654 2.92113 5.99457 1.33313 7.94723 1.33313ZM7.94723 2.28513C6.5199 2.28513 5.35855 3.4458 5.35855 4.87313C5.3539 6.2958 6.50657 7.4558 7.9279 7.46113L7.94723 7.93713V7.46113C9.3739 7.46113 10.5346 6.2998 10.5346 4.87313C10.5346 3.4458 9.3739 2.28513 7.94723 2.28513Z" fill="#7123E2" fill-opacity="0.7"/>
-                            </svg>
-                        </div>
+                        <label className='w-20 cursor-pointer rounded-full h-20 flex flex-col justify-center items-center ' > 
+                            <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
+                            <div className='w-20 h-20 flex justify-center items-center rounded-full border-dashed  border border-[#7123E2] ' >
+                                <svg width="25" height="25" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2266 12.1287C13.2266 14.3261 10.2132 14.5801 7.94723 14.5801L7.78507 14.5799C6.34137 14.5764 2.66656 14.4853 2.66656 12.1154C2.66656 9.96291 5.5588 9.67524 7.80755 9.66439L8.10938 9.6642C9.553 9.66771 13.2266 9.75886 13.2266 12.1287ZM7.94723 10.6641C5.10657 10.6641 3.66657 11.1521 3.66657 12.1154C3.66657 13.0874 5.10657 13.5801 7.94723 13.5801C10.7872 13.5801 12.2266 13.0921 12.2266 12.1287C12.2266 11.1567 10.7872 10.6641 7.94723 10.6641ZM7.94723 1.33313C9.89923 1.33313 11.4866 2.92113 11.4866 4.87313C11.4866 6.82513 9.89923 8.41246 7.94723 8.41246H7.9259C5.9779 8.40646 4.3999 6.8178 4.40654 4.87113C4.40654 2.92113 5.99457 1.33313 7.94723 1.33313ZM7.94723 2.28513C6.5199 2.28513 5.35855 3.4458 5.35855 4.87313C5.3539 6.2958 6.50657 7.4558 7.9279 7.46113L7.94723 7.93713V7.46113C9.3739 7.46113 10.5346 6.2998 10.5346 4.87313C10.5346 3.4458 9.3739 2.28513 7.94723 2.28513Z" fill="#7123E2" fill-opacity="0.7"/>
+                                </svg>
+                            </div>
+                        </label>
                     )} 
                     {image && (
                         <label className='w-20 cursor-pointer rounded-full h-20 flex flex-col justify-center items-center ' > 
@@ -165,7 +168,7 @@ export default function AddUser() {
                     )}
                     <label className='cursor-pointer ml-4'>
                         <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
-                        <p className='font-Ubuntu-Medium text-sm text-[#28A745] ' >Update image</p>
+                        <p className='font-Ubuntu-Medium text-sm text-[#28A745] ' >Upload image</p>
                     </label>
                 </div>
                 <div className='w-full grid grid-cols-1 gap-4 mt-14 pb-14 border-b border-[#EEEEEE]' >

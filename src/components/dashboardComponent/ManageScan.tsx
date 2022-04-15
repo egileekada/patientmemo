@@ -158,7 +158,7 @@ export default function ManageScan() {
                                     <div className='w-full h-32 relative' >
                                         <img src={Scan} className='w-full h-32 rounded-md object-cover'  alt='scan' />
                                         <div className='py-1 rounded-sm px-1 bg-[#FFFFFFCC] absolute bottom-2 right-2 ' >
-                                            <p className='font-Ubuntu-Medium text-sm  flex items-center' >BY <GetUserInfo data={requestInfo.madeBy._id} />
+                                            <p className='font-Ubuntu-Medium text-sm  flex items-center' >TO <GetUserInfo data={requestInfo.madeBy._id} />
                                             </p>
                                         </div>
                                     </div>

@@ -59,7 +59,7 @@ export default function ManagePatient() {
                     </div>
                 :
                     <div className='w-full grid grid-cols-4 bg-white relative z-50 gap-6 mt-8 px-8 py-6' > 
-                        {data.map((item: any)=> {
+                        {data.reverse().map((item: any)=> {
                             return(
                                 <div key={item._id} onClick={()=> ClickHandler(item._id)} className=' bg-[#7123E2] py-6 px-4 cursor-pointer text-white relative ' >
                                     <div className=' flex items-center relative z-50' > 
