@@ -17,7 +17,7 @@ export default function AddNewUser() {
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <p className='font-Ubuntu-Medium text-lg ml-14 absolute ' >Manage Users</p> 
+                <p className='font-Ubuntu-Medium text-lg ml-14 absolute ' >Manage Staff</p> 
                 <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-center pb-7 pt-8 cursor-pointer ml-auto mx-3 border-b-2 border-[#7123E2]  ': 'flex items-center  ml-auto pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
                     <p className={tab === 0 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Add New</p>
                 </div>

@@ -144,7 +144,7 @@ export default function AddUser() {
                             Loading
                         </div> 
                     </button>:
-                    <button onClick={()=> sumbit(image)} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Add New User</button>
+                    <button onClick={()=> sumbit(image)} className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >Add New Staff</button>
                 }
             </div>
             <div className='w-96 mx-auto mt-8' >

@@ -72,7 +72,7 @@ export default function DoctorEditor(props: any) {
 
             console.log(request.status)
             console.log(json)
-            if (request.status === 200) { 
+            if (request.status === 201) { 
                 setMessage('Record Added Successfully')
                 setModal(1)           
                 const t1 = setTimeout(() => {  
