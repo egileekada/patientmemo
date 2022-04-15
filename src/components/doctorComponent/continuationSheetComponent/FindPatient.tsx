@@ -2,6 +2,7 @@ import { Input } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'; 
 import LoaderIcon from '../../LoaderIcon';
+import SearchBar from './SearchBar';
 
 export default function FindPatient(props: any) { 
 
@@ -63,10 +64,15 @@ export default function FindPatient(props: any) {
             <div className='w-full border-b pb-10 flex flex-col justify-center items-center border-[#DFE4EB]' > 
                 <p className='text-lg font-Ubuntu-Bold' >Enter Patient Name</p>
                 <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To create a continuation sheet, you wil have to verity patient<br/>before you has a file in the hospital.</p>
-                <div className='mt-8 w-full ' > 
-                    <Input onChange={(e)=> setName(e.target.value)} borderRadius='6px' fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' />
+                <div className='mt-8 w-full relative ' > 
+                    <Input onChange={(e)=> setName(e.target.value)} size='lg' borderRadius='6px' fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' />
+                    {name && (
+                        <div style={{boxShadow: '0px 16px 24px 0px #60617029'}} className='absolute top-12 w-full h-32 overflow-y-auto' >
+                            <SearchBar open={ClickHandler} name={name} />
+                        </div>
+                    )}
                 </div>
-                {loading ?
+                {/* {loading ?
                     <button onClick={()=> submit()} className='w-44 flex justify-center items-center rounded-full h-10 mt-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >
                         <div className='flex mx-auto items-center animate-pulse ' >
                             <LoaderIcon size='w-8 h-8 mr-1 animate-pulse ' /> 
@@ -74,10 +80,10 @@ export default function FindPatient(props: any) {
                         </div> 
                     </button>:
                     <button onClick={()=> submit()} className='w-44 rounded-full h-10 mt-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >Find Patient</button>
-                }
+                } */}
                 
             </div> 
-            {data.length !== 0 ? 
+            {/* {data.length !== 0 ? 
                 <>
                     {data.map((item: any)=> {
                         return(
@@ -96,7 +102,7 @@ export default function FindPatient(props: any) {
                         )
                     })}
                 </>
-            :null}
+            :null} */}
         </div>
     )
 } 
