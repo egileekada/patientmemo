@@ -5,9 +5,12 @@ import * as yup from 'yup'
 import React from 'react'
 import LoaderIcon from '../../LoaderIcon';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../Modal';
 
 export default function AddObservationchart(props: any) {
     const [loading, setLoading] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
 
     React.useEffect(() => {
         formik.setFieldValue('patient', props.data._id)
@@ -39,10 +42,27 @@ export default function AddObservationchart(props: any) {
     const submit= async()=> {
 
         if (!formik.dirty) {
-            alert('You have to fill in th form to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                navigate('/dashboard/nurse')
+                clearTimeout(t1); 
+            }, 2000); 
             return;
           }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
+            // alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                props.next(0)
+                props.tab(false)
+                // navigate('/dashboard/nurse')
+                clearTimeout(t1); 
+            }, 2000); 
             return;
           }else {
               setLoading(true)
@@ -57,25 +77,38 @@ export default function AddObservationchart(props: any) {
         
                 const json = await request.json();
 
-                console.log('next of kin '+request.status)
-                console.log('next of kin '+json)
-                if (request.status === 201) {            
-                    const t1 = setTimeout(() => {  
+                // console.log('next of kin '+request.status)
+                // console.log('next of kin '+json)
+                if (request.status === 201) {        
                         // navigate('/dashboard/m')
                         // props.tab(false)
-                        alert('Record Enter Successfull')
-                        navigate('/dashboard/nurse')
-                        clearTimeout(t1);
-                    }, 3000); 
+                        setMessage('Record Enter Successfully')
+                        setModal(1)           
+                        const t1 = setTimeout(() => {  
+                            setModal(0)       
+                            setLoading(false)  
+                            navigate('/dashboard/nurse')
+                            clearTimeout(t1); 
+                        }, 2000);  
                 }else {
-                    alert(json.error.message);
-                    console.log(json) 
+
+                    setMessage('Error Occurred')
+                    setModal(2)           
+                    const t1 = setTimeout(() => {  
+                        setModal(0)       
+                        setLoading(false)  
+                        clearTimeout(t1); 
+                    }, 2000); 
+                    // alert(json.error.message);
+                    // console.log(json) 
                 } 
           }
     }
 
     return (
         <div style={{width: '540px'}} className=' mx-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
+            
+            <Modal message={message} modal={modal} />
             <p className='text-lg font-Ubuntu-Bold text-center mr-10 ' >Enter what you observe</p>
             <p className='text-sm font-Ubuntu-Regular w-96 text-center mt-2' >To complete this observation chart, you wil have to verify if patient has a file in the hospital.</p>
             <div className='w-full flex mt-8' >
@@ -314,7 +347,7 @@ export default function AddObservationchart(props: any) {
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
                         <div className='flex items-center ' >
-                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
+                            <LoaderIcon size='w-8 h-8 mr-1 ' /> 
                             Loading
                         </div> 
                     </button>

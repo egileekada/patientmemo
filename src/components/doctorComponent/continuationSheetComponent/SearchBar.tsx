@@ -1,20 +1,13 @@
 import React from 'react'
+import Modal from '../../Modal';
 
 export default function SearchBar(props: any) {
 
     const [data, setData] = React.useState([] as any);  
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0); 
     React.useEffect(() => { 
-        submit()
-        // fetch(`https://hospital-memo-api.herokuapp.com/patients/search-patients`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         Authorization : `Bearer ${localStorage.getItem('token')}`
-        //     },
-        //     body: JSON.stringify({
-        //         keyword: props.name
-        //     }),
-        // });
+        submit() 
     },[props.name])
 
 
@@ -34,36 +27,32 @@ export default function SearchBar(props: any) {
 
         const json = await request.json();
 
-        console.log(request.status)
-        console.log(json)
+        // console.log(request.status)
+        // console.log(json)
         if (request.status === 201) {   
-            setData(json)
-            // localStorage.setItem('token', json.token);         
-            // const t1 = setTimeout(() => { 
-            //     if(json.user.role === 'nurse'){
-            //         navigate('/dashboard'); 
-            //     } else {
-            //         navigate('/dashboard'); 
-            //     }
-            //     clearTimeout(t1);
-            //     setLoading(false);
-            // }, 3000); 
+            setData(json) 
         }else {
-            alert(json.message);
-            console.log(json)
+            // alert(json.message);
+            // console.log(json)
             // setLoading(false);
         } 
 
         if(json.length === 0){
-            alert('No Patient Found');
-        }
-        // setLoading(false)
+            // alert('No Patient Found');
+            setMessage('No Patient Found')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)          
+                clearTimeout(t1); 
+            }, 2000); 
+        } 
     }   
 
     console.log(data)
 
     return (
         <div className='w-full bg-white' > 
+            <Modal message={message} modal={modal} />
              {data.length !== 0 ? 
                 <>
                     {data.map((item: any)=> {

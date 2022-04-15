@@ -21,10 +21,10 @@ export default function MedicationSheet() {
     const [datainfo, setData] = React.useState({} as any)
     const [patientInfo, setPatientInfo] = React.useState({} as any)  
 
-    const CLickHandler =()=>{
-        setTab(true)
-        setNext(0)
-    } 
+    // const CLickHandler =()=>{
+    //     setTab(true)
+    //     setNext(0)
+    // } 
 
     console.log(info)
 
@@ -37,7 +37,7 @@ export default function MedicationSheet() {
                     </svg>
                 </div>
                 <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Medication Sheet</p>  
-                <button onClick={()=> CLickHandler()} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Doctor Request</button>
+                {/* <button onClick={()=> CLickHandler()} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Doctor Request</button> */}
             </div> 
             <div className='w-full' >
                 {!tab && (

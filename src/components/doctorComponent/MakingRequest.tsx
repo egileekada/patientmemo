@@ -58,13 +58,13 @@ export default function MakingRequest() {
                         <p onClick={()=> setShowModal(false)} className='text-sm font-Ubuntu-Medium text-[#7123E2] mb-6 ml-auto cursor-pointer mr-6 ' >close</p>
                         <div className=' grid grid-cols-3 font-Ubuntu-Medium' >
                             <div onClick={()=> ClickHandler('lab')} className='w-48 mx-4 cursor-pointer rounded-md' >
-                                <div className='w-full rounded-md h-64 bg-yellow-300' >
+                                <div className='w-full rounded-md h-64 ' >
                                     <img src={Lab} alt='lab' className='w-full h-full object-cover rounded-md'  />
                                 </div>
-                                <p className='text-sm text-[#363E4B] mt-2 ' >Labouratory Request</p>
+                                <p className='text-sm text-[#363E4B] mt-2 ' >Laboratory Request</p>
                             </div>
                             <div onClick={()=> ClickHandler('pharmacy')} className='w-48 mx-4 cursor-pointer rounded-md' >
-                                <div className='w-full rounded-md h-64 bg-yellow-300' >
+                                <div className='w-full rounded-md h-64 ' >
                                     <img src={Pharmacy} alt='pharm' className='w-full h-full object-cover rounded-md'  />
                                 </div>
                                 <p className='text-sm text-[#363E4B] mt-2 ' >Pharmacy Request</p>

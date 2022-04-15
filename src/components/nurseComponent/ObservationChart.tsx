@@ -34,7 +34,7 @@ export default function ObservationChart() {
                             <FindPatient next={setNext} value={setData} />
                         )}
                         {next === 1 && (
-                            <AddObservationchart data={data} />
+                            <AddObservationchart next={setNext} tab={setTab} data={data} />
                         )}
                     </div>
                 )}

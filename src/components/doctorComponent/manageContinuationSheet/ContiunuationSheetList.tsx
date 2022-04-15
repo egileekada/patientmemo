@@ -7,9 +7,7 @@ import LoaderIcon from '../../LoaderIcon'
 import Continuation from '../../../assets/images/continuation.png'
 
 export default function ContiunuationSheetList(props: any) { 
-    const navigate = useNavigate() 
-
-
+    const navigate = useNavigate()  
     const { isLoading, data } = useQuery('continuation', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/reports`, {
             method: 'GET', // or 'PUT'
@@ -25,9 +23,7 @@ export default function ContiunuationSheetList(props: any) {
     const ClickHandler =(item: any)=> {  
         props.patientinfo(item)
         props.next(2)
-    }
-
-    console.log(data)
+    } 
 
     return (
         <div className='w-full h-full px-16  ' >

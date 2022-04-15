@@ -9,12 +9,15 @@ import * as yup from 'yup'
 import { useFormik } from 'formik'; 
 import LoaderIcon from '../../LoaderIcon';
 import DateFormat from '../../DateFormat';
+import Modal from '../../Modal';
 
 export default function DoctorEditor(props: any) {
 
 
     const [loading, setLoading] = React.useState(false);
     const [showpassword, setShowpass] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0); 
 
     const handleShowpassword = () => {
         setShowpass(prev => !prev);
@@ -34,10 +37,22 @@ export default function DoctorEditor(props: any) {
     const submit = async () => {
 
         if (!formik.dirty) {
-          alert('You have to fill in th form to continue');
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);  
           return;
         }else if (!formik.isValid) {
-          alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);  
           return;
         }else {
             setLoading(true);
@@ -57,22 +72,23 @@ export default function DoctorEditor(props: any) {
 
             console.log(request.status)
             console.log(json)
-            if (request.status === 201) {   
-                // localStorage.setItem('token', json.token);         
-                // const t1 = setTimeout(() => { 
-                //     if(json.user.role === 'nurse'){
-                //         navigate('/dashboard'); 
-                //     } else {
-                //         navigate('/dashboard'); 
-                //     }
-                //     clearTimeout(t1);
-                //     setLoading(false);
-                // }, 3000); 
-                props.next(3)
+            if (request.status === 200) { 
+                setMessage('Record Added Successfully')
+                setModal(1)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    props.next(3)
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000); 
             }else {
-                alert(json.message);
-                console.log(json)
-                setLoading(false);
+                setMessage('Error Occurred')
+                setModal(2)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000); 
             }
         }
     }  
@@ -80,6 +96,7 @@ export default function DoctorEditor(props: any) {
 
     return (
         <div className='p-12 w-full' >
+            <Modal message={message} modal={modal} />
             <p className='font-Ubuntu-Bold text-lg ' >Continuation Sheet for <span className=' text-[#7123E2]' >{props.value.firstName+' '+ props.value.lastName}</span></p>
             <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' >{DateFormat(props.value.updatedAt)}</p>
             {/* <FilesEditor /> */}

@@ -34,7 +34,7 @@ export default function OIChart() {
                             <FindPatient next={setNext} value={setData} />
                         )}
                         {next === 1 && (
-                            <AddIOChart data={data} />
+                            <AddIOChart  next={setNext} tab={setTab}  data={data} />
                         )}
                     </div>
                 )}

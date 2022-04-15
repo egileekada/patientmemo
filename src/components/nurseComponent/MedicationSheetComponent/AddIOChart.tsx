@@ -6,9 +6,12 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup' 
 import LoaderIcon from '../../LoaderIcon';
+import Modal from '../../Modal';
 
 export default function AddIOChart(props: any) {
     const [loading, setLoading] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
     
     const loginSchema = yup.object({ 
         urine: yup.string().required('Required'),
@@ -34,10 +37,24 @@ export default function AddIOChart(props: any) {
     const submit=async()=> {
 
         if (!formik.dirty) {
-            alert('You have to fill in th form to continue');
+            // alert('You have to fill in th form to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000); 
             return;
           }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
+            // alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000); 
             return;
           }else {
             setLoading(true)
@@ -52,17 +69,26 @@ export default function AddIOChart(props: any) {
         
                 const json = await request.json(); 
                 
-                if (request.status === 201) {            
+                if (request.status === 201) {         
+                    setMessage('Record Enter Successfully')
+                    setModal(1)           
                     const t1 = setTimeout(() => {  
-                        // navigate('/dashboard/m')
-                        // props.tab(false)
-                        alert('Record Enter Successfull')
-                        navigate('/dashboard/nurse')
-                        clearTimeout(t1);
-                    }, 3000); 
+                        setModal(0)       
+                        setLoading(false) 
+                        props.next(0)
+                        props.tab(false)
+                        clearTimeout(t1); 
+                    }, 2000);  
                 }else {
-                    alert(json.error.message);
-                    console.log(json) 
+                    // alert(json.error.message);
+                    // console.log(json)  
+                    setMessage('Error Occurred')
+                    setModal(2)           
+                    const t1 = setTimeout(() => {  
+                        setModal(0)       
+                        setLoading(false)  
+                        clearTimeout(t1); 
+                    }, 2000); 
                 } 
           }
     }
@@ -71,6 +97,8 @@ export default function AddIOChart(props: any) {
 
     return (
         <div style={{width: '540px'}} className=' mx-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
+            
+            <Modal message={message} modal={modal} />
             <p className='text-lg font-Ubuntu-Bold text-center' >The Input/Output chart</p>
             <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To complete this Input/Output chart, you wil have to verify if patient has a file in the hospital.</p>
             <div className='w-full flex mt-8' >
@@ -210,7 +238,7 @@ export default function AddIOChart(props: any) {
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 ml-auto rounded-full' >
                         <div className='flex items-center ' >
-                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
+                            <LoaderIcon size='w-8 h-8 mr-1 ' /> 
                             Loading
                         </div> 
                     </button>
