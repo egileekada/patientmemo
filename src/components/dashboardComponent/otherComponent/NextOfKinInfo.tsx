@@ -271,8 +271,8 @@ export default function NextOfKinInfo(props: any) {
                 {/* <button onClick={()=> submit() } className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full' >Create Profile</button> */}
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
-                        <div className='flex items-center animate-pulse ' >
-                            <LoaderIcon size='w-10 h-10 mr-1 animate-pulse ' /> 
+                        <div className='flex items-center ' >
+                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
                             Loading
                         </div> 
                     </button>

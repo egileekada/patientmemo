@@ -1,9 +1,9 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import LoaderIcon from '../../LoaderIcon'
-import Lab from '../../../assets/images/lab.png'
-import Scan from '../../../assets/images/scan.png'
-import Pharmacy from '../../../assets/images/pharmacy.png'
+import Lab from '../../../assets/images/lab.jpg'
+import Scan from '../../../assets/images/scan.jpg'
+import Pharmacy from '../../../assets/images/pharmacy.jpg'
 import DateFormat from '../../DateFormat'
 
 export default function DoctorRequest(props: any) {

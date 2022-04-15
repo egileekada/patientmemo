@@ -325,8 +325,8 @@ export default function EditNextOfKin(props : any) {
                             <>
                                 {loading ?  
                                     <button className='bg-[#7123E2] h-11 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
-                                        <div className='flex items-center animate-pulse ' >
-                                            <LoaderIcon size='w-9 h-9 mr-1 animate-pulse ' /> 
+                                        <div className='flex items-center ' >
+                                            <LoaderIcon size='w-9 h-9 mr-1 ' /> 
                                             Loading
                                         </div> 
                                     </button>
@@ -344,8 +344,8 @@ export default function EditNextOfKin(props : any) {
                     {/* <Input fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' /> */}
                     {loading ?  
                         <button className='bg-[#7123E2] h-11 flex justify-center items-center w-48  text-white text-sm mt-12 rounded-full' >
-                            <div className='flex items-center animate-pulse ' >
-                                <LoaderIcon size='w-7 h-7 mr-1 animate-pulse ' /> 
+                            <div className='flex items-center ' >
+                                <LoaderIcon size='w-7 h-7 mr-1 ' /> 
                                 Loading
                             </div> 
                         </button>

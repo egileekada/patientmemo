@@ -80,7 +80,7 @@ export default function PatientFile() {
             <div className='w-full flex justify-center items-center' >
                 {isLoading ?
                     <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                        <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
+                        <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                     </div>
                 :
                     <>

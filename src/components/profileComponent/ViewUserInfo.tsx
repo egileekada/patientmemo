@@ -216,8 +216,8 @@ export default function ViewUserInfo() {
                 <div className='w-full flex justify-end mt-10' > 
                     {loading ? 
                         <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >
-                            <div className='flex items-center animate-pulse ' >
-                                <LoaderIcon size='w-6 h-6 mr-1 animate-pulse ' /> 
+                            <div className='flex items-center' >
+                                <LoaderIcon size='w-6 h-6 mr-1' /> 
                                 Loading
                             </div> 
                         </button>:

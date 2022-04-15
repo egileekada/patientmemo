@@ -150,8 +150,8 @@ export default function LoginScreen() {
                         <p onClick={()=> navigate('/resetpassword')} className='text-base cursor-pointer my-2 text-right font-Ubuntu-Regular '>Forgot Password?</p> 
                         {loading ? 
                                 <button style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-10 h-12 text-white flex items-center justify-center  rounded  py-3 font-Ubuntu-Bold'> 
-                                        <div className='flex mx-auto items-center animate-pulse ' >
-                                            <LoaderIcon size='w-10 h-10 mr-1 animate-pulse ' /> 
+                                        <div className='flex mx-auto items-center ' >
+                                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
                                             Loading
                                         </div> 
                                 </button>

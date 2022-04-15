@@ -38,7 +38,7 @@ export default function OberservationChartList() {
             </div>
             {isLoading ?
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                    <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
+                    <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                 </div>
             :
                 <div className='w-full grid grid-cols-3 gap-7 mt-12' >

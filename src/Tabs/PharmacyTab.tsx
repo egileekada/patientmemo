@@ -209,8 +209,8 @@ export default function Pharmacy(props: any) {
                         </div>
                         {loading ?  
                             <button className='bg-[#7123E2] h-12 flex justify-center items-center w-full  text-white text-sm mt-6 rounded' >
-                                <div className='flex items-center animate-pulse ' >
-                                    <LoaderIcon size='w-10 h-10 mr-1 animate-pulse ' /> 
+                                <div className='flex items-center ' >
+                                    <LoaderIcon size='w-10 h-10 mr-1 ' /> 
                                     Loading
                                 </div> 
                             </button>

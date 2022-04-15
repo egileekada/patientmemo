@@ -4,6 +4,9 @@ import FindPatient from './continuationSheetComponent/FindPatient'
 import DoctorEditor from './makingRequestComponent/DoctorEditor'
 import DoctorRequest from './makingRequestComponent/DoctorRequest'
 import RequestTab from './makingRequestComponent/RequestTab'
+import Lab from '.././../assets/images/lab.jpg' 
+import Pharmacy from '.././../assets/images/pharmacy.jpg' 
+import Scan from '.././../assets/images/scan.jpg'
 
 export default function MakingRequest() {
     
@@ -56,19 +59,19 @@ export default function MakingRequest() {
                         <div className=' grid grid-cols-3 font-Ubuntu-Medium' >
                             <div onClick={()=> ClickHandler('lab')} className='w-48 mx-4 cursor-pointer rounded-md' >
                                 <div className='w-full rounded-md h-64 bg-yellow-300' >
-
+                                    <img src={Lab} alt='lab' className='w-full h-full object-cover rounded-md'  />
                                 </div>
                                 <p className='text-sm text-[#363E4B] mt-2 ' >Labouratory Request</p>
                             </div>
-                            <div onClick={()=> ClickHandler('pharmacy')} className='w-48 mx-4 rounded-md' >
+                            <div onClick={()=> ClickHandler('pharmacy')} className='w-48 mx-4 cursor-pointer rounded-md' >
                                 <div className='w-full rounded-md h-64 bg-yellow-300' >
-
+                                    <img src={Pharmacy} alt='pharm' className='w-full h-full object-cover rounded-md'  />
                                 </div>
                                 <p className='text-sm text-[#363E4B] mt-2 ' >Pharmacy Request</p>
                             </div>
-                            <div onClick={()=> ClickHandler('scan')} className='w-48 mx-4 rounded-md' >
-                                <div className='w-full rounded-md h-64 bg-yellow-300' >
-
+                            <div onClick={()=> ClickHandler('scan')} className='w-48 mx-4 cursor-pointer rounded-md' >
+                                <div className='w-full rounded-md h-64' >
+                                    <img src={Scan} alt='scan' className='w-full h-full object-cover rounded-md'  /> 
                                 </div>
                                 <p className='text-sm text-[#363E4B] mt-2 ' >Scan Request</p>
                             </div>

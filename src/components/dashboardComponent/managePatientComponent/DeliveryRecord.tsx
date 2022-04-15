@@ -207,8 +207,8 @@ export default function DeliveryRecord() {
                 <button className='  py-3 w-36 ml-auto text-[#7123E2] text-sm mt-4 rounded-full' >Cancel</button> 
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
-                        <div className='flex items-center animate-pulse ' >
-                            <LoaderIcon size='w-10 h-10 mr-1 animate-pulse ' /> 
+                        <div className='flex items-center ' >
+                            <LoaderIcon size='w-10 h-10 mr-1' /> 
                             Loading
                         </div> 
                     </button>

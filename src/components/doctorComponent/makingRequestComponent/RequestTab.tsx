@@ -4,10 +4,9 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import DateFormat from '../../DateFormat'
 import GetUserInfo from '../../GetUserInfo'
-import Lab from '../../../assets/images/lab.png'
-import Scan from '../../../assets/images/scan.png'
-import Pharmacy from '../../../assets/images/pharmacy.png'
-import MedicalList from '../../nurseComponent/MedicationSheetComponent/MedicalList'
+import Lab from '../../../assets/images/lab.jpg' 
+import Pharmacy from '../../../assets/images/pharmacy.jpg' 
+import Scan from '../../../assets/images/scan.jpg'
 
 export default function RequestTab(props: any) {
 

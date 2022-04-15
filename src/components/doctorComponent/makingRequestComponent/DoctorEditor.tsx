@@ -59,16 +59,6 @@ export default function DoctorEditor(props: any) {
             console.log(request.status)
             console.log(json)
             if (request.status === 200) {   
-                // localStorage.setItem('token', json.token);         
-                // const t1 = setTimeout(() => { 
-                //     if(json.user.role === 'nurse'){
-                //         navigate('/dashboard'); 
-                //     } else {
-                //         navigate('/dashboard'); 
-                //     }
-                //     clearTimeout(t1);
-                //     setLoading(false);
-                // }, 3000); 
                 props.next(1)
             }else {
                 alert(json.message);
@@ -94,7 +84,7 @@ export default function DoctorEditor(props: any) {
             <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' ></p>
             {/* <FilesEditor /> */}
             <Textarea 
-                height='500px'
+                height='50vh'
                 name="note"
                 onChange={formik.handleChange}
                 onFocus={() =>

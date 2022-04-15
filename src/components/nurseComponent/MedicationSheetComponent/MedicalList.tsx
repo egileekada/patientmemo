@@ -25,7 +25,7 @@ export default function MedicalList(props: any) {
         <div className='w-full h-full ' >
             {isLoading ?
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                    <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
+                    <LoaderIcon size='w-20 h-20 mr-1  ' /> 
                 </div>
             :
                 <div style={{width: '900px'}} className='px-12 mx-auto' > 

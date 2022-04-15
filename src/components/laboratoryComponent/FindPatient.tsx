@@ -74,8 +74,8 @@ export default function FindPatient(props: any) {
                 </div>
                 {/* {loading ?
                     <button onClick={()=> submit()} className='w-44 flex justify-center items-center rounded-full h-10 mt-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >
-                        <div className='flex mx-auto items-center animate-pulse ' >
-                            <LoaderIcon size='w-8 h-8 mr-1 animate-pulse ' /> 
+                        <div className='flex mx-auto items-center ' >
+                            <LoaderIcon size='w-8 h-8 mr-1 ' /> 
                             Loading
                         </div> 
                     </button>:

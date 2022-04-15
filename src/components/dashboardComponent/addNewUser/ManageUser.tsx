@@ -33,7 +33,7 @@ export default function ManageUser() {
 
             {isLoading ?
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                    <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
+                    <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                 </div>
             :
                 <div className='w-full grid grid-cols-4 gap-6 py-12 relative px-20' > 

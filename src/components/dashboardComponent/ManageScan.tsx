@@ -7,7 +7,7 @@ import * as axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import LoaderIcon from '../LoaderIcon';
-import Scan from '../../assets/images/scan.png'
+import Scan from '../../assets/images/scan.jpg'
 import DateFormat from '../DateFormat';
 import GetUserInfo from '../GetUserInfo';
 
@@ -101,7 +101,7 @@ export default function ManageScan() {
                     </div>
                     {isLoading && (
                         <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                            <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
+                            <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                         </div> 
                     )} 
                     {!isLoading && (
@@ -127,10 +127,10 @@ export default function ManageScan() {
                     )} 
                 </div>
                 <div className='flex flex-1 py-10 px-7' >
-                    <div className='w-full flex gap-6' >
+                    <div className='w-full grid grid-cols-3 gap-6' >
                         {show && (
                             <>
-                                <div style={{width: '320px'}} className=' h-52' >
+                                <div  className=' h-52' >
                                     <div className='w-full h-32 relative' >
                                         <img src={Scan} className='w-full h-32 rounded-md object-cover'  alt='scan' />
                                         <div className='py-1 rounded-sm px-1 bg-[#FFFFFFCC] absolute bottom-2 right-2 ' >
@@ -151,7 +151,7 @@ export default function ManageScan() {
                                         {/* <p className='font-Ubuntu-Regular text-[#7123E2] ml-auto text-xs'>5 Images</p> */}
                                     </div>
                                 </div>
-                                <div  style={{width: '320px'}} className=' h-52 border-dashed border py-7 px-5' > 
+                                <div className=' h-52 border-dashed border py-7 px-5' > 
                                     <div className='flex items-center mb-5' > 
                                         <div className='w-10 h-10 rounded-full flex bg-[#7123E214] justify-center items-center' >
                                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,7 +164,7 @@ export default function ManageScan() {
                                             <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >Drag and Drop or <span className='text-[#7123E2]' >Browse</span></p>
                                         </label>
                                         {loading && ( 
-                                            <LoaderIcon size='w-12 h-12 ml-auto animate-pulse ' /> 
+                                            <LoaderIcon size='w-12 h-12 ml-auto ' /> 
                                         )}
                                         {!loading && (
                                             <svg onClick={()=> sumbit(imageFiles)} className='ml-auto cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -189,6 +189,17 @@ export default function ManageScan() {
                                         </div>
                                     </div>
                                 </div>
+                                {selectedFiles && (
+                                    <>
+                                        {selectedFiles.map((item: any) =>{
+                                            return( 
+                                                <div key={item} className='w-full h-52 rounded-md' >
+                                                    <img src={item} alt='files' className='w-full h-full rounded-md object-cover' />
+                                                </div>
+                                            )
+                                        })}
+                                    </>
+                                )}
                             </>
                         )}
                     </div>
