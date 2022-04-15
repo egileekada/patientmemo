@@ -93,8 +93,8 @@ export default function Pharmacy(props: any) {
                     <div className=" opacity-50  absolute flex flex-1 inset-0 z-40 bg-[#7123E2]"/>
                 </>
             )}
-            <div className='w-full px-12 border-b flex items-center border-[#D7D0DF]' >  
-                <p className='font-Ubuntu-Medium text-lg mr-20' >Manage Pharmacy</p> 
+            <div className='w-full relative px-12 border-b flex items-center border-[#D7D0DF]' >  
+                <p className='font-Ubuntu-Medium  text-lg absolute ' >Manage Pharmacy</p> 
                 <div className='mx-auto flex' >
                     <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-center pb-7 pt-8 cursor-pointer mx-3 border-b-2 border-[#7123E2]  ': 'flex items-center pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
                         <p className={tab === 0 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Drugs</p>
@@ -103,7 +103,7 @@ export default function Pharmacy(props: any) {
                         <p className={tab === 1 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Requests</p>
                     </div>
                 </div>
-                <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Upload New Drug</button>
+                <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium right-12 text-xs absolute bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Upload New Drug</button>
             </div>
             <div className='w-full relative' >
                 {tab === 0 ? 

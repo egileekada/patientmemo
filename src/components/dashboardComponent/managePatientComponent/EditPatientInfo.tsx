@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik'; 
 import LoaderIcon from '../../LoaderIcon'
+import Modal from '../../Modal'
 
 export default function EditPatientInfo(props: any) {
     
@@ -29,6 +30,8 @@ export default function EditPatientInfo(props: any) {
         religion: yup.string().required('Required'),
         accessKey: yup.string().required('Required'),
     }) 
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
 
     React.useEffect(() => {
         formik.setValues({
@@ -58,10 +61,26 @@ export default function EditPatientInfo(props: any) {
     const submit = async () => {  
 
         if (!formik.dirty) {
-            alert('You have to fill in th form to continue');
-            return;
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                navigate('/dashboard/managepatient')
+                navigate(0)
+                clearTimeout(t1); 
+            }, 2000);  
         }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                navigate('/dashboard/managepatient')
+                navigate(0)
+                clearTimeout(t1); 
+            }, 2000);  
+            // alert('You have to fill in the form correctly to continue');
             return;
         }else {
             setLoading(true);
@@ -76,14 +95,26 @@ export default function EditPatientInfo(props: any) {
 
             const data = await request.json();
 
-            console.log('patient '+request.status)
-            console.log('patient '+data)
-            if (request.status === 201) {   
-                navigate('/dashboard/managepatient')
-                navigate(0)
+            // console.log('patient '+request.status)
+            // console.log('patient '+data)
+            if (request.status === 201) { 
+                setMessage('Update Successful')
+                setModal(1)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    navigate('/dashboard/managepatient')
+                    navigate(0)
+                    clearTimeout(t1); 
+                }, 2000);  
             }else {
-                alert(data.error.message);
-                console.log(data) 
+                setMessage('Error Occurred')
+                setModal(2)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000);
             } 
         }
         setLoading(false);
@@ -113,6 +144,8 @@ export default function EditPatientInfo(props: any) {
 
     return (
         <div style={{width:'700px'}} className='w-auto h-full flex justify-center px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
+            
+            <Modal message={message} modal={modal} />
             {!requestCode ? 
                 <div className='w-full' > 
                     <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
@@ -406,7 +439,7 @@ export default function EditPatientInfo(props: any) {
                     {loading ?  
                         <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-12 rounded-full' >
                             <div className='flex items-center ' >
-                                <LoaderIcon size='w-7 h-7 mr-1 ' /> 
+                                <LoaderIcon size='w-8 h-8 mr-1 ' /> 
                                 Loading
                             </div> 
                         </button>

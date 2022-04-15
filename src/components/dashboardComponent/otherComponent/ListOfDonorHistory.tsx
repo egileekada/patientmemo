@@ -45,7 +45,7 @@ export default function ListOfDonorHistory() {
                                         <p className={showDetail === item._id ? 'font-Ubuntu-Regular mt-1 text-xs': 'font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs'} >Blood group: <span className={showDetail ? ' font-Ubuntu-Bold':' font-Ubuntu-Bold text-[#7123E2]'} >{item.bloodGroup}</span></p>
                                     </div>
                                 </div>
-                                <p className='font-Ubuntu-Medium text-[#7123E2] ml-auto text-xs mt-auto'>{item.relationship} to a patient</p> 
+                                <p className={showDetail === item._id ? 'font-Ubuntu-Medium text-[#fff] ml-auto text-xs mt-auto' : 'font-Ubuntu-Medium text-[#7123E2] ml-auto text-xs mt-auto'}>{item.relationship} to a patient</p> 
                             </div> 
                         )
                     })}

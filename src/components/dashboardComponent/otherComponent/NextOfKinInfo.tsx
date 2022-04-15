@@ -6,11 +6,14 @@ import { useFormik } from 'formik';
 import { Input } from '@chakra-ui/input'
 import { Select } from '@chakra-ui/select'
 import LoaderIcon from '../../LoaderIcon';
+import Modal from '../../Modal';
 
 export default function NextOfKinInfo(props: any) { 
 
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
     console.log('next '+props.patient)
     
     const loginSchema = yup.object({ 
@@ -33,11 +36,21 @@ export default function NextOfKinInfo(props: any) {
 
     const submit = async () => {  
 
-        if (!formik.dirty) {
-            alert('You have to fill in th form to continue');
+        if (!formik.dirty) { 
+            setMessage('You have to fill in th form to continue')
+            setModal(2)             
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                clearTimeout(t1);
+            }, 3000);    
             return;
-        }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
+        }else if (!formik.isValid) { 
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                clearTimeout(t1);
+            }, 2000);    
             return;
         }else {
             setLoading(true);
@@ -68,13 +81,22 @@ export default function NextOfKinInfo(props: any) {
 
                 console.log('next of kin '+request.status)
                 console.log('next of kin '+json)
-                if (request.status === 201) {            
+                if (request.status === 201) {    
+                    setMessage('Registration Successful')
+                    setModal(1)          
                     const t1 = setTimeout(() => {  
-                            navigate('/dashboard')
-                            clearTimeout(t1);
+                        setModal(0)      
+                        navigate('/dashboard')
+                        clearTimeout(t1);
                     }, 3000); 
                 }else {
-                    alert(json.message);
+                    setMessage('Failed To Register')
+                    setModal(2)             
+                    const t1 = setTimeout(() => {  
+                        setModal(0)       
+                        clearTimeout(t1);
+                    }, 3000);    
+                    // alert(json.message);
                     console.log(json) 
                 }
             }else {
@@ -86,6 +108,7 @@ export default function NextOfKinInfo(props: any) {
 
     return (
         <div className='w-auto h-full px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
+            <Modal message={message} modal={modal} />
             <p className='text-lg font-Ubuntu-Bold' >Next of Kin’s Information</p>
             <div className='w-full flex mt-8' >
                 <div className='mr-2' >
@@ -272,7 +295,7 @@ export default function NextOfKinInfo(props: any) {
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
                         <div className='flex items-center ' >
-                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
+                            <LoaderIcon size='w-8 h-8 mr-1 ' /> 
                             Loading
                         </div> 
                     </button>

@@ -13,6 +13,8 @@ export default function EditNextOfKin(props : any) {
     const [loading, setLoading] = React.useState(false); 
     const [requestCode, setRequestCode] = React.useState(false) 
     const [access, setAccess] = React.useState(false)
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
     
     const loginSchema = yup.object({ 
         firstName: yup.string().required('Required'),
@@ -41,10 +43,23 @@ export default function EditNextOfKin(props : any) {
     const submit = async () => {  
         setLoading(true)
         if (!formik.dirty) {
-            alert('You have to fill in th form to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);
+            // alert('You have to fill in th form to continue');
             return;
         }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);
             return;
         }else { 
             const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/next-of-kin/${props.data._id}`, {
@@ -57,18 +72,30 @@ export default function EditNextOfKin(props : any) {
             });
     
             const json = await request.json();
-
-            console.log('next of kin '+request.status)
-            console.log('next of kin '+json)
+ 
             if (request.status === 201) {            
                 const t1 = setTimeout(() => {  
                     // navigate('/dashboard/m')
-                    navigate('/dashboard/managepatient')
+                    setMessage('You have to fill in the form correctly to continue')
+                    setModal(1)           
+                    const t1 = setTimeout(() => {  
+                        setModal(0)       
+                        setLoading(false)  
+                        navigate('/dashboard/managepatient')
+                        clearTimeout(t1); 
+                    }, 2000);
                     clearTimeout(t1);
                 }, 3000); 
             }else {
-                alert(json.error.message);
-                console.log(json) 
+                setMessage('Error Occurred')
+                setModal(2)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000);
+                // alert(json.error.message);
+                // console.log(json) 
             } 
         }
         setLoading(false)

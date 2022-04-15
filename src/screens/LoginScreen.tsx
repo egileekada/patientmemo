@@ -7,11 +7,14 @@ import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik'; 
 import LoaderIcon from '../components/LoaderIcon';
+import Modal from '../components/Modal';
 
 export default function LoginScreen() { 
 
         const navigate = useNavigate();
         const [loading, setLoading] = React.useState(false);
+        const [message, setMessage] = React.useState('');
+        const [modal, setModal] = React.useState(0);
         const [showpassword, setShowpass] = React.useState(false);
     
         const handleShowpassword = () => {
@@ -32,11 +35,21 @@ export default function LoginScreen() {
 
         const submit = async () => {
     
-            if (!formik.dirty) {
-              alert('You have to fill in th form to continue');
+            if (!formik.dirty) { 
+              setMessage('You have to fill in th form to continue')
+              setModal(2)           
+              const t1 = setTimeout(() => {  
+                  setModal(0)       
+                  clearTimeout(t1);
+              }, 2000); 
               return;
-            }else if (!formik.isValid) {
-              alert('You have to fill in the form correctly to continue');
+            }else if (!formik.isValid) { 
+              setMessage('You have to fill in the form correctly to continue')
+              setModal(2)           
+              const t1 = setTimeout(() => {  
+                  setModal(0)       
+                  clearTimeout(t1);
+              }, 2000); 
               return;
             }else {
                 setLoading(true);
@@ -57,7 +70,10 @@ export default function LoginScreen() {
                     localStorage.setItem('token', json.token);    
                     localStorage.setItem('userData', JSON. stringify(json.user));   
                     console.log(json.user.role)     
+                    setMessage('Login Successful')
+                    setModal(1)
                     const t1 = setTimeout(() => { 
+                        setModal(0)
                         if(json.user.role === 'doctor'){
                             localStorage.setItem('tab', '1')
                             navigate('/dashboard/doctor'); 
@@ -75,15 +91,22 @@ export default function LoginScreen() {
                         setLoading(false);
                     }, 3000); 
                 }else {
-                    alert('Incorrect Email Or Password');
-                    // console.log(json)
-                    setLoading(false);
+                    // alert('Incorrect Email Or Password');
+                    // console.log(json)  
+                        setMessage('Incorrect Email Or Password')
+                        setModal(2)
+                    const t1 = setTimeout(() => {
+                        setLoading(false);
+                        setModal(0)
+                        clearTimeout(t1);
+                    }, 3000);  
                 }
             }
         }  
     
     return (
         <div className='w-full flex bg-white flex-row lg:py-20 pt-10 h-screen'>  
+            <Modal message={message} modal={modal} />
             <div className='w-full h-full relative px-20 hidden lg:flex flex-col' >
                 <img src={SideImage} style={{ height:'80vh', borderRadius: '30px'}} alt='SideImage' />
             </div>
@@ -151,7 +174,7 @@ export default function LoginScreen() {
                         {loading ? 
                                 <button style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-10 h-12 text-white flex items-center justify-center  rounded  py-3 font-Ubuntu-Bold'> 
                                         <div className='flex mx-auto items-center ' >
-                                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
+                                            <LoaderIcon size='w-8 h-8 mr-1 ' /> 
                                             Loading
                                         </div> 
                                 </button>

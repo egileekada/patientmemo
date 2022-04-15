@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import * as axios from 'axios'   
 import LoaderIcon from '../../LoaderIcon';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../Modal';
 
 export default function AddUser() { 
 
@@ -37,6 +38,8 @@ export default function AddUser() {
         title: yup.string().required('Required'),
         email: yup.string().email('Enter Your Email').required('Required')
     })    
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
  
     // formik
     const formik = useFormik({
@@ -48,13 +51,41 @@ export default function AddUser() {
     const sumbit =async(item: any)=> {
         setLoading(true)
         if (!formik.dirty) {
-            alert('You have to fill in th form to continue');
+            // alert('You have to fill in th form to continue');
+            setMessage('You have to fill in the form to continue')
+            setModal(2)         
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1);
+            }, 2000); 
             return;
         }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1);
+            }, 2000);  
             return;
         }else if (!role) {
-            alert('Please Enter Role');
+            setMessage('Please Enter Role')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1);
+            }, 2000);  
+            return;
+        }else if (!image) {
+            setMessage('Please Enter An Image')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)   
+                setLoading(false)      
+                clearTimeout(t1);
+            }, 2000);  
             return;
         }else {
             try {
@@ -71,17 +102,31 @@ export default function AddUser() {
                     headers: { 'content-type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 }})      
-                alert('New User Added')
-                navigate('/dashboard')
+                // alert('New User Added')
+                setMessage('New Staff Added')
+                setModal(1)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)      
+                    navigate('/dashboard') 
+                    clearTimeout(t1);
+                }, 2000);  
                 
             } catch (error) { 
-                return error
+                setMessage('Error Occurred')
+                setModal(2)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000);  
+                // return error
             }
           }
     } 
     
     return (
-        <div className='w-full h-full px-24 pt-10' > 
+        <div className='w-full h-full px-24 pt-10' >  
+            <Modal message={message} modal={modal} />
             <div className='w-full px-12 py-4 flex items-center ' > 
                 {/* <div className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
