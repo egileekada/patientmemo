@@ -40,10 +40,10 @@ export default function DrugsTab() {
                                                 </svg>
                                             </div>
                                         :
-                                            <div className='w-16 h-16 mb-3 flex justify-center items-center rounded-full bg-[#7123E205]' >
-                                                <img className='w-8 h-8 rounded-md object-cover' src={item.imageURL} alt=""/> 
+                                            <div className='w-16 h-16 mb-3 flex justify-center items-center rounded-md bg-[#7123E205]' >
+                                                <img className='w-16 h-16 rounded-md object-cover' src={item.imageURL} alt=""/> 
                                             </div> 
-                                            }
+                                        }
                                         <p className='font-Ubuntu-Medium mt-auto text-sm' >{item.name+' '+item.milligram+'mg'}</p>
                                         <p className='font-Ubuntu-Regular text-xs text-[#5F6777] mt-1' >{DateFormat(item.createdAt)}</p>
                                     </div>
@@ -54,7 +54,7 @@ export default function DrugsTab() {
                 </div>
             : 
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                    <LoaderIcon size='w-20 h-20 mr-1 ' /> 
+                    <LoaderIcon size='w-20 h-20 animate-spin ' /> 
                 </div>}
         </div>
     )

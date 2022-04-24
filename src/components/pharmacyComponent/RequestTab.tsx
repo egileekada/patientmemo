@@ -31,17 +31,15 @@ export default function RequestTab() {
     const OnClickHandler =(item: any)=> {
         setInfo(item)
         setShow(true)
-    }
-
-    console.log(data)
+    } 
 
     return ( 
         <div className='w-full px-16 py-12' > 
             {!show ?
                 <div>
                     {isLoading ?
-                        <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                            <LoaderIcon size='w-20 h-20 mr-1 ' /> 
+                        <div className='w-full h-full py-20 justify-center item-center flex flex-1' >  
+                            <LoaderIcon size='w-20 h-20 animate-spin ' /> 
                         </div>
                     :
                         <div className='w-full h-full grid grid-cols-4 gap-6 py-12 px-8' > 
