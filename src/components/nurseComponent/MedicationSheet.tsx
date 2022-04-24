@@ -23,7 +23,7 @@ export default function MedicationSheet() {
 
     const CLickHandler =()=>{
         setTab(true)
-        setNext(0)
+        setNext(2)
     } 
 
     console.log(info)
@@ -58,11 +58,11 @@ export default function MedicationSheet() {
                     <div className=' flex flex-1 justify-center pt-10 items-center' > 
                         {next === 0 && (
                             // <Request />
-                            <MedicalList /> 
+                            <MedicalList />
                         )}
                         {next === 2 && (
                             // <ContiunuationSheetList />
-                            <ShowPrescription data={info}  next={setNext} />
+                            <GetAllRequest next={setNext} info={setInfo} />
                         )}
                         {next === 1 && (
                             <AddMedicalList data={info} />
