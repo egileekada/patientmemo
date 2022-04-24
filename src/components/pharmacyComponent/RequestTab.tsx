@@ -123,10 +123,10 @@ export default function RequestTab() {
                             <li className='my-1'>Tortor, sceler</li>
                         </ol>  */}
                     </div>
-                    {/* <div className=' ml-12 px-10 my-10'>
+                    <div className=' ml-12 px-10 my-10'>
                         <p className='font-Ubuntu-Bold text-lg ' >Medication Sheet</p> 
                         <MedicalList />
-                    </div> */}
+                    </div>
                 </div>
             }
         </div>

@@ -15,16 +15,16 @@ import ShowPrescription from './MedicationSheetComponent/ShowPrescription'
 export default function MedicationSheet() {
     
     const navigate = useNavigate()
-    const [tab, setTab] = React.useState(false)
+    const [tab, setTab] = React.useState(true)
     const [next, setNext] = React.useState(0) 
     const [info, setInfo] = React.useState({} as any)   
     const [datainfo, setData] = React.useState({} as any)
     const [patientInfo, setPatientInfo] = React.useState({} as any)  
 
-    // const CLickHandler =()=>{
-    //     setTab(true)
-    //     setNext(0)
-    // } 
+    const CLickHandler =()=>{
+        setTab(true)
+        setNext(0)
+    } 
 
     console.log(info)
 
@@ -37,10 +37,10 @@ export default function MedicationSheet() {
                     </svg>
                 </div>
                 <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Medication Sheet</p>  
-                {/* <button onClick={()=> CLickHandler()} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Doctor Request</button> */}
+                <button onClick={()=> CLickHandler()} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Doctor Request</button>
             </div> 
             <div className='w-full' >
-                {!tab && (
+                {/* {!tab && (
                     // <MedicalList input={true} />
                     <div className=' flex flex-1 justify-center items-center' >
                         {next === 0 ?
@@ -53,22 +53,22 @@ export default function MedicationSheet() {
                                 <ContiunuationSheetList nurse={true} patientinfo={setPatientInfo} value={datainfo} next={setNext} />
                         :null}
                         </div>
-                )}
-                {/* {tab && ( 
-                    <div className=' flex flex-1 justify-center items-center' > 
+                )} */}
+                {tab && ( 
+                    <div className=' flex flex-1 justify-center pt-10 items-center' > 
                         {next === 0 && (
                             // <Request />
-                            <GetAllRequest next={setNext} info={setInfo} />
+                            <MedicalList /> 
                         )}
                         {next === 2 && (
-                            <ContiunuationSheetList />
-                            // <ShowPrescription data={info}  next={setNext} />
+                            // <ContiunuationSheetList />
+                            <ShowPrescription data={info}  next={setNext} />
                         )}
                         {next === 1 && (
                             <AddMedicalList data={info} />
                         )}
                     </div> 
-                )} */}
+                )}
             </div>
         </div>
     )

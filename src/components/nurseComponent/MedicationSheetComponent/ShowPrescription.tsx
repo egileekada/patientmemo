@@ -27,8 +27,8 @@ export default function ShowPrescription(props: any) {
                     <p className='font-Ubuntu-Medium text-sm' >Dr. Emmanuel Joesph</p> */}
                     {/* <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >12:00pm, 12, Jun 22</p> */}
                 {/* </div> */}
-            </div>
-            <p className='text-[#5F6777] ml-20  font-Ubuntu-Bold mt-6' >{props.data.description}</p>
+            </div> 
+            <p className='text-[#5F6777] ml-20  font-Ubuntu-Bold mt-6' >{props.data.description.replace('<p>', '').replace('</p>', '')}</p>
             {/* <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>Magna egestas. Porttitor ullamcorper tempor dictumst vel nunc. Auctor tellus nisl, metus phasellus porta morbi et. Erat quis arcu turpis eget et. Turpis et pharetra at viverra et nunc. Tortor, scelerisque diam tempus hac at in tortor massa. Libero tellus lorem tristique sed placerat eu mi. Et integer neque orci et quam lacus vitae faucibus sit.</p>
             <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>Feugiat dui elementum in viverra integer. Amet sollicitudin pellentesque amet tincidunt. Tellus vitae eleifend blandit lorem risus praesent pretium odio. Est amet, mi sodales ultricies. Lorem aliquet vestibulum sed ipsum. Quam morbi sollicitudin amet nibh bibendum.</p>
             <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>Cras leo purus id condimentum libero id. Imperdiet a mauris bibendum at faucibus purus neque in. Enim rhoncus lectus pellentesque arcu sed faucibus. Tincidunt donec erat nulla enim. Egestas vel pretium velit lacus, pharetra. Dignissim nullam diam tincidunt odio at tincidunt. Massa enim duis interdum id urna, eget elementum. Morbi mauris aliquam rhoncus egestas. Eget cursus sagittis purus arcu diam, imperdiet facilisi leo phasellus. Bibendum in ipsum risus tellus orci, fringilla sit consequat. Libero nisl vel blandit convallis justo et odio ullamcorper. Varius non cras at mattis tincidunt.</p>
@@ -38,7 +38,7 @@ export default function ShowPrescription(props: any) {
             <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>nulla. Fringilla magna dictum neque, amet, quam risus ac ultricies. Tempus lacus massa in eu, sit consequat nascetur. A, id pulvinar feugiat eget eu tortor, ullamcorper morbi. Ac magna ultricies egestas in massa tincidunt nisl amet diam. Tempor ultrices quis rutrum porttitor ullamcorper. Erat tortor, facilisis aliquam cras aliquam etiam mauris.</p> */}
            
                 <div className='w-full flex mt-10' >
-                    <button onClick={()=> props.next(1)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Add Prescription</button>
+                    <button onClick={()=> props.next(1)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Confirm Prescription</button>
                 </div> 
         </div>
     ) 
