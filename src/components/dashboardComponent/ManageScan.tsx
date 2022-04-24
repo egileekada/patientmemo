@@ -104,13 +104,16 @@ export default function ManageScan() {
     const ClickHandler =(item: any)=> {
         setShow(true)
         setRequestInfo(item)
+        setSelectedFiles([] as any)
+        setImageFiles([] as any)
+
     }
 
     return (
         <div className='w-full h-full ' > 
             <Modal message={message} modal={modal} />
             <div className='w-full py-3 px-12 border-b flex items-center border-[#D7D0DF]' > 
-                <div onClick={()=> navigate('/dashboard')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                <div onClick={()=> navigate('/dashboard/laboratory')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -154,7 +157,7 @@ export default function ManageScan() {
                     <div className='w-full grid grid-cols-3 gap-6' >
                         {show && (
                             <>
-                                <div  className=' h-52' >
+                                <div  className=' h-64' >
                                     <div className='w-full h-32 relative' >
                                         <img src={Scan} className='w-full h-32 rounded-md object-cover'  alt='scan' />
                                         <div className='py-1 rounded-sm px-1 bg-[#FFFFFFCC] absolute bottom-2 right-2 ' >
@@ -175,8 +178,8 @@ export default function ManageScan() {
                                         {/* <p className='font-Ubuntu-Regular text-[#7123E2] ml-auto text-xs'>5 Images</p> */}
                                     </div>
                                 </div>
-                                <div className=' h-52 border-dashed border py-7 px-5' > 
-                                    <div className='flex items-center mb-5' > 
+                                <div className=' w-72 h-56 border-dashed relative flex flex-col justify-center items-center border py-7 px-5' > 
+                                    <div className='flex items-center' > 
                                         <label className="cursor-pointer items-center">
                                             <input   style={{display:'none' , width:'100%', height: '100%'}} type="file" id="file" multiple onChange={handleImageChange} />
                                             <div className='w-10 h-10 rounded-full flex bg-[#7123E214] justify-center items-center' >
@@ -190,7 +193,7 @@ export default function ManageScan() {
                                             <p className='font-Ubuntu-Medium text-sm' >Upload Scan Image</p>
                                             <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >Drag and Drop or <span className='text-[#7123E2]' >Browse</span></p>
                                         </label>
-                                        {loading && ( 
+                                        {/* {loading && ( 
                                             <LoaderIcon size='w-12 h-12 ml-auto ' /> 
                                         )}
                                         {selectedFiles.length !== 0 && (
@@ -201,36 +204,31 @@ export default function ManageScan() {
                                                     </svg>
                                                 )}
                                             </>
-                                        )}
+                                        )} */}
+                                    </div> 
+                                    {selectedFiles.length !== 0 && (
+                                        <div className='flex flex-1 overflow-x-auto mt-5' > 
+                                            {selectedFiles && (
+                                                <>
+                                                    {selectedFiles.map((item: any, index: any) =>{
+                                                        if(index <= 3){ 
+                                                            return( 
+                                                                <div key={item} className='w-16 h-12 pr-3 rounded-md' >
+                                                                    <img src={item} alt='files' className='w-full h-full rounded-md object-cover' />
+                                                                </div>
+                                                            )
+                                                        }
+                                                    })}
+                                                </>
+                                            )}
                                     </div>
-                                    <InputGroup >
-                                        <InputRightElement 
-                                        children={
-                                            <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M1 5L5 9L13 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        }
-                                        />
-                                        <Input disabled _placeholder={{color: 'black'}} fontSize='xs' placeholder={requestInfo.patient.firstName+' '+requestInfo.patient.lastName} border='0px' backgroundColor='#F6F7F9'  /> 
-                                    </InputGroup> 
-                                    <p className=' text-xs underline ml-auto mt-3 mb-5  font-Ubuntu-Medium w-full flex justify-end' >{imageFiles.length} <span className='text-[#B0BAC8] ml-2' >uploaded</span></p>
-                                    <div className='w-full bg-[#F4EDFD] mt-auto'  style={{height: '2px'}} >
-                                        <div style={{width: '40%'}} className='h-full bg-[#894ae2]' >
-
-                                        </div>
-                                    </div>
+                                    )}
+                                    {selectedFiles.length !== 0  && ( 
+                                        <button onClick={()=> sumbit(imageFiles)} className='px-3 py-2 border font-Ubuntu-Medium text-xs mt-auto ml-auto rounded-sm border-[#7123E2] text-[#7123E2] ' >
+                                            Update
+                                        </button>
+                                    )}
                                 </div>
-                                {selectedFiles && (
-                                    <>
-                                        {selectedFiles.map((item: any) =>{
-                                            return( 
-                                                <div key={item} className='w-full h-52 rounded-md' >
-                                                    <img src={item} alt='files' className='w-full h-full rounded-md object-cover' />
-                                                </div>
-                                            )
-                                        })}
-                                    </>
-                                )}
                             </>
                         )}
                     </div>

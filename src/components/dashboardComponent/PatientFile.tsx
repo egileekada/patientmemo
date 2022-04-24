@@ -38,7 +38,7 @@ export default function PatientFile() {
 
     return (
         <div className='w-full' >
-            <div className='w-full flex px-12 py-3 items-center ' >
+            <div className='w-full flex px-12 py-3 items-center border-b border-[#D7D0DF] ' >
                 <div onClick={()=> ClickHandler()} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

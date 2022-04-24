@@ -9,7 +9,7 @@ import DateFormat from '../../DateFormat'
 export default function DoctorRequest(props: any) {
  
     const { isLoading, data } = useQuery('getpatient', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/requests/${props.value._id}`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/requests/${props.value}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -25,6 +25,8 @@ export default function DoctorRequest(props: any) {
         props.next(3)
     }
 
+    console.log(data)
+
     return (
         <div className=' px-12' > 
             <div className='w-full py-8 flex items-center' >  
@@ -36,7 +38,7 @@ export default function DoctorRequest(props: any) {
             </div>
             {isLoading ?
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
-                    <LoaderIcon size='w-20 h-20 mr-1 animate-pulse ' /> 
+                    <LoaderIcon size='w-20 h-20 mr-1 animate-spin ' /> 
                 </div>
             :
                 <>

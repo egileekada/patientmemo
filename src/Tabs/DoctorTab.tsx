@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import RoleNavbar from '../components/RoleNavbar'
 
 export default function DoctorTab() {
 
@@ -7,16 +8,11 @@ export default function DoctorTab() {
     // const userData: any = JSON.parse(localStorage.getItem('userData')+'')
 
     return (
-        <div style={{height:'100%', flexGrow: '1'}} className=' px-32 py-12 relative' >
-            {/* {userData.role !== 'doctor' && ( 
-                <>
-                    <div className="absolute flex flex-1 justify-center items-center inset-0 z-50 "> 
-                        <p className='font-Ubuntu-Bold text-5xl text-white relative z-50' >You Are Not Assigned To This Role</p>
-                    </div>
-                    <div className=" opacity-50  absolute flex flex-1 inset-0 z-40 bg-[#7123E2]"/>
-                </>
-            )} */}
-            <div className='grid grid-cols-3 w-full gap-6' >
+        <div style={{height:'100%', flexGrow: '1'}} className='  py-12 relative' >  
+            <div className='w-full pb-12' >
+                <RoleNavbar />
+            </div>
+            <div className='grid grid-cols-3 w-full gap-6 px-32' >
                 <div onClick={()=> navigate('/dashboard/doctor/continuationsheet')} className='bg-[#7123E2] w-full rounded-md px-6 py-8 relative cursor-pointer' >
                     <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#5815BA]' >
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

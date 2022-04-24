@@ -12,23 +12,7 @@ export default function RequestTab(props: any) {
 
     const [show, setShow] = React.useState(true)
     const [showModal, setShowModal] = React.useState(false)
-    const navigate = useNavigate()  
-    
-    // console.log(props.info)
-
-    // const { isLoading, data } = useQuery('requests', () =>
-    //     fetch(`https://hospital-memo-api.herokuapp.com/requests/623fdff35a87520b1cf6403e?kind=pharmacy`, {
-    //         method: 'GET', // or 'PUT'
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             Authorization : `Bearer ${localStorage.getItem('token')}`
-    //         }
-    //     }).then(res =>
-    //         res.json()
-    //     )
-    // )  
-
-    // console.log(props.value)
+    const navigate = useNavigate()   
 
     console.log(props.info)
 

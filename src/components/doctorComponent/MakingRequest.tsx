@@ -23,6 +23,7 @@ export default function MakingRequest() {
         setShowModal(false)
     }
 
+    console.log(data)
     return (
         <div className='w-full h-full ' >
             <div className='w-full px-16 py-5 border-b border-[#D7D0DF]  flex items-center' > 

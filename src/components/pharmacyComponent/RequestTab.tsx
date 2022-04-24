@@ -94,7 +94,7 @@ export default function RequestTab() {
                             </p>
                             <p className='font-Ubuntu-Regular text-[#5F6777] mt-2 text-xs' > <GetPatientInfo title='' data={info.patient} /></p>
                         </div>  
-                        <button className='font-Ubuntu-Medium text-xs border-[#7123E2] text-[#7123E2] border rounded-lg h-10 flex justify-center items-center px-6 ml-auto ' >Update Patient</button>
+                        {/* <button className='font-Ubuntu-Medium text-xs border-[#7123E2] text-[#7123E2] border rounded-lg h-10 flex justify-center items-center px-6 ml-auto ' >Update Patient</button> */}
                     </div>
                     <div className='w-full flex mt-4 items-center ml-12' > 
                         <div className='w-5 h-5 rounded-full flex bg-[#7123E214] justify-center items-center' >

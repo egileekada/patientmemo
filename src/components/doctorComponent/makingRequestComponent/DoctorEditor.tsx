@@ -50,7 +50,7 @@ export default function DoctorEditor(props: any) {
                 body: JSON.stringify({
                     description: formik.values.note, 
                     kind : props.kind,
-                    patient: props.value._id
+                    patient: props.value
                 }),
             });
     
@@ -108,8 +108,8 @@ export default function DoctorEditor(props: any) {
             <button onClick={()=> props.next(0)} className='w-44 rounded-full py-2 mr-6 text-sm bg-[#7123E214] text-[#7123E2] font-Ubuntu-Medium' >Cancel</button>
                 {loading ?
                     <button className='w-44 flex justify-center items-center rounded-full h-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >
-                        <div className='flex mx-auto items-center animate-pulse ' >
-                            <LoaderIcon size='w-6 h-6 mr-1 animate-pulse ' /> 
+                        <div className='flex mx-auto items-center ' >
+                            <LoaderIcon size='w-6 h-6 mr-1 animate-spin ' /> 
                             Loading
                         </div> 
                     </button>:

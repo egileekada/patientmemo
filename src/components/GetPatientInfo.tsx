@@ -25,7 +25,7 @@ export default function GetPatientInfo(props: any) {
                         if(item._id === props.data){
                             if(props.title === 'name'){ 
                                 return( 
-                                    <p className='font-Ubuntu-Medium text-lg ml-2' >{item.firstName+' '+item.lastName}</p>
+                                    <p className='font-Ubuntu-Medium ml-2' >{item.firstName+' '+item.lastName}</p>
                                 )
                             } else {
                                 return( 

@@ -8,7 +8,7 @@ export default function Navbar() {
     const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
 
     return (
-        <div className='w-full bg-white px-10 flex items-center py-5' > 
+        <div className='w-full bg-white px-10 border-b border-[#D7D0DF] flex items-center py-5' > 
             <img style={{width: '150px'}} className='' alt='logo' src={Logo} />
             {/* <div className=' w-96 mx-auto' >
                 <InputGroup >
