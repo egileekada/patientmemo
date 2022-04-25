@@ -48,7 +48,7 @@ export default function ContinuationSheet() {
                     <button onClick={()=> setNext(3)} className='font-Ubuntu-Medium ml-auto text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ' >See Other Sheets</button>
                 :null}
             </div>
-            <div className='w-full h-full px-6 flex ' >
+            <div className='w-full h-auto px-6 flex ' >
                 <div className=' h-auto border-r border-[#D7D0DF] px-4 pr-10 ' >
                     <div className='flex items-center mt-20' >
                         <div className='w-10 h-10 flex justify-center items-center border border-[#7123E2] rounded-full ' >
@@ -66,7 +66,7 @@ export default function ContinuationSheet() {
                         <p className={!next ? 'text-sm font-Ubuntu-Medium ml-3 text-[#5F6777]': 'text-sm font-Ubuntu-Medium ml-3 text-[#7123E2]'} >Diagnose & Request</p>
                     </div>
                 </div>
-                <div className='w-4/6 h-auto flex-1 flex flex-col justify-center items-center ' >
+                <div className='w-4/6 h-auto flex-1 flex flex-col items-center ' >
                     {next === 0 ? 
                         <FindPatient next={setNext} value={setData} />
                             :next === 1 ? 

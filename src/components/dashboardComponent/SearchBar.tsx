@@ -1,6 +1,6 @@
-import React from 'react'
-import LoaderIcon from '../../LoaderIcon';
-import Modal from '../../Modal';
+import React from 'react' 
+import LoaderIcon from '../LoaderIcon';
+import Modal from '../Modal';
 
 export default function  SearchBar(props: any) {
 
@@ -71,7 +71,7 @@ export default function  SearchBar(props: any) {
                                                 <p className='font-Ubuntu-Medium text-sm' >{item.firstName+' '+item.lastName}</p>
                                                 <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{item._id}</p>
                                             </div>
-                                            <button onClick={()=> props.open(item)} className='w-20 rounded-md py-2 text-xs bg-[#7123E2] ml-auto text-white font-Ubuntu-Medium' >Open</button>
+                                            <button onClick={()=> props.open(item._id)} className='w-20 rounded-md py-2 text-xs bg-[#7123E2] ml-auto text-white font-Ubuntu-Medium' >Open</button>
                                         </div>
                                     )
                                 })}

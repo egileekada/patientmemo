@@ -7,7 +7,7 @@ import ResetPassword from './screens/ResetPassword';
 import DashboardScreen from './screens/DashboardScreen';
 import DashboardTab from './Tabs/DashboardTab'; 
 import RegisterPatient from './components/dashboardComponent/RegisterPatient';
-import ManageScan from './components/dashboardComponent/ManageScan';
+import ManageScan from './components/laboratoryComponent/ManageScan';
 import AddNewUser from './components/dashboardComponent/AddNewUser';
 import ManageBloodBank from './components/dashboardComponent/ManageBlood';
 import ManagePatient from './components/dashboardComponent/ManagePatient';
@@ -46,9 +46,9 @@ function App() {
             <Route path='/dashboard' element={<DashboardScreen />}> 
               <Route path='/dashboard' element={<DashboardTab />} />
               <Route path='/dashboard/registerpatient' element={<RegisterPatient />} />
-              <Route path='/dashboard/managescan' element={<ManageScan />} />
+              {/* <Route path='/dashboard/managescan' element={<ManageScan />} /> */}
               <Route path='/dashboard/manageuser' element={<AddNewUser />} />
-              <Route path='/dashboard/managebloodbank' element={<ManageBloodBank />} />
+              {/* <Route path='/dashboard/managebloodbank' element={<ManageBloodBank />} /> */}
               <Route path='/dashboard/managepatient' element={<ManagePatient />} />
               <Route path='/dashboard/patientfile' element={<PatientFile />} />
               <Route path='/dashboard/pharmacy' element={<PharmacyTab />} />

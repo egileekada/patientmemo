@@ -9,7 +9,7 @@ import DateFormat from '../../DateFormat'
 export default function DoctorRequest(props: any) {
  
     const { isLoading, data } = useQuery('getpatient', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/requests/${props.value}`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/requests/${props.value._id}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 

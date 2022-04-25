@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import DoctorEditor from './DoctorEditor'
 import FindPatient from './FindPatient'
 import RequestTab from './RequestTab'
@@ -6,7 +7,10 @@ import RequestTab from './RequestTab'
 export default function ManageActivities() {
     const [tab, setTab] = React.useState(0)
     const [next, setNext] = React.useState(0)
-    const [data, setData] = React.useState({} as any) 
+    const [data, setData] = React.useState({} as any)
+    const navigate = useNavigate() 
+
+    console.log(data)
 
     const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
     return (
@@ -20,7 +24,12 @@ export default function ManageActivities() {
                 </>
             )}
             <div className='w-full px-12 border-b flex items-center relative border-[#D7D0DF]' >  
-                <p className='font-Ubuntu-Medium text-lg absolute' >Manage the Labs</p> 
+                <div onClick={()=> navigate('/dashboard/laboratory')} className='w-10 absolute h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <p className='font-Ubuntu-Medium text-lg absolute ml-12' >Manage the Activities</p> 
                 <div className='mx-auto flex' >
                     <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-center pb-7 pt-8 cursor-pointer mx-3 border-b-2 border-[#7123E2]  ': 'flex items-center pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
                         <p className={tab === 0 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Upload New</p>
@@ -35,7 +44,7 @@ export default function ManageActivities() {
                     <>
                         {next === 0 ?
                             <div className='w-full flex justify-center items-center' > 
-                                <FindPatient next={setNext} value={setData} /> 
+                                <FindPatient header='Enter Patient Name' body='To create a continuation sheet, you wil have to verity patient before you has a file in the hospital.' next={setNext} value={setData} /> 
                             </div>
                                 :
                                     <DoctorEditor value={data} next={setNext} /> 

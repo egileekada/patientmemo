@@ -1,7 +1,7 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'; 
-import SearchBar from '../doctorComponent/continuationSheetComponent/SearchBar';
+import { useNavigate } from 'react-router-dom';  
+import SearchBar from './SearchBar';
 // import LoaderIcon from '../../../LoaderIcon';
 // import SearchBar from './SearchBar';
 

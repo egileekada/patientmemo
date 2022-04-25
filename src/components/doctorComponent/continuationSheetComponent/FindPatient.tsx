@@ -60,7 +60,7 @@ export default function FindPatient(props: any) {
     }
 
     return (
-        <div className='w-96 py-20 my-auto' > 
+        <div className='w-96 pt-20' > 
             <div className='w-full border-b pb-10 flex flex-col justify-center items-center border-[#DFE4EB]' > 
                 <p className='text-lg font-Ubuntu-Bold' >Enter Patient Name</p>
                 <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To create a continuation sheet, you wil have to verity patient<br/>before you has a file in the hospital.</p>

@@ -14,8 +14,8 @@ export default function RequestTab() {
 
     const [show, setShow] = React.useState(false)
     const [info, setInfo] = React.useState({} as any)
-    const [showModal, setShowModal] = React.useState(false)
-    const navigate = useNavigate() 
+    // const [showModal, setShowModal] = React.useState(false)
+    // const navigate = useNavigate() 
  
     const { isLoading, data } = useQuery('requests', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/requests`, {

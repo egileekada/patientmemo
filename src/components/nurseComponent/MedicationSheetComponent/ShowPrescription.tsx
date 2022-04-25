@@ -4,14 +4,20 @@ import DateFormat from '../../DateFormat'
 import GetUserInfo from '../../GetUserInfo'
 
 export default function ShowPrescription(props: any) {
-
-    console.log(props.data)
+ 
+    const ClickHandler =()=>{
+        {props.button === 'Add Scan' ?
+            props.next(3)
+        :
+            props.next(1)
+        }
+    }
 
     return (
         <div className='w-full h-full px-28  ' >
             <div className='w-full pt-8 flex items-center' >  
                 <div className='ml-3' > 
-                    <p className='font-Ubuntu-Medium text-lg' >Medical Sheets for {props.data.patient.firstName+' '+props.data.patient.lastName}</p>
+                    <p className='font-Ubuntu-Medium text-lg' >{props.header ? props.header : 'Medical Sheets'} for {props.data.patient.firstName+' '+props.data.patient.lastName}</p>
                     <p className='font-Ubuntu-Regular mt-2 text-sm' >{DateFormat(props.data.createdAt)}</p>
                 </div>
                 {/* <button className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button> */}
@@ -38,7 +44,7 @@ export default function ShowPrescription(props: any) {
             <p className='text-[#5F6777] ml-10 text-sm font-Ubuntu-Regular my-6'>nulla. Fringilla magna dictum neque, amet, quam risus ac ultricies. Tempus lacus massa in eu, sit consequat nascetur. A, id pulvinar feugiat eget eu tortor, ullamcorper morbi. Ac magna ultricies egestas in massa tincidunt nisl amet diam. Tempor ultrices quis rutrum porttitor ullamcorper. Erat tortor, facilisis aliquam cras aliquam etiam mauris.</p> */}
            
                 <div className='w-full flex mt-10' >
-                    <button onClick={()=> props.next(1)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Confirm Prescription</button>
+                    <button onClick={()=> ClickHandler()} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >{props.button}</button>
                 </div> 
         </div>
     ) 

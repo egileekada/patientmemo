@@ -19,7 +19,7 @@ export default function PatientFile() {
     const [tab, setTab] = React.useState(0) 
     const [infoTab, setInfoTab] = React.useState(0) 
 
-    const { isLoading, data } = useQuery('repoData', () =>
+    const { isLoading, data } = useQuery('EditPaitentData', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem('patientId')}`, {
             method: 'GET', // or 'PUT'
             headers: {
