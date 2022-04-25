@@ -67,7 +67,7 @@ export default function ListRequestForPatient(props: any) {
                                                 <p className='font-Ubuntu-Medium text-sm' >{item.patient.firstName+' '+item.patient.lastName}</p>
                                                 <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(item.updatedAt)}</p>
                                             </div>
-                                            {Check(item)}
+                                            {Check(item.patient._id)}
                                             {/* <p className='font-Ubuntu-Regular text-[#7123E2] ml-auto text-xs'>5 Images</p> */}
                                         </div>
                                     </div>

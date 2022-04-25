@@ -8,56 +8,72 @@ import SearchBar from './SearchBar';
 export default function FindPatient(props: any) { 
 
     const navigate = useNavigate();
-    const [loading, setLoading] = React.useState(false); 
-    const [data, setData] = React.useState([] as any);  
+    // const [loading, setLoading] = React.useState(false); 
+    // const [data, setData] = React.useState([] as any);  
     const [name, setName] = React.useState('');  
 
-    const submit = async () => { 
+    // const submit = async () => { 
 
-        setLoading(true);
-        const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/search-patients
-        `, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({
-                keyword: name
-            }),
-        });
+    //     setLoading(true);
+    //     const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/search-patients
+    //     `, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         },
+    //         body: JSON.stringify({
+    //             keyword: name
+    //         }),
+    //     });
 
-        const json = await request.json();
+    //     const json = await request.json();
 
-        console.log(request.status)
-        console.log(json)
-        if (request.status === 201) {   
-            setData(json)
-            // localStorage.setItem('token', json.token);         
-            // const t1 = setTimeout(() => { 
-            //     if(json.user.role === 'nurse'){
-            //         navigate('/dashboard'); 
-            //     } else {
-            //         navigate('/dashboard'); 
-            //     }
-            //     clearTimeout(t1);
-            //     setLoading(false);
-            // }, 3000); 
-        }else {
-            alert(json.message);
-            console.log(json)
-            setLoading(false);
-        } 
+    //     console.log(request.status)
+    //     console.log(json)
+    //     if (request.status === 201) {   
+    //         setData(json)
+    //         // localStorage.setItem('token', json.token);         
+    //         // const t1 = setTimeout(() => { 
+    //         //     if(json.user.role === 'nurse'){
+    //         //         navigate('/dashboard'); 
+    //         //     } else {
+    //         //         navigate('/dashboard'); 
+    //         //     }
+    //         //     clearTimeout(t1);
+    //         //     setLoading(false);
+    //         // }, 3000); 
+    //     }else {
+    //         alert(json.message);
+    //         console.log(json)
+    //         setLoading(false);
+    //     } 
 
-        if(json.length === 0){
-            alert('No Patient Found');
-        }
-        setLoading(false)
-    }   
+    //     if(json.length === 0){
+    //         alert('No Patient Found');
+    //     }
+    //     setLoading(false)
+    // }   
 
     const ClickHandler =(item: any)=> {
         localStorage.setItem('patientId', item)
-        navigate('/dashboard/patientfile')
+        localStorage.setItem('show', 'true')
+        {!props.nurse && (
+            navigate('/dashboard/patientfile')
+        )} 
+        {props.nurse && (
+            props.show(true)
+        )} 
+        {props.nurse && (
+            props.index(item)
+        )} 
+        {props.nurse && (
+            props.numb(-1)
+        )} 
+        {props.nurse && (
+            props.array([] as any)
+        )} 
+        setName('')
     }
 
     return (
@@ -74,7 +90,7 @@ export default function FindPatient(props: any) {
                             </svg>
                         }
                         />
-                        <Input  onChange={(e)=> setName(e.target.value)} fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
+                        <Input  onChange={(e)=> setName(e.target.value)} value={name} fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
                     </InputGroup> 
                     {/* <Input size='lg' borderRadius='6px' fontSize='sm' backgroundColor='#e3e3e3' border='1px solid #333' /> */}
                     {name && (
