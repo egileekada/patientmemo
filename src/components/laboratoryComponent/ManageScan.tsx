@@ -27,10 +27,7 @@ export default function ManageScan() {
     // const [message, setMessage] = React.useState('');
     const [requestData, setData] = React.useState({} as any);
     const [next, setNext] = React.useState(0)
-    // const [modal, setModal] = React.useState(0); 
-
-
-    console.log(requestData)
+    // const [modal, setModal] = React.useState(0);  
 
     // const sumbit =async(item: any)=> {
     //     if (selectedFiles.length === 0) {

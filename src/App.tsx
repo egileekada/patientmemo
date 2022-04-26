@@ -31,7 +31,8 @@ import ObservationChart from './components/nurseComponent/ObservationChart';
 import OIChart from './components/nurseComponent/OIChart';
 import LabScreen from './screens/LabScreen';
 import ManageActivities from './components/laboratoryComponent/ManageActivities';
-import DeliveryRecord from './components/nurseComponent/DeliveryRecord';
+import DeliveryRecord from './components/nurseComponent/DeliveryRecord'; 
+import AnteNatalNotes from './components/nurseComponent/AnteNatalNotes';
  
 const queryClient = new QueryClient()
 
@@ -65,6 +66,7 @@ function App() {
                 <Route path='/dashboard/nurse/observationchart' element={<ObservationChart />} />
                 <Route path='/dashboard/nurse/oichart' element={<OIChart />} />
                 <Route path='/dashboard/nurse/managedeliveryrecord' element={<DeliveryRecord />} />
+                <Route path='/dashboard/nurse/antenatalnotes' element={<AnteNatalNotes />} />
               </Route>
               <Route path='/dashboard/doctor' element={<DoctorScreen />}>
                 <Route path='/dashboard/doctor' element={<DoctorTab />} />
