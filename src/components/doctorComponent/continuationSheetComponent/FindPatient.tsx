@@ -62,8 +62,8 @@ export default function FindPatient(props: any) {
     return (
         <div className='w-96 pt-20' > 
             <div className='w-full border-b pb-10 flex flex-col justify-center items-center border-[#DFE4EB]' > 
-                <p className='text-lg font-Ubuntu-Bold' >Enter Patient Name</p>
-                <p className='text-sm font-Ubuntu-Regular text-center mt-1' >To create a continuation sheet, you wil have to verity patient<br/>before you has a file in the hospital.</p>
+                <p className='text-lg font-Ubuntu-Bold' >{props.header}</p>
+                <p className='text-sm font-Ubuntu-Regular text-center mt-1' >{props.body}</p>
                 <div className='mt-8 w-full relative ' > 
                     <Input onChange={(e)=> setName(e.target.value)} size='lg' borderRadius='6px' fontSize='sm' backgroundColor='#e3e3e3' border='1px solid #333' />
                     {name && (

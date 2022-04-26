@@ -31,6 +31,7 @@ import ObservationChart from './components/nurseComponent/ObservationChart';
 import OIChart from './components/nurseComponent/OIChart';
 import LabScreen from './screens/LabScreen';
 import ManageActivities from './components/laboratoryComponent/ManageActivities';
+import DeliveryRecord from './components/nurseComponent/DeliveryRecord';
  
 const queryClient = new QueryClient()
 
@@ -48,7 +49,6 @@ function App() {
               <Route path='/dashboard/registerpatient' element={<RegisterPatient />} />
               {/* <Route path='/dashboard/managescan' element={<ManageScan />} /> */}
               <Route path='/dashboard/manageuser' element={<AddNewUser />} />
-              {/* <Route path='/dashboard/managebloodbank' element={<ManageBloodBank />} /> */}
               <Route path='/dashboard/managepatient' element={<ManagePatient />} />
               <Route path='/dashboard/patientfile' element={<PatientFile />} />
               <Route path='/dashboard/pharmacy' element={<PharmacyTab />} />
@@ -64,6 +64,7 @@ function App() {
                 <Route path='/dashboard/nurse/medicationsheet' element={<MedicationSheet />} />
                 <Route path='/dashboard/nurse/observationchart' element={<ObservationChart />} />
                 <Route path='/dashboard/nurse/oichart' element={<OIChart />} />
+                <Route path='/dashboard/nurse/managedeliveryrecord' element={<DeliveryRecord />} />
               </Route>
               <Route path='/dashboard/doctor' element={<DoctorScreen />}>
                 <Route path='/dashboard/doctor' element={<DoctorTab />} />

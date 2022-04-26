@@ -68,7 +68,7 @@ export default function ContinuationSheet() {
                 </div>
                 <div className='w-4/6 h-auto flex-1 flex flex-col items-center ' >
                     {next === 0 ? 
-                        <FindPatient next={setNext} value={setData} />
+                        <FindPatient header='Enter Patient Name' body='To create a continuation sheet, you wil have to verity patient before you has a file in the hospital.' next={setNext} value={setData} />
                             :next === 1 ? 
                                 <Editor value={datainfo} next={setNext} />
                                     :next === 2 ? 

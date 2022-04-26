@@ -43,7 +43,7 @@ export default function MakingRequest() {
             <div className='w-full px-16 relative' >
                 {tab === 0 ? 
                     <div className='w-full flex justify-center items-center' > 
-                        <FindPatient next={setTab} value={setData} />
+                        <FindPatient header='Enter Patient Name' body='To create a continuation sheet, you wil have to verity patient before you has a file in the hospital.' next={setTab} value={setData} />
                     </div>
                         :tab === 1 ?
                             <DoctorRequest value={data} next={setTab} info={setInfo} />

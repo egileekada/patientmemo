@@ -3,9 +3,11 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import LoaderIcon from '../LoaderIcon'
+import DeliveryRecordTab from '../nurseComponent/DeliveryRecordComponent/DeliveryRecordTab'
 import AnteNatalNotes from './managePatientComponent/AnteNatalNotes'
-import ContinutionSheet from './managePatientComponent/ContinutionSheet'
-import DeliveryRecord from './managePatientComponent/DeliveryRecord'
+import ContinutionSheet from './managePatientComponent/ContinutionSheet' 
+// import DeliveryRecord from './managePatientComponent/DeliveryRecord'
+// import DeliveryRecord from './managePatientComponent/DeliveryRecord'
 import EditNextOfKin from './managePatientComponent/EditNextOfKin'
 import EditPatientInfo from './managePatientComponent/EditPatientInfo'
 import HositalHistory from './managePatientComponent/HositalHistory'
@@ -46,7 +48,7 @@ export default function PatientFile() {
                 </div>
                 <p className='font-Ubuntu-Medium ml-3' >Patient File</p>  
             </div>
-            {/* <div className='w-full flex justify-center border-t border-b border-[#D7D0DF]' >
+            <div className='w-full flex justify-center border-t border-b border-[#D7D0DF]' >
                 <div className='mx-auto flex ' > 
                     <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 0 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Bio</p>
@@ -76,7 +78,7 @@ export default function PatientFile() {
                         <p className={tab === 7 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Request</p>
                     </div> 
                 </div>
-            </div> */}
+            </div>
             <div className='w-full flex justify-center items-center' >
                 {isLoading ?
                     <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 
@@ -101,7 +103,7 @@ export default function PatientFile() {
                                                 :tab === 4 ?
                                                     <InputAndOutputChart /> 
                                                         :tab === 9 ?
-                                                            <DeliveryRecord />
+                                                            <DeliveryRecordTab />
                                                                 :tab === 6 ?
                                                                     <AnteNatalNotes />
                                                                         :tab === 7 ?
