@@ -22,12 +22,26 @@ export default function MakingRequest() {
         setTab(2)
         setShowModal(false)
     }
+    
+    const OnBackHandler =()=> {
+        {tab === 0 && (
+            navigate('/dashboard/doctor')
+        )}
+        {tab === 3 && (
+            setTab(1)
+        )}
+        {tab === 2 && (
+            setTab(1)
+        )}
+        {tab === 1 && (
+            setTab(0)
+        )}
+    }
 
-    console.log(data)
     return (
         <div className='w-full h-full ' >
             <div className='w-full px-16 py-5 border-b border-[#D7D0DF]  flex items-center' > 
-                <div onClick={()=> navigate('/dashboard/doctor')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                <div onClick={()=> OnBackHandler()} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -36,7 +50,7 @@ export default function MakingRequest() {
                     <p className='font-Ubuntu-Medium text-lg ml-3' >Register New Patients</p>
                     {/* <p className='font-Ubuntu-Regular text-sm' >12:00PM, 24, Jun 2021 - 12:00PM, 24, Jun 2022</p> */}
                 </div>   
-                {tab !== 0 && ( 
+                {tab === 1 && ( 
                     <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Make Request</button> 
                 )}
             </div> 

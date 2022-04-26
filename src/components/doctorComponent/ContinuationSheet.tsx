@@ -13,13 +13,26 @@ export default function ContinuationSheet() {
     const [next, setNext] = React.useState(0)
     const [datainfo, setData] = React.useState({} as any)
     const [patientInfo, setPatientInfo] = React.useState({} as any)  
-
-    console.log(datainfo)
+ 
+    const ClickHandler =()=> {
+        {next === 0 && (
+            navigate('/dashboard/doctor')
+        )}
+        {next === 1 && (
+            setNext(0)
+        )}
+        {next === 2 && (
+            setNext(3)
+        )}
+        {next === 3 && (
+            setNext(1)
+        )}
+    }
 
     return (
         <div className='w-full h-full ' >
             <div className='w-full px-16 border-b py-5  border-[#D7D0DF]  flex items-center' > 
-                <div onClick={()=> navigate('/dashboard/doctor')} className='w-10  h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                <div onClick={()=> ClickHandler()} className='w-10  h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -44,7 +57,7 @@ export default function ContinuationSheet() {
                     <div className=' ' >
                         
                     </div>} */}
-                {next !== 0 ?  
+                {next === 1 ?  
                     <button onClick={()=> setNext(3)} className='font-Ubuntu-Medium ml-auto text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ' >See Other Sheets</button>
                 :null}
             </div>

@@ -7,6 +7,6 @@ export default function DateFormat(item: any) {
     date.getHours()
     console.log(date.toTimeString())
     return( 
-        <p className=' font-Montserrat-Medium text-xs' >{string.substr(0, 11)+' '+date.getHours()+':'+date.getMinutes()+' '+time.substr(8, 9)}</p>
+        <p className=' font-Montserrat-Medium text-sm' >{string.substr(0, 11)+' '+date.getHours()+':'+date.getMinutes()+' '+time.substr(8, 9)}</p>
     )
 }  
