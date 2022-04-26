@@ -177,7 +177,7 @@ export default function HistoryOfPresentPregnancy(props: any) {
                         </div> 
                     </button>
                     :
-                    <button onClick={()=> props.next(3) } className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full' >Next</button>
+                    <button onClick={()=> props.next(5) } className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full' >Next</button>
                 }
             </div>
         </div>

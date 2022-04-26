@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
 import HistoryOfPresentPregnancy from './AnteNatalNotesComponent/HistoryOfPresentPregnancy'
 import PersonnalInformation from './AnteNatalNotesComponent/PersonnalInformation'
+import Physicalexamination from './AnteNatalNotesComponent/Physicalexamination'
 import Previousmedicalhistory from './AnteNatalNotesComponent/Previousmedicalhistory'
 import SpecialInvestigation from './AnteNatalNotesComponent/SpecialInvestigation'
 
@@ -107,6 +108,9 @@ export default function AnteNatalNotes() {
                     )} 
                     {next === 4 && (
                         <HistoryOfPresentPregnancy data={requestData} next={setNext} />
+                    )} 
+                    {next === 5 && (
+                        <Physicalexamination data={requestData} next={setNext} />
                     )} 
                 </div> 
             </div>
