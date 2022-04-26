@@ -38,7 +38,7 @@ export default function Navbar() {
                 </div>
                 <div className='ml-3' >
                     <p className='font-Ubuntu-Medium' >{userData.fullName ? userData.fullName:(userData.firstName+' '+userData.lastName)}</p>
-                    <p className='font-Ubuntu-Medium text-sm mt-1 ' >{'ID - '+userData._id}</p>
+                    <p className='font-Ubuntu-Medium text-sm mt-1 ' >{'ID - '+(userData._id).slice(0, 7)}</p>
                 </div>
             </div>
         </div>
