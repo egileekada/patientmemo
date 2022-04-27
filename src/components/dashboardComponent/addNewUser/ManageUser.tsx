@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import LoaderIcon from '../../LoaderIcon'
+import Avatar from '../../../assets/images/user.png'
 
 export default function ManageUser() { 
     
@@ -41,10 +42,9 @@ export default function ManageUser() {
                         return(
                             <div key={item._id} className='px-3' > 
                                 {item.avatarMedia === undefined ? 
-                                    <div className='w-14 h-14 rounded-full flex bg-[#b65e3b14] justify-center items-center' >
-                                            
-                                    </div>:
-                                    <img src={item.avatarMedia.imageURL} className='w-14 h-14 rounded-full object-cover' alt={item.avatarMedia.asset_id} />
+                                    <img src={Avatar} className='w-20 h-20 rounded-full object-cover' alt='avatar' />
+                                    :
+                                    <img src={item.avatarMedia.imageURL} className='w-20 h-20 rounded-full object-cover' alt={item.avatarMedia.asset_id} />
                                 }
                                 <div className=' mt-4' > 
                                     <p className='font-Ubuntu-Medium text-xs text-[#2C3E50]' >{item.title+' '+item.fullName}</p>

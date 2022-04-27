@@ -42,13 +42,10 @@ export default function ChangePassword(props: any) {
     
         if (!formik.dirty) {
             setMessage('You have to fill in the form correctly to continue')
-            setModal(2)  
-            return;
+            setModal(2)   
         }else if (!formik.isValid) {
             setMessage('You have to fill in the form correctly to continue')
-            setModal(2)  
-        //   alert('You have to fill in the form correctly to continue');
-            return;
+            setModal(2)   
         }else {
             setLoading(true);
             const request = await fetch(`https://hospital-memo-api.herokuapp.com/auth/change-password`, {
@@ -73,11 +70,13 @@ export default function ChangePassword(props: any) {
                 }, 2000);   
             }else {
                 setMessage('Incorrect Password')
-                setModal(2)  
-                // alert('Incorrect Password');
-                // console.log(json)
+                setModal(2)   
                 setLoading(false);
-            }
+            } 
+            const t1 = setTimeout(() => {  
+                setModal(0)  
+                clearTimeout(t1); 
+            }, 2000);  
         }
     }    
     const navigate = useNavigate()
@@ -102,20 +101,20 @@ export default function ChangePassword(props: any) {
                 <div style={{border: '1px solid #CED5DE', borderRadius: '4px'}}  className='flex px-14 items-center flex-col justify-center mr-2' >
 
                     {!image && (
-                        <div className='w-20 h-20 flex justify-center items-center rounded-full  ' >
+                        <div className='w-28 h-28 flex justify-center items-center rounded-full  ' >
 
                             {!userData.avatar && ( 
-                                <img className='w-20 h-20 rounded-full object-cover' src={Avater} alt=""/>  
+                                <img className='w-28 h-28 rounded-full object-cover' src={Avater} alt=""/>  
                             )}
 
                             {userData.avatar && ( 
-                                <img className='w-20 h-20 rounded-full object-cover' src={userData.avatar} alt=""/>  
+                                <img className='w-28 h-28 rounded-full object-cover' src={userData.avatar} alt=""/>  
                             )}
                         </div>
                     )} 
 
                     {image && ( 
-                        <img className='w-20 h-20 rounded-full object-cover' src={selectedFiles} alt=""/>  
+                        <img className='w-28 h-28 rounded-full object-cover' src={selectedFiles} alt=""/>  
                     )}
                     <p className='text-sm font-Ubuntu-Medium mt-4 text-[#112030]' >{userData.fullName}</p>
                     <p className='text-xs font-Ubuntu-Regular mt-1 text-[#8EA7C0]' >{userData.email}</p> 
@@ -130,7 +129,7 @@ export default function ChangePassword(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("password", true, true)
                                 } 
-                                type="password" size='lg' fontSize='sm'  placeholder="Old Password" />
+                                type="password" size='lg' fontSize='sm'  placeholder="New Password" />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.password && formik.errors.password && (
                                     <motion.p
@@ -159,7 +158,7 @@ export default function ChangePassword(props: any) {
                                     onFocus={() =>
                                         formik.setFieldTouched("confirmPassword", true, true)
                                     } 
-                                    type={showpassword ? "text" : "confirmPassword"} size='lg' fontSize='sm' placeholder="New Password" /> 
+                                    type={showpassword ? "text" : "confirmPassword"} size='lg' fontSize='sm' placeholder="Confirm Password" /> 
                             </InputGroup> 
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.confirmPassword && formik.errors.confirmPassword && (

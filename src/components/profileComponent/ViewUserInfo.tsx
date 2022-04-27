@@ -113,21 +113,21 @@ export default function ViewUserInfo() {
                 <div style={{border: '1px solid #CED5DE', borderRadius: '4px'}}  className='flex px-14 items-center flex-col justify-center mr-2' >
 
                     {!image && (
-                        <div className='w-20 h-20 flex justify-center items-center rounded-full  ' >
+                        <div className='w-28 h-28 flex justify-center items-center rounded-full  ' >
 
                             {!userData.avatar && (
 
-                                <img className='w-20 h-20 rounded-full object-cover' src={Avater} alt=""/>  
+                                <img className='w-28 h-28 rounded-full object-cover' src={Avater} alt=""/>  
                             )}
 
                             {userData.avatar && ( 
-                                <img className='w-20 h-20 rounded-full object-cover' src={userData.avatar} alt=""/>  
+                                <img className='w-28 h-28 rounded-full object-cover' src={userData.avatar} alt=""/>  
                             )}
                         </div>
                     )} 
 
                     {image && ( 
-                        <img className='w-20 h-20 rounded-full object-cover' src={selectedFiles} alt=""/>  
+                        <img className='w-28 h-28 rounded-full object-cover' src={selectedFiles} alt=""/>  
                     )}
                     <p className='text-sm font-Ubuntu-Medium mt-4 text-[#112030]' >{userData.fullName}</p>
                     <p className='text-xs font-Ubuntu-Regular mt-1 text-[#8EA7C0]' >{userData.email}</p>

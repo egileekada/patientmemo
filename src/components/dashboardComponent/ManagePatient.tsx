@@ -68,7 +68,7 @@ export default function ManagePatient() {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {data.map((item: any, index: any)=> {
+                                {[...data].reverse().map((item: any, index: any)=> {
                                     return(
                                         <Tr onClick={()=> ClickHandler(item._id)} className={'font-Ubuntu-Medium cursor-pointer text-black text-sm'} key={index} >
                                             <Td>
