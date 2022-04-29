@@ -137,7 +137,7 @@ export default function AddUser() {
                 </div> */}
                 <div className='ml-0 '> 
                     <p className='font-Ubuntu-Medium text-lg' >Add New Staff</p> 
-                    <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Users</p> 
+                    <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Staff</p> 
                 </div> 
                 {/* {loading ? 
                     <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg h-11 px-6 ml-auto ' >

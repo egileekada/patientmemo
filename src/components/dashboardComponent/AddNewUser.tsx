@@ -18,19 +18,19 @@ export default function AddNewUser() {
                     </svg>
                 </div>
                 <p className='font-Ubuntu-Medium text-lg ml-14 absolute ' >Manage Staff</p> 
-                <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-center pb-7 pt-8 cursor-pointer ml-auto mx-3 border-b-2 border-[#7123E2]  ': 'flex items-center  ml-auto pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
-                    <p className={tab === 0 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Add New</p>
+                <div onClick={()=> setTab(0)} className={tab === 0 ? 'flex items-center pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-[#7123E2] ml-auto ': 'ml-auto flex items-center pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
+                    <p className={tab === 0 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Manage Staff</p>
                 </div>
-                <div onClick={()=> setTab(1)} className={tab === 1 ? 'flex items-center pb-7 pt-8  ml-4 cursor-pointer mx-3 border-b-2 border-[#7123E2] mr-auto ': 'mr-auto flex items-center ml-4 pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
-                    <p className={tab === 1 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Manage Users</p>
+                <div onClick={()=> setTab(1)} className={tab === 1 ? 'flex items-center pb-7 pt-8 ml-4 cursor-pointer mr-auto mx-3 border-b-2 border-[#7123E2]  ': 'flex items-center  mr-auto pb-7 ml-4 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 
+                    <p className={tab === 1 ? 'font-Ubuntu-Medium px-2 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-2 text-xs text-[#817D83]'} >Add New</p>
                 </div>
                 {/* <button className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Add to List</button> */}
             </div>
             <div className='w-full h-full' >
                 {tab === 0 ?  
-                <AddUser /> 
-                : 
                     <ManageUser /> 
+                : 
+                    <AddUser /> 
                     }
             </div>
         </div>

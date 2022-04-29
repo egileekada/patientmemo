@@ -26,8 +26,8 @@ export default function ManageUser() {
                     </svg>
                 </div> */}
                 <div className='ml-0'> 
-                    <p className='font-Ubuntu-Medium text-lg' >Manage User</p> 
-                    <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Users</p> 
+                    <p className='font-Ubuntu-Medium text-lg' >Manage Staff</p> 
+                    <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Staff</p> 
                 </div> 
                 {/* <button className='font-Ubuntu-Medium text-xs border text-[#7123E2] border-[#7123E2] rounded-lg py-3 px-6 ml-auto ' >Update Profile</button> */}
             </div>
@@ -38,7 +38,7 @@ export default function ManageUser() {
                 </div>
             :
                 <div className='w-full grid grid-cols-4 gap-6 py-12 relative px-20' > 
-                    {data.map((item: any) => {
+                    {[...data].reverse().map((item: any) => {
                         return(
                             <div key={item._id} className='px-3' > 
                                 {item.avatarMedia === undefined ? 

@@ -18,7 +18,7 @@ export default function NextOfKinInfo(props: any) {
     
     const loginSchema = yup.object({ 
         firstName: yup.string().required('Required'),
-        otherNames: yup.string().required('Required'),
+        // otherNames: yup.string().required('Required'),
         lastName: yup.string().required('Required'),
         gender: yup.string().required('Required'),
         address: yup.string().required('Required'),
@@ -154,7 +154,7 @@ export default function NextOfKinInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-sm mb-2' >Other Names</p>
+                    <p className='text-sm mb-2' >Other Names(Optional)</p>
                     <Input 
                         name="otherNames"
                         onChange={formik.handleChange}

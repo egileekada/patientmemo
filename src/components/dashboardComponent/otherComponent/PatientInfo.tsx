@@ -17,7 +17,7 @@ export default function PatientInfo(props: any) {
     
     const loginSchema = yup.object({ 
         firstName: yup.string().required('Required'),
-        otherNames: yup.string().required('Required'),
+        // otherNames: yup.string().required('Required'),
         lastName: yup.string().required('Required'),
         gender: yup.string().required('Required'),
         address: yup.string().required('Required'),
@@ -90,9 +90,7 @@ export default function PatientInfo(props: any) {
             props.value(formik.values)
             console.log(formik.values)
           }
-    }
-
-    console.log(formik.values.stateOfOrigin)
+    } 
 
     return (
         <div className='w-auto h-full px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 

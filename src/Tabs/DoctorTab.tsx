@@ -8,7 +8,7 @@ export default function DoctorTab() {
     // const userData: any = JSON.parse(localStorage.getItem('userData')+'')
 
     return (
-        <div style={{height:'100%', flexGrow: '1'}} className='  py-12 relative' >  
+        <div style={{height:'100%', flexGrow: '1'}} className='  py-b relative' >  
             <div className='w-full pb-12' >
                 <RoleNavbar />
             </div>

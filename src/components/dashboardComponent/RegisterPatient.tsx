@@ -33,7 +33,7 @@ export default function RegisterPatient() {
                         <div className='w-10 h-10 flex justify-center items-center border border-[#7123E2] rounded-full ' >
                             <div className='w-5 h-5 bg-[#7123E2] rounded-full ' />
                         </div>
-                        <p className='text-sm font-Ubuntu-Medium ml-3 text-[#7123E2]' >Personal Information</p>
+                        <p className='text-sm font-Ubuntu-Medium ml-3 w-24 text-[#7123E2]' >Personal Information</p>
                     </div>
                     <div style={{width: '1px', marginLeft: '19px'}} className='h-40 bg-[#5F6777]' >
 
