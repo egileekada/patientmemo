@@ -143,7 +143,7 @@ export default function ChangePassword(props: any) {
                             </div> 
                         </div> 
                         <div className=' w-full' >
-                            {/* <p className='text-sm mb-1 font-Ubuntu-Medium '>Password</p>   */}
+                            {/* <p className='text-sm mb-1 font-Ubuntu-Medium '>Password</p>   */} 
                             <InputGroup >
                                 <InputRightElement 
                                 children={
@@ -158,7 +158,7 @@ export default function ChangePassword(props: any) {
                                     onFocus={() =>
                                         formik.setFieldTouched("confirmPassword", true, true)
                                     } 
-                                    type={showpassword ? "text" : "confirmPassword"} size='lg' fontSize='sm' placeholder="Confirm Password" /> 
+                                    type={showpassword ? "text" : "password"} size='lg' fontSize='sm' placeholder="Confirm Password" /> 
                             </InputGroup> 
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.confirmPassword && formik.errors.confirmPassword && (
