@@ -37,6 +37,27 @@ import AnteNatalNotes from './components/nurseComponent/AnteNatalNotes';
 const queryClient = new QueryClient()
 
 function App() {
+
+
+
+  React.useEffect(() => {
+    fetch(`https://www.universal-tutorial.com/api/getaccesstoken`, {
+      method: 'GET', // or 'PUT'
+      headers: {
+          "Accept": "application/json",
+          "api-token": "V1mhwD-iZGLntVICiPhQfxRIhGpJ1xcokq0xZiMbq9YfK2VcXy0EikVGhfxI6RH-RLE",
+          "user-email": "egileoniso.ekada@gmail.com"
+      }
+  })
+  .then(response => response.json())
+  .then(data => {   
+        localStorage.setItem('country-token', data.auth_token) 
+    })
+    .catch((error) => {
+        console.error('Error:', error); 
+    });   
+  },)
+
   return ( 
     <QueryClientProvider client={queryClient}>
       <ChakraProvider>

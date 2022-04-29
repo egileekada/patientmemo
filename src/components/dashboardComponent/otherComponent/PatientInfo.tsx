@@ -11,6 +11,9 @@ export default function PatientInfo(props: any) {
 
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false);
+    const [state, setState] = React.useState([] as any) 
+    const [cities, setCities] = React.useState([] as any) 
+    const [cityLoading, setCityLoading] = React.useState(false) 
     
     const loginSchema = yup.object({ 
         firstName: yup.string().required('Required'),
@@ -31,7 +34,48 @@ export default function PatientInfo(props: any) {
         initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', stateOfOrigin: '',LGA: '', occupation: '', religion: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
-    });     
+    });   
+ 
+    React.useEffect(() => { 
+
+        fetch(`https://www.universal-tutorial.com/api/states/Nigeria`, {
+            method: 'GET', // or 'PUT'
+            headers: { 
+                Authorization : `Bearer ${localStorage.getItem('country-token')}`,
+                "Accept": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {   
+            setState(data) 
+            // if(data.length !== 0){
+            //     setStateLoading(false)
+            // }
+            // console.log(data)
+        })
+        .catch((error) => {
+            console.error('Error:', error); 
+        });  
+
+        fetch(`https://www.universal-tutorial.com/api/cities/${formik.values.stateOfOrigin}`, {
+            method: 'GET', // or 'PUT'
+            headers: { 
+                Authorization : `Bearer ${localStorage.getItem('country-token')}`,
+                "Accept": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {    
+            setCities(data)
+            if(data.length !== 0){
+                setCityLoading(true)
+            }
+            // console.log(data)
+        })
+        .catch((error) => {
+            console.error('Error:', error); 
+        });  
+    },[formik.values.stateOfOrigin])  
 
     const submit=()=> {
 
@@ -47,6 +91,8 @@ export default function PatientInfo(props: any) {
             console.log(formik.values)
           }
     }
+
+    console.log(formik.values.stateOfOrigin)
 
     return (
         <div className='w-auto h-full px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
@@ -95,7 +141,7 @@ export default function PatientInfo(props: any) {
                     </div> 
                 </div>
                 <div className='mr-2' >
-                    <p className='text-sm mb-2' >Other Names</p>
+                    <p className='text-sm mb-2' >Other Names(Optional)</p>
                     <Input 
                         name="otherNames"
                         onChange={formik.handleChange}
@@ -161,7 +207,7 @@ export default function PatientInfo(props: any) {
                 </div> 
             </div>
             <div className='w-full flex mt-5' >
-                <div className='mr-2' >
+                <div className=' w-full mr-2' >
                     <p className='text-sm mb-2' >Age</p>
                     <Input 
                         name="age"
@@ -182,7 +228,7 @@ export default function PatientInfo(props: any) {
                         )}
                     </div> 
                 </div>
-                <div className='mr-2' >
+                <div className=' w-full mr-2' >
                     <p className='text-sm mb-2' >Sex/Gender</p>
                     <Select 
                         name="gender"
@@ -206,15 +252,44 @@ export default function PatientInfo(props: any) {
                         )}
                     </div> 
                 </div>
-                <div className='mr-2' >
-                    <p className='text-sm mb-2' >State of Origin</p>
+                {/* <div className=' w-full mr-2' >
+                    <p className='text-sm mb-2' >Date Of Birth</p>
                     <Input 
+                        name="age"
+                        onChange={formik.handleChange}
+                        onFocus={() =>
+                            formik.setFieldTouched("age", true, true)
+                        }  
+                        fontSize='sm' placeholder='Dob' />
+                    <div className="w-full h-auto pt-2">
+                        {formik.touched.age && formik.errors.age && (
+                            <motion.p
+                                initial={{ y: -100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                            >
+                                {formik.errors.age}
+                            </motion.p>
+                        )}
+                    </div> 
+                </div> */}
+            </div>
+            <div className='w-full flex mt-5' >
+                <div className=' w-full mr-2' >
+                    <p className='text-sm mb-2' >State of Origin</p>
+                    <Select 
                         name="stateOfOrigin"
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("stateOfOrigin", true, true)
                         }  
-                        fontSize='sm' placeholder='Enter Your State' />
+                        fontSize='sm' placeholder='Enter Your State'>
+                            {state.map((item: any)=> {
+                                return(
+                                    <option key={item.state_name} >{item.state_name}</option>
+                                )
+                            })}
+                        </Select>
                     <div className="w-full h-auto pt-2">
                         {formik.touched.stateOfOrigin && formik.errors.stateOfOrigin && (
                             <motion.p
@@ -227,15 +302,30 @@ export default function PatientInfo(props: any) {
                         )}
                     </div> 
                 </div>
-                <div className='mr-2' >
+                <div className=' w-full mr-2' >
                     <p className='text-sm mb-2' >Local Governmet Area</p>
-                    <Input 
+                    <Select 
                         name="LGA"
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("LGA", true, true)
                         }  
-                        fontSize='sm' placeholder='Enter LGA' />
+                        fontSize='sm' placeholder='Enter LGA'>
+
+                        {cityLoading ?
+                            <> 
+                                {cities.map((item: any)=> {
+                                    return(
+                                        <option key={item.city_name} >{item.city_name}</option>
+                                    )
+                                })}
+                            </>
+                        :
+                            <>
+                                <option>loading...</option>
+                            </>
+                        }
+                    </Select>
                     <div className="w-full h-auto pt-2">
                         {formik.touched.LGA && formik.errors.LGA && (
                             <motion.p
@@ -250,15 +340,23 @@ export default function PatientInfo(props: any) {
                 </div>
             </div>
             <div className='w-full flex mt-5' >
-                <div className='mr-2' >
+                <div className='w-full mr-2' >
                     <p className='text-sm mb-2' >Occupation</p>
-                    <Input 
+                    <Select 
                         name="occupation"
+
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("occupation", true, true)
                         }  
-                        fontSize='sm' placeholder='What do you do?' />
+                        fontSize='sm' placeholder='What do you do?' > 
+                        <option>Profession</option>
+                        <option>Employment</option>
+                        <option>Business</option>
+                        <option>State Service</option>
+                        <option>Student</option>
+                        <option>Unemployed</option>
+                    </Select>
                     <div className="w-full h-auto pt-2">
                         {formik.touched.occupation && formik.errors.occupation && (
                             <motion.p
@@ -271,15 +369,20 @@ export default function PatientInfo(props: any) {
                         )}
                     </div> 
                 </div> 
-                <div className='mr-2' >
+                <div className='w-full mr-2' >
                     <p className='text-sm mb-2' >Religion</p>
-                    <Input 
+                    <Select 
                         name="religion"
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("religion", true, true)
                         }  
-                        fontSize='sm' placeholder='Select your religion' />
+                        fontSize='sm' placeholder='Select your religion'> 
+                            <option>Christianity</option>
+                            <option>Islam</option>
+                            <option>Traditional beliefs</option>
+                            <option>Other religions</option>
+                        </Select>
                     <div className="w-full h-auto pt-2">
                         {formik.touched.religion && formik.errors.religion && (
                             <motion.p
