@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion'
-import { Item } from 'framer-motion/types/components/Reorder/Item'
+import { motion } from 'framer-motion' 
 import React from 'react'
 
 

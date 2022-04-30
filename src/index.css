@@ -97,3 +97,23 @@ html, body {
     height: 100%;
     scroll-behavior: smooth;
 }
+
+#hoverevent:hover #cube  {
+    background-color: #7123E2;
+    color: white; 
+}
+
+#hoverevent:hover{
+    background-color: #7123E2;
+    color: white; 
+}
+
+#hoverevent:hover #cubediv  {
+    background-color: #F4F4F43D;
+    color: white; 
+}
+ 
+#hoverevent:hover #cubetext  { 
+    color: white; 
+    fill: white;
+}
