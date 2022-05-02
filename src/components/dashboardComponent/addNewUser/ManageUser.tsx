@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import LoaderIcon from '../../LoaderIcon'
 import Avatar from '../../../assets/images/user.png'
+import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 
 export default function ManageUser() { 
     
@@ -25,7 +26,7 @@ export default function ManageUser() {
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div> */}
-                <div className='ml-0'> 
+                <div className='ml-0 absolute'> 
                     <p className='font-Ubuntu-Medium text-lg' >Manage Staff</p> 
                     <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Staff</p> 
                 </div> 
@@ -37,22 +38,46 @@ export default function ManageUser() {
                     <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                 </div>
             :
-                <div className='w-full grid grid-cols-4 gap-6 py-12 relative px-20' > 
-                    {[...data].reverse().map((item: any) => {
-                        return(
-                            <div key={item._id} className='px-3' > 
-                                {item.avatarMedia === undefined ? 
-                                    <img src={Avatar} className='w-20 h-20 rounded-full object-cover' alt='avatar' />
-                                    :
-                                    <img src={item.avatarMedia.imageURL} className='w-20 h-20 rounded-full object-cover' alt={item.avatarMedia.asset_id} />
-                                }
-                                <div className=' mt-4' > 
-                                    <p className='font-Ubuntu-Medium text-xs text-[#2C3E50]' >{item.title+' '+item.fullName}</p>
-                                    <p className='font-Ubuntu-Regular text-[#8EA7C0] mt-1 text-xs' >{item.email}</p>
-                                </div> 
-                            </div> 
-                        )
-                    })}
+                <div className='w-full py-12 relative px-20' >  
+                
+                        <Table variant='unstyled' >
+                            {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+                            <Thead backgroundColor='#7123E2' borderRadius='8px' >
+                                <Tr className='font-Graphik-Medium text-sm h-20 text-white' > 
+                                    <Th>Index</Th> 
+                                    <Th>Name</Th>  
+                                    <Th>ID Number</Th>  
+                                    <Th>Email</Th>  
+                                    <Th>Role</Th>  
+                                </Tr>
+                            </Thead>
+                            <Tbody >
+                                {[...data].reverse().map((item: any, index: any)=> {
+                                    return(
+                                        <Tr className={'font-Ubuntu-Medium cursor-pointer text-black text-sm'} key={index} >
+                                            <Td>{index}</Td> 
+                                            <Td>
+                                                <div className='flex items-center' >
+                                                    <div className='w-20 h-20 rounded-full bg-[#E0E0E0] flex justify-center items-center' >  
+                                                        {item.avatarMedia === undefined ? 
+                                                            <img src={Avatar} className='w-20 h-20 rounded-full object-cover' alt='avatar' />
+                                                            :
+                                                            <img src={item.avatarMedia.imageURL} className='w-20 h-20 rounded-full object-cover' alt={item.avatarMedia.asset_id} />
+                                                        }
+                                                    </div>
+                                                    <div>
+                                                        <p className='font-Ubuntu-Medium text-sm ml-3' >{item.fullName}</p> 
+                                                    </div>
+                                                </div>
+                                            </Td> 
+                                            <Td>{(item._id).substr(0, 7)}</Td> 
+                                            <Td>{item.email}</Td> 
+                                            <Td>{item.role}</Td> 
+                                        </Tr> 
+                                    )
+                                })}
+                            </Tbody> 
+                        </Table>
                 </div>
             }
         </div>

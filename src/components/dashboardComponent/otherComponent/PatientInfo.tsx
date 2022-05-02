@@ -302,14 +302,14 @@ export default function PatientInfo(props: any) {
                 </div>
                 <div className=' w-full mr-2' >
                     <p className='text-sm mb-2' >Local Governmet Area</p>
-                    <Select 
+                    <Input 
                         name="LGA"
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("LGA", true, true)
                         }  
-                        fontSize='sm' placeholder='Enter LGA'>
-
+                        fontSize='sm' placeholder='Enter LGA' />
+{/* 
                         {cityLoading ?
                             <> 
                                 {cities.map((item: any)=> {
@@ -323,7 +323,7 @@ export default function PatientInfo(props: any) {
                                 <option>loading...</option>
                             </>
                         }
-                    </Select>
+                    </Select> */}
                     <div className="w-full h-auto pt-2">
                         {formik.touched.LGA && formik.errors.LGA && (
                             <motion.p
