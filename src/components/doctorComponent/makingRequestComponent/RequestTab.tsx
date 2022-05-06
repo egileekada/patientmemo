@@ -78,11 +78,12 @@ export default function RequestTab(props: any) {
                         {/* <div className='w-full bg-yellow-300 h-44 rounded-md' >
 
                         </div> */}
-                    {props.info.kind !== 'scan' && (
+            <div className="mt-8" dangerouslySetInnerHTML={{ __html: props.info.description}}  />
+                    {/* {props.info.kind !== 'scan' && (
                         <>
                             <p className='mt-4 text-[#5F6777] text-base ml-4' >{props.info.description.replace('<p>', '').replace('</p>', '')}</p>
                         </>
-                    )}
+                    )} */}
                     {props.info.kind === 'scan' && (
                         <>
                             {props.info.scanImageURLs.map((item: any)=> {

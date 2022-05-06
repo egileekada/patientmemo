@@ -19,6 +19,7 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^0.26.1",
     "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
     "formik": "^2.2.9",
     "framer-motion": "^6.2.8",
     "react": "^17.0.2",
@@ -58,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@types/draftjs-to-html": "^0.8.1",
     "@types/react-draft-wysiwyg": "^1.13.4",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.8",

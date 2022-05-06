@@ -249,7 +249,28 @@ export default function PatientInfo(props: any) {
                             </motion.p>
                         )}
                     </div> 
-                </div> 
+                </div>
+                {/* <div className=' w-full mr-2' >
+                    <p className='text-sm mb-2' >Date Of Birth</p>
+                    <Input 
+                        name="age"
+                        onChange={formik.handleChange}
+                        onFocus={() =>
+                            formik.setFieldTouched("age", true, true)
+                        }  
+                        fontSize='sm' placeholder='Dob' />
+                    <div className="w-full h-auto pt-2">
+                        {formik.touched.age && formik.errors.age && (
+                            <motion.p
+                                initial={{ y: -100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                            >
+                                {formik.errors.age}
+                            </motion.p>
+                        )}
+                    </div> 
+                </div> */}
             </div>
             <div className='w-full flex mt-5' >
                 <div className=' w-full mr-2' >
@@ -281,14 +302,14 @@ export default function PatientInfo(props: any) {
                 </div>
                 <div className=' w-full mr-2' >
                     <p className='text-sm mb-2' >Local Governmet Area</p>
-                    <Input 
+                    <Select 
                         name="LGA"
                         onChange={formik.handleChange}
                         onFocus={() =>
                             formik.setFieldTouched("LGA", true, true)
                         }  
-                        fontSize='sm' placeholder='Enter LGA' />
-{/* 
+                        fontSize='sm' placeholder='Enter LGA'>
+
                         {cityLoading ?
                             <> 
                                 {cities.map((item: any)=> {
@@ -302,7 +323,7 @@ export default function PatientInfo(props: any) {
                                 <option>loading...</option>
                             </>
                         }
-                    </Select> */}
+                    </Select>
                     <div className="w-full h-auto pt-2">
                         {formik.touched.LGA && formik.errors.LGA && (
                             <motion.p

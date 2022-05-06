@@ -9,12 +9,14 @@ import * as yup from 'yup'
 import { useFormik } from 'formik'; 
 import LoaderIcon from '../../LoaderIcon';
 import DateFormat from '../../DateFormat';
+import TextEditor from '../../TextEditor';
 
 export default function DoctorEditor(props: any) {
 
 
     const [loading, setLoading] = React.useState(false); 
     const [showDetail, setShowDetail] = React.useState(false); 
+    const [description, setDescription] = React.useState({} as any);
 
     const loginSchema = yup.object({ 
         note: yup.string().required('Required'), 
@@ -46,7 +48,7 @@ export default function DoctorEditor(props: any) {
                 body: JSON.stringify({
                     description: formik.values.note, 
                     kind : props.kind,
-                    patient: props.value
+                    patient: props.value._id
                 }),
             });
     
@@ -63,7 +65,10 @@ export default function DoctorEditor(props: any) {
             }
         }
     }  
-
+ 
+    React.useEffect(() => {
+        formik.setFieldValue('note', description)
+    }, [description]) 
 
     return (
         <div className='p-12 w-full' >  
@@ -79,26 +84,7 @@ export default function DoctorEditor(props: any) {
             </p>
             <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' ></p>
             {/* <FilesEditor /> */}
-            <Textarea 
-                height='50vh'
-                name="note"
-                onChange={formik.handleChange}
-                onFocus={() =>
-                    formik.setFieldTouched("note", true, true)
-                }  
-                placeholder='How about the patient?...'
-                />
-            <div className="w-full h-auto pt-2">
-                {formik.touched.note && formik.errors.note && (
-                    <motion.p
-                        initial={{ y: -100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                    >
-                        {formik.errors.note}
-                    </motion.p>
-                )}
-            </div>
+            <TextEditor value={setDescription} /> 
             <div className='w-full flex mt-12 justify-end' >
                  
             <button onClick={()=> props.next(0)} className='w-44 rounded-full py-2 mr-6 text-sm bg-[#7123E214] text-[#7123E2] font-Ubuntu-Medium' >Cancel</button>

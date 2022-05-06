@@ -59,10 +59,10 @@ export default function ContiunuationSheetList(props: any) {
                     <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                 </div>
             :
-                <div className='w-full grid grid-cols-3 gap-6 py-4 ' >
-                    {data.map((item: any)=> {
+                <div className='w-full grid grid-cols-3 gap-y-12 gap-6 py-4 ' >
+                    {[...data].reverse().map((item: any)=> {
                         return( 
-                            <div onClick={()=> ClickHandler(item)} key={item._id} className='w-full h-52 cursor-pointer' >
+                            <div onClick={()=> ClickHandler(item)} key={item._id} className='w-full cursor-pointer' >
                                 {/* <div className='w-full h-40 bg-yellow-300' >
 
                                 </div> */}
@@ -77,7 +77,7 @@ export default function ContiunuationSheetList(props: any) {
                                         <GetUserInfo data={item.doctor} />
                                         <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 ml-3 text-xs' >{DateFormat(item.updatedAt)}</p>
                                     </div>
-                                    <p className='font-Ubuntu-Regular text-[#5F6777] ml-auto text-xs'>No Request</p>
+                                    {/* <p className='font-Ubuntu-Regular text-[#5F6777] ml-auto text-xs'>No Request</p> */}
                                 </div>
                             </div>
                         )

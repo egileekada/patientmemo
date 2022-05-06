@@ -16,7 +16,7 @@ import {
     QueryClient,
     QueryClientProvider,
   } from 'react-query' 
-  import PharmacyTab from './Tabs/PharmacyTab';
+  import PharmacyTab from './Tabs/NewPharmacyTab';
 import DoctorScreen from './screens/DoctorScreen';
 import DoctorTab from './Tabs/DoctorTab';
 import ContinuationSheet from './components/doctorComponent/ContinuationSheet';

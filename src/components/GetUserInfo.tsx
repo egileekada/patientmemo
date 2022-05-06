@@ -38,7 +38,7 @@ export default function GetUserInfo(props: any) {
                                     )}
 
                                     {!props.image && (
-                                        <p className='font-Ubuntu-Medium ml-1' >{item.title ? item.title+' ': ''}{item.fullName ? item.fullName : (item.firstName+' '+item.lastName)}</p>
+                                        <p className='font-Ubuntu-Medium text-sm ml-3' >{item.title ? item.title+' ': ''}{item.fullName ? item.fullName : (item.firstName+' '+item.lastName)}</p>
                                     )}
                                 </>
                             )
