@@ -33,6 +33,7 @@ import LabScreen from './screens/LabScreen';
 import ManageActivities from './components/laboratoryComponent/ManageActivities';
 import DeliveryRecord from './components/nurseComponent/DeliveryRecord'; 
 import AnteNatalNotes from './components/nurseComponent/AnteNatalNotes';
+import DispenseDrugs from './components/pharmacyComponent/DispenseDrugs';
  
 const queryClient = new QueryClient()
 
@@ -96,6 +97,7 @@ function App() {
                 <Route path='/dashboard/doctor/makingrequest' element={<MakingRequest />} />
               </Route>
             </Route>  
+              <Route path='/pharmacy/dispensedrugs' element={<DispenseDrugs />} />
           </Routes>
         </Router>
       </ChakraProvider>
