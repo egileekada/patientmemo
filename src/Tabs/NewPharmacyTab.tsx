@@ -96,41 +96,7 @@ export default function PharmacyTab() {
         validationSchema: loginSchema,
         onSubmit: () => {},
     });    
-
-    // const sumbit =async(item: any)=> {
-    //     setLoading(true)
-    //     if (!formik.dirty) {
-    //         alert('You have to fill in th form to continue');
-    //         return;
-    //     }else if (!formik.isValid) {
-    //         alert('You have to fill in the form correctly to continue');
-    //         return;
-    //     }else {
-    //         try {
-            
-    //             let formData = new FormData()  
-
-    //             formData.append('name', formik.values.name)
-    //             formData.append('milligram', formik.values.milligram) 
-    //             formData.append('qty', formik.values.qty)   
-    //             formData.append('image', item)    
-        
-    //             await axios.default.post(`https://hospital-memo-api.herokuapp.com/drugs`, formData, {
-    //                 headers: { 'content-type': 'application/json',
-    //                 Authorization : `Bearer ${localStorage.getItem('token')}`
-    //             }})       
-
-    //             setShowModal(false)
-    //             setTab(0)
-    //             // SetImage('')
-    //             // setSelectedFiles({}as any)
-    //             setLoading(false)
-                
-    //         } catch (error) { 
-    //             return error
-    //         }
-    //       }
-    // }
+ 
 
     return (
         <div className='w-full h-full relative flex flex-col' > 
@@ -378,6 +344,7 @@ export default function PharmacyTab() {
                                 <Input  
                                     name="qty"
                                     onChange={formik.handleChange}
+                                    type='date'
                                     onFocus={() =>
                                         formik.setFieldTouched("qty", true, true)
                                     }  
