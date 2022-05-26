@@ -8,12 +8,14 @@ import { useFormik } from 'formik';
 import { motion } from 'framer-motion'
 import * as axios from 'axios'   
 import LoaderIcon from '../components/LoaderIcon'
+import Modal from '../components/Modal'
+import { useQuery } from 'react-query'
 
 export default function PharmacyTab() {
     
     // const [name, setName] = React.useState('')
 
-    const data =[
+    const dataall =[
         {
             name: 'Paracetamol',
             category: 'Syrup',
@@ -56,6 +58,19 @@ export default function PharmacyTab() {
         }
     ]
 
+    const { isLoading, data } = useQuery('Alldrugs', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )   
+    console.log(data) 
+
     const [more, setMore] = React.useState(false)
 
     // const [tab, setTab] = React.useState(0)
@@ -63,43 +78,96 @@ export default function PharmacyTab() {
     const [loading, setLoading] = React.useState(false);
     const navigate = useNavigate()
 
-    // const [ selectedFiles, setSelectedFiles ] = React.useState({}as any);  
-    // const userData: any = JSON.parse(localStorage.getItem('userData')+'')
-
-    // const [image, SetImage] = React.useState('');   
-
-    // const handleImageChange = (e: any ) => {
-
-    //     const selected = e.target.files[0]; 
-    //     const TYPES = ["image/png", "image/jpg", "image/jpeg", "image/svg" ];        
-    //     if (selected && TYPES.includes(selected.type)) {
-    //         SetImage(selected)
-    //         const reader: any = new FileReader();
-    //         reader.onloadend= () => {  
-    //             setSelectedFiles(reader.result)
-    //         }
-    //         reader.readAsDataURL(selected)
-    //     } else {
-    //         alert('File Type .svg Cannot be added')
-    //     }   
-    // } 
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
      
     const loginSchema = yup.object({ 
+        category: yup.string().required('Required'),
         name: yup.string().required('Required'),
-        milligram: yup.string().required('Required'),
-        qty: yup.string().required('Required'),   
-    })    
- 
+        purchaseDate: yup.string().required('Required'),  
+        expiryDate: yup.string().required('Required'),
+        dosageType: yup.string().required('Required'),   
+        stock: yup.string().required('Required'),
+        limit: yup.string().required('Required'),    
+    })     
+
     // formik
     const formik = useFormik({
-        initialValues: {name: '', milligram: '',qty: ''},
+        initialValues: {
+            name: '', 
+            category: '',
+            purchaseDate: '', 
+            expiryDate: '',
+            dosageType: '', 
+            stock: '',
+            limit: ''
+        },
         validationSchema: loginSchema,
         onSubmit: () => {},
     });    
  
 
+    const submit = async () => {  
+
+        if (!formik.dirty) {
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);  
+            return;
+        }else if (!formik.isValid) {
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);  
+            return;
+        }else {
+            setLoading(true);
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(formik.values),
+            });
+
+            const data = await request.json();
+
+            console.log('patient '+request.status)
+            console.log('patient '+data)
+            if (request.status === 200) {    
+                setMessage('Drugs Added Successfully')
+                setModal(1)                   
+                const t1 = setTimeout(() => {  
+                    setModal(0)     
+                    setShowModal(false)
+                    setLoading(false)  
+                    clearTimeout(t1);
+                }, 3000); 
+            }else {
+                // alert(data.message);
+                // console.log(data) 
+                setMessage('Error Occurred')
+                setModal(2)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000); 
+            } 
+        }
+    }  
+
     return (
         <div className='w-full h-full relative flex flex-col' > 
+            <Modal message={message} modal={modal} />
             <div className='w-full relative px-12 border-b flex items-center border-[#D7D0DF]' >  
                 <p className='font-Ubuntu-Medium  text-lg absolute ' >Manage Pharmacy</p> 
                 <div className='w-96 mx-auto py-4' >
@@ -182,30 +250,34 @@ export default function PharmacyTab() {
                     </Thead>
                     <Tbody >
                         {data.map((item: any, index: any)=> {
-                            return(
-                                <Tr className= 'font-Ubuntu-Medium text-black text-sm' key={index} >
-                                    <Td>{index+1}</Td> 
-                                    <Td>{item.name}</Td>
-                                    <Td>{item.category}</Td>
-                                    <Td>{item.dosage}</Td>
-                                    <Td>{item.purchase}</Td>
-                                    <Td>
-                                        <div className='bg-[#52EF2B1C] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
-                                            <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#1F670D] mr-2' /> 
-                                            {item.date}
-                                        </div>
-                                    </Td>
-                                    <Td> 
-                                        <div className='bg-[#F4433614] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
-                                            <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#F44336] mr-2' /> 
-                                            {item.stock}
-                                        </div>
-                                    </Td>
-                                    <Td>
-                                        <button className='font-Ubuntu-Medium text-xs  bg-[#7123E2] mr-20 text-white rounded-lg h-10 px-3 ' >Modify</button>
-                                    </Td>
-                                </Tr> 
-                            )
+                            if(!isLoading){
+                                if(item.category){
+                                    return(
+                                        <Tr className= 'font-Ubuntu-Medium text-black text-sm' key={index} >
+                                            <Td>{index+1}</Td> 
+                                            <Td>{item.name}</Td>
+                                            <Td>{item.category}</Td>
+                                            <Td>{item.dosageType}</Td>
+                                            <Td>{item.purchaseDate}</Td>
+                                            <Td>
+                                                <div className='bg-[#52EF2B1C] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
+                                                    <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#1F670D] mr-2' /> 
+                                                    {item.expiryDate}
+                                                </div>
+                                            </Td>
+                                            <Td> 
+                                                <div className='bg-[#F4433614] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
+                                                    <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#F44336] mr-2' /> 
+                                                    {item.stock}
+                                                </div>
+                                            </Td>
+                                            <Td>
+                                                <button className='font-Ubuntu-Medium text-xs  bg-[#7123E2] mr-20 text-white rounded-lg h-10 px-3 ' >Modify</button>
+                                            </Td>
+                                        </Tr> 
+                                    )
+                                }
+                            }
                         })}
                     </Tbody> 
                 </Table>
@@ -251,10 +323,10 @@ export default function PharmacyTab() {
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Category</p>
                                 <Select 
-                                    name="milligram"
+                                    name="category"
                                     onChange={formik.handleChange}
                                     onFocus={() =>
-                                        formik.setFieldTouched("milligram", true, true)
+                                        formik.setFieldTouched("category", true, true)
                                     }  
                                     placeholder='Select Drugs Categories'
                                     fontSize='sm'> 
@@ -275,13 +347,13 @@ export default function PharmacyTab() {
                                     <option>Hormonal drugs</option>
                                 </Select>
                                 <div className="w-full h-auto pt-2">
-                                    {formik.touched.milligram && formik.errors.milligram && (
+                                    {formik.touched.category && formik.errors.category && (
                                         <motion.p
                                             initial={{ y: -100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                         >
-                                            {formik.errors.milligram}
+                                            {formik.errors.category}
                                         </motion.p>
                                     )}
                                 </div> 
@@ -289,10 +361,10 @@ export default function PharmacyTab() {
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Dosage type</p>
                                 <Select  
-                                    name="qty"
+                                    name="dosageType"
                                     onChange={formik.handleChange}
                                     onFocus={() =>
-                                        formik.setFieldTouched("qty", true, true)
+                                        formik.setFieldTouched("dosageType", true, true)
                                     }  
                                     fontSize='sm'> 
                                     <option>Injections</option>
@@ -305,13 +377,13 @@ export default function PharmacyTab() {
                                     <option>Suspension</option>
                                 </Select>
                                 <div className="w-full h-auto pt-2">
-                                    {formik.touched.qty && formik.errors.qty && (
+                                    {formik.touched.dosageType && formik.errors.dosageType && (
                                         <motion.p
                                             initial={{ y: -100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                         >
-                                            {formik.errors.qty}
+                                            {formik.errors.dosageType}
                                         </motion.p>
                                     )}
                                 </div> 
@@ -321,20 +393,21 @@ export default function PharmacyTab() {
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Purchase Date</p>
                                 <Input 
-                                    name="milligram"
+                                    name="purchaseDate"
                                     onChange={formik.handleChange}
+                                    type='date'
                                     onFocus={() =>
-                                        formik.setFieldTouched("milligram", true, true)
+                                        formik.setFieldTouched("purchaseDate", true, true)
                                     }  
                                     fontSize='sm'/>
                                 <div className="w-full h-auto pt-2">
-                                    {formik.touched.milligram && formik.errors.milligram && (
+                                    {formik.touched.purchaseDate && formik.errors.purchaseDate && (
                                         <motion.p
                                             initial={{ y: -100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                         >
-                                            {formik.errors.milligram}
+                                            {formik.errors.purchaseDate}
                                         </motion.p>
                                     )}
                                 </div> 
@@ -342,21 +415,21 @@ export default function PharmacyTab() {
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Expiry Date</p>
                                 <Input  
-                                    name="qty"
+                                    name="expiryDate"
                                     onChange={formik.handleChange}
                                     type='date'
                                     onFocus={() =>
-                                        formik.setFieldTouched("qty", true, true)
+                                        formik.setFieldTouched("expiryDate", true, true)
                                     }  
                                     fontSize='sm' />
                                 <div className="w-full h-auto pt-2">
-                                    {formik.touched.qty && formik.errors.qty && (
+                                    {formik.touched.expiryDate && formik.errors.expiryDate && (
                                         <motion.p
                                             initial={{ y: -100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                         >
-                                            {formik.errors.qty}
+                                            {formik.errors.expiryDate}
                                         </motion.p>
                                     )}
                                 </div> 
@@ -366,20 +439,20 @@ export default function PharmacyTab() {
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Stock</p>
                                 <Input 
-                                    name="milligram"
+                                    name="stock"
                                     onChange={formik.handleChange}
                                     onFocus={() =>
-                                        formik.setFieldTouched("milligram", true, true)
+                                        formik.setFieldTouched("stock", true, true)
                                     }  
                                     fontSize='sm'/>
                                 <div className="w-full h-auto pt-2">
-                                    {formik.touched.milligram && formik.errors.milligram && (
+                                    {formik.touched.stock && formik.errors.stock && (
                                         <motion.p
                                             initial={{ y: -100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                         >
-                                            {formik.errors.milligram}
+                                            {formik.errors.stock}
                                         </motion.p>
                                     )}
                                 </div> 
@@ -387,20 +460,20 @@ export default function PharmacyTab() {
                             <div style={{width: '210px'}} className='mr-2' >
                                 <p className='text-xs mb-2 font-Ubuntu-Medium' >Limit (%)</p>
                                 <Input  
-                                    name="qty"
+                                    name="limit"
                                     onChange={formik.handleChange}
                                     onFocus={() =>
-                                        formik.setFieldTouched("qty", true, true)
+                                        formik.setFieldTouched("limit", true, true)
                                     }  
                                     fontSize='sm' />
                                 <div className="w-full h-auto pt-2">
-                                    {formik.touched.qty && formik.errors.qty && (
+                                    {formik.touched.limit && formik.errors.limit && (
                                         <motion.p
                                             initial={{ y: -100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                         >
-                                            {formik.errors.qty}
+                                            {formik.errors.limit}
                                         </motion.p>
                                     )}
                                 </div> 
@@ -414,7 +487,7 @@ export default function PharmacyTab() {
                                 </div> 
                             </button>
                             :
-                            <button className='text-xs h-12 items-center rounded bg-[#7123E2] mt-8 w-full flex justify-center text-white font-Ubuntu-Medium' >Upload Medicine</button>
+                            <button onClick={()=> submit()} className='text-xs h-12 items-center rounded bg-[#7123E2] mt-8 w-full flex justify-center text-white font-Ubuntu-Medium' >Upload Medicine</button>
                         }
                         {/* <button onClick={()=> setShowModal(false)} className='text-xs py-3 rounded bg-[#7123E2] mt-8 w-full text-white font-Ubuntu-Medium' >I have carefully noted the details of the blood donated & the donor</button> */}
                     </div>

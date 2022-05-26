@@ -10,6 +10,7 @@ import { useFormik } from 'formik';
 import LoaderIcon from '../../LoaderIcon';
 import DateFormat from '../../DateFormat';
 import TextEditor from '../../TextEditor';
+import Modal from '../../Modal'
 
 export default function DoctorEditor(props: any) {
 
@@ -17,6 +18,8 @@ export default function DoctorEditor(props: any) {
     const [loading, setLoading] = React.useState(false); 
     const [showDetail, setShowDetail] = React.useState(false); 
     const [description, setDescription] = React.useState({} as any);
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
 
     const loginSchema = yup.object({ 
         note: yup.string().required('Required'), 
@@ -32,11 +35,23 @@ export default function DoctorEditor(props: any) {
     const submit = async () => {
 
         if (!formik.dirty) {
-          alert('You have to fill in th form to continue');
-          return;
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000); 
+            return;
         }else if (!formik.isValid) {
-          alert('You have to fill in the form correctly to continue');
-          return;
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);
+            return;  
         }else {
             setLoading(true);
             const request = await fetch(`https://hospital-memo-api.herokuapp.com/requests`, {
@@ -56,12 +71,23 @@ export default function DoctorEditor(props: any) {
 
             console.log(request.status)
             console.log(json)
-            if (request.status === 200) {   
-                props.next(1)
+            if (request.status === 200) {    
+                setMessage('Document Created Successfully')
+                setModal(1)                   
+                const t1 = setTimeout(() => {  
+                    setModal(0)     
+                    props.next(1)
+                    setLoading(false)  
+                    clearTimeout(t1);
+                }, 3000);  
             }else {
-                alert(json.message);
-                console.log(json)
-                setLoading(false);
+                setMessage('Error Occurred')
+                setModal(2)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000); 
             }
         }
     }  
@@ -72,6 +98,7 @@ export default function DoctorEditor(props: any) {
 
     return (
         <div className='p-12 w-full' >  
+            <Modal message={message} modal={modal} />
             <p className='font-Ubuntu-Bold text-lg ' >
                 {props.kind === 'pharmacy'  ?
                     'Pharmacy Prescription for ' 

@@ -5,7 +5,11 @@ import PharmImage from '../../assets/images/PharmacyImage.png'
 import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import { motion } from 'framer-motion'
+import DateFormat from '../DateFormat';
 import LoaderIcon from '../LoaderIcon'
+import { useQuery } from 'react-query'
+import FindDrugs from './component/FindDrugs'
+import Modal from '../Modal'
 
 export default function DispenseDrugs() {
     
@@ -13,22 +17,117 @@ export default function DispenseDrugs() {
     const navigate = useNavigate()   
     const [showModal, setShowModal] = React.useState(false) 
     const [loading, setLoading] = React.useState(false);
+    const [requestId, setRequestID] = React.useState(0)
+    const [medicineID, setMedicineID] = React.useState('')
+    const [dataValue, setDataValue] = React.useState({} as any)
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
  
     const loginSchema = yup.object({ 
-        name: yup.string().required('Required'),
-        milligram: yup.string().required('Required'),
+        patient: yup.string().required('Required'),
+        drugId: yup.string().required('Required'),
         qty: yup.string().required('Required'),   
     })    
  
+    // {
+    //     "patient":"624c1a715984283861a90ab5",
+    //     "drugId":"6286b828c794d4a5a81afea3",
+    //     "qty":10
+    
+    // }
     // formik
     const formik = useFormik({
-        initialValues: {name: '', milligram: '',qty: ''},
+        initialValues: {patient: '', drugId: '',qty: 0},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });  
 
+    const { isLoading, data } = useQuery('requestsPharmacy', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/requests`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )    
+
+    const ClickHandler =(index: any, item: any)=> {
+        setRequestID(index)
+        setDataValue(item)
+    } 
+
+    React.useEffect(() => {
+        if(dataValue.patient !== undefined){
+            formik.setFieldValue('patient', dataValue.patient._id)
+            formik.setFieldValue('drugId', medicineID)
+        }
+    }, [dataValue])   
+    
+    const submit = async () => {  
+        console.log(formik.values);
+        
+        if (!formik.dirty) {
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);  
+            return;
+        }else if (!formik.isValid) {
+            setMessage('You have to fill in the form to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000);  
+            return;
+        }else {
+            setLoading(true);
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/drugs/dispense`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(formik.values),
+            });
+
+            const data = await request.json();
+
+            console.log('patient '+request.status)
+            console.log('patient '+data)
+            if (request.status === 201) {    
+                setMessage('Drugs Dispense Successfully')
+                setModal(1)                   
+                const t1 = setTimeout(() => {  
+                    setModal(0)   
+                    setShowModal(false)
+                    setLoading(false)  
+                    clearTimeout(t1);
+                }, 3000); 
+            }else {
+                // alert(data.message);
+                // console.log(data) 
+                setMessage('Error Occurred')
+                setModal(2)           
+                const t1 = setTimeout(() => {  
+                    setModal(0)       
+                    setLoading(false)  
+                    clearTimeout(t1); 
+                }, 2000); 
+            } 
+        }
+    }  
+
     return (
         <div className='w-full ' >
+            <Modal message={message} modal={modal} />
             <div className='w-full relative h-48 flex' >
                 <div className='w-full h-48 absolute z-20  ' style={{background: 'linear-gradient(180deg, rgba(46, 19, 53, 0.67) 0%, #5E3168 100%)'}} />
                 <img src={PharmImage} alt='pharmimg' className='w-full h-full object-cover z-10 absolute inset-0'  />
@@ -44,9 +143,11 @@ export default function DispenseDrugs() {
                     </div>
 
                     <div className='right-12 absolute  ml-auto' >
-                        <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs border border-[#FFF] text-white bg-[#FFFFFF4D] rounded h-10 mr-20 px-4 ' >Dispense Medicine</button>
+                        {dataValue.patient !== undefined && ( 
+                            <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs border border-[#FFF] text-white bg-[#FFFFFF4D] rounded h-10 mr-20 px-4 ' >Dispense Medicine</button>
+                        )}
                         {/* <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs  bg-[#7123E2] mr-20 text-white rounded-lg h-10 px-6 ' >New Medicine</button> */}
-                        <button onClick={()=> setMore((prev)=> !prev)} className='font-Ubuntu-Medium ml-3 absolute right-4 text-xs border border-[#FFF] text-white bg-[#FFFFFF4D] rounded h-10 px-3 ' >
+                        {/* <button onClick={()=> setMore((prev)=> !prev)} className='font-Ubuntu-Medium ml-3 absolute right-4 text-xs border border-[#FFF] text-white bg-[#FFFFFF4D] rounded h-10 px-3 ' >
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8 4C8.82843 4 9.5 3.32843 9.5 2.5C9.5 1.67157 8.82843 1 8 1C7.17157 1 6.5 1.67157 6.5 2.5C6.5 3.32843 7.17157 4 8 4Z" fill="url(#paint0_linear_960_1441)"/>
                                 <path d="M8 9.5C8.82843 9.5 9.5 8.82843 9.5 8C9.5 7.17157 8.82843 6.5 8 6.5C7.17157 6.5 6.5 7.17157 6.5 8C6.5 8.82843 7.17157 9.5 8 9.5Z" fill="url(#paint1_linear_960_1441)"/>
@@ -66,7 +167,7 @@ export default function DispenseDrugs() {
                                     </linearGradient>
                                 </defs>
                             </svg>
-                        </button>
+                        </button> */}
                         {more && ( 
                             <div style={{boxShadow: '0px 4px 34px 0px #7123E229'}} className='absolute top-12 bg-white px-6 py-6 rounded-lg right-4' >
                                 <div className='flex items-center cursor-pointer' >
@@ -109,16 +210,28 @@ export default function DispenseDrugs() {
                             <Input fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
                         </InputGroup> 
                     </div>
-                    <div className='px-6 mb-4 py-2 flex items-center bg-[#7123E2]' >
-                        <div className=' w-14 h-14 rounded-full bg-yellow-300' />
-                        
-                        <div className=' text-white ml-3' > 
-                            <p className='font-Ubuntu-Medium' >Dr. Emmanuel Joseph</p>
-                            <p className='font-Ubuntu-Regular text-sm' >P: Adebayo Josephine</p>
-                        </div>   
-                        <p className='font-Ubuntu-Regular text-white ml-auto text-sm mt-auto' >12:23 pm</p>
-                    </div>
-                    <div className='px-6 mb-4 py-2 flex items-center ' >
+                    {!isLoading && (
+                        <> 
+                            {data.map((item: any, index: any)=> {
+                                if(item.kind === 'pharmacy'){
+                                    return(
+                                        <div onClick={()=> ClickHandler(index, item)} className={requestId === index ? 'px-6 mb-4 py-4 flex text-white flex-col bg-[#7123E2] cursor-pointer' : ' cursor-pointer px-6 mb-4 py-4 flex flex-col bg-white'} >
+                                            <div className='flex items-center w-full' > 
+                                                <div className=' w-14 h-14 rounded-full bg-yellow-300' />
+                                                
+                                                <div className=' ml-3' > 
+                                                    <p className='font-Ubuntu-Medium' >{item.madeBy.title+' '+item.madeBy.name}</p>
+                                                    <p className='font-Ubuntu-Regular text-sm' >P: {item.patient.firstName+' '+item.patient.lastName}</p>
+                                                </div>    
+                                            </div>
+                                            <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item.updatedAt)}</p>
+                                        </div>
+                                    )
+                                }
+                            })}
+                        </>
+                    )}
+                    {/* <div className='px-6 mb-4 py-2 flex items-center ' >
                         <div className=' w-14 h-14 rounded-full bg-yellow-300' />
                         
                         <div className=' ml-3' > 
@@ -126,29 +239,34 @@ export default function DispenseDrugs() {
                             <p className='font-Ubuntu-Regular text-sm' >P: Adebayo Josephine</p>
                         </div>   
                         <p className='font-Ubuntu-Regular ml-auto text-sm mt-auto' >12:23 pm</p>
-                    </div>
+                    </div> */}
                 </div>
-                <div style={{ boxShadow: '0px 3px 34px 0px #7123E229'}} className=' flex-1 rounded-lg' >
-                    <div style={{background: 'linear-gradient(169.18deg, #7123E2 -73.89%, #FF8811 234.2%)'}} className='w-full rounded-t-lg px-4 py-8 h-32' >
-                        <div className='px-6 mb-4 py-2 flex items-center text-white ' >
-                            <div className=' w-14 h-14 rounded-full bg-yellow-300' />
-                            
-                            <div className=' ml-3' > 
-                                <p className='font-Ubuntu-Medium' >Dr. Emmanuel Joseph</p>
-                                <p className='font-Ubuntu-Regular text-sm' >P: Adebayo Josephine</p>
-                            </div>   
-                            <p className='font-Ubuntu-Regular ml-auto text-sm mt-auto' >12:23 pm</p>
+                {dataValue.patient !== undefined && ( 
+                    <div style={{ boxShadow: '0px 3px 34px 0px #7123E229'}} className=' flex-1 rounded-lg' >
+                        <div style={{background: 'linear-gradient(169.18deg, #7123E2 -73.89%, #FF8811 234.2%)'}} className='w-full rounded-t-lg px-4 py-8 h-32' >
+                            <div className='px-6 mb-4 py-2 flex items-center text-white ' >
+                                <div className='flex items-center w-full' > 
+                                    <div className=' w-14 h-14 rounded-full bg-yellow-300' />
+                                    
+                                    <div className=' ml-3' > 
+                                        <p className='font-Ubuntu-Medium' >{dataValue.madeBy.title+' '+dataValue.madeBy.name}</p>
+                                        <p className='font-Ubuntu-Regular text-sm' >P: {dataValue.patient.firstName+' '+dataValue.patient.lastName}</p>
+                                    </div>    
+                                </div>
+                            </div>
+
+                            <div className="px-6 mt-12 py-2 font-Ubuntu-Medium text-sm" dangerouslySetInnerHTML={{ __html: dataValue.description}}  />
+                            {/* <ul className='px-6 mt-12 py-2 font-Ubuntu-Medium text-sm ' >
+                                <li>Magna egestas. Porttitor ullamcorper</li>
+                                <li>Tempor dictumst vel nunc.</li>
+                                <li>Auctor tellus nisl, metus phasellus porta morbi et.</li>
+                                <li>Erat quis arcu turpis eget et. </li>
+                                <li>Turpis et pharetra at viverra et nunc.</li>
+                                <li>Tortor, sceler</li>
+                            </ul> */}
                         </div>
-                        <ul className='px-6 mt-12 py-2 font-Ubuntu-Medium text-sm ' >
-                            <li>Magna egestas. Porttitor ullamcorper</li>
-                            <li>Tempor dictumst vel nunc.</li>
-                            <li>Auctor tellus nisl, metus phasellus porta morbi et.</li>
-                            <li>Erat quis arcu turpis eget et. </li>
-                            <li>Turpis et pharetra at viverra et nunc.</li>
-                            <li>Tortor, sceler</li>
-                        </ul>
                     </div>
-                </div>
+                )}
             </div> 
             {showModal ? 
                 <div className='w-full flex items-center justify-center' >
@@ -168,62 +286,44 @@ export default function DispenseDrugs() {
                         <div className=' w-full mr-2 mt-8' >
                             <p className='text-xs mb-2 font-Ubuntu-Medium' >Patient Name</p>
                             <Input  
-                                name="name"
-                                onChange={formik.handleChange}
-                                onFocus={() =>
-                                    formik.setFieldTouched("name", true, true)
-                                }  
+                                name="patient"
+                                // onChange={formik.handleChange}
+                                // onFocus={() =>
+                                //     formik.setFieldTouched("name", true, true)
+                                // }  
+                                value={dataValue.patient.firstName+' '+dataValue.patient.lastName}
+                                className=' cursor-not-allowed'
                                 fontSize='sm'  placeholder='Medicine Name'/>
                             <div className="w-full h-auto pt-2">
-                                {formik.touched.name && formik.errors.name && (
+                                {formik.touched.patient && formik.errors.patient && (
                                     <motion.p
                                         initial={{ y: -100, opacity: 0 }}
                                         animate={{ y: 0, opacity: 1 }}
                                         className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                     >
-                                        {formik.errors.name}
+                                        {formik.errors.patient}
                                     </motion.p>
                                 )}
                             </div> 
                         </div> 
-                        <div className=' w-full mr-2 mt-3' >
-                            <p className='text-xs mb-2 font-Ubuntu-Medium' >Medicine Name</p>
-                            <Input  
-                                name="name"
-                                onChange={formik.handleChange}
-                                onFocus={() =>
-                                    formik.setFieldTouched("name", true, true)
-                                }  
-                                fontSize='sm'  placeholder='Medicine Name'/>
-                            <div className="w-full h-auto pt-2">
-                                {formik.touched.name && formik.errors.name && (
-                                    <motion.p
-                                        initial={{ y: -100, opacity: 0 }}
-                                        animate={{ y: 0, opacity: 1 }}
-                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                                    >
-                                        {formik.errors.name}
-                                    </motion.p>
-                                )}
-                            </div> 
-                        </div>
+                        <FindDrugs id={setMedicineID} />
                         <div className=' w-full mr-2 mt-3' >
                             <p className='text-xs mb-2 font-Ubuntu-Medium' >Quantity</p>
                             <Input  
-                                name="name"
+                                name="qty"
                                 onChange={formik.handleChange}
                                 onFocus={() =>
-                                    formik.setFieldTouched("name", true, true)
+                                    formik.setFieldTouched("qty", true, true)
                                 }  
                                 fontSize='sm'  placeholder='Medicine Name'/>
                             <div className="w-full h-auto pt-2">
-                                {formik.touched.name && formik.errors.name && (
+                                {formik.touched.qty && formik.errors.qty && (
                                     <motion.p
                                         initial={{ y: -100, opacity: 0 }}
                                         animate={{ y: 0, opacity: 1 }}
                                         className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                     >
-                                        {formik.errors.name}
+                                        {formik.errors.qty}
                                     </motion.p>
                                 )}
                             </div> 
@@ -236,7 +336,7 @@ export default function DispenseDrugs() {
                                 </div> 
                             </button>
                             :
-                            <button className='text-xs h-12 items-center rounded bg-[#7123E2] mt-8 w-full flex justify-center text-white font-Ubuntu-Medium' >Dispense Medicine</button>
+                            <button onClick={submit} className='text-xs h-12 items-center rounded bg-[#7123E2] mt-8 w-full flex justify-center text-white font-Ubuntu-Medium' >Dispense Medicine</button>
                         }
                         {/* <button onClick={()=> setShowModal(false)} className='text-xs py-3 rounded bg-[#7123E2] mt-8 w-full text-white font-Ubuntu-Medium' >I have carefully noted the details of the blood donated & the donor</button> */}
                     </div>

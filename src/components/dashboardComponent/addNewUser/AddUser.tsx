@@ -123,7 +123,7 @@ export default function AddUser() {
                 }, 2000);  
                 // return error
             }
-          }
+        }
     } 
     
     return (
