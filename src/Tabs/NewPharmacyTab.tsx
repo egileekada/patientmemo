@@ -249,36 +249,38 @@ export default function PharmacyTab() {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {data.map((item: any, index: any)=> {
-                            if(!isLoading){
-                                if(item.category){
-                                    return(
-                                        <Tr className= 'font-Ubuntu-Medium text-black text-sm' key={index} >
-                                            <Td>{index+1}</Td> 
-                                            <Td>{item.name}</Td>
-                                            <Td>{item.category}</Td>
-                                            <Td>{item.dosageType}</Td>
-                                            <Td>{item.purchaseDate}</Td>
-                                            <Td>
-                                                <div className='bg-[#52EF2B1C] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
-                                                    <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#1F670D] mr-2' /> 
-                                                    {item.expiryDate}
-                                                </div>
-                                            </Td>
-                                            <Td> 
-                                                <div className='bg-[#F4433614] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
-                                                    <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#F44336] mr-2' /> 
-                                                    {item.stock}
-                                                </div>
-                                            </Td>
-                                            <Td>
-                                                <button className='font-Ubuntu-Medium text-xs  bg-[#7123E2] mr-20 text-white rounded-lg h-10 px-3 ' >Modify</button>
-                                            </Td>
-                                        </Tr> 
-                                    )
-                                }
-                            }
-                        })}
+                        {!isLoading && (
+                            <>
+                                {data.map((item: any, index: any)=> { 
+                                    if(item.category){
+                                        return(
+                                            <Tr className= 'font-Ubuntu-Medium text-black text-sm' key={index} >
+                                                <Td>{index+1}</Td> 
+                                                <Td>{item.name}</Td>
+                                                <Td>{item.category}</Td>
+                                                <Td>{item.dosageType}</Td>
+                                                <Td>{item.purchaseDate}</Td>
+                                                <Td>
+                                                    <div className='bg-[#52EF2B1C] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
+                                                        <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#1F670D] mr-2' /> 
+                                                        {item.expiryDate}
+                                                    </div>
+                                                </Td>
+                                                <Td> 
+                                                    <div className='bg-[#F4433614] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
+                                                        <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#F44336] mr-2' /> 
+                                                        {item.stock}
+                                                    </div>
+                                                </Td>
+                                                <Td>
+                                                    <button className='font-Ubuntu-Medium text-xs  bg-[#7123E2] mr-20 text-white rounded-lg h-10 px-3 ' >Modify</button>
+                                                </Td>
+                                            </Tr> 
+                                        ) 
+                                    }
+                                })}
+                            </>
+                        )}
                     </Tbody> 
                 </Table>
             </div>
