@@ -238,7 +238,7 @@ export default function PharmacyTab() {
                     {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
                     <Thead>
                         <Tr className='font-Graphik-Medium h-20 bg-[#7123E2] text-white text-sm' >
-                            <Th>S/N</Th>  
+                            {/* <Th>S/N</Th>   */}
                             <Th>Medicine name</Th>  
                             <Th>Category</Th>  
                             <Th>Dosage types</Th>  
@@ -255,7 +255,7 @@ export default function PharmacyTab() {
                                     if(item.category){
                                         return(
                                             <Tr className= 'font-Ubuntu-Medium text-black text-sm' key={index} >
-                                                <Td>{index+1}</Td> 
+                                                {/* <Td>{index+1}</Td>  */}
                                                 <Td>{item.name}</Td>
                                                 <Td>{item.category}</Td>
                                                 <Td>{item.dosageType}</Td>
