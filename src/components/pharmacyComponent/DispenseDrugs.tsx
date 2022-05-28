@@ -10,6 +10,7 @@ import LoaderIcon from '../LoaderIcon'
 import { useQuery } from 'react-query'
 import FindDrugs from './component/FindDrugs'
 import Modal from '../Modal'
+import FindPatient from '../dashboardComponent/FindPatient'
 
 export default function DispenseDrugs() {
     
@@ -22,7 +23,21 @@ export default function DispenseDrugs() {
     const [dataValue, setDataValue] = React.useState({} as any)
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0);
+    // const [numb, setNumb] = React.useState(-1) 
+    const [name, setName] = React.useState('') 
+    const [showFile, setShowFile] = React.useState(false)
+    const [patientIndex, setPatientIndex] = React.useState('')
+    const [show, setShow] = React.useState([] as any)
  
+
+    // React.useEffect(() => {
+    //     if(patientIndex === '') {
+    //         if(name === ''){
+    //             setShowFile(false)
+    //         }
+    //     }
+    // }, [name])
+
     const loginSchema = yup.object({ 
         patient: yup.string().required('Required'),
         drugId: yup.string().required('Required'),
@@ -123,7 +138,7 @@ export default function DispenseDrugs() {
                 }, 2000); 
             } 
         }
-    }  
+    }   
 
     return (
         <div className='w-full ' >
@@ -198,7 +213,10 @@ export default function DispenseDrugs() {
             <div className='w-full h-full flex flex-1 px-16 py-12' >
                 <div style={{ boxShadow: '0px 3px 34px 0px #7123E229'}} className='w-2/5 h-full mr-8  py-8 rounded-lg' >
                     <p className=' font-Ubuntu-Medium text-lg px-6' >All Request</p>
+
+                    
                     <div className='w-full mx-auto py-4 px-6' >
+                    {/* <FindPatient show={setShowFile} name={setName} numb={setNumb} array={setShow} index={setPatientIndex} nurse={true} /> */}
                         <InputGroup >
                             <InputLeftElement 
                             children={
@@ -207,26 +225,45 @@ export default function DispenseDrugs() {
                                 </svg>
                             }
                             />
-                            <Input fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
+                            <Input onChange={(e)=> setName(e.target.value)} fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
                         </InputGroup> 
                     </div>
                     {!isLoading && (
                         <> 
                             {data.map((item: any, index: any)=> {
-                                if(item.kind === 'pharmacy'){
-                                    return(
-                                        <div onClick={()=> ClickHandler(index, item)} className={requestId === index ? 'px-6 mb-4 py-4 flex text-white flex-col bg-[#7123E2] cursor-pointer' : ' cursor-pointer px-6 mb-4 py-4 flex flex-col bg-white'} >
-                                            <div className='flex items-center w-full' > 
-                                                <div className=' w-14 h-14 rounded-full bg-yellow-300' />
-                                                
-                                                <div className=' ml-3' > 
-                                                    <p className='font-Ubuntu-Medium' >{item.madeBy.title+' '+item.madeBy.name}</p>
-                                                    <p className='font-Ubuntu-Regular text-sm' >P: {item.patient.firstName+' '+item.patient.lastName}</p>
-                                                </div>    
+                                if(item.kind === 'pharmacy'){ 
+                                    // if(showFile){
+                                    //     if(item.patient._id === patientIndex) { 
+                                    if((item.patient.firstName+' '+item.patient.lastName).toLowerCase().includes(name.toLowerCase()))
+                                        return(
+                                            <div onClick={()=> ClickHandler(index, item)} className={requestId === index ? 'px-6 mb-4 py-4 flex text-white flex-col bg-[#7123E2] cursor-pointer' : ' cursor-pointer px-6 mb-4 py-4 flex flex-col bg-white'} >
+                                                <div className='flex items-center w-full' > 
+                                                    <div className=' w-14 h-14 rounded-full bg-yellow-300' />
+                                                    
+                                                    <div className=' ml-3' > 
+                                                        <p className='font-Ubuntu-Medium' >{item.madeBy.title+' '+item.madeBy.name}</p>
+                                                        <p className='font-Ubuntu-Regular text-sm' >P: {item.patient.firstName+' '+item.patient.lastName}</p>
+                                                    </div>    
+                                                </div>
+                                                <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item.updatedAt)}</p>
                                             </div>
-                                            <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item.updatedAt)}</p>
-                                        </div>
-                                    )
+                                        ) 
+                                    //     }
+                                    // } else { 
+                                    //     return(
+                                    //         <div onClick={()=> ClickHandler(index, item)} className={requestId === index ? 'px-6 mb-4 py-4 flex text-white flex-col bg-[#7123E2] cursor-pointer' : ' cursor-pointer px-6 mb-4 py-4 flex flex-col bg-white'} >
+                                    //             <div className='flex items-center w-full' > 
+                                    //                 <div className=' w-14 h-14 rounded-full bg-yellow-300' />
+                                                    
+                                    //                 <div className=' ml-3' > 
+                                    //                     <p className='font-Ubuntu-Medium' >{item.madeBy.title+' '+item.madeBy.name}</p>
+                                    //                     <p className='font-Ubuntu-Regular text-sm' >P: {item.patient.firstName+' '+item.patient.lastName}</p>
+                                    //                 </div>    
+                                    //             </div>
+                                    //             <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item.updatedAt)}</p>
+                                    //         </div>
+                                    //     ) 
+                                    // }
                                 }
                             })}
                         </>

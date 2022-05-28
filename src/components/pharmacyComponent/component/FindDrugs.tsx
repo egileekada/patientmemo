@@ -17,7 +17,7 @@ export default function FindDrugs(props: any) {
     )   
 
     const OnchangeHandler =(item: any)=> {
-        console.log(item)
+        // console.log(item)
         props.id(item)
     }
 

@@ -10,6 +10,7 @@ import * as axios from 'axios'
 import LoaderIcon from '../components/LoaderIcon'
 import Modal from '../components/Modal'
 import { useQuery } from 'react-query'
+import FindPatient from '../components/dashboardComponent/FindPatient';
 
 export default function PharmacyTab() {
     
@@ -80,6 +81,8 @@ export default function PharmacyTab() {
 
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0);
+    const [name, setName] = React.useState('')  
+    const [show, setShow] = React.useState([] as any)
      
     const loginSchema = yup.object({ 
         category: yup.string().required('Required'),
@@ -170,8 +173,9 @@ export default function PharmacyTab() {
             <Modal message={message} modal={modal} />
             <div className='w-full relative px-12 border-b flex items-center border-[#D7D0DF]' >  
                 <p className='font-Ubuntu-Medium  text-lg absolute ' >Manage Pharmacy</p> 
-                <div className='w-96 mx-auto py-4' >
-                    <InputGroup >
+
+                <div className='w-96 mx-auto py-4' >  
+                    <InputGroup > 
                         <InputLeftElement 
                         children={
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -179,7 +183,7 @@ export default function PharmacyTab() {
                             </svg>
                         }
                         />
-                        <Input fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
+                        <Input onChange={(e)=> setName(e.target.value)} fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
                     </InputGroup> 
                 </div>
                 <div className='right-12 absolute  ml-auto' >
@@ -253,6 +257,7 @@ export default function PharmacyTab() {
                             <>
                                 {data.map((item: any, index: any)=> { 
                                     if(item.category){
+                                        if((item.name).toLowerCase().includes(name.toLowerCase()))
                                         return(
                                             <Tr className= 'font-Ubuntu-Medium text-black text-sm' key={index} >
                                                 {/* <Td>{index+1}</Td>  */}

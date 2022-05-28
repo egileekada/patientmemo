@@ -12,6 +12,10 @@ export default function FindPatient(props: any) {
     // const [data, setData] = React.useState([] as any);  
     const [name, setName] = React.useState('');  
 
+    // React.useEffect(() => { 
+    //     props.name(name)
+    // }, [name])
+
     // const submit = async () => { 
 
     //     setLoading(true);
