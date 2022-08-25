@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import ChatComponent from '../components/ChatComponent'
 import RoleNavbar from '../components/RoleNavbar'
+import staff from "../assets/images/staff.png"
 
 export default function DashboardTab() {
 
@@ -8,8 +10,66 @@ export default function DashboardTab() {
     const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
 
     return (
-        <div className='w-full h-full relative pb-12' > 
-            {userData.role !== 'admin' && ( 
+        <div className='w-full h-full relative flex ' > 
+            <div className=' px-6 py-8 w-full font-Ubuntu-Regular text-[#585858] ' >
+                <p className=' text-3xl' >Good morning! Kayde Tosin</p>
+                <p className=' text-xl ' >Have a good day at work</p> 
+                <div className=' flex  mt-7 w-full gap-6 ' >
+                    <div onClick={()=> navigate('/dashboard/registerpatient')} className='bg-[#7123E2] w-72 rounded-2xl px-6 py-8 relative cursor-pointer' >
+                        <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#5815BA]' >
+                            <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.333 0H4.33301C3.27214 0 2.25473 0.421427 1.50458 1.17157C0.754435 1.92172 0.333008 2.93913 0.333008 4V20C0.333008 21.0609 0.754435 22.0783 1.50458 22.8284C2.25473 23.5786 3.27214 24 4.33301 24H20.333C20.6866 24 21.0258 23.8595 21.2758 23.6095C21.5259 23.3594 21.6663 23.0203 21.6663 22.6667V1.33333C21.6663 0.979711 21.5259 0.640573 21.2758 0.390524C21.0258 0.140476 20.6866 0 20.333 0ZM4.33301 21.3333C3.97939 21.3333 3.64025 21.1929 3.3902 20.9428C3.14015 20.6928 2.99967 20.3536 2.99967 20C2.99967 19.6464 3.14015 19.3072 3.3902 19.0572C3.64025 18.8071 3.97939 18.6667 4.33301 18.6667H18.9997V21.3333H4.33301Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Register<br/> New Patients</p>
+                        <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#5815BA]' />
+                    </div>  
+                </div> 
+
+                <p className=' text-xl mt-8 ' >Our Staffs</p> 
+                <div className="  scroll_event w-full mt-4 py-1 overflow-x-auto overflow-y-hidden flex flex-row ">
+                    <div className=" flex  "> 
+                        <img className=' w-32 mr-2 ' src={staff}  />
+                        <img className=' w-32 mr-2 ' src={staff}  />
+                        <img className=' w-32 mr-2 ' src={staff}  />
+                        <img className=' w-32 mr-2 ' src={staff}  />
+                        <img className=' w-32 mr-2 ' src={staff}  />
+                        <img className=' w-32 mr-2 ' src={staff}  />
+                        <img className=' w-32 mr-2 ' src={staff}  />
+                    </div>
+                </div>
+                <p className=' text-xl mt-8 ' >Todays Report</p> 
+                <div className='grid grid-cols-4 w-full mt-4 pb-20 gap-6' >
+                    <div className=' w-fit  ' > 
+                        <div className=' w-24 h-24 rounded-lg bg-[#F542425E] ' >
+                        </div>
+                        <p className=' text-lg text-center ' >Patients</p> 
+                        <p className=' text-center ' >40</p> 
+                    </div>
+                    <div className=' w-fit  ' > 
+                        <div className=' w-24 h-24 rounded-lg bg-[#7123E247] ' >
+                        </div>
+                        <p className=' text-lg text-center ' >Available beds</p> 
+                        <p className=' text-center ' >40</p> 
+                    </div>
+                    <div className=' w-fit  ' > 
+                        <div className=' w-24 h-24 rounded-lg bg-[#10920542] ' >
+                        </div>
+                        <p className=' text-lg text-center ' >Total  Staffs</p> 
+                        <p className=' text-center ' >40</p> 
+                    </div>
+                    <div className=' w-fit  ' > 
+                        <div className=' w-24 h-24 rounded-lg bg-[#DB720A36] ' >
+                        </div>
+                        <p className=' text-lg text-center ' >Total  Rooms</p> 
+                        <p className=' text-center ' >40</p> 
+                    </div>
+                </div>
+            </div>
+            <div className=' w-fit h-full ' >
+                <ChatComponent />
+            </div>
+            {/* {userData.role !== 'admin' && ( 
                 <>
                     <div className="absolute flex flex-1 justify-center items-center inset-0 z-50 "> 
                         <p className='font-Ubuntu-Bold text-5xl text-white relative z-50' >You Are Not Assigned To This Role</p>
@@ -29,16 +89,7 @@ export default function DashboardTab() {
                     </div>
                     <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Register<br/> New Patients</p>
                     <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#5815BA]' />
-                </div>
-                {/* <div onClick={()=> navigate('/dashboard/managescan')} className='bg-[#F28211] w-full rounded-md px-6 py-8 relative cursor-pointer' >
-                    <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#DB720A]' >
-                        <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21.2071 9.08295L21.1977 9.09216C21.4729 9.06112 21.7418 9.18824 21.8894 9.41912C22.0369 9.65 22.0369 9.94373 21.8894 10.1746C21.7418 10.4055 21.4729 10.5326 21.1977 10.5016H20.1219V13.3112C20.1168 15.8986 17.988 17.9949 15.3604 18H14.5746C14.1768 18 13.8543 17.6824 13.8543 17.2907C13.8543 16.8989 14.1768 16.5814 14.5746 16.5814H15.3604C16.2444 16.5887 17.0949 16.2487 17.7235 15.6366C18.3521 15.0245 18.7069 14.1909 18.7094 13.3204V10.5016H3.2835V13.2651C3.28349 15.0676 4.76462 16.5302 6.59506 16.5353H7.40892C7.80673 16.5353 8.12923 16.8529 8.12923 17.2446C8.12923 17.6364 7.80673 17.9539 7.40892 17.9539H6.62312C3.99705 17.9489 1.87093 15.8511 1.87094 13.2651V10.5016H0.720311C0.322494 10.5016 0 10.184 0 9.79226C0 9.40052 0.322494 9.08295 0.720311 9.08295H21.2071ZM12.844 12.3992L12.9417 12.4057C13.2933 12.4527 13.5643 12.7494 13.5643 13.1085C13.5643 13.5003 13.2418 13.8178 12.844 13.8178H8.82148C8.42366 13.8178 8.10116 13.5003 8.10116 13.1085C8.10629 12.7153 8.43147 12.3992 8.83083 12.3992H12.844ZM15.3604 8.1556e-05C16.6281 -0.00727614 17.8464 0.483473 18.7455 1.3636C19.6445 2.24372 20.15 3.44055 20.15 4.6889V5.74826L20.1434 5.84451C20.0957 6.19073 19.7944 6.45758 19.4297 6.45758C19.0319 6.45758 18.7094 6.14001 18.7094 5.74826V4.6889C18.7094 3.81678 18.3557 2.98078 17.7268 2.3667C17.0979 1.75262 16.246 1.41133 15.3604 1.4187H14.584C14.1862 1.4187 13.8637 1.10113 13.8637 0.709393C13.8637 0.317651 14.1862 8.1556e-05 14.584 8.1556e-05H15.3604ZM7.39021 8.1556e-05C7.78802 8.1556e-05 8.11052 0.317651 8.11052 0.709393C8.11052 1.10113 7.78802 1.4187 7.39021 1.4187H6.60441C4.77032 1.4187 3.2835 2.88282 3.2835 4.6889V5.74826L3.2745 5.85938C3.25067 6.00543 3.18025 6.14135 3.07197 6.24659C2.93661 6.37816 2.75336 6.45083 2.56319 6.44842C2.17997 6.43368 1.87563 6.12589 1.87093 5.74826V4.6889C1.86576 2.10801 3.98351 0.0102375 6.60441 8.1556e-05H7.39021ZM8.72878 4.89319L8.83083 4.90078H12.8346C13.1984 4.94179 13.473 5.24496 13.473 5.60548C13.473 5.966 13.1984 6.26917 12.8346 6.31019H8.7747C8.49953 6.32861 8.23783 6.1907 8.10076 5.95502C7.9637 5.71933 7.97533 5.42727 8.13072 5.20288C8.28611 4.9785 8.55797 4.86118 8.83083 4.90078L8.72878 4.89319Z" fill="white"/>
-                        </svg>
-                    </div>
-                    <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/>Scan Images</p>
-                        <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#DB720A]' />
-                </div> */}
+                </div> 
                 <div onClick={()=> navigate('/dashboard/manageuser')} className='bg-[#0DA400] w-full rounded-md px-6 py-8 relative cursor-pointer' >
                     <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#109205]' >
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,17 +100,7 @@ export default function DashboardTab() {
                     </div>
                     <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/> Staff</p>
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#109205]' />
-                </div>
-                {/* <div onClick={()=> navigate('/dashboard/managebloodbank')} className='bg-[#121212] w-full rounded-md px-6 py-8 relative cursor-pointer' >
-                    <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#1A1A1C]' >
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M25.0598 19.1204C24.7498 15.4204 22.1298 10.5304 16.7898 3.74041C16.6963 3.61996 16.5765 3.52249 16.4396 3.45543C16.3027 3.38838 16.1522 3.35352 15.9998 3.35352C15.8473 3.35352 15.6969 3.38838 15.56 3.45543C15.423 3.52249 15.3033 3.61996 15.2098 3.74041C9.86978 10.5404 7.20978 15.4204 6.93978 19.1204C6.78136 20.3475 6.8829 21.5943 7.23781 22.7796C7.59272 23.9649 8.19304 25.0623 8.99978 26.0004C9.91803 26.9042 11.0151 27.6059 12.2206 28.0605C13.4262 28.5152 14.7134 28.7127 15.9998 28.6404C16.2698 28.6404 16.5198 28.6404 16.7798 28.6404C16.5728 28.4866 16.3788 28.316 16.1998 28.1304C15.925 27.8303 15.6929 27.4938 15.5098 27.1304C15.0724 26.2196 14.8959 25.2054 14.9998 24.2004C15.1498 22.4004 16.2398 20.2904 18.5598 17.3504C18.747 17.1132 18.9855 16.9215 19.2574 16.7897C19.5293 16.6579 19.8276 16.5894 20.1298 16.5894C20.432 16.5894 20.7302 16.6579 21.0021 16.7897C21.2741 16.9215 21.5126 17.1132 21.6998 17.3504C22.5063 18.3532 23.2446 19.4089 23.9098 20.5104C24.2674 21.1178 24.5751 21.7532 24.8298 22.4104C25.0724 21.3317 25.15 20.2224 25.0598 19.1204ZM11.9998 23.0004C11.802 23.0004 11.6087 22.9418 11.4442 22.8319C11.2798 22.722 11.1516 22.5658 11.0759 22.3831C11.0002 22.2004 10.9804 21.9993 11.019 21.8053C11.0576 21.6113 11.1528 21.4332 11.2927 21.2933C11.4325 21.1534 11.6107 21.0582 11.8047 21.0196C11.9987 20.981 12.1997 21.0008 12.3825 21.0765C12.5652 21.1522 12.7214 21.2804 12.8312 21.4448C12.9411 21.6093 12.9998 21.8026 12.9998 22.0004C12.9998 22.2656 12.8944 22.52 12.7069 22.7075C12.5193 22.8951 12.265 23.0004 11.9998 23.0004ZM14.8798 13.6704C13.8697 15.3979 13.2105 17.3077 12.9398 19.2904C12.9173 19.5397 12.802 19.7715 12.6169 19.94C12.4317 20.1085 12.1901 20.2014 11.9398 20.2004H11.8598C11.7283 20.1903 11.6001 20.1543 11.4826 20.0945C11.3651 20.0347 11.2606 19.9522 11.1751 19.8518C11.0896 19.7514 11.0248 19.6351 10.9844 19.5096C10.944 19.3841 10.9288 19.2518 10.9398 19.1204C11.2288 16.8668 11.9667 14.694 13.1098 12.7304C13.2344 12.4957 13.4472 12.3201 13.7013 12.2423C13.9554 12.1645 14.2301 12.1908 14.4648 12.3154C14.6995 12.4401 14.8751 12.6528 14.9529 12.907C15.0307 13.1611 15.0044 13.4357 14.8798 13.6704Z" fill="white"/>
-                            <path d="M22.9998 21.0002C22.3749 19.9544 21.68 18.9521 20.9198 18.0002C20.8263 17.8797 20.7065 17.7823 20.5696 17.7152C20.4327 17.6481 20.2822 17.6133 20.1298 17.6133C19.9773 17.6133 19.8269 17.6481 19.6899 17.7152C19.553 17.7823 19.4332 17.8797 19.3398 18.0002C17.1598 20.7802 16.1298 22.7202 15.9998 24.3102C15.9208 25.113 16.0626 25.922 16.4098 26.6502C16.5433 26.94 16.7222 27.2067 16.9398 27.4402C17.3738 27.9061 17.9218 28.2508 18.5298 28.4402C19.0472 28.6048 19.5868 28.6891 20.1298 28.6902C20.7183 28.7228 21.307 28.6301 21.857 28.418C22.4069 28.206 22.9055 27.8795 23.3198 27.4602C23.688 27.034 23.962 26.5349 24.124 25.9956C24.286 25.4562 24.3323 24.8887 24.2598 24.3302C24.2598 24.3302 24.2598 24.2602 24.2598 24.2302C24.0766 23.0755 23.6469 21.9739 22.9998 21.0002Z" fill="white"/>
-                        </svg>
-                    </div>
-                    <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/> Blood Bank</p>
-                        <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#1A1A1C]' />
-                </div> */}
+                </div> 
                 <div onClick={()=> navigate('/dashboard/managepatient')} className='bg-[#176AE7] w-full rounded-md px-6 py-8 relative cursor-pointer' >
                     <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#115FD6]' >
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +110,7 @@ export default function DashboardTab() {
                     <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/> Registered Patients</p>
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#115FD6]' />
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 } 

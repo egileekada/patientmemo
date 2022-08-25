@@ -108,29 +108,33 @@ export default function LoginScreen() {
         }  
     
     return (
-        <div className='w-full flex bg-white flex-row lg:py-20 pt-10 h-screen'>  
+        <div className='w-full flex bg-white flex-row  relative lg:py-0 pt-0 h-screen'>  
             <Modal message={message} modal={modal} />
-            <div className='w-full h-full relative px-20 hidden lg:flex flex-col' >
-                <img src={SideImage} className='object-cover' style={{ height:'100%', borderRadius: '30px'}} alt='SideImage' />
-            </div>
-            <div className='w-full h-full items-center justify-center flex flex-col'>
+            {/* <div className='w-full h-screen relative hidden lg:flex flex-col' > */}
+                <img src={SideImage} className='object-cover w-full h-screen ' alt='SideImage' />
+            {/* </div> */}
+            <div className=' absolute inset-0 bg-black bg-opacity-75 z-10 ' />
+
+            <div className='w-full absolute  h-full items-center z-20 justify-center flex flex-col'>
                 
-                <div  className=' lg:w-500px w-full px-6 lg:pt-0  lg:px-0'>
+                <div  className=' lg:w-405px w-full flex flex-col lg:pt-0 px-4'>
 
-                    <img style={{width: '200px'}} className=' lg:mt-0  -mt-12' alt='logo' src={Logo} />
+                    <img style={{width: '200px'}} className=' absolute top-8 left-8  ' alt='logo' src={Logo} />
+                    <p className=' text-center mx-auto text-[#C8A4FC] text-lg flex items-center font-Ubuntu-Bold ' >Good day! <span className=' ml-1 font-Ubuntu-Regular text-white ' >please enter your details.</span></p>
+                    <p className=' font-Ubuntu-Regular text-[#BDADD3] mt-1 ' >Our patient are at the center of everything we do</p>
 
-                    <div className='  w-full lg:pt-0 pt-12 mt-10 lg:px-0' >
-                        <p className='text-2xl font-Ubuntu-Bold'>Sign in</p>
+                    <div className='  w-full text-white border-l border-b border-white rounded-xl p-6 mt-10 ' >
+                        <p className='text-2xl pb-5 font-Ubuntu-Bold'>Sign in</p>
                         {/* <p className='text-base font-Graphik-Regular mt-4 mb-6'>Manage 9Jawarehouse SEAMLESSLY</p>  */}
-                        <div className='my-4 pt-4 w-full' >
+                        <div className='my-2 w-full' >
                             <p className='text-sm mb-1 font-Ubuntu-Medium '>Email Address</p> 
                             <Input 
                                 name="email"
                                 onChange={formik.handleChange}
                                 onFocus={() =>
                                     formik.setFieldTouched("email", true, true)
-                                }  
-                                size='lg' fontSize='sm' placeholder="Email" />
+                                } color="#000"
+                                size='lg' fontSize='sm' backgroundColor="white" placeholder="Email" />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.email && formik.errors.email && (
                                     <motion.p
@@ -143,7 +147,7 @@ export default function LoginScreen() {
                                 )}
                             </div> 
                         </div> 
-                        <div className='my-4 pt-2 w-full' >
+                        <div className='my-2 w-full' >
                             <p className='text-sm mb-1 font-Ubuntu-Medium '>Password</p>  
                             <InputGroup >
                                 <InputRightElement 
@@ -158,7 +162,7 @@ export default function LoginScreen() {
                                     onChange={formik.handleChange}
                                     onFocus={() =>
                                         formik.setFieldTouched("password", true, true)
-                                    } 
+                                    }  backgroundColor="white" color="#000"
                                     type={showpassword ? "text" : "password"} size='lg' fontSize='sm' placeholder="Password" /> 
                             </InputGroup> 
                             <div className="w-full h-auto pt-2">
@@ -173,16 +177,16 @@ export default function LoginScreen() {
                                 )}
                             </div> 
                         </div>   
-                        <p onClick={()=> navigate('/resetpassword')} className='text-base cursor-pointer my-2 text-right font-Ubuntu-Regular '>Forgot Password?</p> 
+                        <p onClick={()=> navigate('/resetpassword')} className='text-sm cursor-pointer my-1 text-right font-Ubuntu-Regular '>Forgot Password?</p> 
                         {loading ? 
-                                <button style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-10 h-12 text-white flex items-center justify-center  rounded  py-3 font-Ubuntu-Bold'> 
+                                <button style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-6 h-12 text-white flex items-center justify-center  rounded font-Ubuntu-Bold'> 
                                         <div className='flex mx-auto items-center ' >
                                             <LoaderIcon size='w-8 h-8 mr-1 ' /> 
                                             Loading
                                         </div> 
                                 </button>
                             :
-                            <button onClick={()=> submit()} style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-10 h-12 text-white flex items-center justify-center  rounded  py-3 font-Ubuntu-Bold'> 
+                            <button onClick={()=> submit()} style={{ backgroundColor:'#7123E2'}} className='text-base w-full mt-6 h-12 text-white flex items-center justify-center  rounded font-Ubuntu-Bold'> 
                                 Log In
                             </button>
                         }

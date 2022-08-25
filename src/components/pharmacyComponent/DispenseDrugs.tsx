@@ -27,27 +27,13 @@ export default function DispenseDrugs() {
     const [name, setName] = React.useState('') 
     const [showFile, setShowFile] = React.useState(false)
     const [patientIndex, setPatientIndex] = React.useState('')
-    const [show, setShow] = React.useState([] as any)
- 
-
-    // React.useEffect(() => {
-    //     if(patientIndex === '') {
-    //         if(name === ''){
-    //             setShowFile(false)
-    //         }
-    //     }
-    // }, [name])
+    const [show, setShow] = React.useState([] as any) 
 
     const loginSchema = yup.object({ 
-        patient: yup.string().required('Required'),
-        drugId: yup.string().required('Required'),
+        // patient: yup.string().required('Required'),
+        // drugId: yup.string().required('Required'),
         qty: yup.string().required('Required'),   
-    })    
- 
-    // {
-    //     "patient":"624c1a715984283861a90ab5",
-    //     "drugId":"6286b828c794d4a5a81afea3",
-    //     "qty":10
+    })     
     
     // }
     // formik
@@ -160,29 +146,7 @@ export default function DispenseDrugs() {
                     <div className='right-12 absolute  ml-auto' >
                         {dataValue.patient !== undefined && ( 
                             <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs border border-[#FFF] text-white bg-[#FFFFFF4D] rounded h-10 mr-20 px-4 ' >Dispense Medicine</button>
-                        )}
-                        {/* <button onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium text-xs  bg-[#7123E2] mr-20 text-white rounded-lg h-10 px-6 ' >New Medicine</button> */}
-                        {/* <button onClick={()=> setMore((prev)=> !prev)} className='font-Ubuntu-Medium ml-3 absolute right-4 text-xs border border-[#FFF] text-white bg-[#FFFFFF4D] rounded h-10 px-3 ' >
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 4C8.82843 4 9.5 3.32843 9.5 2.5C9.5 1.67157 8.82843 1 8 1C7.17157 1 6.5 1.67157 6.5 2.5C6.5 3.32843 7.17157 4 8 4Z" fill="url(#paint0_linear_960_1441)"/>
-                                <path d="M8 9.5C8.82843 9.5 9.5 8.82843 9.5 8C9.5 7.17157 8.82843 6.5 8 6.5C7.17157 6.5 6.5 7.17157 6.5 8C6.5 8.82843 7.17157 9.5 8 9.5Z" fill="url(#paint1_linear_960_1441)"/>
-                                <path d="M8 15C8.82843 15 9.5 14.3284 9.5 13.5C9.5 12.6716 8.82843 12 8 12C7.17157 12 6.5 12.6716 6.5 13.5C6.5 14.3284 7.17157 15 8 15Z" fill="url(#paint2_linear_960_1441)"/>
-                                <defs>
-                                    <linearGradient id="paint0_linear_960_1441" x1="-5.89941" y1="0.728669" x2="-3.8704" y2="11.3494" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#FFFFFF"/>
-                                        <stop offset="1" stop-color="#FFFFFF"/>
-                                    </linearGradient>
-                                    <linearGradient id="paint1_linear_960_1441" x1="-5.89941" y1="6.22867" x2="-3.8704" y2="16.8494" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#FFFFFF"/>
-                                        <stop offset="1" stop-color="#FFFFFF"/>
-                                    </linearGradient>
-                                    <linearGradient id="paint2_linear_960_1441" x1="-5.89941" y1="11.7287" x2="-3.8704" y2="22.3494" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#FFFFFF"/>
-                                        <stop offset="1" stop-color="#FFFFFF"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </button> */}
+                        )} 
                         {more && ( 
                             <div style={{boxShadow: '0px 4px 34px 0px #7123E229'}} className='absolute top-12 bg-white px-6 py-6 rounded-lg right-4' >
                                 <div className='flex items-center cursor-pointer' >
@@ -247,36 +211,11 @@ export default function DispenseDrugs() {
                                                 </div>
                                                 <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item.updatedAt)}</p>
                                             </div>
-                                        ) 
-                                    //     }
-                                    // } else { 
-                                    //     return(
-                                    //         <div onClick={()=> ClickHandler(index, item)} className={requestId === index ? 'px-6 mb-4 py-4 flex text-white flex-col bg-[#7123E2] cursor-pointer' : ' cursor-pointer px-6 mb-4 py-4 flex flex-col bg-white'} >
-                                    //             <div className='flex items-center w-full' > 
-                                    //                 <div className=' w-14 h-14 rounded-full bg-yellow-300' />
-                                                    
-                                    //                 <div className=' ml-3' > 
-                                    //                     <p className='font-Ubuntu-Medium' >{item.madeBy.title+' '+item.madeBy.name}</p>
-                                    //                     <p className='font-Ubuntu-Regular text-sm' >P: {item.patient.firstName+' '+item.patient.lastName}</p>
-                                    //                 </div>    
-                                    //             </div>
-                                    //             <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item.updatedAt)}</p>
-                                    //         </div>
-                                    //     ) 
-                                    // }
+                                        )  
                                 }
                             })}
                         </>
-                    )}
-                    {/* <div className='px-6 mb-4 py-2 flex items-center ' >
-                        <div className=' w-14 h-14 rounded-full bg-yellow-300' />
-                        
-                        <div className=' ml-3' > 
-                            <p className='font-Ubuntu-Medium' >Dr. Emmanuel Joseph</p>
-                            <p className='font-Ubuntu-Regular text-sm' >P: Adebayo Josephine</p>
-                        </div>   
-                        <p className='font-Ubuntu-Regular ml-auto text-sm mt-auto' >12:23 pm</p>
-                    </div> */}
+                    )} 
                 </div>
                 {dataValue.patient !== undefined && ( 
                     <div style={{ boxShadow: '0px 3px 34px 0px #7123E229'}} className=' flex-1 rounded-lg' >

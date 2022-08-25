@@ -34,13 +34,13 @@ export default function ManagePatient() {
     
     return (
         <div className='w-full h-full ' >
-            <div className='w-full px-12 relative border-b py-5 flex items-center border-[#D7D0DF]' > 
-                <div className=' absolute flex items-center ' >
-                    <div onClick={()=> navigate('/dashboard')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+            <div className='w-full relative border-b py-5 flex items-center border-[#D7D0DF]' > 
+                <div className=' absolute flex items-center pl-8 ' >
+                    {/* <div onClick={()=> navigate('/dashboard')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                         <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>
+                    </div> */}
                     <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Patient</p>  
                 </div>
                 <div className='mx-auto ' >
@@ -54,10 +54,10 @@ export default function ManagePatient() {
                     </div>
                 :
 
-                    <div className='bg-white w-full py-6 px-8' > 
+                    <div className='bg-white w-full py-6' > 
                         <Table variant='unstyled' >
                             {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-                            <Thead backgroundColor='#7123E2' borderRadius='8px' >
+                            <Thead backgroundColor='#4C04B4' borderRadius='8px' >
                                 <Tr className='font-Graphik-Medium text-sm h-20 text-white' >
                                     <Th>Name</Th>  
                                     <Th>ID Number</Th>  
