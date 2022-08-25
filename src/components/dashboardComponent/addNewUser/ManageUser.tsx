@@ -94,7 +94,7 @@ export default function ManageUser(props: any) {
                                             if(item.fullName.toLowerCase().includes(name)){
                                                 return(
                                                     <Tr className={'font-Ubuntu-Medium cursor-pointer text-black text-sm'} key={index} >
-                                                        <Td>{index}</Td> 
+                                                        {/* <Td>{index}</Td>  */}
                                                         <Td>
                                                             <div className='flex items-center' >
                                                                 <div className='w-14 h-14 rounded-full bg-[#E0E0E0] flex justify-center items-center' >  
