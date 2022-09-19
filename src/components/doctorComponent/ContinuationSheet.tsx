@@ -126,11 +126,11 @@ export default function ContinuationSheet() {
                             </div>
                             <div className='flex items-center mt-4' >
                                 <p className='font-Ubuntu-Medium text-sm' >Next Of Kin Name</p>
-                                <p className='font-Ubuntu-Medium text-sm ml-auto' >{data?.data?.nextOfKin.firstName+' '+data?.data?.nextOfKin.lastName}</p>
+                                {/* <p className='font-Ubuntu-Medium text-sm ml-auto' >{data?.data?.nextOfKin?.firstName+' '+data?.data?.nextOfKin?.lastName}</p> */}
                             </div> 
                             <div className='flex items-center mt-4' >
                                 <p className='font-Ubuntu-Medium text-sm' >Next Of Kin Phone Number</p>
-                                <p className='font-Ubuntu-Medium text-sm ml-auto' >{data?.data?.nextOfKin.phone}</p>
+                                {/* <p className='font-Ubuntu-Medium text-sm ml-auto' >{data?.data?.nextOfKin?.phone}</p> */}
                             </div> 
                             <button onClick={()=> setShowDetail(false)} className='font-Ubuntu-Medium text-white text-xs py-3 w-full mt-7 bg-[#7123E2] rounded' >Ok</button>
                         </div>
