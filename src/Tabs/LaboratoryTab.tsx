@@ -1,15 +1,33 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom' 
+import FindPatient from '../components/doctorComponent/continuationSheetComponent/FindPatient'
+import Navbar from '../components/Navbar'
 import RoleNavbar from '../components/RoleNavbar'
 
 export default function LaboratoryTab() {
-    
-    const navigate = useNavigate() 
+
+    const [tab, setTab] = React.useState(0)
+    const [data, setData] = React.useState({} as any)
+
+    const navigate = useNavigate()
+    const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
 
     return ( 
         <div className='w-full h-full relative px-0 pb-12' > 
-            <div className='w-full pb-12 ' >
-                <RoleNavbar />
+            <div className='w-full' >
+                <Navbar />
+            </div>  
+            {tab === 0 && ( 
+                <div className=' w-full h-full flex flex-1 flex-col justify-center items-center ' > 
+                    <p className=' text-3xl font-Ubuntu-Regular mt-14 text-[#585858] ' >Good morning! Nurse {userData.fullName ? userData.fullName:(userData.firstName+' '+userData.lastName)} </p>
+                    <p className=' text-lg font-Ubuntu-Medium my-6 text-[#585858] ' >Have a good day at work</p>
+                    <div className=' w-657px border-2 flex justify-center px-24 rounded-2xl items-center border-[#E3E3E4]  ' > 
+                        <FindPatient header='Enter Patient Name' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.' next={setTab} value={setData} />
+                    </div>
+                </div>
+            )}
+            {/* <RoleNavbar /> */}
+            {/* <div className='w-full pb-12 ' >
             </div>
             <div className='grid grid-cols-3 w-full gap-6 px-32' >
                 <div onClick={()=> navigate('/dashboard/laboratory/activities')} className='bg-[#7123E2] w-full rounded-md px-6 py-8 relative cursor-pointer' >
@@ -29,7 +47,7 @@ export default function LaboratoryTab() {
                     </div>
                     <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/>Scan Images</p>
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#DB720A]' />
-                </div>
+                </div> */}
                 {/* <div onClick={()=> navigate('/dashboard/manageuser')} className='bg-[#0DA400] w-full rounded-md px-6 py-8 relative cursor-pointer' >
                     <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#109205]' >
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +59,7 @@ export default function LaboratoryTab() {
                     <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/> Staff</p>
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#109205]' />
                 </div> */}
-                <div onClick={()=> navigate('/dashboard/laboratory/managebloodbank')} className='bg-[#121212] w-full rounded-md px-6 py-8 relative cursor-pointer' >
+                {/* <div onClick={()=> navigate('/dashboard/laboratory/managebloodbank')} className='bg-[#121212] w-full rounded-md px-6 py-8 relative cursor-pointer' >
                     <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#1A1A1C]' >
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M25.0598 19.1204C24.7498 15.4204 22.1298 10.5304 16.7898 3.74041C16.6963 3.61996 16.5765 3.52249 16.4396 3.45543C16.3027 3.38838 16.1522 3.35352 15.9998 3.35352C15.8473 3.35352 15.6969 3.38838 15.56 3.45543C15.423 3.52249 15.3033 3.61996 15.2098 3.74041C9.86978 10.5404 7.20978 15.4204 6.93978 19.1204C6.78136 20.3475 6.8829 21.5943 7.23781 22.7796C7.59272 23.9649 8.19304 25.0623 8.99978 26.0004C9.91803 26.9042 11.0151 27.6059 12.2206 28.0605C13.4262 28.5152 14.7134 28.7127 15.9998 28.6404C16.2698 28.6404 16.5198 28.6404 16.7798 28.6404C16.5728 28.4866 16.3788 28.316 16.1998 28.1304C15.925 27.8303 15.6929 27.4938 15.5098 27.1304C15.0724 26.2196 14.8959 25.2054 14.9998 24.2004C15.1498 22.4004 16.2398 20.2904 18.5598 17.3504C18.747 17.1132 18.9855 16.9215 19.2574 16.7897C19.5293 16.6579 19.8276 16.5894 20.1298 16.5894C20.432 16.5894 20.7302 16.6579 21.0021 16.7897C21.2741 16.9215 21.5126 17.1132 21.6998 17.3504C22.5063 18.3532 23.2446 19.4089 23.9098 20.5104C24.2674 21.1178 24.5751 21.7532 24.8298 22.4104C25.0724 21.3317 25.15 20.2224 25.0598 19.1204ZM11.9998 23.0004C11.802 23.0004 11.6087 22.9418 11.4442 22.8319C11.2798 22.722 11.1516 22.5658 11.0759 22.3831C11.0002 22.2004 10.9804 21.9993 11.019 21.8053C11.0576 21.6113 11.1528 21.4332 11.2927 21.2933C11.4325 21.1534 11.6107 21.0582 11.8047 21.0196C11.9987 20.981 12.1997 21.0008 12.3825 21.0765C12.5652 21.1522 12.7214 21.2804 12.8312 21.4448C12.9411 21.6093 12.9998 21.8026 12.9998 22.0004C12.9998 22.2656 12.8944 22.52 12.7069 22.7075C12.5193 22.8951 12.265 23.0004 11.9998 23.0004ZM14.8798 13.6704C13.8697 15.3979 13.2105 17.3077 12.9398 19.2904C12.9173 19.5397 12.802 19.7715 12.6169 19.94C12.4317 20.1085 12.1901 20.2014 11.9398 20.2004H11.8598C11.7283 20.1903 11.6001 20.1543 11.4826 20.0945C11.3651 20.0347 11.2606 19.9522 11.1751 19.8518C11.0896 19.7514 11.0248 19.6351 10.9844 19.5096C10.944 19.3841 10.9288 19.2518 10.9398 19.1204C11.2288 16.8668 11.9667 14.694 13.1098 12.7304C13.2344 12.4957 13.4472 12.3201 13.7013 12.2423C13.9554 12.1645 14.2301 12.1908 14.4648 12.3154C14.6995 12.4401 14.8751 12.6528 14.9529 12.907C15.0307 13.1611 15.0044 13.4357 14.8798 13.6704Z" fill="white"/>
@@ -50,7 +68,7 @@ export default function LaboratoryTab() {
                     </div>
                     <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/> Blood Bank</p>
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#1A1A1C]' />
-                </div>
+                </div> */}
                 {/* <div onClick={()=> navigate('/dashboard/managepatient')} className='bg-[#176AE7] w-full rounded-md px-6 py-8 relative cursor-pointer' >
                     <div className='w-14 h-14 flex justify-center items-center  rounded-full bg-[#115FD6]' >
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +78,7 @@ export default function LaboratoryTab() {
                     <p className='font-Ubuntu-Bold text-xl text-white mt-3 relative z-30' >Manage<br/> Registered Patients</p>
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#115FD6]' />
                 </div> */}
-            </div>
+            {/* </div> */}
         </div>
     )
 } 

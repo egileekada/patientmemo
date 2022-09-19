@@ -34,6 +34,8 @@ import ManageActivities from './components/laboratoryComponent/ManageActivities'
 import DeliveryRecord from './components/nurseComponent/DeliveryRecord'; 
 import AnteNatalNotes from './components/nurseComponent/AnteNatalNotes';
 import DispenseDrugs from './components/pharmacyComponent/DispenseDrugs';
+import PatientFileOther from './components/PatientFileOther';
+import Chat from './components/Chat';
  
 const queryClient = new QueryClient()
 
@@ -74,6 +76,9 @@ function App() {
               <Route path='/dashboard/manageuser' element={<AddNewUser />} />
               <Route path='/dashboard/managepatient' element={<ManagePatient />} />
               <Route path='/dashboard/patientfile' element={<PatientFile />} />
+              
+              <Route path='/dashboard/profile' element={<ProfileTab />} />
+            </Route>  
               <Route path='/dashboard/pharmacy' element={<PharmacyTab />} />
               <Route path='/dashboard/laboratory' element={<LabScreen />}>
                 <Route path='/dashboard/laboratory' element={<LaboratoryTab />} /> 
@@ -81,7 +86,12 @@ function App() {
                 <Route path='/dashboard/laboratory/managescan' element={<ManageScan />} />
                 <Route path='/dashboard/laboratory/managebloodbank' element={<ManageBloodBank />} />
               </Route>
-              <Route path='/dashboard/profile' element={<ProfileTab />} />
+              <Route path='/dashboard/doctor' element={<DoctorScreen />}>
+                <Route path='/dashboard/doctor' element={<DoctorTab />} />
+                <Route path='/dashboard/doctor/continuationsheet' element={<ContinuationSheet />} />
+                <Route path='/dashboard/doctor/managecontinuationsheet' element={<ManageContinuationSheet />} />
+                <Route path='/dashboard/doctor/makingrequest' element={<MakingRequest />} />
+              </Route>
               <Route path='/dashboard/nurse' element={<NurseScreen />} > 
                 <Route path='/dashboard/nurse' element={<NurseTab />} />
                 <Route path='/dashboard/nurse/medicationsheet' element={<MedicationSheet />} />
@@ -90,14 +100,10 @@ function App() {
                 <Route path='/dashboard/nurse/managedeliveryrecord' element={<DeliveryRecord />} />
                 <Route path='/dashboard/nurse/antenatalnotes' element={<AnteNatalNotes />} />
               </Route>
-              <Route path='/dashboard/doctor' element={<DoctorScreen />}>
-                <Route path='/dashboard/doctor' element={<DoctorTab />} />
-                <Route path='/dashboard/doctor/continuationsheet' element={<ContinuationSheet />} />
-                <Route path='/dashboard/doctor/managecontinuationsheet' element={<ManageContinuationSheet />} />
-                <Route path='/dashboard/doctor/makingrequest' element={<MakingRequest />} />
-              </Route>
-            </Route>  
+              <Route path='/patientfile' element={<PatientFileOther />} />
               <Route path='/pharmacy/dispensedrugs' element={<DispenseDrugs />} />
+              <Route path='/chat' element={<Chat />} />
+                <Route path='/dashboard/findpatient' element={<NurseTab />} />
           </Routes>
         </Router>
       </ChakraProvider>

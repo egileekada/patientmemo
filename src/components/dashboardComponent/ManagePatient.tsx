@@ -2,6 +2,7 @@ import { InputGroup, InputLeftElement, Input, Table, Tbody, Td, Th, Thead, Tr } 
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { IUser, UserContext } from '../../context'
 import GetPatientInfo from '../GetPatientInfo'
 import LoaderIcon from '../LoaderIcon'
 import FindPatient from './FindPatient'
@@ -23,14 +24,19 @@ export default function ManagePatient() {
         )
     )   
 
+    const userContext: IUser = React.useContext(UserContext);   
     React.useEffect(() => {
         setPatientDetail(data)
     }, [data])
 
     const ClickHandler =(item: any)=> {
-        localStorage.setItem('patientId', item)
+        userContext.setPatient(item)
+        console.log(item);
+        
+        localStorage.setItem('patientId', item._id)
         navigate('/dashboard/patientfile')
-    } 
+    }  
+    
     
     return (
         <div className='w-full h-full ' >
@@ -68,9 +74,9 @@ export default function ManagePatient() {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {[...data].reverse().map((item: any, index: any)=> {
+                                {[...data.data].reverse().map((item: any, index: any)=> {
                                     return(
-                                        <Tr onClick={()=> ClickHandler(item._id)} className={'font-Ubuntu-Medium cursor-pointer text-black text-sm'} key={index} >
+                                        <Tr onClick={()=> ClickHandler(item)} className={'font-Ubuntu-Medium cursor-pointer text-black text-sm'} key={index} >
                                             <Td>
                                                 <div className='flex items-center' >
                                                     <div className='w-12 h-12 rounded-full bg-[#E0E0E0] flex justify-center items-center' > 

@@ -23,7 +23,7 @@ export default function TextEditor(props: any) {
         <div className='w-full flex flex-col' >
             <Editor
               editorState={note}
-              editorStyle={{ width: "100%", height: '25vh', backgroundColor: '#f4f4f4', borderRadius: '5px', paddingLeft: '15px',  paddingRight: '15px', marginTop: '20px'}}
+              editorStyle={{ width: "100%", height: '30vh', backgroundColor: '#f4f4f4', borderRadius: '5px', paddingLeft: '15px',  paddingRight: '15px', marginTop: '20px'}}
               wrapperStyle={{width: "100%"}} 
               placeholder='How about the patient?...' 
               onEditorStateChange={onEditorStateChange}/>

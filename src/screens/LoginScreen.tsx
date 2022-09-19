@@ -76,16 +76,16 @@ export default function LoginScreen() {
                         setModal(0)
                         if(json.user.role === 'doctor'){
                             localStorage.setItem('tab', '1')
-                            navigate('/dashboard/doctor'); 
+                            navigate('/dashboard/findpatient'); 
                         } else if(json.user.role === 'lab'){
                             localStorage.setItem('tab', '4')
-                            navigate('/dashboard/laboratory'); 
+                            navigate('/dashboard/findpatient'); 
                         } else if(json.user.role === 'pharmacy'){
                             localStorage.setItem('tab', '3')
                             navigate('/dashboard/pharmacy'); 
                         } else if(json.user.role === 'nurse'){
                             localStorage.setItem('tab', '2')
-                            navigate('/dashboard/nurse'); 
+                            navigate('/dashboard/findpatient'); 
                         } else {
                             localStorage.setItem('tab', '0')
                             navigate('/dashboard'); 
@@ -95,8 +95,8 @@ export default function LoginScreen() {
                     }, 3000); 
                 }else {
                     // alert('Incorrect Email Or Password');
-                    // console.log(json)  
-                        setMessage('Incorrect Email Or Password')
+                    console.log(json)  
+                        setMessage(json.error.message)
                         setModal(2)
                     const t1 = setTimeout(() => {
                         setLoading(false);

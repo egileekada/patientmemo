@@ -109,6 +109,7 @@ module.exports = {
       '280px': '280px',
       '405px': '405px',
       '500px': '500px',
+      '657px': '657px',
     },
     animation: {
       none: 'none',

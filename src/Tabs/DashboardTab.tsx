@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import ChatComponent from '../components/ChatComponent'
 import RoleNavbar from '../components/RoleNavbar'
 import staff from "../assets/images/staff.png"
+import ViewAllStaff from '../components/ViewAllStaff'
 
 export default function DashboardTab() {
 
@@ -25,19 +26,7 @@ export default function DashboardTab() {
                         <div className='w-36 h-36  rounded-tl-full absolute bottom-0 right-0 bg-[#5815BA]' />
                     </div>  
                 </div> 
-
-                <p className=' text-xl mt-8 ' >Our Staffs</p> 
-                <div className="  scroll_event w-full mt-4 py-1 overflow-x-auto overflow-y-hidden flex flex-row ">
-                    <div className=" flex  "> 
-                        <img className=' w-32 mr-2 ' src={staff}  />
-                        <img className=' w-32 mr-2 ' src={staff}  />
-                        <img className=' w-32 mr-2 ' src={staff}  />
-                        <img className=' w-32 mr-2 ' src={staff}  />
-                        <img className=' w-32 mr-2 ' src={staff}  />
-                        <img className=' w-32 mr-2 ' src={staff}  />
-                        <img className=' w-32 mr-2 ' src={staff}  />
-                    </div>
-                </div>
+                <ViewAllStaff />
                 <p className=' text-xl mt-8 ' >Todays Report</p> 
                 <div className='grid grid-cols-4 w-full mt-4 pb-20 gap-6' >
                     <div className=' w-fit  ' > 

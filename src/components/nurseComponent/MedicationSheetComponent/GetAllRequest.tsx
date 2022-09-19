@@ -10,7 +10,7 @@ import DateFormat from '../../DateFormat'
 export default function GetAllRequest(props: any) {
  
     const { isLoading, data } = useQuery('getpatient', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/requests`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-medical-sheet/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -50,7 +50,7 @@ export default function GetAllRequest(props: any) {
                     :
                     
                         <div className='w-full grid grid-cols-3 gap-6 py-4 ' > 
-                            {data.map((item: any)=> {  
+                            {/* {data.map((item: any)=> {  
                                 return(
                                     <>
                                         {item.kind === 'pharmacy' && (
@@ -88,7 +88,7 @@ export default function GetAllRequest(props: any) {
                                         )} 
                                     </>
                                 )
-                            })}
+                            })} */}
                         </div>
                     } 
             </>

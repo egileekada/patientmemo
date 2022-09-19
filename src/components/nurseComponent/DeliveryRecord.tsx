@@ -6,7 +6,7 @@ import SummaryOfRecords from './DeliveryRecordComponent/SummaryOfRecords'
 
 export default function DeliveryRecord() {
 
-    const [tab, setTab] = React.useState(0)
+    const [tab, setTab] = React.useState(1)
     const [data, setData] = React.useState({} as any)
     const navigate = useNavigate()
 
@@ -22,7 +22,7 @@ export default function DeliveryRecord() {
     return (
         <div className='w-full h-full ' >
             <div className={tab === 0 ? 'w-full px-12 border-b  flex items-center border-[#D7D0DF] pb-7 pt-8': 'w-full px-12 border-b  flex items-center border-[#D7D0DF]'} > 
-                <div onClick={()=> navigate('/dashboard/nurse')} className='w-10 h-10 rounded-full absolute cursor-pointer flex items-center justify-center bg-[#7123E214]' > 
+                {/* <div onClick={()=> navigate('/dashboard/nurse')} className='w-10 h-10 rounded-full absolute cursor-pointer flex items-center justify-center bg-[#7123E214]' > 
                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 495.398 495.398" >
                         <g>
                             <g>
@@ -38,13 +38,13 @@ export default function DeliveryRecord() {
                             </g>
                         </g> 
                     </svg>
-                </div>
-                <div onClick={()=> ClickHandler()} className='w-10 h-10 ml-12 rounded-full absolute cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                </div> */}
+                {/* <div onClick={()=> ClickHandler()} className='w-10 h-10 ml-12 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div> 
-                <p className='font-Ubuntu-Medium  text-lg absolute ml-28 ' >Manage Delivery Record</p> 
+                <p className='font-Ubuntu-Medium  text-lg ml-28 ' >Manage Delivery Record</p>  */}
                 {tab !== 0 && (
                     <div className='mx-auto flex' >
                         <div onClick={()=> setTab(1)} className={tab === 1 ? 'flex items-center pb-7 pt-8 cursor-pointer mx-3 border-b-2 border-[#7123E2]  ': 'flex items-center pb-7 pt-8  cursor-pointer mx-3 border-b-2 border-transparent '} > 

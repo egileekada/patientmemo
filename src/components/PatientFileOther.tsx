@@ -2,37 +2,55 @@ import { Input, Select } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import ContinuationSheet from '../doctorComponent/ContinuationSheet'
-import Chemistry from '../laboratoryComponent/Chemistry'
-import Haematology from '../laboratoryComponent/Haematology'
-import Microbiology from '../laboratoryComponent/Microbiology'
-import Microscopic from '../laboratoryComponent/Microscopic'
-import Serologist from '../laboratoryComponent/Serologist'
-import UrineAnalysis from '../laboratoryComponent/UrineAnalysis'
-import LoaderIcon from '../LoaderIcon'
-import DeliveryRecord from '../nurseComponent/DeliveryRecord'
-import DeliveryRecordTab from '../nurseComponent/DeliveryRecordComponent/DeliveryRecordTab'
-import MedicationSheet from '../nurseComponent/MedicationSheet'
-import OberservationChartList from '../nurseComponent/MedicationSheetComponent/OberservationChartList'
-import ObservationChart from '../nurseComponent/ObservationChart'
-import OIChart from '../nurseComponent/OIChart'
-import AnteNatalNotes from './managePatientComponent/AnteNatalNotes'
+import ContinuationSheet from './doctorComponent/ContinuationSheet'
+import Chemistry from './laboratoryComponent/Chemistry'
+import Haematology from './laboratoryComponent/Haematology'
+import Microbiology from './laboratoryComponent/Microbiology'
+import Microscopic from './laboratoryComponent/Microscopic'
+import Serologist from './laboratoryComponent/Serologist'
+import UrineAnalysis from './laboratoryComponent/UrineAnalysis'
+import LoaderIcon from './LoaderIcon'
+import DeliveryRecord from './nurseComponent/DeliveryRecord'
+import DeliveryRecordTab from './nurseComponent/DeliveryRecordComponent/DeliveryRecordTab'
+import MedicationSheet from './nurseComponent/MedicationSheet'
+import OberservationChartList from './nurseComponent/MedicationSheetComponent/OberservationChartList'
+import ObservationChart from './nurseComponent/ObservationChart'
+import OIChart from './nurseComponent/OIChart'
+import AnteNatalNotes from './dashboardComponent/managePatientComponent/AnteNatalNotes'
 // import ContinutionSheet from './managePatientComponent/ContinutionSheet' 
 // import DeliveryRecord from './managePatientComponent/DeliveryRecord'
 // import DeliveryRecord from './managePatientComponent/DeliveryRecord'
-import EditNextOfKin from './managePatientComponent/EditNextOfKin'
-import EditPatientInfo from './managePatientComponent/EditPatientInfo'
-import HositalHistory from './managePatientComponent/HositalHistory'
-import InputAndOutputChart from './managePatientComponent/InputAndOutputChart'
-import MedicalReport from './managePatientComponent/MedicalReport'
-import Request from './managePatientComponent/Request'
+import EditNextOfKin from './dashboardComponent/managePatientComponent/EditNextOfKin'
+import EditPatientInfo from './dashboardComponent/managePatientComponent/EditPatientInfo'
+import HositalHistory from './dashboardComponent/managePatientComponent/HositalHistory'
+import InputAndOutputChart from './dashboardComponent/managePatientComponent/InputAndOutputChart'
+import MedicalReport from './dashboardComponent/managePatientComponent/MedicalReport'
+import Request from './dashboardComponent/managePatientComponent/Request'
+import Navbar from './Navbar'
 
 export default function PatientFile() {
     
     const navigate = useNavigate()
     const [tab, setTab] = React.useState(0) 
     const [lab, setLab] = React.useState(false) 
-    const [infoTab, setInfoTab] = React.useState(0) 
+    const [infoTab, setInfoTab] = React.useState(0)  
+    const [role, setRole] = React.useState(localStorage.getItem('tab')+'')
+
+    const ClickHandler =()=> { 
+        // if(role === '0'){
+        //     navigate('/dashboard')
+        // } else if(role === '1'){
+        //     navigate('/dashboard/doctor')
+        // } else if(role === '2'){
+        //     navigate('/dashboard/nurse') 
+        // } else if(role === '3'){
+        //     navigate('/dashboard/pharmacy')
+        // } else if(role === '4'){
+        //     navigate('/dashboard/laboratory')
+        // } else if(role === '5'){
+        // }
+            navigate('/dashboard/findpatient')
+    }  
 
     const { isLoading, data } = useQuery('EditPaitentData', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem('patientId')}`, {
@@ -46,14 +64,15 @@ export default function PatientFile() {
         )
     )  
 
-    const ClickHandler =()=> {
-        navigate('/dashboard/managepatient')
-        // navigate(0)
-    }
+    // const ClickHandler =()=> {
+    //     navigate('/dashboard/managepatient')
+    //     // navigate(0)
+    // }
 
     return (
         <div className='w-full' >
-            <div className='w-full flex px-12 py-3 items-center border-b border-[#D7D0DF] ' >
+            <Navbar />
+            <div className='w-full flex px-12 py-5 items-center border-b border-[#D7D0DF] ' >
                 <div onClick={()=> ClickHandler()} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -66,9 +85,9 @@ export default function PatientFile() {
                     <div onClick={()=> [setTab(0), setLab(false)]} className={tab === 0 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 0 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Bio</p>
                     </div> 
-                    <div onClick={()=> [setTab(1), setLab(false)]} className={tab === 1 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                    {/* <div onClick={()=> [setTab(1), setLab(false)]} className={tab === 1 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 1 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Hospital History</p>
-                    </div> 
+                    </div>  */}
                     <div onClick={()=> [setTab(5), setLab(false)]} className={tab === 5 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 5 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Continuation sheet</p>
                     </div> 
@@ -84,9 +103,9 @@ export default function PatientFile() {
                     <div onClick={()=> [setTab(9), setLab(false)]} className={tab === 9 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 9 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Delivery Record</p>
                     </div>  
-                    <div onClick={()=> [setTab(6), setLab(false)]} className={tab === 6 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                    {/* <div onClick={()=> [setTab(6), setLab(false)]} className={tab === 6 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 6 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Ante-natal notes</p>
-                    </div>  
+                    </div>   */}
                     <div onClick={()=> [setLab(true), setTab(10)]} className={lab ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={lab ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Lab Result</p>
                     </div> 

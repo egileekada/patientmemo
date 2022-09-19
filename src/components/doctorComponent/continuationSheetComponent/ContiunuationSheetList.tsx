@@ -13,7 +13,7 @@ export default function ContiunuationSheetList(props: any) {
 
 
     const { isLoading, data } = useQuery('continuation', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/reports?patient=${props.value._id}`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/doctor/continuation-sheets/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -40,6 +40,9 @@ export default function ContiunuationSheetList(props: any) {
         props.next(2)
     }
 
+    console.log(data);
+    
+
     return (
         <div className='w-full h-full px-16  ' >
             <div className='w-full py-8 flex items-center' > 
@@ -48,10 +51,10 @@ export default function ContiunuationSheetList(props: any) {
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div> */}
-                <div className='ml-0' > 
+                {/* <div className='ml-0' > 
                     <p className='font-Ubuntu-Medium text-lg' >Continuation Sheets for <span onClick={()=> setShowDetail(true)} className=' text-[#7123E2] cursor-pointer' >{props.value.firstName+' '+props.value.lastName}</span></p>
                     <p className='font-Ubuntu-Regular text-sm' >{DateFormat(props.value.updatedAt)}</p>
-                </div>
+                </div> */}
                 {/* <button onClick={()=> props.next(1)} className='py-2 text-[#7123E2] border-[#7123E2] rounded-md px-4 border text-xs ml-auto font-Ubuntu-Medium  ' >Update Patient</button> */}
             </div>
             {isLoading ?
@@ -59,8 +62,8 @@ export default function ContiunuationSheetList(props: any) {
                     <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                 </div>
             :
-                <div className='w-full grid grid-cols-3 gap-y-12 gap-6 py-4 ' >
-                    {[...data].reverse().map((item: any)=> {
+                <div className='w-full grid grid-cols-3 gap-y-12 gap-6 py-4 ' > 
+                    {[...data.data].reverse().map((item: any)=> {
                         return( 
                             <div onClick={()=> ClickHandler(item)} key={item._id} className='w-full cursor-pointer' >
                                 {/* <div className='w-full h-40 bg-yellow-300' >

@@ -5,8 +5,8 @@ import user from '../assets/images/user.png'
 export default function GetUserInfo(props: any) { 
 
 
-    const { isLoading, data } = useQuery('requests', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/admins`, {
+    const { isLoading, data } = useQuery('get-staffs', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/admins/get-staffs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -15,14 +15,15 @@ export default function GetUserInfo(props: any) {
         }).then(res =>
             res.json()
         )
-    )  
+    )   
+    
 
   return ( 
         <>
-            {isLoading ? 
+            {/* {isLoading ? 
                 null:
                 <>
-                    {data.map((item: any)=> {
+                    {data.data.map((item: any)=> {
                         if(item._id === props.data){ 
                             return( 
                                 <>
@@ -45,7 +46,7 @@ export default function GetUserInfo(props: any) {
                         }
                     })}
                 </>
-            }
+            } */}
         </>
   )
 }

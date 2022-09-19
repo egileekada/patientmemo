@@ -8,7 +8,7 @@ import LoaderIcon from '../../LoaderIcon'
 export default function MedicalList(props: any) {
     
     const { isLoading, data } = useQuery('MedicalSheet', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/medical-sheets`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-medical-sheet/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -43,48 +43,51 @@ export default function MedicalList(props: any) {
                             </InputGroup> 
                         </div>
                     )}
-                    <div className='bg-white w-full py-6' > 
-                        <Table variant='unstyled' >
-                            {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-                            <Thead>
-                                <Tr className='font-Graphik-Medium text-sm' >
-                                    <Th>Doctor</Th>  
-                                    <Th>Drug/prescription</Th>  
-                                    <Th>Date/Time</Th> 
-                                    <Th>Sign</Th>  
-                                </Tr>
-                            </Thead>
-                            <Tbody >
-                                {data.map((item: any, index: any)=> {
-                                    return(
-                                        <Tr className={index === 1 ? 'font-Ubuntu-Medium text-sm rounded-lg text-white bg-[#7123E2]' : 'font-Ubuntu-Medium text-black text-sm'} key={index} >
-                                            <Td>
-                                                <div className='flex items-center' >
-                                                    <div className='w-12 h-12 bg-red-400 rounded-full mr-3' >
-                                                        <GetUserInfo image={true} data={item.request.madeBy._id} />
-                                                    </div>
-                                                    <div>
-                                                        <p className='font-Ubuntu-Medium text-sm' ><GetUserInfo data={item.request.madeBy._id} /></p>
-                                                        <p className='font-Ubuntu-Regular text-xs mt-1 ml-1' >{DateFormat(item.updatedAt)}</p>
-                                                    </div>
-                                                </div>
-                                            </Td> 
-                                            <Td> 
-                                                <div>
-                                                    <p className='font-Ubuntu-Medium text-sm' >{item.prescription}</p>
-                                                    <p className='font-Ubuntu-Regular text-xs mt-1' >001</p>
-                                                </div>
-                                            </Td> 
-                                            <Td>{DateFormat(item.createdAt)}</Td> 
-                                            <Td><GetUserInfo data={item.nurse._id} /></Td>  
-                                        </Tr> 
-                                    )
-                                })}
-                            </Tbody> 
-                        </Table>
-                    </div>
                 </div>
             }
         </div>
     )
 } 
+
+
+
+// {/* <div className='bg-white w-full py-6' > 
+// <Table variant='unstyled' >
+//     {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+//     <Thead>
+//         <Tr className='font-Graphik-Medium text-sm' >
+//             <Th>Doctor</Th>  
+//             <Th>Drug/prescription</Th>  
+//             <Th>Date/Time</Th> 
+//             <Th>Sign</Th>  
+//         </Tr>
+//     </Thead>
+//     <Tbody >
+//         {data.map((item: any, index: any)=> {
+//             return(
+//                 <Tr className={index === 1 ? 'font-Ubuntu-Medium text-sm rounded-lg text-white bg-[#7123E2]' : 'font-Ubuntu-Medium text-black text-sm'} key={index} >
+//                     <Td>
+//                         <div className='flex items-center' >
+//                             <div className='w-12 h-12 bg-red-400 rounded-full mr-3' >
+//                                 <GetUserInfo image={true} data={item.request.madeBy._id} />
+//                             </div>
+//                             <div>
+//                                 <p className='font-Ubuntu-Medium text-sm' ><GetUserInfo data={item.request.madeBy._id} /></p>
+//                                 <p className='font-Ubuntu-Regular text-xs mt-1 ml-1' >{DateFormat(item.updatedAt)}</p>
+//                             </div>
+//                         </div>
+//                     </Td> 
+//                     <Td> 
+//                         <div>
+//                             <p className='font-Ubuntu-Medium text-sm' >{item.prescription}</p>
+//                             <p className='font-Ubuntu-Regular text-xs mt-1' >001</p>
+//                         </div>
+//                     </Td> 
+//                     <Td>{DateFormat(item.createdAt)}</Td> 
+//                     <Td><GetUserInfo data={item.nurse._id} /></Td>  
+//                 </Tr> 
+//             )
+//         })}
+//     </Tbody> 
+// </Table>
+// </div> */}

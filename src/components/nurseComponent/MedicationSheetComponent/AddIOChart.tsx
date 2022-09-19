@@ -58,7 +58,7 @@ export default function AddIOChart(props: any) {
             return;
           }else {
             setLoading(true)
-                const request = await fetch(`https://hospital-memo-api.herokuapp.com/input-outputs`, {
+                const request = await fetch(`https://hospital-memo-api.herokuapp.com/nurse/create-io-chart`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

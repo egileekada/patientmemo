@@ -64,15 +64,15 @@ export default function DoctorEditor(props: any) {
           return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/reports/create-report`, {
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/doctor/continuation-sheet/${localStorage.getItem("patientId")}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({
-                    note: formik.values.note,
-                    patient: props.value._id
+                    report: formik.values.note,
+                    // patient: props.value._id
                 }),
             });
     
@@ -90,7 +90,7 @@ export default function DoctorEditor(props: any) {
                     clearTimeout(t1); 
                 }, 2000); 
             }else {
-                setMessage('Error Occurred')
+                setMessage(json.message)
                 setModal(2)           
                 const t1 = setTimeout(() => {  
                     setModal(0)       
@@ -108,11 +108,11 @@ export default function DoctorEditor(props: any) {
     return (
         <div className='p-12 w-full h-full relative ' >
             <Modal message={message} modal={modal} />
-            <p className='font-Ubuntu-Bold text-lg ' >Continuation Sheet for <span onClick={()=> setShowDetail(true)} className=' text-[#7123E2] cursor-pointer' >{props.value.firstName+' '+ props.value.lastName}</span></p>
-            <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' >{DateFormat(props.value.updatedAt)}</p>
+            {/* <p className='font-Ubuntu-Bold text-lg ' >Continuation Sheet for <span onClick={()=> setShowDetail(true)} className=' text-[#7123E2] cursor-pointer' >{props.value.firstName+' '+ props.value.lastName}</span></p>
+            <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777] mb-10' >{DateFormat(props.value.updatedAt)}</p> */}
             {/* <FilesEditor /> */}
             <TextEditor value={setDescription} /> 
-            <div className='fixed bottom-10 right-16 flex mt-auto justify-end' >
+            <div className=' ml-auto flex mt-12 justify-end' >
                  
                 <button onClick={()=> props.next(0)} className='w-44 rounded-full py-2 mr-6 text-sm bg-[#7123E214] text-[#7123E2] font-Ubuntu-Medium' >Cancel</button>
                     {loading ?

@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { useFormik } from 'formik'; 
 import LoaderIcon from '../../LoaderIcon'
 import Modal from '../../Modal'
+import { useQuery } from 'react-query'
 
 export default function EditPatientInfo(props: any) {
     
@@ -33,19 +34,35 @@ export default function EditPatientInfo(props: any) {
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0);
 
+
+
+    const { isLoading, data } = useQuery('MedicalSheet', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-medical-sheet/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )   
+    
+    console.log(data)
+
     React.useEffect(() => {
         formik.setValues({
-            firstName : props.data.firstName,
-            otherNames : props.data.otherNames,
-            lastName : props.data.lastName,
-            gender : props.data.gender,
-            address : props.data.address,
-            age : props.data.age,
-            phone : props.data.phone,
-            stateOfOrigin : props.data.stateOfOrigin,
-            LGA : props.data.LGA,
-            occupation : props.data.occupation,
-            religion : props.data.religion,
+            firstName : data?.data?.firstName,
+            otherNames : data?.data?.otherNames,
+            lastName : data?.data?.lastName,
+            gender : data?.data?.gender,
+            address : data?.data?.address,
+            age : data?.data?.age,
+            phone : data?.data?.phone,
+            stateOfOrigin : data?.data?.stateOfOrigin,
+            LGA : data?.data?.LGA,
+            occupation : data?.data?.occupation,
+            religion : data?.data?.religion,
             accessKey : '',
         })
     }, [props.data])
@@ -57,7 +74,7 @@ export default function EditPatientInfo(props: any) {
         onSubmit: () => {},
     });     
 
-    console.log(props.data)
+    console.log(data?.lastName)
     const submit = async () => {  
 
         if (!formik.dirty) {
@@ -153,7 +170,7 @@ export default function EditPatientInfo(props: any) {
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >First Name</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.firstName}
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.firstName}
                                 name="firstName"
                                 onChange={formik.handleChange}
                                 onFocus={() =>
@@ -179,7 +196,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("lastName", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.lastName} />
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.lastName} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.lastName && formik.errors.lastName && (
                                     <motion.p
@@ -200,7 +217,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("otherNames", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.otherNames}/>
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.otherNames}/>
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.otherNames && formik.errors.otherNames && (
                                     <motion.p
@@ -223,7 +240,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("phone", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.phone} />
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.phone} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.phone && formik.errors.phone && (
                                     <motion.p
@@ -244,7 +261,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("address", true, true)
                                 }   
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.address} />
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.address} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.address && formik.errors.address && (
                                     <motion.p
@@ -267,7 +284,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("age", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.age} />
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.age} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.age && formik.errors.age && (
                                     <motion.p
@@ -288,7 +305,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("gender", true, true)
                                 }  
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.gender}>
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.gender}>
                                 <option>Male</option>
                                 <option>Female</option>
                             </Select>
@@ -312,7 +329,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("stateOfOrigin", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.stateOfOrigin} />
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.stateOfOrigin} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.stateOfOrigin && formik.errors.stateOfOrigin && (
                                     <motion.p
@@ -333,7 +350,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("LGA", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.LGA} />
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.LGA} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.LGA && formik.errors.LGA && (
                                     <motion.p
@@ -356,7 +373,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("occupation", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.occupation}/>
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.occupation}/>
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.occupation && formik.errors.occupation && (
                                     <motion.p
@@ -377,7 +394,7 @@ export default function EditPatientInfo(props: any) {
                                 onFocus={() =>
                                     formik.setFieldTouched("religion", true, true)
                                 } 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={props.data.religion} />
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.religion} />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.religion && formik.errors.religion && (
                                     <motion.p

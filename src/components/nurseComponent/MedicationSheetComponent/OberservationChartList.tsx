@@ -10,7 +10,7 @@ export default function OberservationChartList() {
 
 
     const { isLoading, data } = useQuery('OberservationChartListData', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/observation-charts`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/nurse/observation-chart/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -34,16 +34,18 @@ export default function OberservationChartList() {
         } 
     } 
 
+    console.log(data)
+
     return (
-        <div className='w-full flex flex-col justify-center items-center  px-16 py-6' >
-            <div className='w-auto flex items-center' >
+        <div className='w-full flex flex-col justify-center items-center px-16 py-6' >
+            {/* <div className='w-auto flex items-center' >
                 {showFile && (
                     <svg onClick={()=> setShowFile(false)} className='mr-5 cursor-pointer' width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 )}
                 <FindPatient show={setShowFile} numb={setNumb} array={setShow} index={setPatientIndex} nurse={true} />
-            </div>
+            </div> */}
 
             {show.length === 0 && (
                 <>  
@@ -64,8 +66,53 @@ export default function OberservationChartList() {
                     <LoaderIcon size='w-20 h-20 mr-1 ' /> 
                 </div>
             :
-                <div className='w-full grid grid-cols-3 gap-7 mt-12' >
-                    {data.map((item: any, index: any)=> {
+                <div className='w-full mt-4' >
+                    
+                    <div className=' w-full rounded-md px-2 py-12' >
+                        <div className='w-full flex justify-center pl-2' >  
+                                <p id='cube'  className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(data.data?.createdAt)}</p> 
+                        </div>
+                        {Check(data.data?.patient._id)} 
+                        <div className='w-full mt-6' >
+                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Temp:</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.temperature} degree celcious</p>
+                            </div>
+                            <div className='w-full flex items-center py-2 px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Pulse:</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.pulse}</p>
+                            </div>
+                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >R.....: </p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.R}</p>
+                            </div>
+                            <div className='w-full flex items-center py-2 px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >B/P:</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.BP}</p>
+                            </div>
+                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >FHR:</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.FHR}</p>
+                            </div>
+                            <div className='w-full flex items-center py-2 px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Uterine contraction:</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.uterineContraction}</p>
+                            </div>
+                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nurse</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' ><GetUserInfo data={data.data?.nurse._id} /></p>
+                            </div>
+                            <div className='w-full flex items-center py-2 px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >CX OS</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.CXOS}</p>
+                            </div>
+                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Remark</p>
+                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.remark}</p>
+                            </div>
+                        </div> 
+                    </div>   
+                    {/* {data.map((item: any, index: any)=> {
                         if(showFile){
                             if(item.patient._id === patientIndex) { 
                                 return(   
@@ -178,7 +225,7 @@ export default function OberservationChartList() {
                                 </div>   
                             )
                         }
-                    })} 
+                    })}  */}
                 </div> 
             }
         </div>
