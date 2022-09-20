@@ -38,6 +38,7 @@ import PatientFileOther from './components/PatientFileOther';
 import Chat from './components/Chat';
 import ExpiredDrugs from './components/pharmacyComponent/ExpiredDrugs';
 import DispenseHistory from './components/pharmacyComponent/DispenseHistory';
+import StockHistory from './components/pharmacyComponent/StockHistory';
  
 const queryClient = new QueryClient()
 
@@ -104,6 +105,7 @@ function App() {
               <Route path='/pharmacy/dispensedrugs' element={<DispenseDrugs />} />
               <Route path='/pharmacy/expireddrugs' element={<ExpiredDrugs />} />
               <Route path='/pharmacy/dispensehistory' element={<DispenseHistory />} />
+              <Route path='/pharmacy/stockhistory' element={<StockHistory />} />
               <Route path='/chat' element={<Chat />} /> 
               <Route path='/dashboard/profile' element={<ProfileTab />} />
                 <Route path='/dashboard/findpatient' element={<NurseTab />} />
