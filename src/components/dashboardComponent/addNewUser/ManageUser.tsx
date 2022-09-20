@@ -80,7 +80,7 @@ export default function ManageUser(props: any) {
                                                             }
                                                         </div>
                                                         <div>
-                                                            <p className='font-Ubuntu-Medium text-sm ml-3' >{item.fullName}</p> 
+                                                            <p className='font-Ubuntu-Medium text-sm ml-3' >{item?.fullName? item?.fullName:item?.firstName+" "+item?.lastName}</p> 
                                                         </div>
                                                     </div>
                                                 </Td> 

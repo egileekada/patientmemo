@@ -93,7 +93,7 @@ export default function AddMedicalList(props: any) {
 
     return (
         <div style={{width: '540px'}} className=' mx-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
-            <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
+            {/* <p className='text-lg font-Ubuntu-Bold' >Personal Information</p> */}
             <div className='w-full flex mt-8' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Full Name</p>

@@ -35,7 +35,8 @@ export default function AddUser() {
     } 
      
     const loginSchema = yup.object({ 
-        fullName: yup.string().required('Required'),
+        firsttName: yup.string().required('Required'),
+        lastName: yup.string().required('Required'),
         title: yup.string().required('Required'),
         email: yup.string().email('Enter Your Email').required('Required')
     })    
@@ -44,7 +45,7 @@ export default function AddUser() {
  
     // formik
     const formik = useFormik({
-        initialValues: {fullName: '', title: '',email: ''},
+        initialValues: {firstName: '', lastName: "", title: '',email: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });    
@@ -93,7 +94,8 @@ export default function AddUser() {
             
                 let formData = new FormData()  
 
-                formData.append('fullName', formik.values.fullName)
+                formData.append('firstName', formik.values.firstName)
+                formData.append('lasttName', formik.values.lastName)
                 formData.append('title', formik.values.title) 
                 formData.append('email', formik.values.email)  
                 formData.append('role', role)   
@@ -170,7 +172,7 @@ export default function AddUser() {
                     {image && ( 
                         <img className='w-28 h-28 rounded-full object-cover' src={selectedFiles} alt=""/>  
                     )}
-                    <p className='text-sm font-Ubuntu-Medium mt-4 text-[#112030]' >{formik.values.fullName}</p>
+                    <p className='text-sm font-Ubuntu-Medium mt-4 text-[#112030]' >{formik.values.firstName+" "+formik.values.lastName}</p>
                     <p className='text-xs font-Ubuntu-Regular mt-1 text-[#8EA7C0]' >{formik.values.email}</p>
                     <label className='cursor-pointer mt-10 border rounded border-[#28A745] py-2 px-4 '>
                         <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
@@ -180,24 +182,47 @@ export default function AddUser() {
                 <div style={{width: '605px',border: '1px solid #CED5DE', borderRadius: '4px'}} className='p-8 py-14 ml-4' >
                     <div className='grid grid-cols-2 gap-4 font-Ubuntu-Medium' >
                         <div className='w-full' > 
-                            <p className=' font-Ubuntu-Medium text-sm mb-2' >Full Name</p>
+                            <p className=' font-Ubuntu-Medium text-sm mb-2' >First Name</p>
                             <Input 
-                                name="fullName"
+                                name="firstName"
                                 onChange={formik.handleChange}
                                 // disabled
                                 onFocus={() =>
-                                    formik.setFieldTouched("fullName", true, true)
+                                    formik.setFieldTouched("firstName", true, true)
                                 }  
                                 border='1px solid #7123E2' fontSize='sm' placeholder='Enter Your Name' backgroundColor='#F9f9f9' size='lg'  />
                         
                             <div className="w-full h-auto pt-2">
-                                {formik.touched.fullName && formik.errors.fullName && (
+                                {formik.touched.firstName && formik.errors.firstName && (
                                     <motion.p
                                         initial={{ y: -100, opacity: 0 }}
                                         animate={{ y: 0, opacity: 1 }}
                                         className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                     >
-                                        {formik.errors.fullName}
+                                        {formik.errors.firstName}
+                                    </motion.p>
+                                )}
+                            </div> 
+                        </div>
+                        <div className='w-full' > 
+                            <p className=' font-Ubuntu-Medium text-sm mb-2' >Last Name</p>
+                            <Input 
+                                name="lastName"
+                                onChange={formik.handleChange}
+                                // disabled
+                                onFocus={() =>
+                                    formik.setFieldTouched("lastName", true, true)
+                                }  
+                                border='1px solid #7123E2' fontSize='sm' placeholder='Enter Your Name' backgroundColor='#F9f9f9' size='lg'  />
+                        
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.lastName && formik.errors.lastName && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.lastName}
                                     </motion.p>
                                 )}
                             </div> 
