@@ -12,7 +12,7 @@ export default function ExpiredDrugs() {
     const [name, setName] = React.useState('')  
     
     const { isLoading, data } = useQuery('Alldrugs', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/get-all-drugs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -100,7 +100,7 @@ export default function ExpiredDrugs() {
                     <Tbody >
                         {!isLoading && (
                             <>
-                                {[...data].reverse().map((item: any, index: any)=> { 
+                                {[...data.data].reverse().map((item: any, index: any)=> { 
                                     if(item.category){
                                         let expired = new Date(item.expiryDate)
                                         let diff = new Date().getTime() - expired.getTime()

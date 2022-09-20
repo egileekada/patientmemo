@@ -15,7 +15,7 @@ export default function DispenseHistory() {
     const [name, setName] = React.useState('')   
     
     const { isLoading, data } = useQuery('drugs', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/get-all-drugs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -30,7 +30,7 @@ export default function DispenseHistory() {
         setRequestID(index)
         setDataValue(item)
         setLoading(true)
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs/dispense/${item._id}`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/drugs/dispense/${item._id}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export default function DispenseHistory() {
                         </div>
                             {!isLoading && (
                                 <>
-                                    {[...data].reverse().filter((item: any)=> item.category).map((item: any, index: any)=> { 
+                                    {[...data.data].reverse().filter((item: any)=> item.category).map((item: any, index: any)=> { 
                                         let expired = new Date(item.expiryDate)
                                         let diff = new Date().getTime() - expired.getTime()
                                         if(diff < 0){

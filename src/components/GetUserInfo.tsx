@@ -16,6 +16,9 @@ export default function GetUserInfo(props: any) {
             res.json()
         )
     )   
+
+    console.log("staff "+data);
+    
     
 
   return ( 

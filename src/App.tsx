@@ -36,6 +36,8 @@ import AnteNatalNotes from './components/nurseComponent/AnteNatalNotes';
 import DispenseDrugs from './components/pharmacyComponent/DispenseDrugs';
 import PatientFileOther from './components/PatientFileOther';
 import Chat from './components/Chat';
+import ExpiredDrugs from './components/pharmacyComponent/ExpiredDrugs';
+import DispenseHistory from './components/pharmacyComponent/DispenseHistory';
  
 const queryClient = new QueryClient()
 
@@ -76,8 +78,6 @@ function App() {
               <Route path='/dashboard/manageuser' element={<AddNewUser />} />
               <Route path='/dashboard/managepatient' element={<ManagePatient />} />
               <Route path='/dashboard/patientfile' element={<PatientFile />} />
-              
-              <Route path='/dashboard/profile' element={<ProfileTab />} />
             </Route>  
               <Route path='/dashboard/pharmacy' element={<PharmacyTab />} />
               <Route path='/dashboard/laboratory' element={<LabScreen />}>
@@ -102,7 +102,10 @@ function App() {
               </Route>
               <Route path='/patientfile' element={<PatientFileOther />} />
               <Route path='/pharmacy/dispensedrugs' element={<DispenseDrugs />} />
-              <Route path='/chat' element={<Chat />} />
+              <Route path='/pharmacy/expireddrugs' element={<ExpiredDrugs />} />
+              <Route path='/pharmacy/dispensehistory' element={<DispenseHistory />} />
+              <Route path='/chat' element={<Chat />} /> 
+              <Route path='/dashboard/profile' element={<ProfileTab />} />
                 <Route path='/dashboard/findpatient' element={<NurseTab />} />
           </Routes>
         </Router>

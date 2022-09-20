@@ -17,7 +17,7 @@ export default function Dashboard() {
             <div className=' w-fit h-screen ' >
                 <SideBar />
             </div>
-            <div className='w-full h-full flex flex-col pb-20 overflow-y-auto ' > 
+            <div className='w-full h-full flex flex-col overflow-y-auto ' > 
                 <div className='w-full' >
                     <Navbar />
                 </div> 

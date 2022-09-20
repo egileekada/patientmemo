@@ -6,7 +6,7 @@ import LoaderIcon from '../LoaderIcon'
 export default function DrugsTab() {
  
     const { isLoading, data } = useQuery('drugs', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/get-all-drugs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -17,11 +17,14 @@ export default function DrugsTab() {
         )
     )    
 
+    console.log(data);
+    
+
     return ( 
         <div className='w-full ' >
             {!isLoading ?
                 <div className='w-full grid grid-cols-6 gap-4 px-16 py-12' >
-                    {data.map((item:any) => { 
+                    {/* {data.map((item:any) => { 
                         return(
                             <> 
                                 {item.name && (
@@ -50,7 +53,7 @@ export default function DrugsTab() {
                                 )}
                             </>
                         )
-                    })} 
+                    })}  */}
                 </div>
             : 
                 <div className='w-full h-full py-20 justify-center item-center flex flex-1' > 

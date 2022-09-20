@@ -15,7 +15,7 @@ import ModifyDrugs from '../components/pharmacyComponent/component/ModifyDrugs'
 export default function PharmacyTab() { 
 
     const { isLoading, data, refetch } = useQuery('Alldrugs', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/get-all-drugs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -26,6 +26,7 @@ export default function PharmacyTab() {
         )
     )   
 
+    console.log(data);
     const day = new Date() 
     // console.log(moment('2030-10-20').isAfter(day.toISOString(), 'year'));
     
@@ -90,7 +91,7 @@ export default function PharmacyTab() {
             return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/add-drug`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +115,7 @@ export default function PharmacyTab() {
                     clearTimeout(t1);
                 }, 3000); 
             }else { 
-                setMessage('Error Occurred')
+                setMessage(data.message)
                 setModal(2)           
                 const t1 = setTimeout(() => {  
                     setModal(0)       
@@ -215,9 +216,9 @@ export default function PharmacyTab() {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        {!isLoading && (
+                        {!isLoading && ( 
                             <>
-                                {[...data].map((item: any, index: any)=> { 
+                                {[...data.data].map((item: any, index: any)=> { 
                                     if(item.category){
                                         let expired = new Date(item.expiryDate)
                                         let diff = new Date().getTime() - expired.getTime()
@@ -230,11 +231,11 @@ export default function PharmacyTab() {
                                                         <Td>{item.name}</Td>
                                                         <Td>{item.category}</Td>
                                                         <Td>{item.dosageType}</Td>
-                                                        <Td>{item.purchaseDate}</Td>
+                                                        <Td>{new Date(item.purchaseDate).toUTCString()}</Td>
                                                         <Td>
                                                             <div className='bg-[#52EF2B1C] flex px-3 justify-center py-2 items-center text-[#29313F] rounded-lg' >
                                                                 <div style={{width: '6px', height: '6px'}} className='rounded-full bg-[#1F670D] mr-2' /> 
-                                                                {item.expiryDate}
+                                                                {new Date(item.expiryDate).toUTCString()}
                                                             </div>
                                                         </Td>
                                                         <Td> 
@@ -259,8 +260,8 @@ export default function PharmacyTab() {
             </div>
 
             {showModal ? 
-                <div className='w-full flex items-center justify-center' >
-                    <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C'}} className='  font-Ubuntu-Regular absolute h-auto px-8 rounded-lg py-8 -top-8 border border-[#E0E0E0] z-50 bg-white right-auto mx-auto left-auto  ' > 
+                <div className='w-full h-full flex items-center justify-center' >
+                    <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C'}} className='  font-Ubuntu-Regular absolute mt-56 h-auto px-8 rounded-lg py-8  border border-[#E0E0E0] z-40 bg-white right-auto mx-auto left-auto  ' > 
                         <div className='flex items-center' >
                             <p className='font-Ubuntu-Medium text-lg ' >New Medicine</p>
                             <svg onClick={()=> setShowModal(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">

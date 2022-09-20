@@ -53,7 +53,7 @@ export default function FindPatient(props: any) {
 
 
     return (
-        <div className='w-full h-96 ' > 
+        <div className='w-full h-72 ' > 
             <div className='w-full flex flex-col h-full  justify-center items-center border-[#DFE4EB]' > 
                 <p className='text-xl text-[#262F56] font-Ubuntu-Bold -mt-10 ' >{props.header}</p>
                 <p className='text-sm font-Ubuntu-Regular text-center mt-1' >{props.body}</p>

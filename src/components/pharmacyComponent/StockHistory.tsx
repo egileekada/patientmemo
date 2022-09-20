@@ -16,7 +16,7 @@ export default function StockHistory() {
     const [name, setName] = React.useState('')   
     
     const { isLoading, data } = useQuery('drugs', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/get-all-drugs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -31,7 +31,7 @@ export default function StockHistory() {
         setRequestID(index)
         setDataValue(item)
         setLoading(true)
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs/stock-history/${item._id}`, {
+        fetch(`https://hospital-memo-api.herokuapp.com//pharmacy/stock-history/${item._id}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',

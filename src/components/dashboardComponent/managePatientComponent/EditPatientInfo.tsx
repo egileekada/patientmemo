@@ -65,7 +65,7 @@ export default function EditPatientInfo(props: any) {
             religion : data?.data?.religion,
             accessKey : '',
         })
-    }, [props.data])
+    }, [data])
 
     // formik
     const formik = useFormik({

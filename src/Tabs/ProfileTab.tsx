@@ -11,19 +11,19 @@ export default function ProfileTab() {
 
     const ClickHandler =()=> { 
         {userData.role === 'nurse' && ( 
-            navigate('/dashboard/nurse')
+            navigate('/dashboard/findpatient')
         )}
         {userData.role === 'admin' && ( 
             navigate('/dashboard')
         )}
         {userData.role === 'doctor' && ( 
-            navigate('/dashboard/doctor')
+            navigate('/dashboard/findpatient')
         )}
         {userData.role === 'pharmacy' && ( 
             navigate('/dashboard/pharmacy')
         )}
         {userData.role === 'lab' && ( 
-            navigate('/dashboard/laboratory')
+            navigate('/dashboard/findpatient')
         )}
     }
 

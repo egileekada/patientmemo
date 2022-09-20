@@ -7,6 +7,7 @@ import Avater from '../../assets/images/user.png'
 import LoaderIcon from '../LoaderIcon'; 
 import * as axios from 'axios'   
 import Modal from '../Modal';
+import Navbar from '../Navbar';
 
 export default function ViewUserInfo() {
 
@@ -100,16 +101,14 @@ export default function ViewUserInfo() {
     }
 
     return (
-        <div className='w-full h-full px-24 pt-10' > 
-            <Modal message={message} modal={modal} />
-            <div className='w-full px-12 py-4 flex items-center ' >  
-                <div className='ml-0'> 
-                    <p className='font-Ubuntu-Medium text-lg' >Account</p> 
-                    <p className='font-Ubuntu-Regular text-sm mt-1' >Manage Users</p> 
-                </div>  
-                <button onClick={()=> LogOut()} className='font-Ubuntu-Medium text-sm bg-[#7123E2] text-white rounded-lg h-11 px-6 ml-auto ' >Log Out</button> 
+        <div className='w-full h-full ' > 
+            <Modal message={message} modal={modal} /> 
+            <Navbar />
+            <div>
+                
             </div>
-            <div className='w-auto rounded-xl flex p-6 justify-center mt-8' >
+                {/* <button onClick={()=> LogOut()} className='font-Ubuntu-Medium text-sm bg-[#7123E2] text-white rounded-lg h-11 px-6 ml-auto ' >Log Out</button>   */}
+            {/* <div className='w-auto rounded-xl flex p-6 justify-center mt-8' >
                 <div style={{border: '1px solid #CED5DE', borderRadius: '4px'}}  className='flex px-14 items-center flex-col justify-center mr-2' >
 
                     {!image && (
@@ -208,7 +207,7 @@ export default function ViewUserInfo() {
                             </div> 
                         </div> 
                         <div className='w-full' > 
-                            <p className=' font-Ubuntu-Medium text-sm mb-2' >Tasks</p>
+                            <p className=' font-Ubuntu-Medium text-sm mb-2' >Role</p>
                             <Input  
                                 border='1px solid #7123E2' fontSize='sm' value={userData.role} backgroundColor='#F9f9f9' size='lg'  />
  
@@ -226,7 +225,7 @@ export default function ViewUserInfo() {
                         }
                     </div>
                 </div>  
-            </div>
+            </div> */}
         </div>
     )
 } 
