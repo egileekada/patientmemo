@@ -80,16 +80,7 @@ export default function AddUser() {
                 clearTimeout(t1);
             }, 2000);  
             return;
-        }else if (!image) {
-            setMessage('Please Enter An Image')
-            setModal(2)           
-            const t1 = setTimeout(() => {  
-                setModal(0)   
-                setLoading(false)      
-                clearTimeout(t1);
-            }, 2000);  
-            return;
-        }else {
+        } else {
             try {
             
                 let formData = new FormData()  
