@@ -1,4 +1,4 @@
-import { Input, Select } from '@chakra-ui/react';
+import { Input, Select, Textarea } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as yup from 'yup' 
 import { motion } from 'framer-motion';
@@ -14,30 +14,25 @@ export default function AddMedicalList(props: any) {
         prescription: yup.string().required('Required'),
         // dateAndTime: yup.string().required('Required'), 
     }) 
-    const navigate = useNavigate()
+    const navigate = useNavigate() 
 
-    // const { data } = useQuery('PatientDataInfo', () =>
-    //     fetch(`https://hospital-memo-api.herokuapp.com/patients/${props.data.patient}`, {
-    //         method: 'GET', // or 'PUT'
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             Authorization : `Bearer ${localStorage.getItem('token')}`
-    //         }
-    //     }).then(res =>
-    //         res.json()
-    //     )
-    // )   
- 
     React.useEffect(() => {
-        formik.setFieldValue('patient', props.data.patient._id)
-        formik.setFieldValue('requestId', props.data._id)
-    }, []) 
+        formik.setFieldValue('patient', props.data?.patient?._id)
+        formik.setFieldValue('requestId', props.data?._id)
+   }, []) 
  
-    console.log(props.data)
+    console.log(props.dat)
+
+    // {
+    //     "patient": "6313347f27e123eaa2716b57",
+    //     "fertalHeartRate": "any medical value",
+    //     "remark": "patient is in critical condition",
+    //     "dateAndTime": "20-10-2022"
+    //   }
 
     // formik
     const formik = useFormik({
-        initialValues: {prescription: '', patient: '',  requestId: ''},
+        initialValues: {fertalHeartRate: '', dateAndTime: '', remark: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });      
@@ -52,13 +47,18 @@ export default function AddMedicalList(props: any) {
             return;
           }else {
             setLoading(true)
-                const request = await fetch(`https://hospital-memo-api.herokuapp.com/medical-sheets`, {
+                const request = await fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-medical-sheet/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization : `Bearer ${localStorage.getItem('token')}`
                     },
-                    body: JSON.stringify(formik.values),
+                    body: JSON.stringify({
+                        "patient": localStorage.getItem("patientId"),
+                        "fertalHeartRate": formik.values.fertalHeartRate,
+                        "remark": formik.values.remark,
+                        "dateAndTime": formik.values.dateAndTime 
+                    }),
                 });
         
                 const json = await request.json(); 
@@ -78,6 +78,17 @@ export default function AddMedicalList(props: any) {
           }
     }
 
+    const { isLoading, data } = useQuery('patientdata', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )   
     const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
 
     return (
@@ -89,10 +100,32 @@ export default function AddMedicalList(props: any) {
                     <Input
                         disabled
                         _placeholder={{color: 'black'}} 
-                        fontSize='sm' placeholder={props.data.patient.firstName+' '+props.data.patient.lastName}  
+                        fontSize='sm' 
+                        placeholder={data.data?.firstName+' '+data.data?.lastName}  
                         /> 
                 </div>  
             </div>
+            <div className=' w-full mr-2 mt-3' >
+                <p className='text-xs mb-2' >FHR</p>
+                <Input
+                    name="fertalHeartRate"
+                    onChange={formik.handleChange}
+                    onFocus={() =>
+                        formik.setFieldTouched("fertalHeartRate", true, true)
+                    }  
+                    fontSize='sm' placeholder='0' />
+                <div className="w-full h-auto pt-2">
+                    {formik.touched.fertalHeartRate && formik.errors.fertalHeartRate && (
+                        <motion.p
+                            initial={{ y: -100, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                        >
+                            {formik.errors.fertalHeartRate}
+                        </motion.p>
+                    )}
+                </div> 
+            </div> 
             <div className='w-full flex mt-3' >
                 <div className='w-full mr-2' >
                     <p className='text-xs mb-2' >Nurse</p>
@@ -101,25 +134,48 @@ export default function AddMedicalList(props: any) {
                         _placeholder={{color: 'black'}} 
                         fontSize='sm' placeholder={userData.fullName ? userData.fullName : (userData.firstName+' '+userData.lastName) } />
                 </div> 
-            </div>
-            <div className='w-full flex mt-3' >
                 <div className=' w-full mr-2' >
-                    <p className='text-xs mb-2' >Prescription</p>
+                    <p className='text-xs mb-2' >Date/Time</p>
                     <Input
-                        name="prescription"
+                        name="dateAndTime"
+                        type="datetime-local"
                         onChange={formik.handleChange}
                         onFocus={() =>
-                            formik.setFieldTouched("prescription", true, true)
+                            formik.setFieldTouched("dateAndTime", true, true)
                         }  
                         fontSize='sm' placeholder='Enter Prescription' />
                     <div className="w-full h-auto pt-2">
-                        {formik.touched.prescription && formik.errors.prescription && (
+                        {formik.touched.dateAndTime && formik.errors.dateAndTime && (
                             <motion.p
                                 initial={{ y: -100, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                             >
-                                {formik.errors.prescription}
+                                {formik.errors.dateAndTime}
+                            </motion.p>
+                        )}
+                    </div> 
+                </div> 
+            </div>
+            <div className='w-full flex mt-3' >
+                <div className=' w-full mr-2' >
+                    <p className='text-xs mb-2' >Remark</p>
+                    <Textarea
+                        name="remark"
+                        onChange={formik.handleChange}
+                        onFocus={() =>
+                            formik.setFieldTouched("remark", true, true)
+                        }  
+                        height="150px"
+                        fontSize='sm' placeholder='' />
+                    <div className="w-full h-auto pt-2">
+                        {formik.touched.remark && formik.errors.remark && (
+                            <motion.p
+                                initial={{ y: -100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                            >
+                                {formik.errors.remark}
                             </motion.p>
                         )}
                     </div> 

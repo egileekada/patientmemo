@@ -41,6 +41,39 @@ export default function MedicalList(props: any) {
                                 />
                                 <Input fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
                             </InputGroup> 
+
+                                <div className=' w-full py-6 rounded-md px-2' >
+                                    {/* <div className='w-full flex pl-2 justify-center ' >  
+                                        {Check(data?.data?.patient._id)} 
+                                            <p id='cubetext' className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(data?.data?.createdAt)}</p> 
+                                    </div> */}
+                                    <div className='w-full mt-6' >
+                                        <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                            <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >FHR:</p>
+                                            <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.natureOfFluid}</p>
+                                        </div>
+                                        <div className='w-full flex items-center py-2 px-3' >
+                                            <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nurse:</p>
+                                            <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.urine}</p>
+                                        </div>
+                                        <div id='cubediv' className='w-full flex flex-col py-2 bg-[#F0F5FF] px-3' >
+                                            <p id='cubetext' className=' text-sm font-Ubuntu-Regular ' >Remark</p>
+                                            <p id='cubetext' className='text-sm bg-[#5F6777] text-[#5F6777] font-Ubuntu-Medium  ' >{data?.data?.remark}</p>
+                                        </div>
+                                        {/* <div className='w-full flex items-center py-2 px-3' >
+                                            <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Emesis:</p>
+                                            <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.emesis}</p>
+                                        </div>
+                                        <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                            <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >BO:</p>
+                                            <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.BO}</p>
+                                        </div> 
+                                        <div className='w-full flex items-center py-2 px-3' >
+                                            <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nurse</p>
+                                            <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' ><GetUserInfo data={data?.data?.nurse._id} /></p>
+                                        </div>  */}
+                                    </div> 
+                                </div>
                         </div>
                     )}
                 </div>

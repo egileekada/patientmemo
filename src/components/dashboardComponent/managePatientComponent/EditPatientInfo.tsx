@@ -33,11 +33,9 @@ export default function EditPatientInfo(props: any) {
     }) 
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0);
-
-
-
-    const { isLoading, data } = useQuery('MedicalSheet', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-medical-sheet/${localStorage.getItem("patientId")}`, {
+ 
+    const { isLoading, data } = useQuery('patientdata', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -46,9 +44,7 @@ export default function EditPatientInfo(props: any) {
         }).then(res =>
             res.json()
         )
-    )   
-    
-    console.log(data)
+    )    
 
     React.useEffect(() => {
         formik.setValues({
@@ -73,8 +69,7 @@ export default function EditPatientInfo(props: any) {
         validationSchema: loginSchema,
         onSubmit: () => {},
     });     
-
-    console.log(data?.lastName)
+    
     const submit = async () => {  
 
         if (!formik.dirty) {
@@ -101,7 +96,7 @@ export default function EditPatientInfo(props: any) {
             return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/${props.data._id}`, {
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -136,6 +131,8 @@ export default function EditPatientInfo(props: any) {
         }
         setLoading(false);
     }    
+
+    console.log(data?.data?.firstName)
 
     const GetAccessCode = async()=> {
         setLoading(true)

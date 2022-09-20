@@ -4,12 +4,13 @@ import { motion } from 'framer-motion';
 import React from 'react'
 import { useNavigate } from 'react-router';
 import Avater from '../../assets/images/user.png'
+import Camera from '../../assets/images/bxs_camera.png'
 import LoaderIcon from '../LoaderIcon'; 
 import * as axios from 'axios'   
 import Modal from '../Modal';
 import Navbar from '../Navbar';
 
-export default function ViewUserInfo() {
+export default function ViewUserInfo(props: any) {
 
     const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
     
@@ -101,13 +102,124 @@ export default function ViewUserInfo() {
     }
 
     return (
-        <div className='w-full h-full ' > 
-            <Modal message={message} modal={modal} /> 
-            <Navbar />
-            <div>
-                
-            </div>
-                {/* <button onClick={()=> LogOut()} className='font-Ubuntu-Medium text-sm bg-[#7123E2] text-white rounded-lg h-11 px-6 ml-auto ' >Log Out</button>   */}
+        <div className=' h-full w-full flex flex-col items-center justify-center ' >   
+            <Modal message={message} modal={modal} />
+            <div className=' w-[1011px] mt-24 flex flex-col  ' >
+                <button onClick={()=> LogOut()} className='font-Ubuntu-Bold text-sm bg-[#7123E2] text-white rounded-lg h-12 px-6 ml-auto w-44 ' >Log Out</button>
+                <div className=' border-2 border-[#EAEAEA] w-full py-14 px-16 mt-4 rounded-lg ' >
+                    <div className=' w-full flex ' >
+                        <div className=' w-fit flex flex-col ' >
+                            <div className=' w-40 ' >
+                                {!image && (
+                                    <img className='w-40 h-40 rounded-full object-cover' src={userData.avatar ? userData.avatar : Avater } alt=""/> 
+                                )} 
+
+                                {image && ( 
+                                    <img className='w-40 h-40 rounded-full object-cover' src={selectedFiles} alt=""/>  
+                                )}
+                                <label className='cursor-pointer mt-4 mx-auto flex items-center py-2 px-4 '>
+                                    <input style={{display:'none'}} type="file" accept="image/*" id="input" onChange={handleImageChange} />
+                                    <img className=' w-6 h-6 mr-3' src={Camera} alt="camera"/>  
+                                    <p className='font-Ubuntu-Bold text-xs text-[#7123E2] ' >Change Image</p>
+                                </label>
+                            </div>
+                        </div>
+                        <div className='grid grid-cols-2 gap-4 pl-8 w-full font-Ubuntu-Medium' >
+                            <div className='w-full' > 
+                                <p className=' font-Ubuntu-Medium text-sm mb-2' >Full Name</p>
+                                <Input 
+                                    name="fullName"
+                                    onChange={formik.handleChange}
+                                    // disabled
+                                    onFocus={() =>
+                                        formik.setFieldTouched("fullName", true, true)
+                                    }  
+                                    border='1px solid #7123E2' fontSize='sm' placeholder={userData.fullName} backgroundColor='#F4F4F4' size='lg'  />
+                            
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.fullName && formik.errors.fullName && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.fullName}
+                                        </motion.p>
+                                    )}
+                                </div> 
+                            </div>
+                            <div className='w-full' > 
+                                <p className=' font-Ubuntu-Medium text-sm mb-2' >Email</p>
+                                <Input 
+                                    name="email"
+                                    onChange={formik.handleChange}
+                                    // disabled
+                                    onFocus={() =>
+                                        formik.setFieldTouched("email", true, true)
+                                    }  
+                                    border='1px solid #000' fontSize='sm' value={userData.email} backgroundColor='#F4F4F4' size='lg'  />
+                            
+                                    <div className="w-full h-auto pt-2">
+                                        {formik.touched.email && formik.errors.email && (
+                                            <motion.p
+                                                initial={{ y: -100, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                            >
+                                                {formik.errors.email}
+                                            </motion.p>
+                                        )}
+                                    </div> 
+                            </div>
+                            <div className='w-full' > 
+                                <p className=' font-Ubuntu-Medium text-sm mb-2' >Title</p>
+                                <Input 
+                                    name="title"
+                                    onChange={formik.handleChange}
+                                    // disabled
+                                    onFocus={() =>
+                                        formik.setFieldTouched("title", true, true)
+                                    }  
+                                    border='1px solid #7123E2' fontSize='sm' placeholder={userData.title} backgroundColor='#F4F4F4' size='lg'  />
+
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.title && formik.errors.title && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.title}
+                                        </motion.p>
+                                    )}
+                                </div> 
+                            </div> 
+                            <div className='w-full' > 
+                                <p className=' font-Ubuntu-Medium text-sm mb-2' >Role</p>
+                                <Input  
+                                    border='1px solid #7123E2' fontSize='sm' value={userData.role} backgroundColor='#F4F4F4' size='lg'  />
+    
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div className=' flex   mt-10 justify-end pb-12 ' >
+                <div className=' w-44' > 
+                    {loading ? 
+                        <button className='font-Ubuntu-Bold text-xs border-[#7123E2] text-[#7123E2] border flex justify-center items-center rounded-lg h-11 px-6 w-full ' >
+                            <div className='flex items-center' >
+                                <LoaderIcon size='w-7 h-7 mr-1' /> 
+                                Loading
+                            </div> 
+                        </button>:
+                        <button onClick={()=> submit(image)} className='font-Ubuntu-Bold text-xs border-[#7123E2] text-[#7123E2] rounded-lg h-11 px-6 w-full border ' >Update Profile</button>
+                    }
+                </div>
+                <button onClick={()=> props.close(1)} className='font-Ubuntu-Bold text-xs ml-4 text-[#fff] bg-[#7123E2] rounded-lg h-11 px-6 w-44 ' >Change Password</button>
+                    
+                </div>
+            </div> 
+                {/*   */}
             {/* <div className='w-auto rounded-xl flex p-6 justify-center mt-8' >
                 <div style={{border: '1px solid #CED5DE', borderRadius: '4px'}}  className='flex px-14 items-center flex-col justify-center mr-2' >
 
@@ -146,7 +258,7 @@ export default function ViewUserInfo() {
                                 onFocus={() =>
                                     formik.setFieldTouched("fullName", true, true)
                                 }  
-                                border='1px solid #7123E2' fontSize='sm' placeholder={userData.fullName} backgroundColor='#F9f9f9' size='lg'  />
+                                border='1px solid #7123E2' fontSize='sm' placeholder={userData.fullName} backgroundColor='#F4F4F4' size='lg'  />
                         
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.fullName && formik.errors.fullName && (

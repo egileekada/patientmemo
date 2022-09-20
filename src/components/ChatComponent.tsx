@@ -34,7 +34,7 @@ export default function ChatComponent() {
                 </div>
                 <Input size='lg' paddingLeft="45px" placeholder='Search name' borderRadius='6px' fontSize='sm' backgroundColor='#FFFFFFCC' border='1px solid #D7D7D7' />
             </div>
-            <p className=' font-Ubuntu-Medium text-sm mt-4 mb-2 ' >{data.data.length} participant</p>
+            <p className=' font-Ubuntu-Medium text-sm mt-4 mb-2 ' >{data?.data?.length} participant</p>
             {!isLoading && (
                 <> 
                     {data.data.splice(0, 6).map((item: any) => {

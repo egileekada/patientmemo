@@ -21,7 +21,7 @@ export default function MedicationSheet() {
 
     const CLickHandler =()=>{
         setTab(true)
-        setNext(0)
+        setNext(1)
     } 
  
     const { isLoading, data } = useQuery('patientdata', () =>
@@ -75,7 +75,7 @@ export default function MedicationSheet() {
                 </div> */}
                 <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Medication Sheet</p>  
                 {next === 3 && ( 
-                    <button onClick={()=> CLickHandler()} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Doctor Request</button>
+                    <button onClick={()=> CLickHandler()} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Add Medical Sheet</button>
                 )}
             </div> 
             <div className='w-full' >
@@ -104,7 +104,7 @@ export default function MedicationSheet() {
                             <ShowPrescription button='Confirm Prescription' data={info}  next={setNext} />
                         )}
                         {next === 1 && (
-                            <AddMedicalList data={info} />
+                            <AddMedicalList data={data?.data} />
                         )}
                         {next === 0 && (
                             <GetAllRequest next={setNext} info={setInfo} />
