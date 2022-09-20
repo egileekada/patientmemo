@@ -35,7 +35,7 @@ export default function AddUser() {
     } 
      
     const loginSchema = yup.object({ 
-        firsttName: yup.string().required('Required'),
+        firstName: yup.string().required('Required'),
         lastName: yup.string().required('Required'),
         title: yup.string().required('Required'),
         email: yup.string().email('Enter Your Email').required('Required')
