@@ -59,10 +59,8 @@ export default function ContinuationSheet() {
                     <p className='font-Ubuntu-Bold text-lg ' >Continuation Sheet for <span onClick={()=> setShowDetail(true)} className=' text-[#7123E2] cursor-pointer' >{data?.data?.firstName+' '+ data?.data?.lastName}</span></p>
                     <p className='text-xs mt-1 font-Ubuntu-Regular text-[#5F6777]' >{DateFormat(data?.data?.updatedAt)}</p>
                     {next === 2 && 
-                        <div className='mt-3   flex items-center' >   
-                            <img src={patientInfo.doctor.avatar} alt='avater' className='w-12 h-12 rounded-full object-cover' />
-                                    <p className='font-Ubuntu-Medium text-sm ml-3' >{patientInfo?.doctor?.title ? patientInfo?.doctor?.title+' ': ''}{patientInfo?.doctor?.fullName ? patientInfo?.doctor?.fullName : (patientInfo?.doctor?.firstName+' '+patientInfo?.doctor?.lastName)}</p>
-                            <GetUserInfo />
+                        <div className='mt-3   flex items-center' >    
+                        <p className='font-Ubuntu-Medium text-sm mr-3' >By {patientInfo?.doctor?.title ? patientInfo?.doctor?.title+' ': ''}{patientInfo?.doctor?.fullName ? patientInfo?.doctor?.fullName : (patientInfo?.doctor?.firstName+' '+patientInfo?.doctor?.lastName)}</p> 
                         </div>
                     }
                 </div> 

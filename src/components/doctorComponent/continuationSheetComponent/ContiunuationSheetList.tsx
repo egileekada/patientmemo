@@ -22,18 +22,7 @@ export default function ContiunuationSheetList(props: any) {
         }).then(res =>
             res.json()
         )
-    )   
-    // const { isLoading, data } = useQuery('getpatient', () =>
-    //     fetch(`https://hospital-memo-api.herokuapp.com/requests/${props.value._id}`, {
-    //         method: 'GET', // or 'PUT'
-    //         headers: {
-    //             'Content-Type': 'application/json', 
-    //             Authorization : `Bearer ${localStorage.getItem('token')}`
-    //         }
-    //     }).then(res =>
-    //         res.json()
-    //     )
-    // )   
+    )    
     
     const ClickHandler =(item: any)=> {  
         props.patientinfo(item)
@@ -77,7 +66,7 @@ export default function ContiunuationSheetList(props: any) {
                                         </svg>
                                     </div>
                                     <div className='' > 
-                                        <GetUserInfo data={item.doctor} />
+                                        <GetUserInfo data={item.doctor._id} />
                                         <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 ml-3 text-xs' >{DateFormat(item.updatedAt)}</p>
                                     </div>
                                     {/* <p className='font-Ubuntu-Regular text-[#5F6777] ml-auto text-xs'>No Request</p> */}
@@ -85,6 +74,9 @@ export default function ContiunuationSheetList(props: any) {
                             </div>
                         )
                     })}
+                    {data?.data?.length === 0 && ( 
+                        <p className='font-Ubuntu-Medium text-2xl mt-20 text-center '>No Records Found</p>
+                    )}
                 </div>
             }
             {showDetail ? 

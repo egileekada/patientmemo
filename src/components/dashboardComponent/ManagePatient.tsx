@@ -12,7 +12,7 @@ export default function ManagePatient() {
     const navigate = useNavigate()
     const [patientDetail, setPatientDetail] = React.useState([] as any)
 
-    const { isLoading, data } = useQuery('patientdata', () =>
+    const { isLoading, data } = useQuery('patientdataAll', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/patients`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -61,6 +61,7 @@ export default function ManagePatient() {
                 :
 
                     <div className='bg-white w-full py-6' > 
+                    {data?.data?.length !== 0 && (
                         <Table variant='unstyled' >
                             {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
                             <Thead backgroundColor='#4C04B4' borderRadius='8px' >
@@ -74,7 +75,7 @@ export default function ManagePatient() {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {[...data.data].reverse().map((item: any, index: any)=> {
+                                {[...data?.data]?.reverse()?.map((item: any, index: any)=> {
                                     return(
                                         <Tr onClick={()=> ClickHandler(item)} className={'font-Ubuntu-Medium cursor-pointer text-black text-sm'} key={index} >
                                             <Td>
@@ -99,6 +100,10 @@ export default function ManagePatient() {
                                 })}
                             </Tbody> 
                         </Table>
+                    )}
+                    {data?.data?.length === 0 && (
+                        <p className='font-Ubuntu-Medium text-2xl mt-20 text-center '>No Records Found</p>
+                    )}
                     </div> 
                 }
         </div>

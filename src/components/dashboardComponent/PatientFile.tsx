@@ -128,7 +128,7 @@ export default function PatientFile() {
                                 {infoTab === 0 ?  
                                     <EditPatientInfo data={data} next={setInfoTab} /> 
                                         :infoTab === 1 ?  
-                                            <EditNextOfKin data={data} /> 
+                                            <EditNextOfKin data={data} back={setInfoTab} /> 
                                 :null}
                             </>
                                 // :tab === 1 ?

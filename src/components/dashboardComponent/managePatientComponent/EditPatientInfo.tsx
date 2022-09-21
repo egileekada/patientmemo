@@ -11,15 +11,15 @@ import { useQuery } from 'react-query'
 
 export default function EditPatientInfo(props: any) {
     
-    const [access, setAccess] = React.useState(false)
+    const [access, setAccess] = React.useState(true)
     const [requestCode, setRequestCode] = React.useState(false)
 
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false);
     
     const loginSchema = yup.object({ 
-        firstName: yup.string().required('Required'),
-        otherNames: yup.string().required('Required'),
+        firstName: yup.string().required('Required'), 
+        title: yup.string().required('Required'), 
         lastName: yup.string().required('Required'),
         gender: yup.string().required('Required'),
         address: yup.string().required('Required'),
@@ -28,13 +28,12 @@ export default function EditPatientInfo(props: any) {
         stateOfOrigin: yup.string().required('Required'),
         LGA: yup.string().required('Required'),
         occupation: yup.string().required('Required'),
-        religion: yup.string().required('Required'),
-        accessKey: yup.string().required('Required'),
+        religion: yup.string().required('Required'), 
     }) 
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0);
  
-    const { isLoading, data } = useQuery('patientdata', () =>
+    const { isLoading, data, refetch } = useQuery('patientdata', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -49,6 +48,7 @@ export default function EditPatientInfo(props: any) {
     React.useEffect(() => {
         formik.setValues({
             firstName : data?.data?.firstName,
+            title : data?.data?.title,
             otherNames : data?.data?.otherNames,
             lastName : data?.data?.lastName,
             gender : data?.data?.gender,
@@ -58,28 +58,27 @@ export default function EditPatientInfo(props: any) {
             stateOfOrigin : data?.data?.stateOfOrigin,
             LGA : data?.data?.LGA,
             occupation : data?.data?.occupation,
-            religion : data?.data?.religion,
-            accessKey : '',
+            religion : data?.data?.religion, 
         })
     }, [data])
 
     // formik
     const formik = useFormik({
-        initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', stateOfOrigin: '',LGA: '', occupation: '', religion: '', accessKey: ''},
+        initialValues: {title: '', firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', stateOfOrigin: '',LGA: '', occupation: '', religion: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });     
     
+    console.log(formik.values);
     const submit = async () => {  
 
+        
         if (!formik.dirty) {
             setMessage('You have to fill in the form correctly to continue')
             setModal(2)           
             const t1 = setTimeout(() => {  
                 setModal(0)       
-                setLoading(false)  
-                navigate('/dashboard/managepatient')
-                navigate(0)
+                setLoading(false)   
                 clearTimeout(t1); 
             }, 2000);  
         }else if (!formik.isValid) {
@@ -87,9 +86,7 @@ export default function EditPatientInfo(props: any) {
             setModal(2)           
             const t1 = setTimeout(() => {  
                 setModal(0)       
-                setLoading(false)  
-                navigate('/dashboard/managepatient')
-                navigate(0)
+                setLoading(false)    
                 clearTimeout(t1); 
             }, 2000);  
             // alert('You have to fill in the form correctly to continue');
@@ -115,12 +112,12 @@ export default function EditPatientInfo(props: any) {
                 const t1 = setTimeout(() => {  
                     setModal(0)       
                     setLoading(false)  
-                    navigate('/dashboard/managepatient')
+                    refetch() 
                     navigate(0)
                     clearTimeout(t1); 
                 }, 2000);  
             }else {
-                setMessage('Error Occurred')
+                setMessage(data.error.message)
                 setModal(2)           
                 const t1 = setTimeout(() => {  
                     setModal(0)       
@@ -164,7 +161,28 @@ export default function EditPatientInfo(props: any) {
                 <div className='w-full' > 
                     <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
                     <div className='w-full flex mt-8' >
-                        <div className='mr-2' >
+                        <div className='mr-2 full' >
+                            <p className='text-sm mb-2' >Title</p>
+                            <Input fontSize='sm' disabled={!access ? true : false} 
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.title}
+                                name="title"
+                                onChange={formik.handleChange}
+                                onFocus={() =>
+                                    formik.setFieldTouched("title", true, true)
+                                }   />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.title && formik.errors.title && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.title}
+                                    </motion.p>
+                                )}
+                            </div> 
+                        </div>
+                        <div className='mr-2 full' >
                             <p className='text-sm mb-2' >First Name</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }  placeholder={data?.data?.firstName}
@@ -206,6 +224,8 @@ export default function EditPatientInfo(props: any) {
                                 )}
                             </div> 
                         </div>
+                    </div>
+                    <div className='w-full flex mt-5' >
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >Other Names</p>
                             <Input fontSize='sm' disabled={!access ? true : false}  
@@ -227,8 +247,6 @@ export default function EditPatientInfo(props: any) {
                                 )}
                             </div> 
                         </div>
-                    </div>
-                    <div className='w-full flex mt-5' >
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >Phone Number</p>
                             <Input fontSize='sm' disabled={!access ? true : false}  
@@ -403,28 +421,7 @@ export default function EditPatientInfo(props: any) {
                                     </motion.p>
                                 )}
                             </div> 
-                        </div>
-                        <div className='mr-2' >
-                            <p className='text-sm mb-2' >accessKey</p>
-                            <Input fontSize='sm' disabled={!access ? true : false} 
-                                name="accessKey"
-                                onChange={formik.handleChange}
-                                onFocus={() =>
-                                    formik.setFieldTouched("accessKey", true, true)
-                                } 
-                                placeholder='accessKey' />
-                            <div className="w-full h-auto pt-2">
-                                {formik.touched.accessKey && formik.errors.accessKey && (
-                                    <motion.p
-                                        initial={{ y: -100, opacity: 0 }}
-                                        animate={{ y: 0, opacity: 1 }}
-                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                                    >
-                                        {formik.errors.accessKey}
-                                    </motion.p>
-                                )}
-                            </div> 
-                        </div>
+                        </div> 
                     </div> 
                     <div className='w-full flex mt-4' >
                         <button onClick={()=> props.next(1)}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Next Of Kin</button>

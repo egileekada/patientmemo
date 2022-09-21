@@ -104,7 +104,7 @@ export default function MedicationSheet() {
                             <ShowPrescription button='Confirm Prescription' data={info}  next={setNext} />
                         )}
                         {next === 1 && (
-                            <AddMedicalList data={data?.data} />
+                            <AddMedicalList data={data?.data} next={setNext} />
                         )}
                         {next === 0 && (
                             <GetAllRequest next={setNext} info={setInfo} />

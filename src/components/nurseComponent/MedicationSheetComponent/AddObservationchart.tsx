@@ -14,6 +14,7 @@ export default function AddObservationchart(props: any) {
 
     React.useEffect(() => {
         formik.setFieldValue('patient', props.data._id)
+        formik.setFieldValue('dateAndTime', new Date().toJSON())
     }, [])
 
     
@@ -25,10 +26,14 @@ export default function AddObservationchart(props: any) {
         uterineContraction: yup.string().required('Required'), 
         CXOS: yup.string().required('Required'), 
         remark: yup.string().required('Required'), 
+        dateAndTime: yup.string().required('Required'),
         temperature: yup.string().required('Required'),
          R: yup.string().required('Required') 
     }) 
-  
+   
+    console.log(new Date().toJSON());
+    
+
     // formik
     const formik = useFormik({
         initialValues: {patient: '', pulse: '', BP: '', FHR: '', uterineContraction: '', CXOS: '', remark: '', temperature: '', R: ''},
@@ -57,16 +62,14 @@ export default function AddObservationchart(props: any) {
             setModal(2)           
             const t1 = setTimeout(() => {  
                 setModal(0)       
-                setLoading(false)  
-                props.next(0)
-                props.tab(false)
+                setLoading(false)   
                 // navigate('/dashboard/nurse')
                 clearTimeout(t1); 
             }, 2000); 
             return;
           }else {
               setLoading(true)
-                const request = await fetch(`https://hospital-memo-api.herokuapp.com/observation-charts`, {
+                const request = await fetch(`https://hospital-memo-api.herokuapp.com/nurse/create-observation-chart`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -86,13 +89,13 @@ export default function AddObservationchart(props: any) {
                         setModal(1)           
                         const t1 = setTimeout(() => {  
                             setModal(0)       
-                            setLoading(false)  
-                            navigate('/dashboard/nurse')
+                            setLoading(false)   
+                            props.tab(false) 
                             clearTimeout(t1); 
                         }, 2000);  
                 }else {
 
-                    setMessage('Error Occurred')
+                    setMessage(json.error.message)
                     setModal(2)           
                     const t1 = setTimeout(() => {  
                         setModal(0)       

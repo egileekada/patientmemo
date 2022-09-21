@@ -86,7 +86,7 @@ export default function AddUser() {
                 let formData = new FormData()  
 
                 formData.append('firstName', formik.values.firstName)
-                formData.append('lasttName', formik.values.lastName)
+                formData.append('lastName', formik.values.lastName)
                 formData.append('title', formik.values.title) 
                 formData.append('email', formik.values.email)  
                 formData.append('role', role)   

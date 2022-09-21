@@ -64,38 +64,43 @@ export default function OIChartList() {
                 </div>
             :
                 <div className='w-full mt-6' > 
-                    <div className=' w-full py-6 rounded-md px-2' >
-                        <div className='w-full flex pl-2 justify-center ' >  
-                            {Check(data?.data?.patient._id)} 
-                                <p id='cubetext' className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(data?.data?.createdAt)}</p> 
+                    {!data?.data?.createdAt && ( 
+                        <p className='font-Ubuntu-Medium text-2xl mt-20 text-center '>No Records Found</p>
+                    )}
+                    {data?.data?.createdAt && (
+                        <div className=' w-full py-6 rounded-md px-2' >
+                            <div className='w-full flex pl-2 justify-center ' >  
+                                {Check(data?.data?.patient._id)} 
+                                    <p id='cubetext' className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(data?.data?.createdAt)}</p> 
+                            </div>
+                            <div className='w-full mt-6' >
+                                <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                    <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nature of fluid:</p>
+                                    <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.natureOfFluid}</p>
+                                </div>
+                                <div className='w-full flex items-center py-2 px-3' >
+                                    <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Amount:</p>
+                                    <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.urine}mls</p>
+                                </div>
+                                <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                    <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Urine:</p>
+                                    <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.urine}m/s</p>
+                                </div>
+                                <div className='w-full flex items-center py-2 px-3' >
+                                    <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Emesis:</p>
+                                    <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.emesis}</p>
+                                </div>
+                                <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
+                                    <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >BO:</p>
+                                    <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.BO}</p>
+                                </div> 
+                                <div className='w-full flex items-center py-2 px-3' >
+                                    <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nurse</p>
+                                    <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' ><GetUserInfo data={data?.data?.nurse._id} /></p>
+                                </div> 
+                            </div> 
                         </div>
-                        <div className='w-full mt-6' >
-                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
-                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nature of fluid:</p>
-                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.natureOfFluid}</p>
-                            </div>
-                            <div className='w-full flex items-center py-2 px-3' >
-                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Amount:</p>
-                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.urine}mls</p>
-                            </div>
-                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
-                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Urine:</p>
-                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.urine}m/s</p>
-                            </div>
-                            <div className='w-full flex items-center py-2 px-3' >
-                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Emesis:</p>
-                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.emesis}</p>
-                            </div>
-                            <div id='cubediv' className='w-full flex items-center py-2 bg-[#F0F5FF] px-3' >
-                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >BO:</p>
-                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data?.data?.BO}</p>
-                            </div> 
-                            <div className='w-full flex items-center py-2 px-3' >
-                                <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Nurse</p>
-                                <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' ><GetUserInfo data={data?.data?.nurse._id} /></p>
-                            </div> 
-                        </div> 
-                    </div>
+                    )}
                     {/* {data.map((item: any, index: any)=> {
                         if(showFile){
                             if(item.patient._id === patientIndex) {

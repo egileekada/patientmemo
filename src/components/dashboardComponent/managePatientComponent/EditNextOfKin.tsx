@@ -7,17 +7,18 @@ import { Input } from '@chakra-ui/input'
 import { Select } from '@chakra-ui/select'
 import LoaderIcon from '../../LoaderIcon';
 import { useQuery } from 'react-query';
+import Modal from '../../Modal';
 
 export default function EditNextOfKin(props : any) {
 
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false); 
     const [requestCode, setRequestCode] = React.useState(false) 
-    const [access, setAccess] = React.useState(false)
+    const [access, setAccess] = React.useState(true)
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0); 
 
-    const { isLoading, data } = useQuery('patientdata', () =>
+    const { isLoading, data, refetch } = useQuery('patientdata', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -27,34 +28,35 @@ export default function EditNextOfKin(props : any) {
         }).then(res =>
             res.json()
         )
-    )   
-    
-    console.log(data);
+    )    
     
     
     const loginSchema = yup.object({ 
         firstName: yup.string().required('Required'),
-        otherNames: yup.string().required('Required'),
+        address: yup.string().required('Required'),
         lastName: yup.string().required('Required'),
         gender: yup.string().required('Required'),
-        address: yup.string().required('Required'),
+        // LGA: yup.string().required('Required'),
         age: yup.number().required('Required'),
         phone: yup.string().required('Required'), 
         relationship: yup.string().required('Required'), 
-        accessKey: yup.string().required('Required'), 
+        // title: yup.string().required('Required'), 
+        // accessKey: yup.string().required('Required'), 
     }) 
 
-    // React.useEffect(() => {
-    //     formik.setValues(props.data.nextOfKin?)
-    // }, [props.data])
+    React.useEffect(() => {
+        formik.setValues(data?.data?.nextOfKin)
+    }, [data])
  
     // formik
     const formik = useFormik({
-        initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', relationship: '', accessKey: ''},
+        initialValues: {firstName: '', otherNames: '', address: '',lastName: '', gender: '', age: 0, phone: '', relationship: '', title: ""},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });      
 
+    console.log(formik.values);
+    
 
     const submit = async () => {  
         setLoading(true)
@@ -89,56 +91,52 @@ export default function EditNextOfKin(props : any) {
     
             const json = await request.json();
  
-            if (request.status === 201) {            
-                const t1 = setTimeout(() => {  
+            if (request.status === 200) {        
                     // navigate('/dashboard/m')
-                    setMessage('You have to fill in the form correctly to continue')
+                    setMessage('Update Sucessfully')
                     setModal(1)           
                     const t1 = setTimeout(() => {  
                         setModal(0)       
-                        setLoading(false)  
-                        navigate('/dashboard/managepatient')
+                        setLoading(false)   
+                        navigate(0)
+                        refetch()
                         clearTimeout(t1); 
-                    }, 2000);
-                    clearTimeout(t1);
-                }, 3000); 
+                    }, 2000); 
             }else {
-                setMessage('Error Occurred')
+                setMessage(json.error.message)
                 setModal(2)           
                 const t1 = setTimeout(() => {  
                     setModal(0)       
                     setLoading(false)  
                     clearTimeout(t1); 
-                }, 2000);
-                // alert(json.error.message);
-                // console.log(json) 
+                }, 2000); 
             } 
         }
         setLoading(false)
     }  
 
-    const GetAccessCode = async()=> {
-        setLoading(true)
-        const request = await fetch(`https://hospital-memo-api.herokuapp.com/auth/request-access-key`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({
-                patientId: props.data?._id
-           }),
-        });
+    // const GetAccessCode = async()=> {
+    //     setLoading(true)
+    //     const request = await fetch(`https://hospital-memo-api.herokuapp.com/auth/request-access-key`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization : `Bearer ${localStorage.getItem('token')}`
+    //         },
+    //         body: JSON.stringify({
+    //             patientId: props.data?._id
+    //        }),
+    //     });
 
-        const data = await request.json();
+    //     const data = await request.json();
 
-        console.log('Request code '+request.status)
-        alert('Access Key for this Patient '+data.accessKey)
-        // set(true)
-        setRequestCode(false)
-        setAccess(true)
-        setLoading(false)
-    }
+    //     console.log('Request code '+request.status)
+    //     alert('Access Key for this Patient '+data.accessKey)
+    //     // set(true)
+    //     setRequestCode(false)
+    //     setAccess(true)
+    //     setLoading(false)
+    // }
 
     // console.log(props.data?)
 
@@ -149,10 +147,41 @@ export default function EditNextOfKin(props : any) {
 
     return (
         <div style={{width:'700px'}} className='w-auto h-full flex justify-center px-12 py-10 font-Ubuntu-Medium text-[#333] ' > 
+            
+            <Modal message={message} modal={modal} />
             {!requestCode ? 
                 <div>
-                    <p className='text-lg font-Ubuntu-Bold' >Next of Kin’s Information</p>
+                    <div className=' flex items-center ' >
+                        <div onClick={()=> props.back(0)} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <p className='text-lg font-Ubuntu-Bold ml-3' >Next of Kin’s Information</p>
+                    </div>
                     <div className='w-full flex mt-8' >
+                        <div className='mr-2' >
+                            <p className='text-sm mb-2' >Title</p>
+                            <Input 
+                                name="title"
+                                onChange={formik.handleChange}
+                                disabled={!access ? true : false} 
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
+                                onFocus={() =>
+                                    formik.setFieldTouched("title", true, true)
+                                } placeholder={data?.data?.nextOfKin?.title} fontSize='sm' />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.title && formik.errors.title && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.title}
+                                    </motion.p>
+                                )}
+                            </div> 
+                        </div>
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >First Name</p>
                             <Input 
@@ -162,7 +191,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("firstName", true, true)
-                                } placeholder={props.data?.nextOfKin?.firstName} fontSize='sm' />
+                                } placeholder={data?.data?.nextOfKin?.firstName} fontSize='sm' />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.firstName && formik.errors.firstName && (
                                     <motion.p
@@ -184,7 +213,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("lastName", true, true)
-                                }  placeholder={props.data?.nextOfKin?.lastName} fontSize='sm' />
+                                }  placeholder={data?.data?.nextOfKin?.lastName} fontSize='sm' />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.lastName && formik.errors.lastName && (
                                     <motion.p
@@ -197,6 +226,8 @@ export default function EditNextOfKin(props : any) {
                                 )}
                             </div> 
                         </div>
+                    </div>
+                    <div className='w-full flex mt-5' >
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >Other Names</p>
                             <Input 
@@ -206,7 +237,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("otherNames", true, true)
-                                }  placeholder={props.data?.nextOfKin?.otherNames} fontSize='sm'  />
+                                }  placeholder={data?.data?.nextOfKin?.otherNames} fontSize='sm'  />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.otherNames && formik.errors.otherNames && (
                                     <motion.p
@@ -219,8 +250,6 @@ export default function EditNextOfKin(props : any) {
                                 )}
                             </div> 
                         </div>
-                    </div>
-                    <div className='w-full flex mt-5' >
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >Relationship</p>
                             <Input 
@@ -230,7 +259,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("relationship", true, true)
-                                }  placeholder={props.data?.nextOfKin?.relationship} fontSize='sm'  />
+                                }  placeholder={data?.data?.nextOfKin?.relationship} fontSize='sm'  />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.relationship && formik.errors.relationship && (
                                     <motion.p
@@ -252,7 +281,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("phone", true, true)
-                                }  placeholder={props.data?.nextOfKin?.phone} fontSize='sm' />
+                                }  placeholder={data?.data?.nextOfKin?.phone} fontSize='sm' />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.phone && formik.errors.phone && (
                                     <motion.p
@@ -278,7 +307,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("age", true, true)
-                                }  placeholder={props.data?.nextOfKin?.age} fontSize='sm'  />
+                                }  placeholder={data?.data?.nextOfKin?.age} fontSize='sm'  />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.age && formik.errors.age && (
                                     <motion.p
@@ -300,7 +329,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("gender", true, true)
-                                }  placeholder={props.data?.nextOfKin?.gender} fontSize='sm' >
+                                }  placeholder={data?.data?.nextOfKin?.gender} fontSize='sm' >
                                 <option>male</option>
                                 <option>female</option>
                             </Select>
@@ -316,7 +345,30 @@ export default function EditNextOfKin(props : any) {
                                 )}
                             </div> 
                         </div>  
-                        <div className='mr-2' >
+                        {/* <div className='mr-2' >
+                            <p className='text-sm mb-2' >LGA</p>
+                            <Input 
+                                name="LGA"
+                                onChange={formik.handleChange}
+                                disabled={!access ? true : false} 
+                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
+                                onFocus={() =>
+                                    formik.setFieldTouched("LGA", true, true)
+                                }  placeholder={data?.data?.nextOfKin?.LGA} fontSize='sm' />
+                            <div className="w-full h-auto pt-2">
+                                {formik.touched.LGA && formik.errors.LGA && (
+                                    <motion.p
+                                        initial={{ y: -100, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                    >
+                                        {formik.errors.LGA}
+                                    </motion.p>
+                                )}
+                            </div> 
+                        </div>  */}
+                    </div> 
+                    <div className='mr-2' >
                             <p className='text-sm mb-2' >Address</p>
                             <Input 
                                 name="address"
@@ -325,7 +377,7 @@ export default function EditNextOfKin(props : any) {
                                 _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
                                 onFocus={() =>
                                     formik.setFieldTouched("address", true, true)
-                                }  placeholder={props.data?.nextOfKin?.address} fontSize='sm' />
+                                }  placeholder={data?.data?.nextOfKin?.address} fontSize='sm' />
                             <div className="w-full h-auto pt-2">
                                 {formik.touched.address && formik.errors.address && (
                                     <motion.p
@@ -338,8 +390,7 @@ export default function EditNextOfKin(props : any) {
                                 )}
                             </div> 
                         </div> 
-                    </div>
-                    <div className='w-full flex mt-5' >
+                    {/* <div className='w-full flex mt-5' >
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >accessKey</p>
                             <Input fontSize='sm' disabled={!access ? true : false} 
@@ -361,9 +412,9 @@ export default function EditNextOfKin(props : any) {
                                 )}
                             </div> 
                         </div>
-                    </div>
-                    <div className='w-full flex' > 
-                        <button onClick={()=> navigate('/dashboard/managepatient')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button>
+                    </div> */}
+                    <div className='w-full flex justify-end' > 
+                        {/* <button onClick={()=> navigate('/dashboard/managepatient')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button> */}
                         {access ?
                             <>
                                 {loading ?  
@@ -385,7 +436,7 @@ export default function EditNextOfKin(props : any) {
                     <p className='text-lg font-Ubuntu-Bold' >Personal Information</p>
                     <p className='w-96 text-[#5F6777] mt-2 font-Ubuntu-Regular text-center text-sm' >This key is owned by the MD, meaning there need to be an approval from the MD to Access</p>
                     {/* <Input fontSize='sm' backgroundColor='white' border='1px solid #A5B0C1' /> */}
-                    {loading ?  
+                    {/* {loading ?  
                         <button className='bg-[#7123E2] h-11 flex justify-center items-center w-48  text-white text-sm mt-12 rounded-full' >
                             <div className='flex items-center ' >
                                 <LoaderIcon size='w-7 h-7 mr-1 ' /> 
@@ -394,7 +445,7 @@ export default function EditNextOfKin(props : any) {
                         </button>
                         :
                         <button onClick={()=> GetAccessCode()} className='bg-[#7123E2] h-11 w-48  text-white text-sm mt-12 rounded-full' >Request Edit Access</button>
-                    }
+                    } */}
                 </div>
             }
         </div>

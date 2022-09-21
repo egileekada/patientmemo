@@ -6,33 +6,27 @@ import React from 'react'
 import LoaderIcon from '../../LoaderIcon';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../Modal';
 
 export default function AddMedicalList(props: any) {
     const [loading, setLoading] = React.useState(false);
     
     const loginSchema = yup.object({ 
-        prescription: yup.string().required('Required'),
+        // prescription: yup.string().required('Required'),
         // dateAndTime: yup.string().required('Required'), 
     }) 
     const navigate = useNavigate() 
+    const [message, setMessage] = React.useState('');
+    const [modal, setModal] = React.useState(0);
+    
 
     React.useEffect(() => {
-        formik.setFieldValue('patient', props.data?.patient?._id)
-        formik.setFieldValue('requestId', props.data?._id)
-   }, []) 
- 
-    console.log(props.dat)
-
-    // {
-    //     "patient": "6313347f27e123eaa2716b57",
-    //     "fertalHeartRate": "any medical value",
-    //     "remark": "patient is in critical condition",
-    //     "dateAndTime": "20-10-2022"
-    //   }
+        formik.setFieldValue('patient', localStorage.getItem("patientId")+"") 
+   }, [])  
 
     // formik
     const formik = useFormik({
-        initialValues: {fertalHeartRate: '', dateAndTime: '', remark: ''},
+        initialValues: {patient: '', fertalHeartRate: '', dateAndTime: '', remark: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });      
@@ -40,44 +34,65 @@ export default function AddMedicalList(props: any) {
     const submit=async()=> {
 
         if (!formik.dirty) {
-            alert('You have to fill in th form to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000); 
             return;
           }else if (!formik.isValid) {
-            alert('You have to fill in the form correctly to continue');
+            setMessage('You have to fill in the form correctly to continue')
+            setModal(2)           
+            const t1 = setTimeout(() => {  
+                setModal(0)       
+                setLoading(false)  
+                clearTimeout(t1); 
+            }, 2000); 
             return;
           }else {
             setLoading(true)
-                const request = await fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-medical-sheet/`, {
+                
+                const request = await fetch(`https://hospital-memo-api.herokuapp.com/nurse/create-medical-sheet`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization : `Bearer ${localStorage.getItem('token')}`
                     },
-                    body: JSON.stringify({
-                        "patient": localStorage.getItem("patientId"),
-                        "fertalHeartRate": formik.values.fertalHeartRate,
-                        "remark": formik.values.remark,
-                        "dateAndTime": formik.values.dateAndTime 
-                    }),
+                    body: JSON.stringify(formik.values),
                 });
         
                 const json = await request.json(); 
 
-                if (request.status === 201) {            
+                if (request.status === 201) {       
+                    setMessage('Record Enter Successfully')
+                    setModal(1)                
                     const t1 = setTimeout(() => {  
                         // navigate('/dashboard/m')
                         // props.tab(false)
+                    setModal(0)         
                         alert('Record Enter Successfull')
                         navigate('/dashboard/nurse')
                         clearTimeout(t1);
                     }, 3000); 
                 }else {
-                    alert(json.error.message);
-                    console.log(json) 
+                    // alert(json.error.message);
+                    console.log(json)
+                    setMessage(json.error.message)
+                    setModal(2)           
+                    const t1 = setTimeout(() => {  
+                        setModal(0)       
+                        setLoading(false)  
+                        clearTimeout(t1); 
+                    }, 2000); 
                 } 
           }
+          setLoading(false)
+              
     }
 
+    console.log(formik.values);
     const { isLoading, data } = useQuery('patientdata', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
@@ -93,6 +108,7 @@ export default function AddMedicalList(props: any) {
 
     return (
         <div style={{width: '540px'}} className=' mx-auto h-full px-12 py-10 font-Ubuntu-Regular' > 
+        <Modal message={message} modal={modal} />
             {/* <p className='text-lg font-Ubuntu-Bold' >Personal Information</p> */}
             <div className='w-full flex mt-8' >
                 <div className='mr-2 w-full' >

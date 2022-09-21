@@ -19,17 +19,18 @@ export default function AddIOChart(props: any) {
         natureOfFluid: yup.string().required('Required'),
         emesis: yup.string().required('Required'),
         amount: yup.string().required('Required'),
-        // dateAndTime: yup.string().required('Required'), 
+        dateAndTime: yup.string().required('Required'), 
     }) 
     const navigate = useNavigate() 
     
     React.useEffect(() => {
         formik.setFieldValue('patient', props.data._id) 
+        formik.setFieldValue('dateAndTime', new Date().toJSON())
     }, []) 
   
     // formik
     const formik = useFormik({
-        initialValues: {urine: '', patient: '',  BO: '', natureOfFluid: '',  emesis: '', amount: ''},
+        initialValues: {urine: '', patient: '',  BO: '', natureOfFluid: '',  emesis: '', amount: '', dateAndTime: ''},
         validationSchema: loginSchema,
         onSubmit: () => {},
     });    

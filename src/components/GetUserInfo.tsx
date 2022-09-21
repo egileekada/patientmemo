@@ -23,7 +23,7 @@ export default function GetUserInfo(props: any) {
 
   return ( 
         <>
-            {/* {isLoading ? 
+            {isLoading ? 
                 null:
                 <>
                     {data.data.map((item: any)=> {
@@ -49,7 +49,7 @@ export default function GetUserInfo(props: any) {
                         }
                     })}
                 </>
-            } */}
+            }
         </>
   )
 }

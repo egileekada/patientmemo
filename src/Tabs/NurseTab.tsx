@@ -11,6 +11,8 @@ export default function NurseTab() {
 
     const navigate = useNavigate()
     const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
+    console.log(userData);
+    
 
     return (
         <div className='w-full h-screen flex flex-col pb-12 relative' >
@@ -27,7 +29,7 @@ export default function NurseTab() {
             )} */}
             {tab === 0 && ( 
                 <div className=' w-full h-full flex flex-1 flex-col justify-center items-center ' > 
-                    <p className=' text-3xl font-Ubuntu-Regular mt-14 text-[#585858] ' >Good morning! Nurse {userData.fullName ? userData.fullName:(userData.firstName+' '+userData.lastName)} </p>
+                    <p className=' text-3xl font-Ubuntu-Regular mt-14 text-[#585858] ' >Good morning! {userData.fullName ? userData.fullName:(userData.firstName+' '+userData.lastName)} </p>
                     <p className=' text-lg font-Ubuntu-Medium my-6 text-[#585858] ' >Have a good day at work</p>
                     <div className=' w-657px border-2 flex justify-center px-24 rounded-2xl items-center border-[#E3E3E4]  ' > 
                         <FindPatient header='Enter Patient Name' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.' next={setTab} value={setData} />
