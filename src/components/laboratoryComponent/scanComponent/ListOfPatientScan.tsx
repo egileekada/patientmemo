@@ -53,7 +53,7 @@ export default function ListOfPatientScan(props: any) {
                     )
                 })   
         
-                await axios.default.post(`https://hospital-memo-api.herokuapp.com/requests/scan`, formData, {
+                await axios.default.post(`https://hospital-memo-api.herokuapp.com/scan`, formData, {
                     headers: { 'content-type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     Authorization : `Bearer ${localStorage.getItem('token')}`

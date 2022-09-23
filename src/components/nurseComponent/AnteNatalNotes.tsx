@@ -1,6 +1,8 @@
 import React from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom' 
 import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
+import FollowUpVisit from './AnteNatalNotesComponent/FollowUpVisit'
 import HistoryOfPresentPregnancy from './AnteNatalNotesComponent/HistoryOfPresentPregnancy'
 import PersonnalInformation from './AnteNatalNotesComponent/PersonnalInformation'
 import Physicalexamination from './AnteNatalNotesComponent/Physicalexamination'
@@ -9,19 +11,99 @@ import SpecialInvestigation from './AnteNatalNotesComponent/SpecialInvestigation
 
 export default function AnteNatalNotes() {
 
+    const { isLoading, data, refetch } = useQuery('patientdata', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )    
+
     const [next, setNext] = React.useState(1)
     const navigate = useNavigate()
-    const [patientInfo, setPatientInfo] = React.useState({}as any) 
+    const [patientInfo, setPatientInfo] = React.useState({
+        "patient": data?.data?._id,
+        "firstName": data?.data?.firstName,
+        "lastName": data?.data?.lastName,
+        "otherNames": data?.data?.otherName,
+        "specialPoint": "",
+        "dateOfBooking": "",
+        "indicationOfBook": "",
+        "LMP": "",
+        "EDD": "",
+        "address": data?.data?.address,
+        "stateOfOrigin": data?.data?.stateOfOrigin,
+        "age": data?.data?.age,
+        "occupation": data?.data?.occupation,
+        "nationality": "",
+        "husband.name": "",
+        "husband.occupation": "",
+        "husband.employer": "",
+        "prevMedHistory.heartDisease": "",
+        "prevMedHistory.kidneyDisease": "",
+        "prevMedHistory.chestDisease": "",
+        "prevMedHistory.operations": "",
+        "prevMedHistory.GIT": "",
+        "prevMedHistory.endocrine": "",
+        "prevMedHistory.NIL": "",
+        "prevPregnancy.total": "",
+        "prevPregnancy.noOfLivingChildren": "",
+        "prevPregnancy.dateOfBirth": "",
+        "prevPregnancy.durationOfPregnancy": "",
+        "prevPregnancy.pregLabourAndPuerperium": "",
+        "prevPregnancy.birthWeight": "",
+        "prevPregnancy.babySex": "",
+        "specialInvestigation.report": "",
+        "curPregHistory.bleeding": "",
+        "curPregHistory.discharge": "",
+        "curPregHistory.urinarySymptoms": "",
+        "curPregHistory.swellingAnkles": "",
+        "curPregHistory.otherSymptoms": "",
+        "curPregHistory.details": "",
+        "physicalExamination.height": "",
+        "physicalExamination.weight": "",
+        "physicalExamination.BP": "",
+        "physicalExamination.breastAndNipples": "",
+        "physicalExamination.PVC": "",
+        "physicalExamination.genotype": "",
+        "physicalExamination.kahn": "",
+        "physicalExamination.groupRH": "",
+        "physicalExamination.chestXray": "",
+        "physicalExamination.generalCondition": "",
+        "physicalExamination.ocdema": "",
+        "physicalExamination.anaemia": "",
+        "physicalExamination.respiratorySystem": "",
+        "physicalExamination.cardiovascularSystem": "",
+        "followUpVisit.date": "",
+        "followUpVisit.heightOfFundus": "",
+        "followUpVisit.presentationAndPosition": "",
+        "followUpVisit.roFPPartOfBirth": "",
+        "followUpVisit.feotalHeart": "",
+        "followUpVisit.urine": "",
+        "followUpVisit.BP": "",
+        "followUpVisit.weight": "",
+        "followUpVisit.HB": "",
+        "followUpVisit.oedema": "",
+        "followUpVisit.initialExaminer": "",
+        "followUpVisit.remarks": ""
+      }) 
     const [requestData, setData] = React.useState({} as any);
+
+    console.log(patientInfo['curPregHistory.details']);
+    
 
     return (
         <div className='w-full h-full ' >
             <div className='w-full py-3 px-12 border-b flex items-center border-[#D7D0DF]' > 
-                <div onClick={()=> navigate('/dashboard/nurse')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+                {/* <div onClick={()=> navigate('/dashboard/nurse')} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                </div>
+                </div> */}
                 <p className='font-Ubuntu-Medium text-lg ml-3' >ANTE-NATAL NOTES</p>
             </div>
             <div className='w-full h-full px-6 flex ' >
@@ -98,19 +180,22 @@ export default function AnteNatalNotes() {
                         <FindPatient header='Patient Delivery Record' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.'  next={setNext} value={setData} />
                     )}
                     {next === 1 && (
-                        <PersonnalInformation data={requestData} next={setNext} />
+                        <PersonnalInformation data={patientInfo} setData={setPatientInfo} next={setNext} />
                     )} 
                     {next === 2 && (
-                        <Previousmedicalhistory data={requestData} next={setNext} />
+                        <Previousmedicalhistory data={patientInfo} setData={setPatientInfo} next={setNext} />
                     )} 
                     {next === 3 && (
-                        <SpecialInvestigation data={requestData} next={setNext} />
+                        <SpecialInvestigation data={patientInfo} setData={setPatientInfo} next={setNext} />
                     )} 
                     {next === 4 && (
-                        <HistoryOfPresentPregnancy data={requestData} next={setNext} />
+                        <HistoryOfPresentPregnancy data={patientInfo} setData={setPatientInfo} next={setNext} />
                     )} 
                     {next === 5 && (
-                        <Physicalexamination data={requestData} next={setNext} />
+                        <Physicalexamination data={patientInfo} setData={setPatientInfo} next={setNext} />
+                    )} 
+                    {next === 6 && (
+                        <FollowUpVisit data={patientInfo} setData={setPatientInfo} next={setNext} />
                     )} 
                 </div> 
             </div>

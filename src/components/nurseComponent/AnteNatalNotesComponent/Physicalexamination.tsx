@@ -1,9 +1,10 @@
-import { Input } from '@chakra-ui/react';
+import { Input, Textarea } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import React from 'react'
 import { useNavigate } from 'react-router';
 import * as yup from 'yup' 
+import LoaderIcon from '../../LoaderIcon';
 
 export default function Physicalexamination(props: any) { 
         const navigate = useNavigate()
@@ -51,260 +52,149 @@ export default function Physicalexamination(props: any) {
             <div className='w-full flex mt-8' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Height</p>
-                    <Input
-                        name="firstName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("firstName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Height' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.firstName && formik.errors.firstName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.firstName}
-                            </motion.p>
-                        )}
-                    </div> 
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})} 
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Weight</p>
                     <Input 
-                        name="lastName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("lastName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Weight' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.lastName && formik.errors.lastName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.lastName}
-                            </motion.p>
-                        )}
-                    </div> 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.weight": e.target.value})}  
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >B.P</p>
                     <Input 
-                        name="otherNames"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("otherNames", true, true)
-                        }  
-                        fontSize='sm' placeholder='B.P' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.otherNames && formik.errors.otherNames && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.otherNames}
-                            </motion.p>
-                        )}
-                    </div> 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.BP": e.target.value})}  
+                        fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Breast & Nipples</p>
                     <Input 
-                        name="otherNames"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("otherNames", true, true)
-                        }  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.breastAndNipples": e.target.value})}  
                         fontSize='sm' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.otherNames && formik.errors.otherNames && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.otherNames}
-                            </motion.p>
-                        )}
-                    </div> 
                 </div>
             </div>
             <div className='w-full flex mt-4' >
                 <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Height</p>
-                    <Input
-                        name="firstName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("firstName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Height' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.firstName && formik.errors.firstName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.firstName}
-                            </motion.p>
-                        )}
-                    </div> 
+                    <p className='text-xs mb-2' >PVC</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.PVC": e.target.value})} 
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Weight</p>
+                    <p className='text-xs mb-2' >Genotype</p>
                     <Input 
-                        name="lastName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("lastName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Weight' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.lastName && formik.errors.lastName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.lastName}
-                            </motion.p>
-                        )}
-                    </div> 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.genotype": e.target.value})}  
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >B.P</p>
+                    <p className='text-xs mb-2' >Kahn</p>
                     <Input 
-                        name="otherNames"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("otherNames", true, true)
-                        }  
-                        fontSize='sm' placeholder='B.P' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.otherNames && formik.errors.otherNames && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.otherNames}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div>
-                <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Breast & Nipples</p>
-                    <Input 
-                        name="otherNames"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("otherNames", true, true)
-                        }  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.kahn": e.target.value})}  
                         fontSize='sm' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.otherNames && formik.errors.otherNames && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.otherNames}
-                            </motion.p>
-                        )}
-                    </div> 
+                </div>
+                <div className='mr-2 w-full' >
+                    <p className='text-xs mb-2' >Group R.H</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.groupRH": e.target.value})}  
+                        fontSize='sm' />
                 </div>
             </div>
             <div className='w-full flex mt-4' >
                 <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Height</p>
-                    <Input
-                        name="firstName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("firstName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Height' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.firstName && formik.errors.firstName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.firstName}
-                            </motion.p>
-                        )}
-                    </div> 
+                    <p className='text-xs mb-2' >Chest X-Ray</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.chestXray": e.target.value})} 
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Weight</p>
+                    <p className='text-xs mb-2' >General Condition</p>
                     <Input 
-                        name="lastName"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("lastName", true, true)
-                        }  
-                        fontSize='sm' placeholder='Weight' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.lastName && formik.errors.lastName && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.lastName}
-                            </motion.p>
-                        )}
-                    </div> 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.generalCondition": e.target.value})}  
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >B.P</p>
+                    <p className='text-xs mb-2' >Ocdema</p>
                     <Input 
-                        name="otherNames"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("otherNames", true, true)
-                        }  
-                        fontSize='sm' placeholder='B.P' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.otherNames && formik.errors.otherNames && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.otherNames}
-                            </motion.p>
-                        )}
-                    </div> 
-                </div>
-                <div className='mr-2 w-full' >
-                    <p className='text-xs mb-2' >Breast & Nipples</p>
-                    <Input 
-                        name="otherNames"
-                        onChange={formik.handleChange}
-                        onFocus={() =>
-                            formik.setFieldTouched("otherNames", true, true)
-                        }  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.ocdema": e.target.value})}  
                         fontSize='sm' />
-                    <div className="w-full h-auto pt-2">
-                        {formik.touched.otherNames && formik.errors.otherNames && (
-                            <motion.p
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                            >
-                                {formik.errors.otherNames}
-                            </motion.p>
-                        )}
-                    </div> 
                 </div>
+                <div className='mr-2 w-full' >
+                    <p className='text-xs mb-2' >Anaemia</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.anaemia": e.target.value})}  
+                        fontSize='sm' />
+                </div>
+            </div>
+                <div className='mr-2 w-full mt-4' >
+                    <p className='text-xs mb-2' >Respiratory System</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.respiratorySystem": e.target.value})}  
+                        fontSize='sm' />
+                </div>
+                <div className='mr-2 w-full mt-4' >
+                    <p className='text-xs mb-2' >Cardiovascular System</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.cardiovascularSystem": e.target.value})}  
+                        fontSize='sm' />
+                </div>
+
+            <div className='w-full flex mt-4' >
+                <div className='mr-2 w-full' >
+                    <p className='text-xs mb-2' >Abdomen</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})} 
+                        fontSize='sm'  />
+                </div>
+                <div className='mr-2 w-full' >
+                    <p className='text-xs mb-2' >Spleen</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                        fontSize='sm'  />
+                </div> 
+            </div>
+                <div className='mr-2 w-full mt-4' >
+                    <p className='text-xs mb-2' >CM</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                        fontSize='sm'  />
+                </div> 
+                <div className='mr-2 w-full mt-4' >
+                    <p className='text-xs mb-2' >Vagina Examination</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                        fontSize='sm'  />
+                </div> 
+                <div className='mr-2 w-full mt-4' >
+                    <p className='text-xs mb-2' >Other Abinormalities</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                        fontSize='sm'  />
+                </div> 
+                <div className='mr-2 w-full mt-4' >
+                    <p className='text-xs mb-2' >Comments</p>
+                    <Textarea  
+                        fontSize='sm'  />
+                </div> 
+                <div className='mr-2 w-full mt-4' >
+                    <p className='text-xs mb-2' >Examiner</p>
+                    <Input 
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                        fontSize='sm'  />
+                </div> 
+            <div className='w-full flex pb-10 py-4' >
+                <button onClick={()=> navigate('/dashboard/nurse')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >back</button>
+                {loading ?  
+                    <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
+                        <div className='flex items-center ' >
+                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
+                            Loading
+                        </div> 
+                    </button>
+                    :
+                    <button onClick={()=> props.next(6) } className='bg-[#7123E2] py-3 w-48  text-white text-sm mt-6 rounded-full' >Next</button>
+                }
             </div>
         </div>
     )

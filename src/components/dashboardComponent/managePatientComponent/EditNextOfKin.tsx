@@ -86,12 +86,12 @@ export default function EditNextOfKin(props : any) {
                     'Content-Type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify(formik.values),
+                body: JSON.stringify({firstName: formik.values.firstName, otherNames: formik.values.otherNames, address: formik.values.address,lastName: formik.values.lastName, gender: formik.values.gender, age: formik.values.age, phone: formik.values.phone, relationship: formik.values.relationship, title: formik.values.title}),
             });
     
             const json = await request.json();
  
-            if (request.status === 200) {        
+            if (request.status === 201) {        
                     // navigate('/dashboard/m')
                     setMessage('Update Sucessfully')
                     setModal(1)           
@@ -103,7 +103,7 @@ export default function EditNextOfKin(props : any) {
                         clearTimeout(t1); 
                     }, 2000); 
             }else {
-                setMessage(json.error.message)
+                setMessage(json.message)
                 setModal(2)           
                 const t1 = setTimeout(() => {  
                     setModal(0)       

@@ -15,8 +15,7 @@ import DeliveryRecordTab from './nurseComponent/DeliveryRecordComponent/Delivery
 import MedicationSheet from './nurseComponent/MedicationSheet'
 import OberservationChartList from './nurseComponent/MedicationSheetComponent/OberservationChartList'
 import ObservationChart from './nurseComponent/ObservationChart'
-import OIChart from './nurseComponent/OIChart'
-import AnteNatalNotes from './dashboardComponent/managePatientComponent/AnteNatalNotes'
+import OIChart from './nurseComponent/OIChart' 
 // import ContinutionSheet from './managePatientComponent/ContinutionSheet' 
 // import DeliveryRecord from './managePatientComponent/DeliveryRecord'
 // import DeliveryRecord from './managePatientComponent/DeliveryRecord'
@@ -27,6 +26,7 @@ import InputAndOutputChart from './dashboardComponent/managePatientComponent/Inp
 import MedicalReport from './dashboardComponent/managePatientComponent/MedicalReport'
 import Request from './dashboardComponent/managePatientComponent/Request'
 import Navbar from './Navbar'
+import AnteNatalNotes from './nurseComponent/AnteNatalNotes'
 
 export default function PatientFile() {
     
@@ -103,9 +103,9 @@ export default function PatientFile() {
                     <div onClick={()=> [setTab(9), setLab(false)]} className={tab === 9 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 9 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Delivery Record</p>
                     </div>  
-                    {/* <div onClick={()=> [setTab(6), setLab(false)]} className={tab === 6 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                    <div onClick={()=> [setTab(6), setLab(false)]} className={tab === 6 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 6 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Ante-natal notes</p>
-                    </div>   */}
+                    </div>  
                     <div onClick={()=> [setLab(true), setTab(10)]} className={lab ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={lab ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Lab Result</p>
                     </div> 
@@ -162,8 +162,8 @@ export default function PatientFile() {
                                                         <OIChart /> 
                                                             :tab === 9 ?
                                                                 <DeliveryRecord />
-                                                                    // :tab === 6 ?
-                                                                    //     <AnteNatalNotes />
+                                                                    :tab === 6 ?
+                                                                        <AnteNatalNotes />
                                                                             :tab === 7 ?
                                                                                 <Request />
                                                                                 :tab === 10 ?

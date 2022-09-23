@@ -11,34 +11,14 @@ export default function SpecialInvestigation(props: any) {
             <Textarea 
                 height='50vh'
                 name="note"
-                // onChange={formik.handleChange}
-                // onFocus={() =>
-                //     formik.setFieldTouched("note", true, true)
-                // }  
+                onChange={(e)=> props.setData({...props.data, "specialInvestigation.report": e.target.value})} 
                 placeholder='How about the patient?...'
-                />
-            {/* <div className="w-full h-auto pt-2">
-                {formik.touched.note && formik.errors.note && (
-                    <motion.p
-                        initial={{ y: -100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                    >
-                        {formik.errors.note}
-                    </motion.p>
-                )}
-            </div> */}
-            <div className='w-full flex mt-12 justify-end' >
+                /> 
+            <div className='w-full flex mt-12 items-center justify-end' >
                  
-            <button  className='w-44 rounded-full py-2 mr-6 text-sm bg-[#7123E214] text-[#7123E2] font-Ubuntu-Medium' >Cancel</button>
-                {/* {loading ?
-                    <button className='w-44 flex justify-center items-center rounded-full h-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >
-                        <div className='flex mx-auto items-center ' >
-                            <LoaderIcon size='w-6 h-6 mr-1 animate-spin ' /> 
-                            Loading
-                        </div> 
-                    </button>: */}
-                    <button onClick={()=> props.next(4)} className='w-44 rounded-full h-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >Add to Patient File</button>
+                <button onClick={()=> props.next(3)}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm rounded-full' >Back</button>
+                 
+                    <button onClick={()=> props.next(4)} className='w-44 rounded-full h-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >Next</button>
                 {/* } */}
             </div> 
         </div>

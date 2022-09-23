@@ -10,13 +10,13 @@ import Microscopic from '../laboratoryComponent/Microscopic'
 import Serologist from '../laboratoryComponent/Serologist'
 import UrineAnalysis from '../laboratoryComponent/UrineAnalysis'
 import LoaderIcon from '../LoaderIcon'
+import AnteNatalNotes from '../nurseComponent/AnteNatalNotes'
 import DeliveryRecord from '../nurseComponent/DeliveryRecord'
 import DeliveryRecordTab from '../nurseComponent/DeliveryRecordComponent/DeliveryRecordTab'
 import MedicationSheet from '../nurseComponent/MedicationSheet'
 import OberservationChartList from '../nurseComponent/MedicationSheetComponent/OberservationChartList'
 import ObservationChart from '../nurseComponent/ObservationChart'
-import OIChart from '../nurseComponent/OIChart'
-import AnteNatalNotes from './managePatientComponent/AnteNatalNotes'
+import OIChart from '../nurseComponent/OIChart' 
 // import ContinutionSheet from './managePatientComponent/ContinutionSheet' 
 // import DeliveryRecord from './managePatientComponent/DeliveryRecord'
 // import DeliveryRecord from './managePatientComponent/DeliveryRecord'
@@ -143,8 +143,8 @@ export default function PatientFile() {
                                                         <OIChart /> 
                                                             :tab === 9 ?
                                                                 <DeliveryRecord />
-                                                                    // :tab === 6 ?
-                                                                    //     <AnteNatalNotes />
+                                                                    :tab === 6 ?
+                                                                        <AnteNatalNotes />
                                                                             :tab === 7 ?
                                                                                 <Request />
                                                                                 :tab === 10 ?
