@@ -3,8 +3,8 @@ import React from 'react'
 import { useQuery } from 'react-query';
 import { io } from 'socket.io-client'; 
 import staff from "../assets/images/user.png"
-import GetMessage from './chat/GetMessage';
-import Navbar from './Navbar'
+import GetMessage from './chat/GetMessage'; 
+import NavbarAdmin from './NavbarAdmin';
 
 export default function Chat() {
 
@@ -62,7 +62,7 @@ export default function Chat() {
         <div className=' w-full h-screen flex justify-center ' >
             <div  className=' h-screen w-full flex flex-col ' > 
                 <div style={{boxShadow: "0px 0px 5px 0px #00000033"}}  className='w-full flex justify-center inset-x-0 absolute z-20 ' > 
-                     <Navbar show={true} tab={2} />
+                     <NavbarAdmin show={true} tab={2} />
                 </div>
                 <div className='w-full h-screen flex ' >
                     <div className=' w-fit overflow-y-auto ' > 
@@ -79,7 +79,7 @@ export default function Chat() {
                                 <Input value={name} onChange={(e)=> setName(e.target.value)} size='lg' paddingLeft="45px" placeholder='Search  names' borderRadius='10px' fontSize='sm' backgroundColor='#FFFFFFCC' border='1px solid #D7D7D7' />
                             </div>
                             <p className=' text-base font-Ubuntu-Medium mt-4 ' >{data.data.length-1} participant</p>
-                            {!isLoading && (  
+                            {!isLoading && ( 
                                 <>
                                     {data.data.filter((item:any) => item._id !== userData._id).map((item: any) => {
                                         if(((item?.firstName+" "+item?.lastName).toLocaleLowerCase())?.includes(name.toLocaleLowerCase())){

@@ -17,7 +17,7 @@ export default function NurseTab() {
     return (
         <div className='w-full h-screen flex flex-col pb-12 relative' >
             <div className='w-full' >
-                <Navbar />
+                <Navbar show={true} tab={1} />
             </div> 
             {/* {userData.role !== 'nurse' && ( 
                 <>

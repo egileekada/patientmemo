@@ -1,6 +1,6 @@
 import React from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
-import Navbar from '../components/Navbar'
+import { Outlet, useNavigate } from 'react-router-dom' 
+import NavbarAdmin from '../components/NavbarAdmin'
 import SideBar from '../components/SideBar'
 
 export default function Dashboard() {
@@ -19,7 +19,7 @@ export default function Dashboard() {
             </div>
             <div className='w-full h-full flex flex-col overflow-y-auto ' > 
                 <div className='w-full' >
-                    <Navbar />
+                    <NavbarAdmin />
                 </div> 
                 <Outlet /> 
             </div>

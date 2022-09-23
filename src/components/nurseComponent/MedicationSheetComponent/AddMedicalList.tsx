@@ -76,10 +76,8 @@ export default function AddMedicalList(props: any) {
                         navigate('/dashboard/nurse')
                         clearTimeout(t1);
                     }, 3000); 
-                }else {
-                    // alert(json.error.message);
-                    console.log(json)
-                    setMessage(json.error.message)
+                }else { 
+                    setMessage(json.message)
                     setModal(2)           
                     const t1 = setTimeout(() => {  
                         setModal(0)       

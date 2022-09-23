@@ -16,15 +16,15 @@ export default function Navbar(props: any) {
             <img style={{width: '150px'}} className='' alt='logo' src={Logo} />
                 {props.show &&( 
                     <div className=' absolute w-full flex justify-center ' >  
-                        <div onClick={()=> navigate("/dashboard/findpatient")} className={props.tab === 1 ? 'flex  pt-6 pb-2 w-16 justify-center  cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex  pt-6 pb-2 w-16 justify-center  cursor-pointer mx-2 border-b-2 border-transparent '} > 
-                            <p className={props.tab === 1 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Patient</p>
-                        </div>    
-                        <div onClick={()=> [navigate("/chat"), ]} className={props.tab === 2 ? 'flex  pt-6 pb-2 w-16 justify-center cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex  pt-6  pb-2 w-16 justify-center cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                            <div onClick={()=> navigate("/dashboard")} className={props.tab === 1 ? 'flex  pt-6 pb-2 w-16 justify-center  cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex  pt-6 pb-2 w-16 justify-center  cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                                <p className={props.tab === 1 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Patient</p>
+                            </div>  
+                        <div onClick={()=> [navigate("/admin-chat"), ]} className={props.tab === 2 ? 'flex  pt-6 pb-2 w-16 justify-center cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex  pt-6  pb-2 w-16 justify-center cursor-pointer mx-2 border-b-2 border-transparent '} > 
                             <p className={props.tab === 2 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Chat</p>
                         </div>  
                     </div>
                 )}
-            <button onClick={()=> navigate("/chat")} className=' ml-auto w-9 h-9 flex justify-center items-center rounded-full bg-[#50505030] ' > 
+            <button onClick={()=> navigate("/admin-chat")} className=' ml-auto w-9 h-9 flex justify-center items-center rounded-full bg-[#50505030] ' > 
                 <img className='w-6 h-6  rounded-full object-cover' src={Bell} alt='avatar'  />
             </button>
             <div onClick={()=> navigate('/dashboard/profile')} className='flex items-center cursor-pointer ml-8' > 
