@@ -102,14 +102,14 @@ export default function ViewUserInfo(props: any) {
     }
 
     return (
-        <div className=' h-full w-full flex flex-col items-center justify-center ' >   
+        <div className=' h-full w-full flex flex-col items-center px-4 justify-center ' >   
             <Modal message={message} modal={modal} />
-            <div className=' w-[1011px] mt-24 flex flex-col  ' >
+            <div className=' w-[800px] mt-24 flex flex-col  ' >
                 <button onClick={()=> LogOut()} className='font-Ubuntu-Bold text-sm bg-[#7123E2] text-white rounded-lg h-12 px-6 ml-auto w-44 ' >Log Out</button>
                 <div className=' border-2 border-[#EAEAEA] w-full py-14 px-16 mt-4 rounded-lg ' >
-                    <div className=' w-full flex ' >
-                        <div className=' w-fit flex flex-col ' >
-                            <div className=' w-40 ' >
+                    <div className=' w-full flex flex-col ' >
+                        <div className=' w-full flex flex-col mb-14 ' >
+                            <div className=' w-40 mx-auto ' >
                                 {!image && (
                                     <img className='w-40 h-40 rounded-full object-cover' src={userData.avatar ? userData.avatar : Avater } alt=""/> 
                                 )} 

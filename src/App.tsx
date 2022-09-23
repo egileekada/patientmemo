@@ -40,6 +40,7 @@ import ExpiredDrugs from './components/pharmacyComponent/ExpiredDrugs';
 import DispenseHistory from './components/pharmacyComponent/DispenseHistory';
 import StockHistory from './components/pharmacyComponent/StockHistory';
 import ChatAdmin from './components/ChatAdmin';
+import ProfileTabAdmin from './Tabs/ProfileTabAdmin';
  
 const queryClient = new QueryClient()
 
@@ -79,6 +80,7 @@ function App() {
               {/* <Route path='/dashboard/managescan' element={<ManageScan />} /> */}
               <Route path='/dashboard/manageuser' element={<AddNewUser />} />
               <Route path='/dashboard/managepatient' element={<ManagePatient />} />
+              <Route path='/dashboard/adminprofile' element={<ProfileTabAdmin />} />
               <Route path='/dashboard/patientfile' element={<PatientFile />} />
             </Route>  
               <Route path='/dashboard/pharmacy' element={<PharmacyTab />} />
