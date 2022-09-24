@@ -15,30 +15,30 @@ export default function PatientInfo(props: any) {
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0);
     const [patientData, setPatientData] = React.useState({
-        "title": "Mr",
-        "firstName": "john",
-        "lastName": "doe",
+        "title": "",
+        "firstName": "",
+        "lastName": "",
         "otherNames": "",
-        "phone": "+2348141894432",
-        "address": "Nigeria",
-        "age": "30",
-        "gender": "male",
-        "stateOfOrigin": "delta",
-        "LGA": "ika",
-        "occupation": "developer",
-        "religion": "chritianity",
+        "phone": "",
+        "address": "",
+        "age": "",
+        "gender": "",
+        "stateOfOrigin": "",
+        "LGA": "",
+        "occupation": "",
+        "religion": "",
         "height": "",
         "parity": "",
         "noOfChildren": "",
-        "nextOfKin.title": "mr",
-        "nextOfKin.firstName": "mimi",
-        "nextOfKin.lastName": "mimi",
+        "nextOfKin.title": "",
+        "nextOfKin.firstName": "",
+        "nextOfKin.lastName": "",
         "nextOfKin.otherNames": "",
-        "nextOfKin.relationship": "me",
-        "nextOfKin.phone": "+2348191892342",
-        "nextOfKin.age": "16",
-        "nextOfKin.gender": "16",
-        "nextOfKin.LGA": "obio"
+        "nextOfKin.relationship": "",
+        "nextOfKin.address": "",
+        "nextOfKin.phone": "",
+        "nextOfKin.age": "",
+        "nextOfKin.gender": "", 
       })
     const [state, setState] = React.useState([] as any) 
     const [cities, setCities] = React.useState([] as any) 
@@ -228,12 +228,12 @@ export default function PatientInfo(props: any) {
             </div> 
             <p className='text-lg font-Ubuntu-Bold mt-8' >Next of Kin’s Information</p>
             <div className='w-full flex mt-4' >
-                <div className='mr-2 w-full' >
+                {/* <div className='mr-2 w-full' >
                     <p className='text-sm mb-2' >Title</p>
                     <Input 
                         onChange={(e)=> setPatientData({...patientData, "nextOfKin.title": e.target.value})}    
                         fontSize='sm' placeholder='Enter Title' />
-                </div>
+                </div> */}
                 <div className='mr-2 w-full' >
                     <p className='text-sm mb-2' >First Name</p>
                     <Input 
@@ -288,14 +288,14 @@ export default function PatientInfo(props: any) {
                 <div className='mr-2 w-full' >
                     <p className='text-sm mb-2' >Address</p>
                     <Input 
-                        onChange={(e)=> setPatientData({...patientData, "nextOfKin.gender": e.target.value})}    
+                        onChange={(e)=> setPatientData({...patientData, "nextOfKin.address": e.target.value})}    
                         fontSize='sm' placeholder='Home Address' />
                 </div>  
-                <div className=' w-full mr-2' >
+                {/* <div className=' w-full mr-2' >
                     <p className='text-sm mb-2' >Local Governmet Area</p>
                     <Input onChange={(e)=> setPatientData({...patientData, "nextOfKin.LGA": e.target.value})}                         
                         fontSize='sm' placeholder='Enter LGA' /> 
-                </div>
+                </div> */}
             </div>
             <div className='w-full flex mt-4' >
                 <button onClick={()=> navigate('/dashboard')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button>

@@ -17,20 +17,20 @@ export default function NextOfKinInfo(props: any) {
     console.log('next '+props.patient)
     
     const loginSchema = yup.object({ 
-        firstName: yup.string().required('Required'),
-        // otherNames: yup.string().required('Required'),
-        lastName: yup.string().required('Required'),
-        gender: yup.string().required('Required'),
-        address: yup.string().required('Required'),
-        age: yup.number().required('Required'),
-        phone: yup.string().required('Required'), 
-        relationship: yup.string().required('Required'), 
+        // firstName: yup.string().required('Required'),
+        // // otherNames: yup.string().required('Required'),
+        // lastName: yup.string().required('Required'),
+        // gender: yup.string().required('Required'),
+        // address: yup.string().required('Required'),
+        // age: yup.number().required('Required'),
+        // phone: yup.string().required('Required'), 
+        // relationship: yup.string().required('Required'), 
     }) 
  
     // formik
     const formik = useFormik({
         initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', relationship: ''},
-        validationSchema: loginSchema,
+        // validationSchema: loginSchema,
         onSubmit: () => {},
     });      
 
