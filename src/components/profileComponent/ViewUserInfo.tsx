@@ -20,11 +20,12 @@ export default function ViewUserInfo(props: any) {
 
     const [image, SetImage] = React.useState('');   
 
-    // console.log(userData)
+    console.log(userData)
 
     React.useEffect(() => {
         formik.setValues({
-            fullName : userData.fullName,
+            firstName : userData.firstName,
+            lastName : userData.lastName,
             title : userData.title,
             email : userData.email, 
         })
@@ -49,7 +50,7 @@ export default function ViewUserInfo(props: any) {
     }  
     // formik
     const formik = useFormik({
-        initialValues: {fullName: '', title: '',email: ''},
+        initialValues: {firstName: '', lastName: '',title: '',email: ''},
         // validationSchema: loginSchema,
         onSubmit: () => {},
     });     
@@ -69,7 +70,8 @@ export default function ViewUserInfo(props: any) {
             
                 let formData = new FormData()  
 
-                formData.append('fullName', formik.values.fullName)
+                formData.append('lastName', formik.values.lastName)
+                formData.append('firstName', formik.values.firstName)
                 formData.append('title', formik.values.title)  
                 {image !== '' && (
                     formData.append('image', item)    
@@ -126,24 +128,47 @@ export default function ViewUserInfo(props: any) {
                         </div>
                         <div className='grid grid-cols-2 gap-4 pl-8 w-full font-Ubuntu-Medium' >
                             <div className='w-full' > 
-                                <p className=' font-Ubuntu-Medium text-sm mb-2' >Full Name</p>
+                                <p className=' font-Ubuntu-Medium text-sm mb-2' >FirstName</p>
                                 <Input 
-                                    name="fullName"
+                                    name="firstName"
                                     onChange={formik.handleChange}
                                     // disabled
                                     onFocus={() =>
-                                        formik.setFieldTouched("fullName", true, true)
+                                        formik.setFieldTouched("firstName", true, true)
                                     }  
-                                    border='1px solid #7123E2' fontSize='sm' placeholder={userData.fullName} backgroundColor='#F4F4F4' size='lg'  />
+                                    border='1px solid #7123E2' fontSize='sm' placeholder={userData.firstName} backgroundColor='#F4F4F4' size='lg'  />
                             
                                 <div className="w-full h-auto pt-2">
-                                    {formik.touched.fullName && formik.errors.fullName && (
+                                    {formik.touched.firstName && formik.errors.firstName && (
                                         <motion.p
                                             initial={{ y: -100, opacity: 0 }}
                                             animate={{ y: 0, opacity: 1 }}
                                             className="text-xs font-Ubuntu-Medium text-[#ff0000]"
                                         >
-                                            {formik.errors.fullName}
+                                            {formik.errors.firstName}
+                                        </motion.p>
+                                    )}
+                                </div> 
+                            </div>
+                            <div className='w-full' > 
+                                <p className=' font-Ubuntu-Medium text-sm mb-2' >LastName</p>
+                                <Input 
+                                    name="lastName"
+                                    onChange={formik.handleChange}
+                                    // disabled
+                                    onFocus={() =>
+                                        formik.setFieldTouched("lastName", true, true)
+                                    }  
+                                    border='1px solid #7123E2' fontSize='sm' placeholder={userData.lastName} backgroundColor='#F4F4F4' size='lg'  />
+                            
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.lastName && formik.errors.lastName && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.lastName}
                                         </motion.p>
                                     )}
                                 </div> 

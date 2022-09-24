@@ -2,7 +2,7 @@ import { Input } from '@chakra-ui/react';
 import React from 'react'
 import { useNavigate } from 'react-router';
 import SideImage from '../assets/images/SideImage.png'
-import Logo from '../assets/images/patientMemologo.png'
+import Logo from '../assets/images/whitelogo.png'
 
 export default function ResetPassword() {
 

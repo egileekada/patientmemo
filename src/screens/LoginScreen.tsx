@@ -2,7 +2,7 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import SideImage from '../assets/images/SideImage.png'
-import Logo from '../assets/images/patientMemologo.png'
+import Logo from '../assets/images/whitelogo.png'
 import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik'; 
