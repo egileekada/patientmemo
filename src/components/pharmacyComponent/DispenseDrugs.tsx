@@ -18,7 +18,7 @@ export default function DispenseDrugs() {
     const navigate = useNavigate()   
     const [showModal, setShowModal] = React.useState(false) 
     const [loading, setLoading] = React.useState(false);
-    const [requestId, setRequestID] = React.useState(0)
+    const [requestId, setRequestID] = React.useState(-1)
     const [medicineID, setMedicineID] = React.useState('')
     const [dataValue, setDataValue] = React.useState({} as any)
     const [message, setMessage] = React.useState('');
@@ -89,7 +89,7 @@ export default function DispenseDrugs() {
             return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/drugs/dispense/${dataValue?._id}`, {
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/drugs/dispense/${medicineID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -110,6 +110,7 @@ export default function DispenseDrugs() {
                 const t1 = setTimeout(() => {  
                     setModal(0)   
                     setShowModal(false)
+                    navigate(0)
                     setLoading(false)  
                     clearTimeout(t1);
                 }, 3000); 

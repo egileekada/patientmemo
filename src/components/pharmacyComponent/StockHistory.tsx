@@ -31,7 +31,7 @@ export default function StockHistory() {
         setRequestID(index)
         setDataValue(item)
         setLoading(true)
-        fetch(`https://hospital-memo-api.herokuapp.com//pharmacy/stock-history/${item._id}`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/stock-history/${item._id}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -40,15 +40,16 @@ export default function StockHistory() {
         })
         .then(response => response.json())
         .then(data => {    
-            if(data.data.length === 0 ){ 
-                setDataItem([] as any)
-            } else {
-                data.data.map((item: any, index: any) => {
-                    dataItem.splice(index, 1, item);
-                })
-            }
+            // if(data.data.length === 0 ){ 
+            //     setDataItem([] as any)
+            // } else {
+            //     data.data.map((item: any, index: any) => {
+            //         dataItem.splice(index, 1, item);
+            //     })
+            // }
 
         console.log(data)
+        // console.log(data)
             setLoading(false)
         })
         .catch((error) => {
