@@ -30,7 +30,7 @@ export default function ProfileTab() {
 
     return (
         <div className='w-full h-full flex flex-col' >
-            <Navbar  show={true} tab={1} /> 
+            <Navbar  show={true} tab={3} /> 
             <div className='w-full h-full ' >
                 {tab === 0 ?  
                     <ViewUserInfo close={setTab} /> 

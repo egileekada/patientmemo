@@ -1,4 +1,5 @@
 import React from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
 import DeliveryRecordTab from './DeliveryRecordComponent/DeliveryRecordTab'
@@ -7,7 +8,19 @@ import SummaryOfRecords from './DeliveryRecordComponent/SummaryOfRecords'
 export default function DeliveryRecord() {
 
     const [tab, setTab] = React.useState(1)
-    const [data, setData] = React.useState({} as any)
+    // 633645492cd8adeb91a31e31
+    const { isLoading, data } = useQuery('patientdata', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    ) 
+
     const navigate = useNavigate()
 
     const ClickHandler =()=> {
@@ -58,7 +71,7 @@ export default function DeliveryRecord() {
             </div> 
             <div className='w-full justify-center flex relative' >
                 {tab === 0 ? 
-                    <FindPatient header='Patient Delivery Record' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.' next={setTab} value={setData} />
+                    <FindPatient header='Patient Delivery Record' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.' next={setTab} />
                     :tab === 1 ? 
                         <DeliveryRecordTab data={data} />
                         :tab === 2 ? 

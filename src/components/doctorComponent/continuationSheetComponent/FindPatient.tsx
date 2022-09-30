@@ -70,7 +70,7 @@ export default function FindPatient(props: any) {
                     Find Patient
                     </button> */}
                     {name && (
-                        <div style={{boxShadow: '0px 16px 24px 0px #60617029'}} className='absolute top-10 bg-white w-full h-48 overflow-y-auto' >
+                        <div style={{boxShadow: '0px 16px 24px 0px #60617029'}} className='absolute top-10 bg-white w-full max-h-48 overflow-y-auto' >
                             <SearchBar open={ClickHandler} name={name} />
                         </div>
                     )}

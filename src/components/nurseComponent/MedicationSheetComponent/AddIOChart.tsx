@@ -151,7 +151,7 @@ export default function AddIOChart(props: any) {
                         onFocus={() =>
                             formik.setFieldTouched("amount", true, true)
                         }  
-                        type='number'
+                        type="number"
                         fontSize='sm' placeholder='0' />
                     <div className="w-full h-auto pt-2">
                         {formik.touched.amount && formik.errors.amount && (

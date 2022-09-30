@@ -91,7 +91,7 @@ export default function ModifyDrugs(props: any) {
     }
 
     return (
-        <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C'}} className=' w-500px font-Ubuntu-Regular absolute h-auto px-8 rounded-lg py-8 -top-8 border border-[#E0E0E0] z-50 bg-white right-auto mx-auto left-auto  ' >  
+        <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C'}} className=' w-500px font-Ubuntu-Regular absolute h-fit px-8  my-auto rounded-lg py-8 border border-[#E0E0E0] z-50 bg-white  ' >  
             <Modal message={message} modal={modal} />
             <div className='flex items-center' >
                 <p className='font-Ubuntu-Medium text-lg ' >Modification on {props.value.name}</p>

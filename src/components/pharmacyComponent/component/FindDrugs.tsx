@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 export default function FindDrugs(props: any) { 
 
     const { isLoading, data } = useQuery('Alldrugs', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/drugs`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/get-all-drugs`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -22,17 +22,17 @@ export default function FindDrugs(props: any) {
     }
 
     return (
-        <div className=' w-full mr-2 mt-3' >
-            <p className='text-xs mb-2 font-Ubuntu-Medium' >Medicine Name</p>
-            <Select onChange={(e)=> OnchangeHandler(e.target.value)}  fontSize='sm'  placeholder='Medicine Name'> 
+        <div className=' w-full font-Ubuntu-Medium mr-2 mt-3' >
+            <p className=' mb-2 font-Ubuntu-Medium' >Medicine Name</p>
+            <Select onChange={(e)=> OnchangeHandler(e.target.value)}   fontSize='sm'  placeholder='Medicine Name'> 
                 {!isLoading && (
                     <>
-                        {data.map((item: any, index: any)=> {
-                                if(item.category){
+                        {data?.data?.map((item: any, index: any)=> {
+                                // if(item.category){
                                     return(
                                         <option key={index} value={item._id} >{item.name}</option>
                                     )
-                                } 
+                                // } 
                         })}
                     </>
                 )}

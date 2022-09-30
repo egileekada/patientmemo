@@ -9,8 +9,8 @@ import DateFormat from '../DateFormat';
 import LoaderIcon from '../LoaderIcon'
 import { useQuery } from 'react-query'
 import FindDrugs from './component/FindDrugs'
-import Modal from '../Modal'
-import FindPatient from '../dashboardComponent/FindPatient'
+import Modal from '../Modal' 
+import patient from '../../assets/images/patient.jpg' 
 
 export default function DispenseDrugs() {
     
@@ -42,9 +42,9 @@ export default function DispenseDrugs() {
         validationSchema: loginSchema,
         onSubmit: () => {},
     });  
-
-    const { isLoading, data } = useQuery('requestsPharmacy', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/requests`, {
+ 
+    const { isLoading, data } = useQuery('patientdataAll', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/patients`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -53,8 +53,7 @@ export default function DispenseDrugs() {
         }).then(res =>
             res.json()
         )
-    )    
-
+    ) 
     const ClickHandler =(index: any, item: any)=> {
         setRequestID(index)
         setDataValue(item)
@@ -62,10 +61,10 @@ export default function DispenseDrugs() {
 
     React.useEffect(() => {
         if(dataValue.patient !== undefined){
-            formik.setFieldValue('patient', dataValue.patient._id)
+            formik.setFieldValue('patient', dataValue._id)
             formik.setFieldValue('drugId', medicineID)
         }
-    }, [dataValue])   
+    }, [dataValue, medicineID])   
     
     const submit = async () => {  
         console.log(formik.values);
@@ -90,13 +89,15 @@ export default function DispenseDrugs() {
             return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/drugs/dispense`, {
-                method: 'PUT',
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/drugs/dispense/${dataValue?._id}`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify(formik.values),
+                body: JSON.stringify({
+                    patient: dataValue._id,qty: formik.values.qty
+                }),
             });
 
             const data = await request.json();
@@ -139,7 +140,7 @@ export default function DispenseDrugs() {
                         </svg>
                     </div>
                     <div className='ml-3' > 
-                        <p className='font-Ubuntu-Medium text-lg text-white' >Manage Requests (23)</p>
+                        <p className='font-Ubuntu-Medium text-lg text-white' >Dispense Medicine</p>
                         {/* <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >12:00pm, 12, Jun 22</p> */}
                     </div>
 
@@ -176,7 +177,7 @@ export default function DispenseDrugs() {
             </div>
             <div className='w-full h-full flex flex-1 px-16 py-12' >
                 <div style={{ boxShadow: '0px 3px 34px 0px #7123E229'}} className='w-2/5 h-full mr-8  py-8 rounded-lg' >
-                    <p className=' font-Ubuntu-Medium text-lg px-6' >All Request</p>
+                    <p className=' font-Ubuntu-Medium text-lg px-6' >All Patient</p>
 
                     
                     <div className='w-full mx-auto py-4 px-6' >
@@ -189,57 +190,82 @@ export default function DispenseDrugs() {
                                 </svg>
                             }
                             />
-                            <Input onChange={(e)=> setName(e.target.value)} fontSize='xs' placeholder="Search for patient by name, Blood group, location" border='0px' backgroundColor='#F6F7F9'  /> 
+                            <Input onChange={(e)=> setName(e.target.value)} fontSize='xs' placeholder="Search for patient by name" border='0px' backgroundColor='#F6F7F9'  /> 
                         </InputGroup> 
                     </div>
                     {!isLoading && (
                         <> 
-                            {data.map((item: any, index: any)=> {
-                                if(item.kind === 'pharmacy'){ 
-                                    // if(showFile){
-                                    //     if(item.patient._id === patientIndex) { 
-                                    if((item.patient.firstName+' '+item.patient.lastName).toLowerCase().includes(name.toLowerCase()))
-                                        return(
-                                            <div onClick={()=> ClickHandler(index, item)} className={requestId === index ? 'px-6 mb-4 py-4 flex text-white flex-col bg-[#7123E2] cursor-pointer' : ' cursor-pointer px-6 mb-4 py-4 flex flex-col bg-white'} >
-                                                <div className='flex items-center w-full' > 
-                                                    <div className=' w-14 h-14 rounded-full bg-yellow-300' />
-                                                    
-                                                    <div className=' ml-3' > 
-                                                        <p className='font-Ubuntu-Medium' >{item.madeBy.title+' '+item.madeBy.name}</p>
-                                                        <p className='font-Ubuntu-Regular text-sm' >P: {item.patient.firstName+' '+item.patient.lastName}</p>
-                                                    </div>    
+                            {[...data?.data]?.reverse()?.map((item: any, index: any)=> {  
+                                if((item.firstName+' '+item.lastName).toLowerCase().includes(name.toLowerCase())){
+                                    return(
+                                        
+                                        <div onClick={()=> ClickHandler(index, item)} className={requestId === index ? 'px-6 mb-4 py-4 flex text-white flex-col bg-[#7123E2] cursor-pointer' : ' cursor-pointer px-6 mb-4 py-4 flex flex-col bg-white'} >
+                                            <div className='flex items-center w-full' > 
+                                                <div className=' w-14 h-14 rounded-full bg-yellow-300' >
+                                                    <img src={patient} className="w-full h-full object-cover rounded-full" alt='p' />
                                                 </div>
-                                                <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item.updatedAt)}</p>
+                                                <div className=' ml-4' > 
+                                                    <p className='font-Ubuntu-Medium' >{item.firstName+' '+item.lastName}</p>
+                                                    <p className='font-Ubuntu-Regular text-sm' >{item.phone}</p>
+                                                </div>    
                                             </div>
-                                        )  
+                                            <p className='font-Ubuntu-Regular ml-auto text-sm mt-2' >{DateFormat(item?.updatedAt)}</p>
+                                        </div>
+                                    )   
                                 }
                             })}
                         </>
                     )} 
                 </div>
-                {dataValue.patient !== undefined && ( 
-                    <div style={{ boxShadow: '0px 3px 34px 0px #7123E229'}} className=' flex-1 rounded-lg' >
+                {dataValue.firstName !== undefined && ( 
+                    <div style={{ boxShadow: '0px 3px 34px 0px #7123E229'}} className=' flex-1 rounded-lg flex flex-col ' >
                         <div style={{background: 'linear-gradient(169.18deg, #7123E2 -73.89%, #FF8811 234.2%)'}} className='w-full rounded-t-lg px-4 py-8 h-32' >
                             <div className='px-6 mb-4 py-2 flex items-center text-white ' >
                                 <div className='flex items-center w-full' > 
-                                    <div className=' w-14 h-14 rounded-full bg-yellow-300' />
-                                    
+                                    <div className=' w-14 h-14 rounded-full bg-yellow-300' >
+                                        <img src={patient} className="w-full h-full object-cover rounded-full" alt='p' />
+                                    </div>
                                     <div className=' ml-3' > 
-                                        <p className='font-Ubuntu-Medium' >{dataValue.madeBy.title+' '+dataValue.madeBy.name}</p>
-                                        <p className='font-Ubuntu-Regular text-sm' >P: {dataValue.patient.firstName+' '+dataValue.patient.lastName}</p>
+                                        <p className='font-Ubuntu-Medium' >{dataValue?.firstName+' '+dataValue?.lastName}</p>
+                                        <p className='font-Ubuntu-Regular text-sm' >{dataValue.phone}</p>
                                     </div>    
                                 </div>
-                            </div>
+                            </div>  
+                        </div>
+                        <div className=' w-[500px] mx-auto mt-12' > 
+                            <FindDrugs id={setMedicineID} />
+                            <div className=' w-full mr-2 mt-3 font-Ubuntu-Medium' >
+                                <p className='mb-2 font-Ubuntu-Medium' >Quantity</p>
+                                <Input  
+                                    name="qty"
+                                    onChange={formik.handleChange}
+                                    onFocus={() =>
+                                        formik.setFieldTouched("qty", true, true)
+                                    }  
+                                    fontSize='sm' size="lg"  placeholder='Qty'/>
+                                <div className="w-full h-auto pt-2">
+                                    {formik.touched.qty && formik.errors.qty && (
+                                        <motion.p
+                                            initial={{ y: -100, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            className="text-xs font-Ubuntu-Medium text-[#ff0000]"
+                                        >
+                                            {formik.errors.qty}
+                                        </motion.p>
+                                    )}
+                                </div> 
 
-                            <div className="px-6 mt-12 py-2 font-Ubuntu-Medium text-sm" dangerouslySetInnerHTML={{ __html: dataValue.description}}  />
-                            {/* <ul className='px-6 mt-12 py-2 font-Ubuntu-Medium text-sm ' >
-                                <li>Magna egestas. Porttitor ullamcorper</li>
-                                <li>Tempor dictumst vel nunc.</li>
-                                <li>Auctor tellus nisl, metus phasellus porta morbi et.</li>
-                                <li>Erat quis arcu turpis eget et. </li>
-                                <li>Turpis et pharetra at viverra et nunc.</li>
-                                <li>Tortor, sceler</li>
-                            </ul> */}
+                                {loading ?  
+                                    <button className='bg-[#7123E2] h-12 flex justify-center items-center w-full  text-white text-sm mt-6 rounded' >
+                                        <div className='flex items-center ' >
+                                            <LoaderIcon size='w-10 h-10 mr-1 ' /> 
+                                            Loading
+                                        </div> 
+                                    </button>
+                                    :
+                                    <button onClick={submit} className='text-sm font-Ubuntu-Bold h-12 items-center rounded bg-[#7123E2] mt-8 w-full flex justify-center text-white' >Dispense Medicine</button>
+                                }
+                            </div> 
                         </div>
                     </div>
                 )}

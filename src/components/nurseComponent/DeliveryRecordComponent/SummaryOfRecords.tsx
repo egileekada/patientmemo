@@ -4,8 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import LoaderIcon from '../../LoaderIcon'
 import Modal from '../../Modal';
 
-export default function SummaryOfRecords(props: any) {
-    
+import { useQuery } from 'react-query';
+
+export default function SummaryOfRecords(props: any) { 
+
+    const { isLoading, data } = useQuery('deliveryrecord'+localStorage.getItem("patientId"), () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-delivery-record/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false);
     const [message, setMessage] = React.useState('');

@@ -13,7 +13,7 @@ export default function Navbar(props: any) {
 
     return (
         <div className='w-full bg-white px-10 border-b border-[#D7D0DF] flex items-center py-5' > 
-            <img style={{width: '150px'}} className='' alt='logo' src={Logo} />
+            <img onClick={()=> navigate("/dashboard")} style={{width: '150px'}}  className=' cursor-pointer ' alt='logo' src={Logo} />
                 {props.show &&( 
                     <div className=' absolute w-full flex justify-center ' >  
                             <div onClick={()=> navigate("/dashboard")} className={props.tab === 1 ? 'flex  pt-6 pb-2 w-16 justify-center  cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex  pt-6 pb-2 w-16 justify-center  cursor-pointer mx-2 border-b-2 border-transparent '} > 
@@ -27,7 +27,7 @@ export default function Navbar(props: any) {
             <button onClick={()=> navigate("/admin-chat")} className=' ml-auto w-9 h-9 flex justify-center items-center rounded-full bg-[#50505030] ' > 
                 <img className='w-6 h-6  rounded-full object-cover' src={Bell} alt='avatar'  />
             </button>
-            <div onClick={()=> navigate('/dashboard/profile')} className='flex items-center cursor-pointer ml-8' > 
+            <div onClick={()=> navigate('/dashboard/adminprofile')} className='flex items-center cursor-pointer ml-8' > 
                 <div className='w-12 ml-6 h-12 rounded-full' >
                     {userData.avatar && ( 
                         <img className='w-12 h-12 rounded-full object-cover' src={userData.avatar} alt='avatar'  />

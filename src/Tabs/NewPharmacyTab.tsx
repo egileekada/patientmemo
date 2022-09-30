@@ -11,6 +11,7 @@ import { useQuery } from 'react-query'
 import FindPatient from '../components/dashboardComponent/FindPatient';
 import moment from 'moment';
 import ModifyDrugs from '../components/pharmacyComponent/component/ModifyDrugs'
+import Navbar from '../components/Navbar';
 
 export default function PharmacyTab() { 
 
@@ -134,6 +135,7 @@ export default function PharmacyTab() {
     return (
         <div className='w-full h-full relative flex flex-col' > 
             <Modal message={message} modal={modal} />
+            <Navbar show={true} pharm={true} tab={1} />
             <div className='w-full relative px-12 border-b flex items-center border-[#D7D0DF]' >  
                 <p className='font-Ubuntu-Medium  text-lg absolute ' >Manage Pharmacy</p> 
 
@@ -260,8 +262,8 @@ export default function PharmacyTab() {
             </div>
 
             {showModal ? 
-                <div className='w-full h-full flex items-center justify-center' >
-                    <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C'}} className='  font-Ubuntu-Regular absolute mt-56 h-auto px-8 rounded-lg py-8  border border-[#E0E0E0] z-40 bg-white right-auto mx-auto left-auto  ' > 
+                <div className='w-full h-full flex relative items-center justify-center' >
+                    <div style={{ boxShadow: '0px 3px 34px 0px #5F67771C'}} className='  font-Ubuntu-Regular absolute my-auto h-fit px-8 rounded-lg py-8  border border-[#E0E0E0] z-40 bg-white right-auto mx-auto left-auto  ' > 
                         <div className='flex items-center' >
                             <p className='font-Ubuntu-Medium text-lg ' >New Medicine</p>
                             <svg onClick={()=> setShowModal(false)} className='ml-auto cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
@@ -473,7 +475,7 @@ export default function PharmacyTab() {
 
 
             {showModifyModal ? 
-                <div className='w-full flex items-center justify-center' >
+                <div className='w-full h-full flex items-center justify-center' >
                     <ModifyDrugs value={drugInfo} reload={refetch} close={setShowModifyModal} />
                     <div className='fixed flex-1 inset-0 bg-black opacity-25 ' />
                 </div>

@@ -50,8 +50,9 @@ export default function DeliveryRecord(props: any) {
         signature: yup.string().required('Required'),
     })   
  
-    const { isLoading, data } = useQuery('patientdata', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/patients/${localStorage.getItem("patientId")}`, {
+
+    const { isLoading, data } = useQuery('deliveryrecord'+localStorage.getItem("patientId"), () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-delivery-record/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -60,7 +61,7 @@ export default function DeliveryRecord(props: any) {
         }).then(res =>
             res.json()
         )
-    ) 
+    )  
 
     console.log(data);
     
@@ -109,7 +110,50 @@ export default function DeliveryRecord(props: any) {
  
     React.useEffect(()=> {
         formik.setFieldValue("patient", localStorage.getItem('patientId'))
+
     }, [])
+
+
+    React.useEffect(()=> { 
+        if(data?.data?._id){ 
+            formik.setValues({
+                patient: data?.data?.patient._id, 
+                placeOfAdmission: data?.data?.placeOfAdmission,
+                labourWard: data?.data?.labourWard,
+                clinic: data?.data?.clinic,
+                emergencyWard: data?.data?.emergencyWard,
+                pastObstetricHistory: data?.data?.pastObstetricHistory,
+                lmp: data?.data?.lmp,
+                edd: data?.data?.edd,
+                antenatalComplications: data?.data?.antenatalComplications,
+                labourOnset: data?.data?.labourOnset,
+                spontaneous: data?.data?.spontaneous,
+                indiced: data?.data?.indiced,
+                membranesRupturedAt: data?.data?.membranesRupturedAt,
+                generalCondition: data?.data?.generalCondition,
+                vulva: data?.data?.vulva,
+                vagina: data?.data?.vagina,
+                cervix: data?.data?.cervix,
+                wellAppliedToPP: data?.data?.wellAppliedToPP,
+                OS: data?.data?.OS,
+                membranesRuptured: data?.data?.membranesRuptured,
+                LIE: data?.data?.LIE,
+                intact: data?.data?.intact,
+                abdomenFundalHeight: data?.data?.abdomenFundalHeight,
+                position: data?.data?.position,
+                descent: data?.data?.descent,
+                fetalHeartRate: data?.data?.fetalHeartRate,
+                multipleSingletonPresentation: data?.data?.multipleSingletonPresentation,
+                PPAtStation: data?.data?.PPAtStation,
+                IN: data?.data?.IN,
+                caput: data?.data?.caput,
+                moulding: data?.data?.moulding,
+                pelvis: data?.data?.pelvis,
+                forecast: data?.data?.forecast,
+                signature: data?.data?.signature,
+            })
+        }
+    }, [data])
 
     const submit = async () => {  
 
@@ -175,42 +219,43 @@ export default function DeliveryRecord(props: any) {
                 <div className='w-full grid grid-cols-6 gap-4' >
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Surname</p>
-                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{data?.data.lastName}</p>
+                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{props.data?.data.lastName}</p>
                     </div>
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >First Name</p>
-                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{data?.data.firstName}</p>
+                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{props.data?.data.firstName}</p>
                     </div>
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Date/Time</p>
-                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{new Date(data?.data?.updatedAt).toUTCString()}</p>
+                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{new Date(props.data?.data?.updatedAt).toUTCString()}</p>
                     </div>
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Age</p>
-                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{data?.data?.age} yrs</p>
+                        <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' >{props.data?.data?.age} yrs</p>
                     </div>
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Height</p>
-                        <Input className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
-                        {/* <p className='font-Ubuntu-Medium text-[#29313F] text-sm mt-1' >---</p> */}
+                        <Input  className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
+                        {/* valuelassName='font-Ubuntu-Medium text-[#29313F] text-sm mt-1' >---</p> */}
                     </div>
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Parity</p>
-                        <Input className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
-                    </div>
+                        <Input  className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
+                    </div>                    
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >No. of living children</p>
-                        <Input className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
-                    </div>
-                </div>
+                        <Input  className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
+                    </div>               
+                 </div>
             </div>
             <p className='font-Ubuntu-Bold text-xl mt-8' >Others</p>
             <div className='w-full py-8 border-b border-[#E7EDF2]' >
                 <div className='w-full grid grid-cols-4 gap-4' >
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Place of admission</p>
-                        <Input 
-                            name="placeOfAdmission"
+                        <Input  
+                            name='placeOfAdmission'
+                            value={formik.values.placeOfAdmission}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("placeOfAdmission", true, true)
@@ -231,7 +276,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Labour ward</p>
                         <Input 
-                            name="labourWard"
+                            name="labourWard"  
+                            value={formik.values.labourWard}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("labourWard", true, true)
@@ -252,7 +298,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >clinic</p>
                         <Input 
-                            name="clinic"
+                            name="clinic"  
+                            value={formik.values.clinic}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("clinic", true, true)
@@ -273,7 +320,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >emergecy ward</p>
                         <Input 
-                            name="emergencyWard"
+                            name="emergencyWard"  
+                            value={formik.values.emergencyWard}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("emergencyWard", true, true)
@@ -294,7 +342,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >past obstetric history</p>
                         <Input 
-                            name="pastObstetricHistory"
+                            name="pastObstetricHistory"  
+                            value={formik.values.pastObstetricHistory}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("pastObstetricHistory", true, true)
@@ -317,7 +366,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >LMP</p>
                         <Input 
-                            name="lmp"
+                            name="lmp"  
+                            value={formik.values.lmp}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("lmp", true, true)
@@ -338,7 +388,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >EDD</p>
                         <Input 
-                            name="edd"
+                            name="edd"  
+                            value={formik.values.edd}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("edd", true, true)
@@ -359,7 +410,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >antenatal complications</p>
                         <Input 
-                            name="antenatalComplications"
+                            name="antenatalComplications"  
+                            value={formik.values.antenatalComplications}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("antenatalComplications", true, true)
@@ -383,7 +435,8 @@ export default function DeliveryRecord(props: any) {
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >labout onset (Hour)</p>
                         <div className='flex items-center' > 
                             <Input 
-                            name="labourOnset"
+                                name="labourOnset"  
+                            value={formik.values.labourOnset}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("labourOnset", true, true)
@@ -407,7 +460,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Spontaneous</p>
                         <Input 
-                            name="spontaneous"
+                            name="spontaneous"  
+                            value={formik.values.spontaneous}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("spontaneous", true, true)
@@ -428,7 +482,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >INDUCED</p>
                         <Input 
-                            name="indiced"
+                            name="indiced"  
+                            value={formik.values.indiced}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("indiced", true, true)
@@ -450,7 +505,8 @@ export default function DeliveryRecord(props: any) {
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >memebrane ruprtured at </p>
                         <div className='flex items-center' > 
                             <Input 
-                            name="membranesRupturedAt"
+                                name="membranesRupturedAt"  
+                            value={formik.values.membranesRupturedAt}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("membranesRupturedAt", true, true)
@@ -478,7 +534,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >select  condition</p>
                         <Input 
-                            name="generalCondition"
+                            name="generalCondition"  
+                            value={formik.values.generalCondition}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("generalCondition", true, true)
@@ -504,7 +561,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >fundal height</p>
                         <Input 
-                            name="abdomenFundalHeight"
+                            name="abdomenFundalHeight"  
+                            value={formik.values.abdomenFundalHeight}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("abdomenFundalHeight", true, true)
@@ -525,7 +583,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >lie</p>
                         <Input 
-                            name="LIE"
+                            name="LIE"  
+                            value={formik.values.LIE}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("LIE", true, true)
@@ -546,7 +605,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >position</p>
                         <Input 
-                            name="position"
+                            name="position"  
+                            value={formik.values.position}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("position", true, true)
@@ -567,7 +627,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >multiple singleton</p>
                         <Input 
-                            name="multipleSingletonPresentation"
+                            name="multipleSingletonPresentation"  
+                            value={formik.values.multipleSingletonPresentation}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("multipleSingletonPresentation", true, true)
@@ -588,7 +649,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >presentation</p>
                         <Input 
-                            name="position"
+                            name="position"  
+                            value={formik.values.position}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("position", true, true)
@@ -610,7 +672,8 @@ export default function DeliveryRecord(props: any) {
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >descent</p>
                         <div className='flex items-center' > 
                             <Input 
-                            name="descent"
+                                name="descent"  
+                            value={formik.values.descent}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("descent", true, true)
@@ -635,7 +698,8 @@ export default function DeliveryRecord(props: any) {
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >fetal heart rate</p>
                         <div className='flex items-center' > 
                             <Input 
-                            name="fetalHeartRate"
+                                name="fetalHeartRate"  
+                            value={formik.values.fetalHeartRate}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("fetalHeartRate", true, true)
@@ -664,7 +728,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >vulva</p>
                         <Input 
-                            name="vulva"
+                            name="vulva"  
+                            value={formik.values.vulva}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("vulva", true, true)
@@ -685,7 +750,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >vigina</p>
                         <Input 
-                            name="vagina"
+                            name="vagina"  
+                            value={formik.values.vagina}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("vagina", true, true)
@@ -709,7 +775,8 @@ export default function DeliveryRecord(props: any) {
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >cervix</p>
                         <div className='flex items-center' > 
                             <Input 
-                            name="cervix"
+                                name="cervix"  
+                            value={formik.values.cervix}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("cervix", true, true)
@@ -733,7 +800,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Well/loosely applied to PP</p>
                         <Input 
-                            name="wellAppliedToPP"
+                            name="wellAppliedToPP"  
+                            value={formik.values.wellAppliedToPP}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("wellAppliedToPP", true, true)
@@ -755,7 +823,8 @@ export default function DeliveryRecord(props: any) {
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Os</p>
                         <div className='flex items-center' > 
                             <Input 
-                            name="OS"
+                                name="OS"  
+                            value={formik.values.OS}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("OS", true, true)
@@ -779,7 +848,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Membranes Ruptured</p>
                         <Input 
-                            name="membranesRuptured"
+                            name="membranesRuptured"  
+                            value={formik.values.membranesRuptured}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("membranesRuptured", true, true)
@@ -800,7 +870,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Intact</p>
                         <Input 
-                            name="intact"
+                            name="intact"  
+                            value={formik.values.intact}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("intact", true, true)
@@ -821,7 +892,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >P.P at station</p>
                         <Input 
-                            name="PPAtStation"
+                            name="PPAtStation"  
+                            value={formik.values.PPAtStation}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("PPAtStation", true, true)
@@ -843,7 +915,8 @@ export default function DeliveryRecord(props: any) {
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >in </p>
                         <div className='flex items-center' > 
                             <Input 
-                            name="IN"
+                                name="IN"  
+                            value={formik.values.IN}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("IN", true, true)
@@ -869,7 +942,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >CAPUT</p>
                         <Input 
-                            name="caput"
+                            name="caput"  
+                            value={formik.values.caput}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("caput", true, true)
@@ -890,7 +964,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Moulding</p>
                         <Input 
-                            name="moulding"
+                            name="moulding"  
+                            value={formik.values.moulding}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("moulding", true, true)
@@ -911,7 +986,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >PELVIS</p>
                         <Input 
-                            name="pelvis"
+                            name="pelvis"  
+                            value={formik.values.pelvis}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("pelvis", true, true)
@@ -932,7 +1008,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >FORECAST</p>
                         <Input 
-                            name="forecast"
+                            name="forecast"  
+                            value={formik.values.forecast}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("forecast", true, true)
@@ -953,7 +1030,8 @@ export default function DeliveryRecord(props: any) {
                     <div className='w-full' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Signature</p>
                         <Input 
-                            name="signature"
+                            name="signature"  
+                            value={formik.values.signature}
                             onChange={formik.handleChange}
                             onFocus={() =>
                                 formik.setFieldTouched("signature", true, true)

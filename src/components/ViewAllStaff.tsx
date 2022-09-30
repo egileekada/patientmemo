@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query';
-import staff from "../assets/images/staff.png"
+import staff from "../assets/images/doctor2.jpg"
 
 export default function ViewAllStaff() {
 
@@ -28,7 +28,7 @@ export default function ViewAllStaff() {
                                     <div style={{boxShadow:"0px 0px 5px 2px #00000026"}} className=' w-32 relative  mr-4 rounded-xl ' > 
                                         <img className=' w-full h-44 rounded-xl object-cover ' src={item.avatar ? item.avatar : staff}  />
                                         <div style={{background: "linear-gradient(360deg, #5E15C9 15.91%, rgba(18, 18, 18, 0) 100%)"}} className=' w-full flex text-white absolute z-20 rounded-b-xl -mt-8 flex-col items-center bottom-0 ' >
-                                            <p className='font-Ubuntu-Bold text-xs' >{item?.title+" "+item?.fullName ? item?.fullName : (item?.firstName+" "+item?.lastName)}</p>
+                                            <p className='font-Ubuntu-Bold text-xs' >{item?.fullName ? item?.title+" "+item?.fullName : (item?.firstName+" "+item?.lastName)}</p>
                                             <p className='font-Ubuntu-Regular text-xs'>{item?.role}</p>
                                         </div>
                                     </div> 

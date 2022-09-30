@@ -94,7 +94,7 @@ export default function StockHistory() {
                         </div>
                             {!isLoading && (
                                 <>
-                                    {[...data].reverse().filter((item: any)=> item.category).map((item: any, index: any)=> { 
+                                    {data?.data?.reverse().filter((item: any)=> item.category).map((item: any, index: any)=> { 
                                         let expired = new Date(item.expiryDate)
                                         let diff = new Date().getTime() - expired.getTime()
                                         if(diff < 0){

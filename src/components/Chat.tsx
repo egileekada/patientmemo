@@ -3,6 +3,7 @@ import React from 'react'
 import { useQuery } from 'react-query';
 import { io } from 'socket.io-client'; 
 import staff from "../assets/images/user.png"
+import chat from "../assets/images/Chat.png"
 import GetMessage from './chat/GetMessage';
 import Navbar from './Navbar'
 
@@ -54,6 +55,9 @@ export default function Chat() {
         console.log("click")
     }
 
+    console.log(data);
+    
+
   return (
     <div className='w-full h-screen' >  
         {/* <div className="  w-full h-16 lg:h-28 " > 
@@ -78,10 +82,10 @@ export default function Chat() {
                                 </div>
                                 <Input value={name} onChange={(e)=> setName(e.target.value)} size='lg' paddingLeft="45px" placeholder='Search  names' borderRadius='10px' fontSize='sm' backgroundColor='#FFFFFFCC' border='1px solid #D7D7D7' />
                             </div>
-                            <p className=' text-base font-Ubuntu-Medium mt-4 ' >{data.data.length-1} participant</p>
+                            <p className=' text-base font-Ubuntu-Medium mt-4 ' >{data?.data?.length-1} participant</p>
                             {!isLoading && (  
                                 <>
-                                    {data.data.filter((item:any) => item._id !== userData._id).map((item: any) => {
+                                    {data?.data?.filter((item:any) => item._id !== userData._id).map((item: any) => {
                                         if(((item?.firstName+" "+item?.lastName).toLocaleLowerCase())?.includes(name.toLocaleLowerCase())){
                                             return(  
                                                 <button onClick={()=> CLickHandler(item)} style={{boxShadow: "0px 4px 10px 0px #6C6C6C26"}} className=' my-3 p-4 mt-4 rounded-md flex items-center '  >
@@ -151,6 +155,13 @@ export default function Chat() {
                                     {/* <Input backgroundColor="#fff"   placeholder='Message' />
                                     <button className=' w-32 text-white ml-2 rounded-md font-Mulish-SemiBold bg-[#2eb1f7] ' >Send</button> */}
                                 </div>
+                            </div>
+                        </div>
+                    )}
+                    {!showModal && ( 
+                        <div  className=' flex flex-col h-screen flex-1 p-6 bg-[#FFFFFF] border-l  ' >
+                            <div style={{boxShadow: "0px 0px 4px 0px #00000040"}} className=' w-full relative h-screen mt-24 flex justify-center items-center rounded-xl  ' >
+                                <img src={chat} alt="" />
                             </div>
                         </div>
                     )}
