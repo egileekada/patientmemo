@@ -5,7 +5,8 @@ import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import { useNavigate } from 'react-router-dom';
 import LoaderIcon from '../LoaderIcon';
-import Modal from '../Modal';
+import Modal from '../Modal'; 
+import { useQuery } from 'react-query';
 
 export default function UrineAnalysis() {
 
@@ -65,6 +66,40 @@ export default function UrineAnalysis() {
         setLoading(false);
     }    
 
+    
+    const { isLoading, data } = useQuery('Lab'+localStorage.getItem("patientId"), () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/lab-results/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
+    React.useEffect(()=> { 
+        if(data?.data?.MBRF){ 
+            setPatientData({ 
+                "UAT.date": data?.data?.UAT.date,
+                "UAT.sample": data?.data?.UAT.sample,
+                "UAT.PH": data?.data?.UAT.PH,
+                "UAT.specificGravity": data?.data?.UAT.specificGravity,
+                "UAT.protein": data?.data?.UAT.protein,
+                "UAT.glucose": data?.data?.UAT.glucose,
+                "UAT.blood": data?.data?.UAT.blood,
+                "UAT.bilirubin": data?.data?.UAT.bilirubin,
+                "UAT.urobilinosen": data?.data?.UAT.urobilinosen,
+                "UAT.ketone": data?.data?.UAT.ketone,
+                "UAT.nitrite": data?.data?.UAT.nitrite,
+                "UAT.leucocytes": data?.data?.UAT.leucocytes })
+        }
+    }, [data])
+
+    console.log(data?.data.UAT);
+    
+    
     return (
         <div className=' w-full flex justify-center my-10 ' >
             <Modal message={message} modal={modal} />
@@ -73,14 +108,14 @@ export default function UrineAnalysis() {
                 <div className=' w-full flex items-center ' >
                     <div className='w-full mx-2' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Date</p>
-                        <Input 
+                        <Input value={patientData['UAT.date']} 
                             type="date" 
                             onChange={(e)=> setPatientData({...patientData, "UAT.date": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' /> 
                     </div>
                     <div className='w-full mx-2' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Sample</p>
-                        <Input 
+                        <Input value={patientData['UAT.sample']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.sample": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
@@ -100,7 +135,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >PH</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['UAT.PH']}  
                             onChange={(e)=> setPatientData({...patientData, "UAT.PH": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                         
@@ -111,7 +146,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Specific Gravity</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['UAT.specificGravity']}  
                             onChange={(e)=> setPatientData({...patientData, "UAT.specificGravity": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                         
@@ -122,7 +157,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Protein</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.protein']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.protein": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
@@ -134,7 +169,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Glucose</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.glucose']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.glucose": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
@@ -146,7 +181,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Blood</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.blood']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.blood": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
@@ -158,7 +193,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Bilirubin</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.bilirubin']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.bilirubin": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
@@ -170,7 +205,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Urobilinosen</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.urobilinosen']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.urobilinosen": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
@@ -182,7 +217,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Ketone</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.ketone']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.ketone": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
@@ -194,7 +229,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Nitrite</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.nitrite']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.nitrite": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
@@ -206,7 +241,7 @@ export default function UrineAnalysis() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Leucocytes</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input 
+                        <Input value={patientData['UAT.leucocytes']} 
                             
                             onChange={(e)=> setPatientData({...patientData, "UAT.leucocytes": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />

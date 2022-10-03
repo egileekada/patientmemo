@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import LoaderIcon from '../LoaderIcon';
 import Modal from '../Modal';
+import { useQuery } from 'react-query';
 
 export default function Microbiology() {
 
@@ -69,7 +70,43 @@ export default function Microbiology() {
     }    
 
 
+
     console.log(patientData['MBRF.sample']);
+    
+    const { isLoading, data } = useQuery('Lab'+localStorage.getItem("patientId"), () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/lab-results/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
+    React.useEffect(()=> { 
+        if(data?.data?.MBRF){ 
+            setPatientData({ 
+                "MBRF.sample": data?.data?.MBRF?.sample,
+                "MBRF.testRequest": data?.data?.MBRF?.testRequest,
+                "MBRF.malariaParasite": data?.data?.MBRF?.malariaParasite,
+                "MBRF.WST.STyphiiD.O": data?.data?.MBRF?.WST?.STyphiiD.O,
+                "MBRF.WST.STyphiiD.A": data?.data?.MBRF?.WST.STyphiiD.A,
+                "MBRF.WST.SParatyphiA.O": data?.data?.MBRF?.WST.SParatyphiA.O,
+                "MBRF.WST.SParatyphiA.A": data?.data?.MBRF?.WST.SParatyphiA.A,
+                "MBRF.WST.SParatyphiB.O": data?.data?.MBRF?.WST.SParatyphiB.O,
+                "MBRF.WST.SParatyphiB.A": data?.data?.MBRF?.WST.SParatyphiB.A,
+                "MBRF.WST.SParatyphiC.O": data?.data?.MBRF?.WST.SParatyphiC.O,
+                "MBRF.WST.SParatyphiC.A": data?.data?.MBRF?.WST.SParatyphiC.A,
+                "MBRF.stoolAnalysis.appearance": data?.data?.MBRF?.stoolAnalysis.appearance,
+                "MBRF.stoolAnalysis.macroscope": data?.data?.MBRF?.stoolAnalysis.macroscope,
+                "MBRF.stoolAnalysis.microscope": data?.data?.MBRF?.stoolAnalysis.microscope,
+                "MBRF.stoolAnalysis.comment": data?.data?.MBRF?.stoolAnalysis.comment})
+        }
+    }, [data])
+
+    console.log(patientData);
     
 
     return (
@@ -80,21 +117,21 @@ export default function Microbiology() {
                 <div className=' w-full flex items-center ' >
                     <div className='w-full mx-2' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Sample</p>
-                        <Input  
+                        <Input value={patientData['MBRF.sample']} 
                             onChange={(e)=> setPatientData({...patientData, "MBRF.sample": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
  
                     </div>
                     <div className='w-full mx-2' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Test Request</p>
-                        <Input  
+                        <Input value={patientData['MBRF.testRequest']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.testRequest": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
  
                     </div>
                     <div className='w-full mx-2' >
                         <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Malaria Parasite(s)</p>
-                        <Input  
+                        <Input value={patientData['MBRF.malariaParasite']} 
                             onChange={(e)=> setPatientData({...patientData, "MBRF.malariaParasite": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' />
  
@@ -117,13 +154,13 @@ export default function Microbiology() {
                         <p  className=' font-Ubuntu-Medium text-sm' >S Typhii D (O&H)</p>
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.STyphiiD.O']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.STyphiiD.O": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.STyphiiD.A']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.STyphiiD.A": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
@@ -134,13 +171,13 @@ export default function Microbiology() {
                         <p  className=' font-Ubuntu-Medium text-sm' >S Paratyphi A</p>
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.SParatyphiA.O']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.SParatyphiA.O": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.SParatyphiA.A']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.SParatyphiA.A": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
@@ -151,13 +188,13 @@ export default function Microbiology() {
                         <p  className=' font-Ubuntu-Medium text-sm' >S Paratyphi B</p>
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.SParatyphiB.O']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.SParatyphiB.O": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.SParatyphiB.A']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.SParatyphiB.A": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
@@ -168,13 +205,13 @@ export default function Microbiology() {
                         <p  className=' font-Ubuntu-Medium text-sm' >S Paratyphi C</p>
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.SParatyphiC.O']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.SParatyphiC.O": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
                     </div>
                     <div className='w-full mx-2' > 
-                        <Input  
+                        <Input value={patientData['MBRF.WST.SParatyphiC.A']} 
                              onChange={(e)=> setPatientData({...patientData, "MBRF.WST.SParatyphiC.A": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
  
@@ -184,19 +221,19 @@ export default function Microbiology() {
                 <p className=' font-Ubuntu-Medium text-lg mt-8 mb-4 ' >Stool Analysis:</p>
                 <div className='w-full mb-2 mx-2' >
                     <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Appearance</p>
-                    <Input  
+                    <Input value={patientData['MBRF.stoolAnalysis.appearance']} 
                          onChange={(e)=> setPatientData({...patientData, "MBRF.stoolAnalysis.appearance": e.target.value})}   
                         className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' /> 
                 </div>
                 <div className='w-full mb-2 mx-2' >
                     <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Macroscope</p>
-                    <Input  
+                    <Input value={patientData['MBRF.stoolAnalysis.macroscope']} 
                          onChange={(e)=> setPatientData({...patientData, "MBRF.stoolAnalysis.macroscope": e.target.value})}   
                         className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' /> 
                 </div>
                 <div className='w-full mb-2 mx-2' >
                     <p className='font-Ubuntu-Medium text-[#5F6777] text-xs' >Microscope</p>
-                    <Input  
+                    <Input value={patientData['MBRF.stoolAnalysis.microscope']} 
                          onChange={(e)=> setPatientData({...patientData, "MBRF.stoolAnalysis.microscope": e.target.value})}   
                         className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' placeholder='---' /> 
                 </div>

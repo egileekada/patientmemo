@@ -55,8 +55,8 @@ export default function ModifyDrugs(props: any) {
             return;
         }else {
             setLoading(true);
-            const request = await fetch(`https://hospital-memo-api.herokuapp.com/drugs/${props.value._id}`, {
-                method: 'PATCH',
+            const request = await fetch(`https://hospital-memo-api.herokuapp.com/pharmacy/drugs/modify/${props.value._id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization : `Bearer ${localStorage.getItem('token')}`

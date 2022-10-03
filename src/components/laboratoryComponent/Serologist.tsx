@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import LoaderIcon from '../LoaderIcon';
 import { Input } from '@chakra-ui/react';
 import Modal from '../Modal';
+import { useQuery } from 'react-query';
 
 export default function Serologist() {
 
@@ -15,12 +16,12 @@ export default function Serologist() {
     const [modal, setModal] = React.useState(0);
 
     const [patientData, setPatientData] = React.useState({
-        "serologistRF.hiv": "hiv",
-        "serologistRF.hepatitisB": "hepatitisB",
-        "serologistRF.hepatitisA": "hepatitisA",
-        "serologistRF.VDRL": "VDRL",
-        "serologistRF.pregnancyTest": "pregnancyTest",
-        "serologistRF.hPylori": "hPylori"
+        "serologistRF.hiv": "",
+        "serologistRF.hepatitisB": "",
+        "serologistRF.hepatitisA": "",
+        "serologistRF.VDRL": "",
+        "serologistRF.pregnancyTest": "",
+        "serologistRF.hPylori": ""
       })
  
     const submit = async () => {   
@@ -59,6 +60,30 @@ export default function Serologist() {
         setLoading(false);
     }   
 
+    const { isLoading, data } = useQuery('Lab'+localStorage.getItem("patientId"), () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/lab-results/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
+    React.useEffect(()=> { 
+        if(data?.data?.MBRF){ 
+            setPatientData({ 
+                "serologistRF.hiv": data?.data.serologistRF.hiv,
+                "serologistRF.hepatitisB": data?.data.serologistRF.hepatitisB,
+                "serologistRF.hepatitisA": data?.data.serologistRF.hepatitisA,
+                "serologistRF.VDRL": data?.data.serologistRF.VDRL,
+                "serologistRF.pregnancyTest": data?.data.serologistRF.pregnancyTest,
+                "serologistRF.hPylori": data?.data.serologistRF.hPylori  })
+        }
+    }, [data]) 
+
     return (
         <div className=' w-full flex justify-center my-10 ' >
             <Modal message={message} modal={modal} />
@@ -77,7 +102,7 @@ export default function Serologist() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >HIV 1&2</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input
+                        <Input value={patientData['serologistRF.hiv']}
                             onChange={(e)=> setPatientData({...patientData, "serologistRF.hiv": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     </div>
@@ -87,7 +112,7 @@ export default function Serologist() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Hepatitis B (HbsAs)</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input
+                        <Input value={patientData['serologistRF.hepatitisB']}
                             onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisB": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     </div>
@@ -97,7 +122,7 @@ export default function Serologist() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Hepatitis A (HCV)</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input
+                        <Input value={patientData['serologistRF.hepatitisA']}
                             onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     </div>
@@ -107,7 +132,7 @@ export default function Serologist() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >VDRL (Syphilis)</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input
+                        <Input value={patientData['serologistRF.VDRL']}
                             onChange={(e)=> setPatientData({...patientData, "serologistRF.VDRL": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     </div>
@@ -117,7 +142,7 @@ export default function Serologist() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >Pregnancy Test</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input
+                        <Input value={patientData['serologistRF.pregnancyTest']}
                             onChange={(e)=> setPatientData({...patientData, "serologistRF.pregnancyTest": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     </div>
@@ -127,7 +152,7 @@ export default function Serologist() {
                         <p  className=' font-Ubuntu-Medium w-32 text-center text-sm odd:' >H-Pylori/FOB</p>
                     </div> 
                     <div className='w-full mx-2' > 
-                        <Input
+                        <Input value={patientData['serologistRF.hPylori']}
                             onChange={(e)=> setPatientData({...patientData, "serologistRF.hPylori": e.target.value})}   
                             className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     </div>

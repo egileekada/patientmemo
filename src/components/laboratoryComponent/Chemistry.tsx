@@ -5,6 +5,8 @@ import * as yup from 'yup'
 import { useFormik } from 'formik';  
 import { useNavigate } from 'react-router-dom';
 import LoaderIcon from '../LoaderIcon';
+import Modal from '../Modal';
+import { useQuery } from 'react-query';
 
 export default function Chemistry() {
 
@@ -14,25 +16,32 @@ export default function Chemistry() {
     const [modal, setModal] = React.useState(0);
 
     const [patientData, setPatientData] = React.useState({
-        "HRF.fullBloodCount": "fullBloodCount",
-        "HRF.PCV": "PCV",
-        "HRF.HB": "HB",
-        "HRF.WBC": "WBC",
-        "HRF.neutrophils": "neutrophils",
-        "HRF.lymphocytes": "lymphocytes",
-        "HRF.monocytes": "monocytes",
-        "HRF.basophils": "basophils",
-        "HRF.bloodGroup": "bloodGroup",
-        "HRF.genotype": "genotype",
-        "HRF.directCoombTest": "directCoombTest",
-        "HRF.inDirectCoombTest": "inDirectCoombTest",
-        "HRF.bleedingTime": "bleedingTime",
-        "HRF.clottingTime": "clottingTime"
+        "chemistry.sodium": "",
+        "chemistry.potassium": "",
+        "chemistry.chloride": "",
+        "chemistry.creatinine": "",
+        "chemistry.urea": "",
+        "chemistry.bicarbonate": "",
+        "chemistry.calcium": "",
+        "chemistry.uricAcid": "",
+        "chemistry.bilirubinDirect": "",
+        "chemistry.bilirubinInDirect": "",
+        "chemistry.AST": "",
+        "chemistry.ALT": "",
+        "chemistry.phosphate": "",
+        "chemistry.protein": "",
+        "chemistry.albumin": "",
+        "chemistry.totalCholeterol": "",
+        "chemistry.triglyceride": "",
+        "chemistry.HDL": "",
+        "chemistry.LDL": "",
+        "chemistry.FBS": "",
+        "chemistry.RBS": ""
       })
  
     const submit = async () => {   
         setLoading(true);
-        const request = await fetch(`https://hospital-memo-api.herokuapp.com/lab-results/haematology-request-form/${localStorage.getItem("patientId")}`, {
+        const request = await fetch(`https://hospital-memo-api.herokuapp.com/lab-results/chemistry-request-form/${localStorage.getItem("patientId")}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,8 +75,51 @@ export default function Chemistry() {
         setLoading(false);
     }   
 
+
+    const { isLoading, data } = useQuery('Lab'+localStorage.getItem("patientId"), () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/lab-results/${localStorage.getItem("patientId")}`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    )  
+
+    React.useEffect(()=> { 
+        if(data?.data?.chemistry){ 
+            setPatientData({   
+                "chemistry.sodium": data?.data.chemistry.sodium,
+                "chemistry.potassium": data?.data.chemistry.potassium,
+                "chemistry.chloride": data?.data.chemistry.chloride,
+                "chemistry.creatinine": data?.data.chemistry.creatinine,
+                "chemistry.urea": data?.data.chemistry.urea,
+                "chemistry.bicarbonate": data?.data.chemistry.bicarbonate,
+                "chemistry.calcium": data?.data.chemistry.calcium,
+                "chemistry.uricAcid": data?.data.chemistry.uricAcid,
+                "chemistry.bilirubinDirect": data?.data.chemistry.bilirubinDirect,
+                "chemistry.bilirubinInDirect": data?.data.chemistry.bilirubinInDirect,
+                "chemistry.AST": data?.data.chemistry.AST,
+                "chemistry.ALT": data?.data.chemistry.ALT,
+                "chemistry.phosphate": data?.data.chemistry.phosphate,
+                "chemistry.protein": data?.data.chemistry.protein,
+                "chemistry.albumin": data?.data.chemistry.albumin,
+                "chemistry.totalCholeterol": data?.data.chemistry.totalCholeterol,
+                "chemistry.triglyceride": data?.data.chemistry.triglyceride,
+                "chemistry.HDL": data?.data.chemistry.HDL,
+                "chemistry.LDL": data?.data.chemistry.LDL,
+                "chemistry.FBS": data?.data.chemistry.FBS,
+                "chemistry.RBS": data?.data.chemistry.RBS})
+        }
+    }, [data])
+
+    console.log(data?.data);  
+
     return (
         <div className=' w-full flex justify-center my-10 ' >
+        <Modal message={message} modal={modal} />
             <div className=' w-full grid grid-cols-3 gap-6 px-10 ' >
                 <div className=' w-full ' >
                     <div className=' w-full h-12 flex justify-between mt-8 items-center px-4 bg-[#F0F5FF] ' >
@@ -86,8 +138,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Sodium</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.sodium']}  
+                                onChange={(e)=> setPatientData({...patientData, "chemistry.sodium": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -100,8 +152,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Potassium</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.potassium']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.potassium": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -114,8 +166,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Chloride</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.chloride']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.chloride": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -128,8 +180,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Creatinine</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.creatinine']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.creatinine": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -142,8 +194,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Urea</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.urea']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.urea": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -156,8 +208,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Bicarbonate</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.bicarbonate']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.bicarbonate": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -170,8 +222,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Calcium</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.calcium']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.calcium": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -184,8 +236,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Uric Acid</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.uricAcid']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.uricAcid": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -211,8 +263,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Bilirubin direct</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.bilirubinDirect']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.bilirubinDirect": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -225,8 +277,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Bilirubin indirect (conj)</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.bilirubinInDirect']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.bilirubinInDirect": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -239,8 +291,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >AST</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.AST']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.AST": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -253,8 +305,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >ALT</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.ALT']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.ALT": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -267,8 +319,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >phosphate</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.phosphate']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.phosphate": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -281,8 +333,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Protein</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.protein']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.protein": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -295,8 +347,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Albumin</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.albumin']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.albumin": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -304,20 +356,20 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >36 - 50 g/L</p>
                         </div>  
                     </div>  
-                    <div className=' w-full h-12 flex justify-between  my-3 items-center  ' >
+                    {/* <div className=' w-full h-12 flex justify-between  my-3 items-center  ' >
                         <div className=' w-fit h-full items-center flex justify-start px-2 bg-[#F0F5FF] ' >
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Lipid Profile</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.totalCholeterol']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.totalCholeterol": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
                         <div className=' w-fit h-full items-center flex justify-start px-2 bg-[#F0F5FF] ' >
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' > </p>
                         </div>  
-                    </div>  
+                    </div>   */}
                 </div>
                 <div className=' w-full ' >
                     <div className=' w-full h-12 flex justify-between mt-8 items-center px-4 bg-[#F0F5FF] ' >
@@ -336,8 +388,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Total Chlesterol</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.totalCholeterol']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.totalCholeterol": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -350,8 +402,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >Triglyceride</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.triglyceride']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.triglyceride": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -364,8 +416,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >HDL</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.HDL']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.HDL": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -378,8 +430,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >LDL</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.LDL']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.LDL": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -392,8 +444,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >FBS</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.FBS']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.FBS": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
@@ -406,8 +458,8 @@ export default function Chemistry() {
                             <p  className=' font-Ubuntu-Medium w-32 text-center text-sm ' >RBS</p>
                         </div> 
                         <div className='w-full mx-2' > 
-                            <Input  
-                            // onChange={(e)=> setPatientData({...patientData, "serologistRF.hepatitisA": e.target.value})}  
+                            <Input paddingLeft="1px" paddingRight="1px" width="40px" value={patientData['chemistry.RBS']}  
+                            onChange={(e)=> setPatientData({...patientData, "chemistry.RBS": e.target.value})}  
                                 className='font-Ubuntu-Medium text-[#29313F] text-sm mt-2' fontSize='sm' />
                     
                         </div>
