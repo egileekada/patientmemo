@@ -19,64 +19,10 @@ import ListRequestForPatient from './scanComponent/ListRequestForPatient';
 
 export default function ManageScan() {
     
-    const navigate = useNavigate() 
-    // const [ selectedFiles, setSelectedFiles ] = React.useState([]);   
-    // const [ requestInfo, setRequestInfo ] = React.useState({}as any); 
-    const [showModal, setShowModal] = React.useState(false) 
-    // const [loading, setLoading] = React.useState(false); 
-    // const [message, setMessage] = React.useState('');
+    const navigate = useNavigate()  
+    const [showModal, setShowModal] = React.useState(false)  
     const [requestData, setData] = React.useState({} as any);
-    const [next, setNext] = React.useState(0)
-    // const [modal, setModal] = React.useState(0);  
-
-    // const sumbit =async(item: any)=> {
-    //     if (selectedFiles.length === 0) {
-    //         // alert('Please Add Images to continue');
-    //         setMessage('Please Add Images to continue')
-    //         setModal(2)           
-    //         const t1 = setTimeout(() => {  
-    //             setModal(0)       
-    //             clearTimeout(t1);
-    //         }, 2000); 
-    //         return; 
-    //     }else {
-    //         setLoading(true)
-    //         try {
-            
-    //             let formData = new FormData()  
-
-    //             // formData.append('requestId', requestInfo.madeBy._id) 
-    //             item.map((items: any)=> {
-    //                 formData.append('images', items) 
-    //             })   
-        
-    //             await axios.default.put(`https://hospital-memo-api.herokuapp.com/requests/scan/${requestInfo._id}`, formData, {
-    //                 headers: { 'content-type': 'application/json',
-    //                 Authorization : `Bearer ${localStorage.getItem('token')}`
-    //             }})      
-                
-    //             // alert('Please Add Images to continue');
-    //             setMessage('Upload Successful')
-    //             setModal(1)           
-    //             const t1 = setTimeout(() => {  
-    //                 setModal(0)       
-    //                 navigate('/dashboard')
-    //                 clearTimeout(t1);
-    //             }, 2000); 
-    //             // alert('Upload Successfull')
-                
-    //         } catch (error) { 
-    //             setMessage('Upload Failed')
-    //             setModal(2)           
-    //             const t1 = setTimeout(() => {  
-    //                 setModal(0)        
-    //                 clearTimeout(t1);
-    //                 setLoading(false)
-    //             }, 2000); 
-    //             return error
-    //         }
-    //     }
-    // }  
+    const [next, setNext] = React.useState(3) 
 
 
     const ClickHandler =()=> { 
@@ -97,18 +43,18 @@ export default function ManageScan() {
     return (
         <div className='w-full h-full ' > 
             {/* <Modal message={message} modal={modal} /> */}
-            <div className='w-full py-3 px-12 border-b flex items-center border-[#D7D0DF]' > 
-                <div onClick={()=> ClickHandler()} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
+            {/* <div className='w-full py-3 px-12 border-b flex items-center border-[#D7D0DF]' >  */}
+                {/* <div onClick={()=> ClickHandler()} className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                </div>
-                <p className='font-Ubuntu-Medium text-lg ml-3' >Manage Scan Activities</p>
+                </div> */}
+                {/* <p className='font-Ubuntu-Medium text-lg ml-3' >Manage Scan Activities</p>
                 <div onClick={()=> setShowModal(true)} className='font-Ubuntu-Medium relative flex cursor-pointer text-base mr-8 ml-auto text-[#7123E2] ' > 
-                    <p>Requests</p>
+                    <p>Requests</p> */}
                     {/* <p className='text-xs text-[#7123E2] rounded-full bg-[#7123E214] h-6 w-6 flex justify-center items-center -mt-3 ' >32</p> */}
-                </div>
-            </div>
+                {/* </div>
+            </div> */}
             <div className='w-full relative' > 
 
 

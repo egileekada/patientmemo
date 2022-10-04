@@ -72,6 +72,7 @@ export default function SummaryOfRecords(props: any) {
         "infants.alive": false,
         "infants.freshSB": false,
         "infants.maceratedSB": false,
+        "infants.immediate": false,
         "infants.sex": false,
         "sex": "",
         "malformation": false,
@@ -110,7 +111,7 @@ export default function SummaryOfRecords(props: any) {
             setLoading(false);
             const t1 = setTimeout(() => {  
                 setModal(0)      
-                navigate('/dashboard')
+                navigate(0)
                 clearTimeout(t1);
             }, 3000); 
         }else {
@@ -355,7 +356,7 @@ export default function SummaryOfRecords(props: any) {
                             <Checkbox size='sm' defaultChecked={patientData['infants.maceratedSB']} onChange={()=> setPatientData({...patientData, aminiotomy: !patientData['infants.maceratedSB']})} colorScheme='gray'  >
                                 Macerated S.B
                             </Checkbox> 
-                            <Checkbox size='sm' defaultChecked={patientData['infants.sex']} onChange={()=> setPatientData({...patientData, 'infants.sex': !patientData['infants.sex']})} colorScheme='gray'  >
+                            <Checkbox size='sm' defaultChecked={patientData['infants.immediate']} onChange={()=> setPatientData({...patientData, 'infants.sex': !patientData['infants.immediate']})} colorScheme='gray'  >
                                 Immediate
                             </Checkbox> 
                         </Stack>

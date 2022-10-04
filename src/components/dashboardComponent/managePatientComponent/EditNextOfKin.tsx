@@ -159,29 +159,7 @@ export default function EditNextOfKin(props : any) {
                         </div>
                         <p className='text-lg font-Ubuntu-Bold ml-3' >Next of Kin’s Information</p>
                     </div>
-                    <div className='w-full flex mt-8' >
-                        <div className='mr-2' >
-                            <p className='text-sm mb-2' >Title</p>
-                            <Input 
-                                name="title"
-                                onChange={formik.handleChange}
-                                disabled={!access ? true : false} 
-                                _placeholder={access ? {color: 'gray.500' } : {color: 'black' } }
-                                onFocus={() =>
-                                    formik.setFieldTouched("title", true, true)
-                                } placeholder={data?.data?.nextOfKin?.title} fontSize='sm' />
-                            <div className="w-full h-auto pt-2">
-                                {formik.touched.title && formik.errors.title && (
-                                    <motion.p
-                                        initial={{ y: -100, opacity: 0 }}
-                                        animate={{ y: 0, opacity: 1 }}
-                                        className="text-xs font-Ubuntu-Medium text-[#ff0000]"
-                                    >
-                                        {formik.errors.title}
-                                    </motion.p>
-                                )}
-                            </div> 
-                        </div>
+                    <div className='w-full flex mt-8' > 
                         <div className='mr-2' >
                             <p className='text-sm mb-2' >First Name</p>
                             <Input 

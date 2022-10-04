@@ -44,7 +44,7 @@ export default function ListRequestForPatient(props: any) {
             )} 
             {!isLoading && (
                 <div className='w-full grid grid-cols-3 gap-6' >
-                    {data.map((item: any, index: any)=> {
+                    {data?.map((item: any, index: any)=> {
                         if(item.kind === "scan") {  
                             if(item.patient._id === props.data._id){
                                 // numb = index

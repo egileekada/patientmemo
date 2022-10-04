@@ -2,6 +2,7 @@ import { Input } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Modal from '../../Modal';
 import LoaderIcon from '../../LoaderIcon'
 
 export default function FollowUpVisit(props: any) {
@@ -16,7 +17,7 @@ export default function FollowUpVisit(props: any) {
  
         setLoading(true);
         const request = await fetch(`https://hospital-memo-api.herokuapp.com/nurse/create-antenatal`, {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization : `Bearer ${localStorage.getItem('token')}`
@@ -38,7 +39,7 @@ export default function FollowUpVisit(props: any) {
                 clearTimeout(t1);
             }, 3000); 
         }else {
-            setMessage('Failed To Add Records ')
+            setMessage(json.message)
             setModal(2)             
             const t1 = setTimeout(() => {  
                 setModal(0)       
@@ -53,25 +54,26 @@ export default function FollowUpVisit(props: any) {
 
     return (
         <div className='w-full h-full px-12 py-10 font-Ubuntu-Regular' > 
+            <Modal message={message} modal={modal} />
             <p className='text-lg font-Ubuntu-Bold' >Follow up visit</p>
             <div className='w-full flex mt-8' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Date</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.date": e.target.value})} 
-                        fontSize='sm' placeholder='Height' />
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Height of Fundus</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.heightOfFundus": e.target.value})}  
-                        fontSize='sm' placeholder='Weight' />
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Presentation & position</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.presentationAndPosition": e.target.value})}  
-                        fontSize='sm' placeholder='B.P' />
+                        fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Relation of presenting part of birth</p>
@@ -91,19 +93,19 @@ export default function FollowUpVisit(props: any) {
                     <p className='text-xs mb-2' >Urine</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.urine": e.target.value})} 
-                        fontSize='sm' placeholder='Height' />
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >B.P</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.BP": e.target.value})}  
-                        fontSize='sm' placeholder='B.P' />
+                        fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >weight</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.weight": e.target.value})}  
-                        fontSize='sm' placeholder='Weight' />
+                        fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Hb</p>
@@ -123,20 +125,20 @@ export default function FollowUpVisit(props: any) {
                     <p className='text-xs mb-2' >Return</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.date": e.target.value})} 
-                        fontSize='sm' placeholder='Height' />
+                        fontSize='sm'  />
                 </div> */}
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Initial Examiner</p>
                     <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.initialExaminer": e.target.value})}  
-                        fontSize='sm' placeholder='Weight' />
+                        fontSize='sm'  />
                 </div>
             </div>
-            <div className='mr-2 w-full' >
+            <div className='mr-2 mt-4 w-full' >
                 <p className='text-xs mb-2' >Remarks</p>
                 <Input 
                         onChange={(e)=> props.setData({...props.data, "followUpVisit.remarks": e.target.value})}  
-                    fontSize='sm' placeholder='B.P' />
+                    fontSize='sm' />
             </div> 
             <div className='w-full flex pb-10 py-4' >
                 <button onClick={()=> props.next(5) }  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >back</button>

@@ -55,11 +55,10 @@ export default function PatientInfo(props: any) {
         })
         .then(response => response.json())
         .then(data => {   
-            setState(data) 
-            // if(data.length !== 0){
-            //     setStateLoading(false)
-            // }
-            // console.log(data)
+            console.log(data)  
+            if(data){
+                setState(data)
+            }
         })
         .catch((error) => {
             console.error('Error:', error); 
@@ -133,7 +132,7 @@ export default function PatientInfo(props: any) {
                     <p className='text-sm mb-2' >Title</p>
                     <Input onChange={(e)=> setPatientData({...patientData, title: e.target.value})}
                           
-                        fontSize='sm' placeholder='Enter First Name' />
+                        fontSize='sm' placeholder='Enter Title' />
                 </div>
                 <div className='mr-2' >
                     <p className='text-sm mb-2' >First Name</p>

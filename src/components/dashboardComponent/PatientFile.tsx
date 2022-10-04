@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import ContinuationSheet from '../doctorComponent/ContinuationSheet'
 import Chemistry from '../laboratoryComponent/Chemistry'
 import Haematology from '../laboratoryComponent/Haematology'
+import ManageScan from '../laboratoryComponent/ManageScan'
 import Microbiology from '../laboratoryComponent/Microbiology'
 import Microscopic from '../laboratoryComponent/Microscopic'
 import Serologist from '../laboratoryComponent/Serologist'
@@ -87,6 +88,9 @@ export default function PatientFile() {
                     <div onClick={()=> [setTab(6), setLab(false)]} className={tab === 6 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={tab === 6 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Ante-natal notes</p>
                     </div>  
+                    <div onClick={()=> [setTab(20), setLab(false)]} className={tab === 20 ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
+                        <p className={tab === 20 ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Scan</p>
+                    </div>  
                     <div onClick={()=> [setLab(true), setTab(10)]} className={lab ? 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-[#7123E2] ': 'flex items-center pb-5 pt-6 cursor-pointer mx-2 border-b-2 border-transparent '} > 
                         <p className={lab ? 'font-Ubuntu-Medium px-1 text-xs text-[#7123E2]': 'font-Ubuntu-Medium px-1 text-xs text-[#817D83]'} >Lab Result</p>
                     </div> 
@@ -141,6 +145,8 @@ export default function PatientFile() {
                                                     <ObservationChart /> 
                                                     :tab === 4 ?
                                                         <OIChart /> 
+                                                        :tab === 20 ?
+                                                            <ManageScan /> 
                                                             :tab === 9 ?
                                                                 <DeliveryRecord />
                                                                     :tab === 6 ?

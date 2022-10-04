@@ -52,25 +52,25 @@ export default function Physicalexamination(props: any) {
             <div className='w-full flex mt-8' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Height</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.height"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})} 
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Weight</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.weight"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.weight": e.target.value})}  
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >B.P</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.BP"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.BP": e.target.value})}  
                         fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Breast & Nipples</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.breastAndNipples"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.breastAndNipples": e.target.value})}  
                         fontSize='sm' />
                 </div>
@@ -78,25 +78,25 @@ export default function Physicalexamination(props: any) {
             <div className='w-full flex mt-4' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >PVC</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.PVC"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.PVC": e.target.value})} 
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Genotype</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.genotype"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.genotype": e.target.value})}  
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Kahn</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.kahn"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.kahn": e.target.value})}  
                         fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Group R.H</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.groupRH"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.groupRH": e.target.value})}  
                         fontSize='sm' />
                 </div>
@@ -104,38 +104,38 @@ export default function Physicalexamination(props: any) {
             <div className='w-full flex mt-4' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Chest X-Ray</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.chestXray"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.chestXray": e.target.value})} 
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >General Condition</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.generalCondition"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.generalCondition": e.target.value})}  
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Ocdema</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.ocdema"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.ocdema": e.target.value})}  
                         fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Anaemia</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.anaemia"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.anaemia": e.target.value})}  
                         fontSize='sm' />
                 </div>
             </div>
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Respiratory System</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.respiratorySystem"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.respiratorySystem": e.target.value})}  
                         fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Cardiovascular System</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.cardiovascularSystem"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.cardiovascularSystem": e.target.value})}  
                         fontSize='sm' />
                 </div>
@@ -143,32 +143,32 @@ export default function Physicalexamination(props: any) {
             <div className='w-full flex mt-4' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Abdomen</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.height"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})} 
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Spleen</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.height"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
             </div>
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >CM</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Vagina Examination</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Other Abinormalities</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
@@ -179,12 +179,12 @@ export default function Physicalexamination(props: any) {
                 </div> 
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Examiner</p>
-                    <Input 
+                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
                         onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
             <div className='w-full flex pb-10 py-4' >
-                <button onClick={()=> navigate('/dashboard/nurse')}  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >back</button>
+                <button onClick={()=> props.next(4) }  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >back</button>
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
                         <div className='flex items-center ' >

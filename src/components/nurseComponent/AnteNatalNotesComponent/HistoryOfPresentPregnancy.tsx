@@ -18,18 +18,21 @@ export default function HistoryOfPresentPregnancy(props: any) {
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Bleeding</p>
                     <Input 
+                value={props.data["curPregHistory.bleeding"]}
                 onChange={(e)=> props.setData({...props.data, "curPregHistory.bleeding": e.target.value})} 
                         fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Discharge</p>
                     <Input 
+                value={props.data["curPregHistory.discharge"]}
                 onChange={(e)=> props.setData({...props.data, "curPregHistory.discharge": e.target.value})}   
                         fontSize='sm' />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Urinary Symptoms</p>
                     <Input 
+                value={props.data["curPregHistory.urinarySymptoms"]}
                 onChange={(e)=> props.setData({...props.data, "curPregHistory.urinarySymptoms": e.target.value})}   
                         fontSize='sm' />
                 </div>
@@ -38,12 +41,14 @@ export default function HistoryOfPresentPregnancy(props: any) {
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Swelling Ankles</p>
                     <Input 
+                value={props.data["curPregHistory.swellingAnkles"]}
                 onChange={(e)=> props.setData({...props.data, "curPregHistory.swellingAnkles": e.target.value})}  
                         fontSize='sm' />
                 </div> 
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Other Symptoms</p>
                     <Input 
+                value={props.data["curPregHistory.otherSymptoms"]}
                 onChange={(e)=> props.setData({...props.data, "curPregHistory.otherSymptoms": e.target.value})}   
                         fontSize='sm' />
                 </div>
@@ -52,12 +57,13 @@ export default function HistoryOfPresentPregnancy(props: any) {
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Details</p>
                     <Textarea  
+                value={props.data["curPregHistory.details"]}
                 onChange={(e)=> props.setData({...props.data, "curPregHistory.details": e.target.value})}   
                         fontSize='sm' />
                 </div> 
             </div>
             <div className='w-full flex pb-10 py-4' >
-                <button onClick={()=> props.next(4) }  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >Cancel</button>
+                <button onClick={()=> props.next(3) }  className='  py-3 w-36 ml-auto text-[#A5B0C1] text-sm mt-4 rounded-full' >back</button>
                 {loading ?  
                     <button className='bg-[#7123E2] h-12 flex justify-center items-center w-48  text-white text-sm mt-6 rounded-full' >
                         <div className='flex items-center ' >

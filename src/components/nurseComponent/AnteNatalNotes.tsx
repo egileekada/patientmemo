@@ -23,6 +23,9 @@ export default function AnteNatalNotes() {
         )
     )    
 
+    console.log(data);
+    
+
     const [next, setNext] = React.useState(1)
     const navigate = useNavigate()
     const [patientInfo, setPatientInfo] = React.useState({
@@ -37,7 +40,7 @@ export default function AnteNatalNotes() {
         "EDD": "",
         "address": data?.data?.address,
         "stateOfOrigin": data?.data?.stateOfOrigin,
-        "age": data?.data?.age,
+        "age": data?.data?.age+"",
         "occupation": data?.data?.occupation,
         "nationality": "",
         "husband.name": "",
@@ -175,28 +178,33 @@ export default function AnteNatalNotes() {
                         <p className={next >= 7 ? 'text-sm font-Ubuntu-Medium ml-3 text-[#7123E2]' : 'text-sm font-Ubuntu-Medium ml-3 text-[#5F6777]'} >Pelvic Assessment</p>
                     </div>
                 </div>
-                <div className='flex flex-1 justify-center w-full ' >
-                    {next === 0 && (
+                <div className='flex flex-1 justify-center w-full ' > 
+                    <div className={next === 0 ? " w-full ": "hidden"} >
                         <FindPatient header='Patient Delivery Record' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.'  next={setNext} value={setData} />
-                    )}
-                    {next === 1 && (
+                    </div>  
+                    <div className={next === 1 ? " w-full ": "hidden"} >
                         <PersonnalInformation data={patientInfo} setData={setPatientInfo} next={setNext} />
-                    )} 
-                    {next === 2 && (
+                    </div>
+                   
+                    <div className={next === 2 ? " w-full ": "hidden"} >
                         <Previousmedicalhistory data={patientInfo} setData={setPatientInfo} next={setNext} />
-                    )} 
-                    {next === 3 && (
+                    </div>
+                   
+                    <div className={next === 3 ? " w-full ": "hidden"} >
                         <SpecialInvestigation data={patientInfo} setData={setPatientInfo} next={setNext} />
-                    )} 
-                    {next === 4 && (
+                    </div>
+                   
+                    <div className={next === 4 ? " w-full ": "hidden"} >
                         <HistoryOfPresentPregnancy data={patientInfo} setData={setPatientInfo} next={setNext} />
-                    )} 
-                    {next === 5 && (
+                    </div>
+                   
+                    <div className={next === 5 ? " w-full ": "hidden"} >
                         <Physicalexamination data={patientInfo} setData={setPatientInfo} next={setNext} />
-                    )} 
-                    {next === 6 && (
+                    </div>
+                   
+                    <div className={next === 6 ? " w-full ": "hidden"} >
                         <FollowUpVisit data={patientInfo} setData={setPatientInfo} next={setNext} />
-                    )} 
+                    </div>
                 </div> 
             </div>
         </div>

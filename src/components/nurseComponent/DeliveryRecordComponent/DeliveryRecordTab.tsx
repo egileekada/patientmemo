@@ -63,6 +63,8 @@ export default function DeliveryRecord(props: any) {
         )
     )   
     
+    console.log(data);
+    
 
     // formik
     const formik = useFormik({

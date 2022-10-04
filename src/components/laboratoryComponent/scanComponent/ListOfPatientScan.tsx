@@ -6,9 +6,11 @@ import Modal from '../../Modal';
 import * as axios from 'axios'   
 import { useNavigate } from 'react-router-dom'
 import LoaderIcon from '../../LoaderIcon';
+import { useQuery } from 'react-query';
 
 export default function ListOfPatientScan(props: any) {
 
+    const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
     const [ selectedFiles, setSelectedFiles ] = React.useState([]);
     const [ imageFiles, setImageFiles ] = React.useState([]  as Array<string>);  
     const [show, setShow] = React.useState(true);  
@@ -46,7 +48,8 @@ export default function ListOfPatientScan(props: any) {
             
                 let formData = new FormData()  
 
-                formData.append('requestId', props.requestInfo._id)
+                formData.append('patientId', localStorage.getItem("patientId")+"")
+                formData.append('requestId', userData._id)
                 item.map((items: any)=> {
                     return(
                         formData.append('images', items) 
@@ -81,6 +84,21 @@ export default function ListOfPatientScan(props: any) {
             }
         }
     }  
+ 
+    const { isLoading, data } = useQuery('get-scans', () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/scans`, {
+            method: 'GET', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json', 
+                Authorization : `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res =>
+            res.json()
+        )
+    ) 
+
+    console.log(data);
+    
 
     return ( 
         <div className='w-full p-10' > 
@@ -92,8 +110,8 @@ export default function ListOfPatientScan(props: any) {
                             <div className='w-full h-32 relative' >
                                 <img src={Scan} className='w-full h-32 rounded-md object-cover'  alt='scan' />
                                 <div className='py-1 rounded-sm px-1 bg-[#FFFFFFCC] absolute bottom-2 right-2 ' >
-                                    <p className='font-Ubuntu-Medium text-sm  flex items-center' >TO <GetUserInfo data={props.requestInfo.madeBy._id} />
-                                    </p>
+                                    {/* <p className='font-Ubuntu-Medium text-sm  flex items-center' >TO <GetUserInfo data={props.requestInfo.madeBy._id} />
+                                    </p> */}
                                 </div>
                             </div>
                             <div className='mt-6 px-3 flex items-center' > 
@@ -103,8 +121,8 @@ export default function ListOfPatientScan(props: any) {
                                     </svg>
                                 </div>
                                 <div className='ml-3' > 
-                                    <p className='font-Ubuntu-Medium text-sm' >{props.requestInfo.patient.firstName+' '+props.requestInfo.patient.lastName}</p>
-                                    <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(props.requestInfo.updatedAt)}</p>
+                                    {/* <p className='font-Ubuntu-Medium text-sm' >{props.requestInfo.patient.firstName+' '+props.requestInfo.patient.lastName}</p>
+                                    <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(props.requestInfo.updatedAt)}</p> */}
                                 </div>
                                 {/* <p className='font-Ubuntu-Regular text-[#7123E2] ml-auto text-xs'>5 Images</p> */}
                             </div>
@@ -123,19 +141,7 @@ export default function ListOfPatientScan(props: any) {
                                     <input   style={{display:'none' , width:'100%', height: '100%'}} type="file" id="file" multiple onChange={handleImageChange} />
                                     <p className='font-Ubuntu-Medium text-sm' >Upload Scan Image</p>
                                     <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >Drag and Drop or <span className='text-[#7123E2]' >Browse</span></p>
-                                </label>
-                                {/* {loading && ( 
-                                    <LoaderIcon size='w-12 h-12 ml-auto ' /> 
-                                )}
-                                {selectedFiles.length !== 0 && (
-                                    <> 
-                                        {!loading && (
-                                            <svg onClick={()=> sumbit(imageFiles)} className='ml-auto cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.368 8.79441C7.782 8.79441 8.118 9.13041 8.118 9.54441C8.118 9.95841 7.782 10.2944 7.368 10.2944H6.435C4.816 10.2944 3.5 11.6104 3.5 13.2284V18.1034C3.5 19.7224 4.816 21.0384 6.435 21.0384H17.565C19.183 21.0384 20.5 19.7224 20.5 18.1034V13.2194C20.5 11.6064 19.188 10.2944 17.576 10.2944H16.633C16.219 10.2944 15.883 9.95841 15.883 9.54441C15.883 9.13041 16.219 8.79441 16.633 8.79441H17.576C20.015 8.79441 22 10.7794 22 13.2194V18.1034C22 20.5494 20.01 22.5384 17.565 22.5384H6.435C3.99 22.5384 2 20.5494 2 18.1034V13.2284C2 10.7834 3.99 8.79441 6.435 8.79441H7.368ZM12.5306 2.22202L15.4466 5.15002C15.7386 5.44402 15.7376 5.91802 15.4446 6.21001C15.1506 6.50202 14.6766 6.50201 14.3846 6.20801L12.749 4.56677L12.7496 15.5413H11.2496L11.249 4.56677L9.6156 6.20801C9.4696 6.35601 9.2766 6.42901 9.0846 6.42901C8.8936 6.42901 8.7016 6.35602 8.5556 6.21001C8.2626 5.91802 8.2606 5.44402 8.5536 5.15002L11.4686 2.22202C11.7496 1.93902 12.2496 1.93902 12.5306 2.22202Z" fill="#7123E2"/>
-                                            </svg>
-                                        )}
-                                    </>
-                                )} */}
+                                </label> 
                             </div> 
                             {selectedFiles.length !== 0 && (
                                 <div className='grid grid-cols-4 mb-4 pb-4 px-2 gap-4 flex-1 overflow-x-auto mt-5' > 
@@ -161,7 +167,7 @@ export default function ListOfPatientScan(props: any) {
                                                 Loading
                                             </div> 
                                         </button>:
-                                        <button onClick={()=> submit(imageFiles)} className='w-44 rounded-full h-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >Update</button>
+                                        <button onClick={()=> submit(imageFiles)} className='w-44 rounded-full h-10 text-sm bg-[#7123E2] text-white font-Ubuntu-Medium' >Add Scan</button>
                                     }
                                 </>
                                 // <button onClick={()=> sumbit(imageFiles)} className='px-3 py-2 border font-Ubuntu-Medium text-xs mt-auto ml-auto rounded-sm border-[#7123E2] text-[#7123E2] ' >

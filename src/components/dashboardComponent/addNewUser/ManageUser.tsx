@@ -7,7 +7,8 @@ import { Input, InputGroup, InputLeftElement, Table, Tbody, Td, Th, Thead, Tr } 
 export default function ManageUser(props: any) { 
     
     const [name, setName] = React.useState('');  
-    const { isLoading, data } = useQuery('user', () =>
+    const [deleteModal, setDeleteModal] = React.useState(false)
+    const { isLoading, data, refetch } = useQuery('user', () =>
         fetch(`https://hospital-memo-api.herokuapp.com/admins`, {
             method: 'GET', // or 'PUT'
             headers: {
@@ -18,6 +19,20 @@ export default function ManageUser(props: any) {
             res.json()
         )
     )    
+
+    const DeleteHandler =async(index: any)=> {
+        await fetch(`https://faadoli.herokuapp.com/api/v1/product/${index}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${localStorage.getItem('token')}` 
+            }, 
+        });
+
+        refetch()
+        setDeleteModal(false)
+        // {DeleteTank(index)}
+    }
 
     return (
         <div className='w-full pt-1' > 
@@ -61,7 +76,8 @@ export default function ManageUser(props: any) {
                                     <Th>Name</Th>  
                                     <Th>ID Number</Th>  
                                     <Th>Email</Th>  
-                                    <Th>Role</Th>  
+                                    <Th>Role</Th>   
+                                    <Th>Action</Th>  
                                 </Tr>
                             </Thead>
                             <Tbody >
@@ -86,7 +102,36 @@ export default function ManageUser(props: any) {
                                                 </Td> 
                                                 <Td>{(item._id).substr(0, 7)}</Td> 
                                                 <Td>{item.email}</Td> 
-                                                <Td>{item.role}</Td> 
+                                                <Td>{item.role}</Td>  
+                                                <Td className=' relative z-30  ' >
+                                                    <svg onClick={()=> setDeleteModal(true)} className="cursor-pointer relative z-30 " width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z" fill="#000"/>
+                                                        <path d="M9 9H11V17H9V9Z" fill="#000"/>
+                                                        <path d="M13 9H15V17H13V9Z" fill="#000"/>
+                                                    </svg>    
+                                                </Td> 
+                                            {deleteModal ? 
+                                                (
+                                                    <>
+                                                        <div className="h-auto flex justify-center items-center overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none"> 
+                                                            <div className='w-80 rounded-lg flex flex-col justify-center items-center bg-white p-8' >
+                                                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17 5V4C17 2.89543 16.1046 2 15 2H9C7.89543 2 7 2.89543 7 4V5H4C3.44772 5 3 5.44772 3 6C3 6.55228 3.44772 7 4 7H5V18C5 19.6569 6.34315 21 8 21H16C17.6569 21 19 19.6569 19 18V7H20C20.5523 7 21 6.55228 21 6C21 5.44772 20.5523 5 20 5H17ZM15 4H9V5H15V4ZM17 7H7V18C7 18.5523 7.44772 19 8 19H16C16.5523 19 17 18.5523 17 18V7Z" fill="#ff0000"/>
+                                                                    <path d="M9 9H11V17H9V9Z" fill="#ff0000"/>
+                                                                    <path d="M13 9H15V17H13V9Z" fill="#ff0000"/>
+                                                                </svg>
+                                                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete The Patient?</p>
+                                                                {/* <p className=' font-Inter-Medium text-xs mt-1 text-gray-400 text-center'>Note: The Storage Tank Of This Product Will Be Deleted</p> */}
+                                                                <div className='flex mt-8' >
+                                                                    <button onClick={()=> setDeleteModal(false) } className=' bg-gray-400 text-white py-2 rounded mr-1 px-6 font-Inter-Bold text-sm' >Cancel</button>
+                                                                    <button  onClick={()=> DeleteHandler(item._id)} className=' bg-[#ff0000] text-white py-2 rounded ml-1 px-6 font-Inter-Bold text-sm' >Delete</button>
+                                                                </div> 
+                                                                {/* <button onClick={()=> DeleteHandler(item._id)} ></button> */}
+                                                            </div>
+                                                        </div> 
+                                                        <div className="opacity-20 fixed flex flex-1 inset-0 z-40 bg-black"/>
+                                                    </>
+                            ) : null}  
                                             </Tr> 
                                         ) 
                                     } else {

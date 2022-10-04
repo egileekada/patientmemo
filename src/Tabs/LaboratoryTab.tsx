@@ -6,7 +6,7 @@ import RoleNavbar from '../components/RoleNavbar'
 
 export default function LaboratoryTab() {
 
-    const [tab, setTab] = React.useState(0)
+    const [tab, setTab] = React.useState(2)
     const [data, setData] = React.useState({} as any)
 
     const navigate = useNavigate()
