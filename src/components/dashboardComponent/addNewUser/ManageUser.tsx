@@ -21,7 +21,7 @@ export default function ManageUser(props: any) {
     )    
 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`https://faadoli.herokuapp.com/api/v1/product/${index}`, {
+        await fetch(`https://hospital-memo-api.herokuapp.com/admins/remove-staff/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ export default function ManageUser(props: any) {
                                                                     <path d="M9 9H11V17H9V9Z" fill="#ff0000"/>
                                                                     <path d="M13 9H15V17H13V9Z" fill="#ff0000"/>
                                                                 </svg>
-                                                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete The Staff?</p>
+                                                                <p className=' font-Inter-Medium text-sm mt-3 text-black text-center' >Do You Want To Delete {item?.firstName+" "+item?.lastName} Account ?</p>
                                                                 {/* <p className=' font-Inter-Medium text-xs mt-1 text-gray-400 text-center'>Note: The Storage Tank Of This Product Will Be Deleted</p> */}
                                                                 <div className='flex mt-8' >
                                                                     <button onClick={()=> setDeleteModal(false) } className=' bg-gray-400 text-white py-2 rounded mr-1 px-6 font-Inter-Bold text-sm' >Cancel</button>

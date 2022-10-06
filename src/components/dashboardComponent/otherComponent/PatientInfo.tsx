@@ -185,11 +185,15 @@ export default function PatientInfo(props: any) {
                     <Select 
                         onChange={(e)=> setPatientData({...patientData, stateOfOrigin: e.target.value})} 
                         fontSize='sm' placeholder='Enter Your State'>
-                            {state.map((item: any)=> {
-                                return(
-                                    <option key={item.state_name} >{item.state_name}</option>
-                                )
-                            })}
+                            {state && (
+                                <> 
+                                    {state.map((item: any)=> {
+                                        return(
+                                            <option key={item.state_name} >{item.state_name}</option>
+                                        )
+                                    })}
+                                </>
+                            )}
                         </Select>
                 </div>
                 <div className=' w-full mr-2' >

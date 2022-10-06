@@ -40,7 +40,7 @@ export default function ManagePatient() {
     
 
     const DeleteHandler =async(index: any)=> {
-        await fetch(`https://faadoli.herokuapp.com/api/v1/product/${index}`, {
+        await fetch(`https://hospital-memo-api.herokuapp.com/admins/remove-patient/${index}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
