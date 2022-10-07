@@ -192,8 +192,7 @@ export default function DeliveryRecord(props: any) {
                 setMessage(' Successful')
                 setModal(1)          
                 const t1 = setTimeout(() => {  
-                    setModal(0)      
-                    navigate(0)
+                    setModal(0)   
                     clearTimeout(t1);
                 }, 3000); 
             }else {

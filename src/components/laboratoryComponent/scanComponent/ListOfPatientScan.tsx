@@ -13,7 +13,7 @@ export default function ListOfPatientScan(props: any) {
     const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
     const [ selectedFiles, setSelectedFiles ] = React.useState([]);
     const [ imageFiles, setImageFiles ] = React.useState([]  as Array<string>);  
-    const [show, setShow] = React.useState(true);  
+    const [show, setShow] = React.useState(false);  
     const [message, setMessage] = React.useState('');
     const [modal, setModal] = React.useState(0);
     const [loading, setLoading] = React.useState(false);
@@ -48,7 +48,7 @@ export default function ListOfPatientScan(props: any) {
             
                 let formData = new FormData()  
 
-                formData.append('patientId', localStorage.getItem("patientId")+"")
+                formData.append('patient', localStorage.getItem("patientId")+"")
                 formData.append('requestId', userData._id)
                 item.map((items: any)=> {
                     return(
@@ -56,7 +56,7 @@ export default function ListOfPatientScan(props: any) {
                     )
                 })   
         
-                await axios.default.post(`https://hospital-memo-api.herokuapp.com/scan`, formData, {
+                await axios.default.post(`https://hospital-memo-api.herokuapp.com/scans`, formData, {
                     headers: { 'content-type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     Authorization : `Bearer ${localStorage.getItem('token')}`
@@ -67,7 +67,7 @@ export default function ListOfPatientScan(props: any) {
                 setModal(1)           
                 const t1 = setTimeout(() => {  
                     setModal(0)       
-                    navigate('/dashboard')
+                    navigate(0)
                     clearTimeout(t1);
                 }, 2000); 
                 // alert('Upload Successfull')
@@ -86,7 +86,7 @@ export default function ListOfPatientScan(props: any) {
     }  
  
     const { isLoading, data } = useQuery('get-scans', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/scans`, {
+        fetch(`https://hospital-memo-api.herokuapp.com/scans/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -104,29 +104,36 @@ export default function ListOfPatientScan(props: any) {
         <div className='w-full p-10' > 
             <Modal message={message} modal={modal} />
             <div className='w-full grid grid-cols-3 gap-6' >
-                {show && (
+                {!show && (
                     <>
-                        <div  className=' h-64' >
-                            <div className='w-full h-32 relative' >
-                                <img src={Scan} className='w-full h-32 rounded-md object-cover'  alt='scan' />
-                                <div className='py-1 rounded-sm px-1 bg-[#FFFFFFCC] absolute bottom-2 right-2 ' >
-                                    {/* <p className='font-Ubuntu-Medium text-sm  flex items-center' >TO <GetUserInfo data={props.requestInfo.madeBy._id} />
-                                    </p> */}
-                                </div>
-                            </div>
-                            <div className='mt-6 px-3 flex items-center' > 
-                                <div className='w-8 h-8 rounded-full flex bg-[#7123E214] justify-center items-center' >
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.99967 8.85179C9.53054 8.85179 11.6663 9.26304 11.6663 10.8497C11.6663 12.437 9.51653 12.8337 6.99967 12.8337C4.46939 12.8337 2.33301 12.4224 2.33301 10.8357C2.33301 9.24846 4.48281 8.85179 6.99967 8.85179ZM6.99967 1.16699C8.71415 1.16699 10.0878 2.54017 10.0878 4.25344C10.0878 5.96671 8.71415 7.34047 6.99967 7.34047C5.28578 7.34047 3.91152 5.96671 3.91152 4.25344C3.91152 2.54017 5.28578 1.16699 6.99967 1.16699Z" fill="#7123E2"/>
-                                    </svg>
-                                </div>
-                                <div className='ml-3' > 
-                                    {/* <p className='font-Ubuntu-Medium text-sm' >{props.requestInfo.patient.firstName+' '+props.requestInfo.patient.lastName}</p>
-                                    <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(props.requestInfo.updatedAt)}</p> */}
-                                </div>
-                                {/* <p className='font-Ubuntu-Regular text-[#7123E2] ml-auto text-xs'>5 Images</p> */}
-                            </div>
-                        </div>
+                        {!isLoading && (
+                            <>
+                                {data?.data && (
+                                    
+                                    <div onClick={()=> setShow(true)} className=' cursor-pointer h-64' >
+                                        <div className='w-full h-32 relative' >
+                                            <img src={Scan} className='w-full h-32 rounded-md object-cover'  alt='scan' />
+                                            <div className='py-1 rounded-sm px-1 bg-[#FFFFFFCC] absolute bottom-2 right-2 ' >
+                                                {/* <p className='font-Ubuntu-Medium text-sm  flex items-center' >TO <GetUserInfo data={props.requestInfo.madeBy._id} />
+                                                </p> */}
+                                            </div>
+                                        </div>
+                                        <div className='mt-6 px-3 flex items-center' > 
+                                            <div className='w-8 h-8 rounded-full flex bg-[#7123E214] justify-center items-center' >
+                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M6.99967 8.85179C9.53054 8.85179 11.6663 9.26304 11.6663 10.8497C11.6663 12.437 9.51653 12.8337 6.99967 12.8337C4.46939 12.8337 2.33301 12.4224 2.33301 10.8357C2.33301 9.24846 4.48281 8.85179 6.99967 8.85179ZM6.99967 1.16699C8.71415 1.16699 10.0878 2.54017 10.0878 4.25344C10.0878 5.96671 8.71415 7.34047 6.99967 7.34047C5.28578 7.34047 3.91152 5.96671 3.91152 4.25344C3.91152 2.54017 5.28578 1.16699 6.99967 1.16699Z" fill="#7123E2"/>
+                                                </svg>
+                                            </div>
+                                            <div className='ml-3' > 
+                                                <p className='font-Ubuntu-Medium text-sm' >{data?.data?.addedBy?.firstName+' '+data?.data?.addedBy?.lastName}</p>
+                                                <p className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(data?.data?.updatedAt)}</p>
+                                            </div>
+                                            {/* <p className='font-Ubuntu-Regular text-[#7123E2] ml-auto text-xs'>5 Images</p> */}
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        )}
                         <div className=' w-72 h-auto border-dashed relative flex flex-col justify-center items-center border py-7 px-5' > 
                             <div className='flex items-center' > 
                                 <label className="cursor-pointer items-center">
@@ -178,6 +185,32 @@ export default function ListOfPatientScan(props: any) {
                     </>
                 )}
             </div>  
+                {show && (
+                    <div> 
+                        <div className='w-full px-4 border-b py-5  border-[#D7D0DF]  flex' >   
+                            <div onClick={()=> setShow(false)} className='w-10  h-10 rounded-full cursor-pointer mr-3 flex items-center justify-center bg-[#7123E214]' >
+                                <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div> 
+                            <div > 
+                                <p className='font-Ubuntu-Bold text-lg ' >Scan for <span className=' text-[#7123E2] cursor-pointer' >{data?.data?.patient?.firstName+' '+ data?.data?.patient?.lastName}</span></p> 
+                                    <div className='mt-3   flex items-center' >    
+                                    <p className='font-Ubuntu-Medium text-sm mr-3' >By {data?.data?.addedBy?.firstName+' '+data?.data?.addedBy?.lastName}</p> 
+                                    </div> 
+                            </div>   
+                        </div> 
+                        <div className='w-full grid grid-cols-3 gap-6 my-6' >
+                            {data?.data?.media?.map((item: any) => {
+                                return(
+                                    <div className=' w-full h-44 ' >
+                                        <img src={item.imageURL} className=" w-full h-full object-cover " alt="image" />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                )}
         </div>
     )
 } 

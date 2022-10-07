@@ -110,8 +110,7 @@ export default function SummaryOfRecords(props: any) {
             setModal(1)          
             setLoading(false);
             const t1 = setTimeout(() => {  
-                setModal(0)      
-                navigate(0)
+                setModal(0)     
                 clearTimeout(t1);
             }, 3000); 
         }else {
