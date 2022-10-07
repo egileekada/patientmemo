@@ -5,6 +5,7 @@ import { io } from 'socket.io-client';
 import staff from "../assets/images/user.png"
 import GetMessage from './chat/GetMessage'; 
 import NavbarAdmin from './NavbarAdmin';
+import chat from "../assets/images/Chat.png"
 
 export default function Chat() {
 
@@ -55,17 +56,14 @@ export default function Chat() {
     }
 
   return (
-    <div className='w-full h-screen' >  
-        {/* <div className="  w-full h-16 lg:h-28 " > 
-            <Navbar />
-        </div> */}
-        <div className=' w-full h-screen flex justify-center ' >
+    <div className='w-screen h-screen flex flex-col overflow-x-hidden' >   
+        <div className=' w-full h-screen  overflow-x-hidden flex justify-center ' >
             <div  className=' h-screen w-full flex flex-col ' > 
                 <div style={{boxShadow: "0px 0px 5px 0px #00000033"}}  className='w-full flex justify-center inset-x-0 absolute z-20 ' > 
                      <NavbarAdmin show={true} tab={2} />
                 </div>
-                <div className='w-full h-screen flex ' >
-                    <div className=' w-fit overflow-y-auto ' > 
+                <div className='w-full h-screen flex overflow-x-hidden ' >
+                    <div className=' w-fit overflow-y-auto  overflow-x-hidden ' > 
                         <div className={" w-full lg:flex flex-col hidden  pt-24  lg:w-[400px] px-4"}>  
                             <div className='  w-28 h-28 mt-8 mb-4 rounded-full mx-auto  ' >
                                 <img className='w-full h-full rounded-full object-cover' src={userData.avatar ? userData.avatar : staff} alt='avatar'  />
@@ -151,6 +149,13 @@ export default function Chat() {
                                     {/* <Input backgroundColor="#fff"   placeholder='Message' />
                                     <button className=' w-32 text-white ml-2 rounded-md font-Mulish-SemiBold bg-[#2eb1f7] ' >Send</button> */}
                                 </div>
+                            </div>
+                        </div>
+                    )}
+                    {!showModal && ( 
+                        <div  className=' flex flex-col h-screen flex-1 p-6 bg-[#FFFFFF] border-l  ' >
+                            <div style={{boxShadow: "0px 0px 4px 0px #00000040"}} className=' w-full relative h-screen mt-24 flex justify-center items-center rounded-xl  ' >
+                                <img src={chat} alt="" />
                             </div>
                         </div>
                     )}

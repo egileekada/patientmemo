@@ -80,7 +80,7 @@ export default function UrineAnalysis() {
     )  
 
     React.useEffect(()=> { 
-        if(data?.data?.MBRF){ 
+        if(data?.data?.UAT){ 
             setPatientData({ 
                 "UAT.date": data?.data?.UAT.date,
                 "UAT.sample": data?.data?.UAT.sample,
@@ -95,9 +95,7 @@ export default function UrineAnalysis() {
                 "UAT.nitrite": data?.data?.UAT.nitrite,
                 "UAT.leucocytes": data?.data?.UAT.leucocytes })
         }
-    }, [data])
-
-    console.log(data?.data.UAT);
+    }, [data]) 
     
     
     return (

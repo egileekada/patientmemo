@@ -7,57 +7,8 @@ import SearchBar from './SearchBar';
 
 export default function FindPatient(props: any) { 
 
-    const navigate = useNavigate();
-    // const [loading, setLoading] = React.useState(false); 
-    // const [data, setData] = React.useState([] as any);  
-    const [name, setName] = React.useState('');  
-
-    // React.useEffect(() => { 
-    //     props.name(name)
-    // }, [name])
-
-    // const submit = async () => { 
-
-    //     setLoading(true);
-    //     const request = await fetch(`https://hospital-memo-api.herokuapp.com/patients/search-patients
-    //     `, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization : `Bearer ${localStorage.getItem('token')}`
-    //         },
-    //         body: JSON.stringify({
-    //             keyword: name
-    //         }),
-    //     });
-
-    //     const json = await request.json();
-
-    //     console.log(request.status)
-    //     console.log(json)
-    //     if (request.status === 201) {   
-    //         setData(json)
-    //         // localStorage.setItem('token', json.token);         
-    //         // const t1 = setTimeout(() => { 
-    //         //     if(json.user.role === 'nurse'){
-    //         //         navigate('/dashboard'); 
-    //         //     } else {
-    //         //         navigate('/dashboard'); 
-    //         //     }
-    //         //     clearTimeout(t1);
-    //         //     setLoading(false);
-    //         // }, 3000); 
-    //     }else {
-    //         alert(json.message);
-    //         console.log(json)
-    //         setLoading(false);
-    //     } 
-
-    //     if(json.length === 0){
-    //         alert('No Patient Found');
-    //     }
-    //     setLoading(false)
-    // }   
+    const navigate = useNavigate();  
+    const [name, setName] = React.useState('');    
 
     const ClickHandler =(item: any)=> {
         localStorage.setItem('patientId', item)

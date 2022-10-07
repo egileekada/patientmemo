@@ -8,44 +8,8 @@ import LoaderIcon from '../../LoaderIcon';
 
 export default function Physicalexamination(props: any) { 
         const navigate = useNavigate()
-        const [loading, setLoading] = React.useState(false);
-        
-        const loginSchema = yup.object({ 
-            firstName: yup.string().required('Required'),
-            otherNames: yup.string().required('Required'),
-            lastName: yup.string().required('Required'),
-            gender: yup.string().required('Required'),
-            address: yup.string().required('Required'),
-            age: yup.number().required('Required'),
-            phone: yup.string().required('Required'),
-            stateOfOrigin: yup.string().required('Required'),
-            LGA: yup.string().required('Required'),
-            occupation: yup.string().required('Required'),
-            religion: yup.string().required('Required'),
-        }) 
-    
-        // formik
-        const formik = useFormik({
-            initialValues: {firstName: '', otherNames: '',lastName: '', gender: '', address: '',age: 0, phone: '', stateOfOrigin: '',LGA: '', occupation: '', religion: ''},
-            validationSchema: loginSchema,
-            onSubmit: () => {},
-        });     
-    
-        const submit=()=> {
-    
-            if (!formik.dirty) {
-                alert('You have to fill in th form to continue');
-                return;
-              }else if (!formik.isValid) {
-                alert('You have to fill in the form correctly to continue');
-                return;
-              }else {
-                // props.next(true)
-                // props.value(formik.values)
-                // console.log(formik.values)
-              }
-        }
-    
+        const [loading, setLoading] = React.useState(false); 
+     
     return (
         <div className='w-full h-full px-12 py-10 font-Ubuntu-Regular' > 
             <p className='text-lg font-Ubuntu-Bold' >Physical Examination</p>
@@ -143,44 +107,45 @@ export default function Physicalexamination(props: any) {
             <div className='w-full flex mt-4' >
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Abdomen</p>
-                    <Input value={props.data["physicalExamination.height"]}  
-                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})} 
+                    <Input value={props.data["physicalExamination.abdomen"]}  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.abdomen": e.target.value})} 
                         fontSize='sm'  />
                 </div>
                 <div className='mr-2 w-full' >
                     <p className='text-xs mb-2' >Spleen</p>
-                    <Input value={props.data["physicalExamination.height"]}  
-                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                    <Input value={props.data["physicalExamination.spleen"]}  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.spleen": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
-            </div>
+            </div> 
                 <div className='mr-2 w-full mt-4' >
-                    <p className='text-xs mb-2' >CM</p>
-                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
-                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                    <p className='text-xs mb-2' >CM </p>
+                    <Input value={props.data["physicalExamination.CM"]}  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.CM": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Vagina Examination</p>
-                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
-                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                    <Input value={props.data["physicalExamination.vaginaExamination"]}  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.vaginaExamination": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Other Abinormalities</p>
-                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
-                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                    <Input value={props.data["physicalExamination.otherAbnormalities"]}  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.otherAbnormalities": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Comments</p>
-                    <Textarea  
+                    <Textarea  value={props.data["physicalExamination.comments"]}  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.comments": e.target.value})} 
                         fontSize='sm'  />
                 </div> 
                 <div className='mr-2 w-full mt-4' >
                     <p className='text-xs mb-2' >Examiner</p>
-                    <Input value={props.data["physicalExamination.noOfLivingChildren"]}  
-                        onChange={(e)=> props.setData({...props.data, "physicalExamination.height": e.target.value})}  
+                    <Input value={props.data["physicalExamination.examiner"]}  
+                        onChange={(e)=> props.setData({...props.data, "physicalExamination.examiner": e.target.value})}  
                         fontSize='sm'  />
                 </div> 
             <div className='w-full flex pb-10 py-4' >

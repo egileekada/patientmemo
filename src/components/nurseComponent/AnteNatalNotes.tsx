@@ -21,9 +21,7 @@ export default function AnteNatalNotes() {
         }).then(res =>
             res.json()
         )
-    )    
-
-    console.log(data);
+    )     
     
 
     const [next, setNext] = React.useState(1)
@@ -80,7 +78,14 @@ export default function AnteNatalNotes() {
         "physicalExamination.ocdema": "",
         "physicalExamination.anaemia": "",
         "physicalExamination.respiratorySystem": "",
-        "physicalExamination.cardiovascularSystem": "",
+        "physicalExamination.cardiovascularSystem": "", 
+        "physicalExamination.abdomen": "",
+        "physicalExamination.spleen": "",
+        "physicalExamination.CM": "",
+        "physicalExamination.vaginaExamination": "",
+        "physicalExamination.otherAbnormalities": "",
+        "physicalExamination.comments": "",
+        "physicalExamination.examiner": "",
         "followUpVisit.date": "",
         "followUpVisit.heightOfFundus": "",
         "followUpVisit.presentationAndPosition": "",
@@ -168,7 +173,7 @@ export default function AnteNatalNotes() {
                         </div>
                         <p className={next >= 6 ? 'text-sm font-Ubuntu-Medium ml-3 text-[#7123E2]' : 'text-sm font-Ubuntu-Medium ml-3 text-[#5F6777]'} >Follow up visit</p>
                     </div>
-                    <div style={{width: '1px', marginLeft: '19px'}} className='h-10 bg-[#5F6777]' >
+                    {/* <div style={{width: '1px', marginLeft: '19px'}} className='h-10 bg-[#5F6777]' >
 
                     </div>
                     <div className='flex items-center' >
@@ -176,7 +181,7 @@ export default function AnteNatalNotes() {
                             <div className={next >= 7 ? 'w-5 h-5 bg-[#7123E2] rounded-full ' : 'w-5 h-5 bg-[#5F6777] rounded-full '} />
                         </div>
                         <p className={next >= 7 ? 'text-sm font-Ubuntu-Medium ml-3 text-[#7123E2]' : 'text-sm font-Ubuntu-Medium ml-3 text-[#5F6777]'} >Pelvic Assessment</p>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='flex flex-1 justify-center w-full ' > 
                     <div className={next === 0 ? " w-full ": "hidden"} >

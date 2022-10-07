@@ -12,8 +12,8 @@ export default function PersonnalInformation(props: any) {
     const navigate = useNavigate()
     const [loading, setLoading] = React.useState(false);  
 
-    const { isLoading, data, refetch } = useQuery('NurseData', () =>
-        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-medical-sheet/${localStorage.getItem("patientId")}`, {
+    const { isLoading, data, refetch } = useQuery('get-antenatal'+localStorage.getItem("patientId"), () =>
+        fetch(`https://hospital-memo-api.herokuapp.com/nurse/get-antenatal/${localStorage.getItem("patientId")}`, {
             method: 'GET', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json', 
@@ -23,6 +23,85 @@ export default function PersonnalInformation(props: any) {
             res.json()
         )
     )    
+
+    React.useEffect(() => {
+        if(data?.data){
+            props.setData({ 
+                "patient": data?.data?._id,
+                "firstName": data?.data?.firstName,
+                "lastName": data?.data?.lastName,
+                "otherNames": data?.data?.otherName,
+                "specialPoint": data?.data?.specialPoint,
+                "dateOfBooking": data?.data?.dateOfBooking,
+                "indicationOfBook": data?.data?.indicationOfBook,
+                "LMP": data?.data?.LMP,
+                "EDD": data?.data?.EDD,
+                "address": data?.data?.address,
+                "stateOfOrigin": data?.data?.stateOfOrigin,
+                "age": data?.data?.age+"",
+                "occupation": data?.data?.occupation,
+                "nationality": data?.data?.nationality,
+                "husband.name": data?.data?.husband.name,
+                "husband.occupation": data?.data?.husband.occupation,
+                "husband.employer": data?.data?.husband.employer,
+                "prevMedHistory.heartDisease": data?.data?.prevMedHistory.heartDisease,
+                "prevMedHistory.kidneyDisease": data?.data?.prevMedHistory.kidneyDisease,
+                "prevMedHistory.chestDisease": data?.data?.prevMedHistory.chestDisease,
+                "prevMedHistory.operations": data?.data?.prevMedHistory.operations,
+                "prevMedHistory.GIT": data?.data?.prevMedHistory.GIT,
+                "prevMedHistory.endocrine": data?.data?.prevMedHistory.endocrine,
+                "prevMedHistory.NIL": data?.data?.prevMedHistory.NIL,
+                "prevPregnancy.total": data?.data?.prevPregnancy.total,
+                "prevPregnancy.noOfLivingChildren": data?.data?.prevPregnancy.noOfLivingChildren,
+                "prevPregnancy.dateOfBirth": data?.data?.prevPregnancy.dateOfBirth,
+                "prevPregnancy.durationOfPregnancy": data?.data?.prevPregnancy.durationOfPregnancy,
+                "prevPregnancy.pregLabourAndPuerperium": data?.data?.prevPregnancy.pregLabourAndPuerperium,
+                "prevPregnancy.birthWeight": data?.data?.prevPregnancy.birthWeight,
+                "prevPregnancy.babySex": data?.data?.prevPregnancy.babySex,
+                "specialInvestigation.report": data?.data?.specialInvestigation.report,
+                "curPregHistory.bleeding": data?.data?.curPregHistory.bleeding,
+                "curPregHistory.discharge": data?.data?.curPregHistory.discharge,
+                "curPregHistory.urinarySymptoms": data?.data?.curPregHistory.urinarySymptoms,
+                "curPregHistory.swellingAnkles": data?.data?.curPregHistory.swellingAnkles,
+                "curPregHistory.otherSymptoms": data?.data?.curPregHistory.otherSymptoms,
+                "curPregHistory.details": data?.data?.curPregHistory.details,
+                "physicalExamination.height": data?.data?.physicalExamination.height,
+                "physicalExamination.weight": data?.data?.physicalExamination.weight,
+                "physicalExamination.BP": data?.data?.physicalExamination.BP,
+                "physicalExamination.breastAndNipples": data?.data?.physicalExamination.breastAndNipples,
+                "physicalExamination.PVC": data?.data?.physicalExamination.PVC,
+                "physicalExamination.genotype": data?.data?.physicalExamination.genotype,
+                "physicalExamination.kahn": data?.data?.physicalExamination.kahn,
+                "physicalExamination.groupRH": data?.data?.physicalExamination.groupRH,
+                "physicalExamination.chestXray": data?.data?.physicalExamination.chestXray,
+                "physicalExamination.generalCondition": data?.data?.physicalExamination.generalCondition,
+                "physicalExamination.ocdema": data?.data?.physicalExamination.ocdema,
+                "physicalExamination.anaemia": data?.data?.physicalExamination.anaemia,
+                "physicalExamination.respiratorySystem": data?.data?.physicalExamination.respiratorySystem,
+                "physicalExamination.cardiovascularSystem": data?.data?.physicalExamination.cardiovascularSystem, 
+                "physicalExamination.abdomen": data?.data?.physicalExamination.abdomen,
+                "physicalExamination.spleen": data?.data?.physicalExamination.spleen,
+                "physicalExamination.CM": data?.data?.physicalExamination.CM,
+                "physicalExamination.vaginaExamination": data?.data?.physicalExamination.vaginaExamination,
+                "physicalExamination.otherAbnormalities": data?.data?.physicalExamination.otherAbnormalities,
+                "physicalExamination.comments": data?.data?.physicalExamination.comments,
+                "physicalExamination.examiner": data?.data?.physicalExamination.examiner,
+                "followUpVisit.date": data?.data?.followUpVisit.date,
+                "followUpVisit.heightOfFundus": data?.data?.followUpVisit.heightOfFundus,
+                "followUpVisit.presentationAndPosition": data?.data?.followUpVisit.presentationAndPosition,
+                "followUpVisit.roFPPartOfBirth": data?.data?.followUpVisit.roFPPartOfBirth,
+                "followUpVisit.feotalHeart": data?.data?.followUpVisit.feotalHeart,
+                "followUpVisit.urine": data?.data?.followUpVisit.urine,
+                "followUpVisit.BP": data?.data?.followUpVisit.BP,
+                "followUpVisit.weight": data?.data?.followUpVisit.weight,
+                "followUpVisit.HB": data?.data?.followUpVisit.HB,
+                "followUpVisit.oedema": data?.data?.followUpVisit.oedema,
+                "followUpVisit.initialExaminer": data?.data?.followUpVisit.initialExaminer,
+                "followUpVisit.remarks": data?.data?.followUpVisit.remarks
+            })
+        }
+    }, [data])
+    
 
     console.log(data);
 

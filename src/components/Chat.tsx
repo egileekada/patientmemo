@@ -60,10 +60,7 @@ export default function Chat() {
 
   return (
     <div className='w-full h-screen' >  
-        {/* <div className="  w-full h-16 lg:h-28 " > 
-            <Navbar />
-        </div> */}
-        <div className=' w-full h-screen flex justify-center ' >
+        <div className=' w-full h-screen flex  justify-center ' >
             <div  className=' h-screen w-full flex flex-col ' > 
                 <div style={{boxShadow: "0px 0px 5px 0px #00000033"}}  className='w-full flex justify-center inset-x-0 absolute z-20 ' > 
                      <Navbar show={true} tab={2} />

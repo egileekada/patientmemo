@@ -6,6 +6,7 @@ import { Input, InputGroup, InputLeftElement, Table, Tbody, Td, Th, Thead, Tr } 
 
 export default function ManageUser(props: any) { 
     
+    const userData: any = JSON.parse(localStorage.getItem('userData')+'') 
     const [name, setName] = React.useState('');  
     const [deleteModal, setDeleteModal] = React.useState(false)
     const { isLoading, data, refetch } = useQuery('user', () =>
@@ -36,16 +37,7 @@ export default function ManageUser(props: any) {
 
     return (
         <div className='w-full pt-1' > 
-            <div className='w-full px-8 py-4 flex items-center ' > 
-                {/* <div className='w-10 h-10 rounded-full cursor-pointer flex items-center justify-center bg-[#7123E214]' >
-                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div> */}
-                {/* <div className='ml-0 absolute'> 
-                    <p className='font-Ubuntu-Medium text-lg' >Manage Staff</p> 
-                    <p className='font-Ubuntu-Regular text-sm mt-1' >Add and Manage Staff</p> 
-                </div>  */}
+            <div className='w-full px-8 py-4 flex items-center ' >  
                 <div className=' w-405px relative ' > 
                     <InputGroup >
                         <InputLeftElement 
@@ -81,7 +73,7 @@ export default function ManageUser(props: any) {
                                 </Tr>
                             </Thead>
                             <Tbody >
-                                {[...data].reverse().map((item: any, index: any)=> {
+                                {[...data].filter((item: any)=> item._id !== userData._id).reverse().map((item: any, index: any)=> {
                                     if(name === ''){
                                         return(
                                             <Tr className={'font-Ubuntu-Medium cursor-pointer text-black text-sm'} key={index} >

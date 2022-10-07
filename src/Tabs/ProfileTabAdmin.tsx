@@ -46,7 +46,7 @@ export default function ProfileTab() {
                 </div>
                 <button className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-6 ml-auto ' >Add to List</button>
             </div> */}
-            <div className='w-full h-full ' >
+            <div className='w-full h-full mt-32 ' >
                 {tab === 0 ?  
                     <ViewUserInfo close={setTab} /> 
                 :  

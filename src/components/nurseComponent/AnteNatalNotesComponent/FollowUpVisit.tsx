@@ -35,7 +35,7 @@ export default function FollowUpVisit(props: any) {
             setLoading(false);
             const t1 = setTimeout(() => {  
                 setModal(0)      
-                navigate('/dashboard')
+                navigate(0)
                 clearTimeout(t1);
             }, 3000); 
         }else {
