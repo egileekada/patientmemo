@@ -4,13 +4,7 @@ import React from 'react'
 // import { useFormik } from 'formik';  
 // import { motion } from 'framer-motion'
 import * as axios from 'axios'   
-import { useNavigate } from 'react-router-dom'
-import { useQuery } from 'react-query';
-import LoaderIcon from '../LoaderIcon';
-import Scan from '../../assets/images/scan.jpg'
-import DateFormat from '../DateFormat';
-import GetUserInfo from '../GetUserInfo';
-import Modal from '../Modal';
+import { useNavigate } from 'react-router-dom' 
 import ListOfRequest from './scanComponent/ListOfRequest';
 import FindPatient from './FindPatient';
 import ShowPrescription from '../nurseComponent/MedicationSheetComponent/ShowPrescription';

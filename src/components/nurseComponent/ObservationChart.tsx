@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
+import FindPatient from '../PatientInformation/continuationSheet/components/FindPatient'
 import AddObservationchart from './MedicationSheetComponent/AddObservationchart'
 import OberservationChartList from './MedicationSheetComponent/OberservationChartList'
 

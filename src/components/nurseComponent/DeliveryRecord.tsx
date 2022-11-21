@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
-import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
+import { useNavigate } from 'react-router-dom' 
 import DeliveryRecordTab from './DeliveryRecordComponent/DeliveryRecordTab'
 import SummaryOfRecords from './DeliveryRecordComponent/SummaryOfRecords'
 
@@ -47,10 +46,8 @@ export default function DeliveryRecord() {
                 )}
             </div> 
             <div className='w-full justify-center flex relative' >
-                {tab === 0 ? 
-                    <FindPatient header='Patient Delivery Record' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.' next={setTab} />
-                    :tab === 1 ? 
-                        <DeliveryRecordTab data={data} />
+                {tab === 1 ? 
+                    <DeliveryRecordTab data={data} />
                         :tab === 2 ? 
                             <SummaryOfRecords data={data}  />
                 :null}

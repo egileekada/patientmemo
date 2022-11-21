@@ -1,7 +1,6 @@
 import { InputGroup, InputRightElement, Input } from '@chakra-ui/react'
 import React from 'react'
-import { useQuery } from 'react-query'
-import FindPatient from '../../dashboardComponent/FindPatient'
+import { useQuery } from 'react-query' 
 import DateFormat from '../../DateFormat'
 import GetUserInfo from '../../GetUserInfo'
 import LoaderIcon from '../../LoaderIcon'

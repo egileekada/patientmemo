@@ -1,7 +1,7 @@
 import { Input } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'; 
-import SearchBar from '../doctorComponent/continuationSheetComponent/SearchBar';
+import SearchBar from '../PatientInformation/continuationSheet/components/SearchBar';
 import LoaderIcon from '../LoaderIcon';
 
 export default function FindPatient(props: any) { 

@@ -1,9 +1,5 @@
 import { Textarea } from '@chakra-ui/textarea';
-import React from 'react' 
-// import FilesEditor from '../../FilesEditor';
-// import { useNavigate } from 'react-router-dom';
-// import SideImage from '../assets/images/SideImage.png'
-// import Logo from '../assets/images/patientMemologo.png'
+import React from 'react'  
 import { motion } from 'framer-motion'
 import * as yup from 'yup'
 import { useFormik } from 'formik'; 

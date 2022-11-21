@@ -1,8 +1,5 @@
 import React from 'react'
-import { Input, Textarea } from '@chakra-ui/react';
-import { motion } from 'framer-motion'
-import * as yup from 'yup'
-import { useFormik } from 'formik';  
+import { Input, Textarea } from '@chakra-ui/react'; 
 import { useNavigate } from 'react-router-dom';
 import LoaderIcon from '../LoaderIcon';
 import Modal from '../Modal';

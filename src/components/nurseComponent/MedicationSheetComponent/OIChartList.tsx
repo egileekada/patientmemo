@@ -3,8 +3,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import DateFormat from '../../DateFormat'
 import GetUserInfo from '../../GetUserInfo'
-import LoaderIcon from '../../LoaderIcon'
-import FindPatient from '../../dashboardComponent/FindPatient'
+import LoaderIcon from '../../LoaderIcon' 
 
 export default function OIChartList() {
  

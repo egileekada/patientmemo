@@ -6,9 +6,10 @@ import LoaderIcon from '../LoaderIcon'
 import Lab from '../../assets/images/lab.png'
 import Scan from '../../assets/images/scan.png'
 import Pharmacy from '../../assets/images/pharmacy.png'
-import GetPatientInfo from '../GetPatientInfo'
+// import GetPatientInfo from '../../../components/GetPatientInfo'
 import GetUserInfo from '../GetUserInfo'
 import MedicalList from '../nurseComponent/MedicationSheetComponent/MedicalList'
+import GetPatientInfo from './component/GetPatientInfo'
 
 export default function RequestTab() {
 

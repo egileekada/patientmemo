@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom' 
-import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
+import { useNavigate } from 'react-router-dom'  
 import FollowUpVisit from './AnteNatalNotesComponent/FollowUpVisit'
 import HistoryOfPresentPregnancy from './AnteNatalNotesComponent/HistoryOfPresentPregnancy'
 import PersonnalInformation from './AnteNatalNotesComponent/PersonnalInformation'
@@ -183,10 +182,7 @@ export default function AnteNatalNotes() {
                         <p className={next >= 7 ? 'text-sm font-Ubuntu-Medium ml-3 text-[#7123E2]' : 'text-sm font-Ubuntu-Medium ml-3 text-[#5F6777]'} >Pelvic Assessment</p>
                     </div> */}
                 </div>
-                <div className='flex flex-1 justify-center w-full ' > 
-                    <div className={next === 0 ? " w-full ": "hidden"} >
-                        <FindPatient header='Patient Delivery Record' body='To create/view a patient’s delivery record, you wil have to verify if patient has a file in the hospital.'  next={setNext} value={setData} />
-                    </div>  
+                <div className='flex flex-1 justify-center w-full ' >  
                     <div className={next === 1 ? " w-full ": "hidden"} >
                         <PersonnalInformation data={patientInfo} setData={setPatientInfo} next={setNext} />
                     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { IUser, UserContext } from '../../context'
-import FindPatient from '../doctorComponent/continuationSheetComponent/FindPatient'
+import FindPatient from '../PatientInformation/continuationSheet/components/FindPatient'
 import AddIOChart from './MedicationSheetComponent/AddIOChart'
 import OIChartList from './MedicationSheetComponent/OIChartList'
 

@@ -195,9 +195,9 @@ export default function ListOfPatientScan(props: any) {
                             </div> 
                             <div > 
                                 <p className='font-Ubuntu-Bold text-lg ' >Scan for <span className=' text-[#7123E2] cursor-pointer' >{data?.data?.patient?.firstName+' '+ data?.data?.patient?.lastName}</span></p> 
-                                    <div className='mt-3   flex items-center' >    
+                                <div className='mt-3   flex items-center' >    
                                     <p className='font-Ubuntu-Medium text-sm mr-3' >By {data?.data?.addedBy?.firstName+' '+data?.data?.addedBy?.lastName}</p> 
-                                    </div> 
+                                </div> 
                             </div>   
                         </div> 
                         <div className='w-full grid grid-cols-3 gap-6 my-6' >
