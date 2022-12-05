@@ -9,7 +9,7 @@ import LoaderIcon from '../components/LoaderIcon'
 import Modal from '../components/Modal'
 import { useQuery } from 'react-query' 
 import moment from 'moment';
-import ModifyDrugs from '../components/pharmacyComponent/component/ModifyDrugs'
+import ModifyDrugs from '../components/OldpharmacyComponent/component/ModifyDrugs'
 import Navbar from '../components/Navbar';
 
 export default function PharmacyTab() { 

@@ -17,6 +17,21 @@
     src: url("./assets/fonts/NotoSans-Regular.ttf")
 }
 
+@font-face {
+    font-family: 'Poppins-Regular';
+    src: url("./assets/fonts/Poppins-Regular.ttf")
+}
+
+ 
+html,
+body {
+    font-family: 'Poppins-Regular' ;
+}
+
+.poppins-regular {
+    font-family: 'Poppins-Regular' ;
+}
+
 .e-schedule .e-vertical-view .e-day-wrapper .e-appointment{
     padding: 0 !important; 
     background: #F8F3FF !important; 
@@ -34,8 +49,6 @@
     height: 10vh;
     display: relative; 
 } */
- 
-
 .e-schedule .e-vertical-view .e-content-wrap .e-appointment .e-appointment-details {
     padding: 0;
     height: 100%;

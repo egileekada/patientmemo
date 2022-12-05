@@ -95,10 +95,7 @@ export default function ListOfPatientScan(props: any) {
         }).then(res =>
             res.json()
         )
-    ) 
-
-    console.log(data);
-    
+    )  
 
     return ( 
         <div className='w-full p-10' > 

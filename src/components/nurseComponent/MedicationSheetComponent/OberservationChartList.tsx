@@ -1,4 +1,4 @@
-import { InputGroup, InputRightElement, Input } from '@chakra-ui/react'
+import { InputGroup, InputRightElement, Input, TableContainer, Table, Tbody, Td, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query' 
 import DateFormat from '../../DateFormat'
@@ -36,15 +36,7 @@ export default function OberservationChartList() {
     console.log(data)
 
     return (
-        <div className='w-full flex flex-col justify-center items-center px-16 py-6' >
-            {/* <div className='w-auto flex items-center' >
-                {showFile && (
-                    <svg onClick={()=> setShowFile(false)} className='mr-5 cursor-pointer' width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6 11L1 6L6 1" stroke="#7123E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                )}
-                <FindPatient show={setShowFile} numb={setNumb} array={setShow} index={setPatientIndex} nurse={true} />
-            </div> */}
+        <div className='w-full flex flex-col justify-center items-center px-16 py-6' > 
 
             {show.length === 0 && (
                 <>  
@@ -67,12 +59,139 @@ export default function OberservationChartList() {
             :
                 <div className='w-full' >
                     
-                    {!data?.data?.createdAt && ( 
+                    {/* {!data?.data?.createdAt && ( 
                         <p className='font-Ubuntu-Medium text-2xl mt-20 text-center '>No Records Found</p>
-                    )}
-                    {data?.data?.createdAt && (
-                        <div className=' w-full rounded-md px-2 py-12' >
-                            <div className='w-full flex justify-center pl-2' >  
+                    )} */}
+                    {!data?.data?.createdAt && (
+                        <div className=' w-full rounded-md px-2 py-12' >  
+                        
+                            <TableContainer>
+                                <Table variant='simple'> 
+                                    <Thead className=' text-[#000] bg-[#B9B9B9] font-Ubuntu-Medium text-xs ' >
+                                        <Tr> 
+                                            <Td>
+                                                DATE / TIME
+                                            </Td>
+                                            <Td>
+                                                T
+                                            </Td>
+                                            <Td>
+                                                P
+                                            </Td>
+                                            <Td>
+                                                R
+                                            </Td>
+                                            <Td>
+                                                B/P
+                                            </Td>
+                                            <Td>
+                                                FHR
+                                            </Td>  
+                                            <Td>
+                                                UTERINE CONTRACTION
+                                            </Td>  
+                                            <Td>
+                                                CX / OS
+                                            </Td>  
+                                            <Td>
+                                                REMARK
+                                            </Td>  
+                                            <Td>
+                                                SIGN
+                                            </Td>  
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                        <Tr className=' text-xs poppins-regular ' > 
+                                            <Td className=' text-[#1B2126] font-semibold ' >DD / MM /YYYY   |  HH:MM AM</Td>
+                                            <Td className=' text-[#68727B] ' >
+                                                
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }  
+                                                    width="80px"
+                                                    fontSize='sm' placeholder='Enter T' />
+                                            </Td>
+                                            <Td> 
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }
+                                                    width="80px"  
+                                                    fontSize='sm' placeholder='Enter P' />
+                                            </Td>
+                                            <Td className=' text-[#68727B] ' > 
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }  
+                                                    width="80px"
+                                                    fontSize='sm' placeholder='Enter R' />    
+                                            </Td>
+                                            <Td className=' text-[#68727B] ' > 
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }  
+                                                    width="80px"
+                                                    fontSize='sm' placeholder='Enter B/P' />    
+                                            </Td>
+                                            <Td className=' text-[#68727B] ' > 
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }  
+                                                    width="80px"
+                                                    fontSize='sm' placeholder='Enter FHR' />    
+                                            </Td>
+                                            <Td className=' text-[#68727B] ' > 
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }  
+                                                    fontSize='sm' placeholder='Enter Uterine contraction' />    
+                                            </Td>
+                                            <Td className=' text-[#68727B] ' > 
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }  
+                                                    width="80px"
+                                                    fontSize='sm' placeholder='Enter CX / OS' />    
+                                            </Td>
+                                            <Td className=' text-[#68727B] ' > 
+                                                <Input
+                                                    name="natureOfFluid"
+                                                    // onChange={formik.handleChange}
+                                                    // onFocus={() =>
+                                                    //     formik.setFieldTouched("natureOfFluid", true, true)
+                                                    // }  
+                                                    width="80px"
+                                                    fontSize='sm' placeholder='Enter REMARK' />    
+                                            </Td>
+                                            <Td className=' text-[#68727B] ' >  
+                                                <button className='bg-[#7123E2] py-3  text-white text-sm rounded-lg w-48' >Submit</button>
+                                            </Td> 
+                                        </Tr> 
+                                    </Tbody> 
+                                </Table>
+                            </TableContainer>  
+                            {/* <div className='w-full flex justify-center pl-2' >  
                                     <p id='cube'  className='font-Ubuntu-Regular text-[#5F6777] mt-1 text-xs' >{DateFormat(data.data?.createdAt)}</p> 
                             </div>
                             {Check(data.data?.patient._id)} 
@@ -113,7 +232,7 @@ export default function OberservationChartList() {
                                     <p id='cubetext' className='text-[#5F6777] text-sm font-Ubuntu-Regular ' >Remark</p>
                                     <p id='cubetext' className='text-sm font-Ubuntu-Medium ml-auto text-[#7123E2]  ' >{data.data?.remark}</p>
                                 </div>
-                            </div> 
+                            </div>  */}
                         </div>   
                     )}
                         {/* {data.map((item: any, index: any)=> {

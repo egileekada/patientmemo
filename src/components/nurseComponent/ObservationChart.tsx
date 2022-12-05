@@ -32,9 +32,9 @@ export default function ObservationChart() {
                     </svg>
                 </div> */}
                 <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Observation chart</p>  
-                {!tab && (
+                {/* {!tab && (
                     <button onClick={()=> setTab(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >Add Observation Chart</button>
-                )}
+                )} */}
             </div> 
             <div className='w-full' >
                 {!tab && (

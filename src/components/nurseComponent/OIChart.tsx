@@ -29,9 +29,9 @@ export default function OIChart() {
         <div className='w-full h-full ' >
             <div className='w-full px-12 border-b py-5 flex items-center border-[#D7D0DF]' >  
                 <p className='font-Ubuntu-Medium text-lg ml-3 mr-20' >Manage Input/Output chart</p>  
-                {!tab && (
+                {/* {!tab && (
                     <button onClick={()=> setTab(true)} className='font-Ubuntu-Medium text-xs bg-[#7123E2] text-white rounded-lg py-3 px-4 ml-auto ' >New Chart</button>
-                )}
+                )} */}
             </div> 
             <div className='w-full' >
                 {!tab && (
